@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
     try {
         const data = await resend.emails.send({
-            from: 'Swissperiences <concierge@swissperiences.ch>',
+            from: 'Swissperiences <hello@swissperiences.ch>',
             to: [email],
             subject: 'Your Request to Swissperiences',
             html: `
