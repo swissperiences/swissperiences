@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swissperiences Admin Notification</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #FDFDFD; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1A1D2E; -webkit-font-smoothing: antialiased; }
+        .wrapper { width: 100%; table-layout: fixed; background-color: #FDFDFD; padding: 40px 0; }
+        .main { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 600px; border-spacing: 0; border: 1px solid #EEEEEE; border-radius: 2px; }
+        .header { padding: 40px 50px; border-bottom: 1px solid #F5F5F5; }
+        .status-badge { display: inline-block; background-color: #D8B58A; color: #ffffff; font-size: 10px; padding: 4px 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; border-radius: 1px; margin-bottom: 15px; }
+        .header-title { font-size: 22px; font-weight: 300; letter-spacing: -0.5px; color: #1A1D2E; }
+
+        .content { padding: 40px 50px; }
+        .data-table { width: 100%; margin-bottom: 40px; border-collapse: collapse; }
+        .data-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #888888; padding-bottom: 8px; font-weight: 600; }
+        .data-value { font-size: 16px; color: #1A1D2E; padding-bottom: 25px; border-bottom: 1px solid #F5F5F5; }
+
+        .stats-grid { width: 100%; margin-bottom: 40px; }
+        .stat-box { padding: 20px; border: 1px solid #F0F0F0; text-align: center; }
+        .stat-number { font-size: 24px; font-weight: 300; color: #1A1D2E; display: block; }
+        .stat-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: #AAAAAA; margin-top: 5px; }
+
+        .action-row { padding-top: 20px; text-align: center; }
+        .button { display: inline-block; padding: 14px 24px; text-decoration: none; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; transition: all 0.2s; }
+        .btn-primary { background-color: #1A1D2E; color: #ffffff !important; margin-right: 10px; }
+        .btn-secondary { border: 1px solid #EEEEEE; color: #1A1D2E !important; }
+
+        .footer { padding: 40px; text-align: center; font-size: 9px; color: #BBBBBB; letter-spacing: 1.5px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <center class="wrapper">
+        <table class="main" width="100%">
+            <tr>
+                <td class="header">
+                    <div class="status-badge">New Lead</div>
+                    <div class="header-title">Waitlist activity on swissperiences.ch</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="content">
+                    <table class="data-table">
+                        <tr><td class="data-label">Subscriber Email</td></tr>
+                        <tr><td class="data-value">{{email}}</td></tr>
+                        <tr><td style="padding-top: 25px;" class="data-label">Registration Time</td></tr>
+                        <tr><td class="data-value">{{timestamp}}</td></tr>
+                    </table>
+
+                    <table class="stats-grid" width="100%" cellspacing="0">
+                        <tr>
+                            <td class="stat-box" width="33%">
+                                <span class="stat-number">{{total_leads}}</span>
+                                <span class="stat-label">Total</span>
+                            </td>
+                            <td class="stat-box" width="33%" style="border-left: none;">
+                                <span class="stat-number">{{today_leads}}</span>
+                                <span class="stat-label">Today</span>
+                            </td>
+                            <td class="stat-box" width="33%" style="border-left: none;">
+                                <span class="stat-number">{{week_leads}}</span>
+                                <span class="stat-label">Weekly</span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="action-row">
+                        <a href="https://supabase.com/dashboard/project/rhoxismvcalqppbnndew/editor" class="button btn-primary">Open Supabase</a>
+                        <a href="mailto:{{email}}" class="button btn-secondary">Direct Email</a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="footer">
+                    Swissperiences System Notification<br>
+                    <span style="color: #D8B58A;">Automated Welcome Email Sent Successfully</span>
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>
