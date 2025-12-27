@@ -18,25 +18,50 @@ export default async function handler(req, res) {
             html: `<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<style>body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1D2E; margin: 0; padding: 0; background-color: #F9FAFB; } .wrapper { width: 100%; padding: 40px 0; background-color: #F9FAFB; } .main { max-width: 600px; margin: 0 auto; background: #fff; padding: 40px; border: 1px solid #eee; } h1 { font-weight: 300; font-size: 24px; margin-bottom: 20px; } p { line-height: 1.6; color: #444; margin-bottom: 15px; } .footer { font-size: 12px; color: #999; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Inquiry Received</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #F9FAFB; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1D2E; -webkit-font-smoothing: antialiased; }
+        .wrapper { width: 100%; table-layout: fixed; background-color: #F9FAFB; padding-bottom: 40px; }
+        .main { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 600px; border-spacing: 0; color: #1A1D2E; border: 1px solid #E5E7EB; border-radius: 2px; }
+        .header-logo { text-align: center; padding: 40px 0 20px 0; font-size: 16px; letter-spacing: 3px; text-transform: uppercase; font-weight: 300; color: #1A1D2E; }
+        .content { padding: 40px 50px; text-align: left; }
+        h1 { font-size: 22px; font-weight: 300; margin-bottom: 25px; color: #1A1D2E; letter-spacing: -0.5px; }
+        p { font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: #4A4A4A; }
+        .divider { height: 1px; background-color: #E5E7EB; margin: 30px 0; border: none; }
+        .footer { text-align: center; padding: 30px 50px; font-size: 11px; color: #9CA3AF; letter-spacing: 1px; line-height: 1.8; background-color: #F9FAFB; border-top: 1px solid #E5E7EB; }
+        .footer a { color: #1A1D2E; text-decoration: none; }
+    </style>
 </head>
 <body>
-<div class="wrapper">
-    <div class="main">
-        <h1>Request Received</h1>
-        <p>Dear ${contactName},</p>
-        <p>Thank you for inquiring about Swissperiences for <strong>${companyName}</strong>.</p>
-        <p>We have received your request. Our team will review your specific requirements and reach out shortly to discuss potential curations.</p>
-        <p>If you have immediate questions, please simply reply to this email.</p>
-        <br>
-        <p>Best regards,</p>
-        <p>The Swissperiences Team</p>
-        <div class="footer">
-            © 2025 Swissperiences | Valais, Switzerland
-        </div>
-    </div>
-</div>
+    <center class="wrapper">
+        <table class="main" width="100%">
+            <tr>
+                <td class="header-logo">Swissperiences</td>
+            </tr>
+            <tr>
+                <td class="content">
+                    <h1>Inquiry Received</h1>
+                    <p>Dear ${contactName},</p>
+                    <p>Thank you for considering Swissperiences for <strong>${companyName}</strong>.</p>
+                    <p>We have successfully received your inquiry. Our team is currently reviewing your team's requirements and the details you provided.</p>
+                    <p>We design every retreat as a bespoke experience. A member of our curation team will reach out to you shortly to discuss how we can tailor a program for your team's goals.</p>
+                    
+                    <hr class="divider">
+                    
+                    <p style="margin-bottom: 0;">Warm regards,</p>
+                    <p style="margin-top: 5px; font-weight: 500; color: #1A1D2E;">The Swissperiences Team</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="footer">
+                    <p>© 2025 SWISSPERIENCES | GENEVA, SWITZERLAND</p>
+                    <p><a href="https://swissperiences.ch">WEBSITE</a> • <a href="mailto:hello@swissperiences.ch">CONTACT</a></p>
+                </td>
+            </tr>
+        </table>
+    </center>
 </body>
 </html>`,
         });
