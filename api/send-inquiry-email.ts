@@ -10,132 +10,153 @@ export default async function handler(req, res) {
     const { companyName, contactName, email, teamSize = "", message = "" } = req.body;
 
     try {
-        // 1. Send confirmation to user (Institutional/Professional)
+        // 1. Send confirmation to USER (The "Professional Stunning")
         await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
             to: [email],
-            subject: 'Swissperiences Team Inquiry Received',
+            subject: 'Your team inquiry received.',
             html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Inquiry Received</title>
+    <title>Inquiry Received</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #F9FAFB; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1A1D2E; -webkit-font-smoothing: antialiased; }
-        .wrapper { width: 100%; table-layout: fixed; background-color: #F9FAFB; padding-bottom: 40px; }
-        .main { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 600px; border-spacing: 0; color: #1A1D2E; border: 1px solid #E5E7EB; border-radius: 2px; }
-        .header-logo { text-align: center; padding: 40px 0 20px 0; font-size: 16px; letter-spacing: 3px; text-transform: uppercase; font-weight: 300; color: #1A1D2E; }
-        .content { padding: 40px 50px; text-align: left; }
-        h1 { font-size: 22px; font-weight: 300; margin-bottom: 25px; color: #1A1D2E; letter-spacing: -0.5px; }
-        p { font-size: 15px; line-height: 1.6; margin-bottom: 20px; color: #4A4A4A; }
-        .divider { height: 1px; background-color: #E5E7EB; margin: 30px 0; border: none; }
-        .footer { text-align: center; padding: 30px 50px; font-size: 11px; color: #9CA3AF; letter-spacing: 1px; line-height: 1.8; background-color: #F9FAFB; border-top: 1px solid #E5E7EB; }
-        .footer a { color: #1A1D2E; text-decoration: none; }
+        body { margin: 0; padding: 0; background-color: #F9FAFB; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1A1D2E; }
+        .wrapper { width: 100%; background-color: #F9FAFB; padding: 40px 0; }
+        .main { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 600px; border-radius: 2px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        
+        .hero-img { width: 100%; height: 280px; object-fit: cover; background-color: #1A1D2E; }
+        
+        .logo-area { text-align: center; padding: 40px 0 10px; }
+        .logo-text { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: #1A1D2E; font-weight: 400; }
+        
+        .content { padding: 40px 60px 60px; text-align: center; }
+        
+        h1 { font-family: 'Times New Roman', Times, serif; font-size: 32px; font-weight: 400; font-style: italic; margin-bottom: 30px; color: #1A1D2E; line-height: 1.2; }
+        p { font-size: 15px; line-height: 1.8; color: #555555; margin-bottom: 24px; font-weight: 300; }
+        
+        .divider-small { width: 40px; height: 1px; background-color: #D8B58A; margin: 30px auto; border: none; }
+        
+        .details-box { background-color: #FAFAFA; padding: 30px; margin-top: 40px; text-align: left; border-left: 2px solid #D8B58A; }
+        .detail-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 5px; display: block; }
+        .detail-value { font-size: 14px; color: #1A1D2E; font-weight: 500; }
+        
+        .footer { background-color: #1A1D2E; color: #666; padding: 40px; text-align: center; font-size: 11px; letter-spacing: 1px; }
+        .footer a { color: #888; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 2px; transition: color 0.2s; }
+        .footer a:hover { color: #fff; border-color: #fff; }
+        
+        @media only screen and (max-width: 600px) {
+            .content { padding: 30px 25px; }
+            h1 { font-size: 28px; }
+            .hero-img { height: 200px; }
+        }
     </style>
 </head>
 <body>
-    <center class="wrapper">
-        <table class="main" width="100%">
-            <tr>
-                <td class="header-logo">Swissperiences</td>
-            </tr>
-            <tr>
-                <td class="content">
-                    <h1>Inquiry Received</h1>
+    <div class="wrapper">
+        <center>
+            <div class="main">
+                <!-- Hero Image: A stunning modern alpine cabin/retreat vibe -->
+                <img src="https://images.unsplash.com/photo-1518098268026-4e1877433620?q=80&w=1200&auto=format&fit=crop" alt="Alpine Retreat" class="hero-img">
+                
+                <div class="logo-area">
+                    <div class="logo-text">Swissperiences</div>
+                </div>
+                
+                <div class="content">
+                    <h1>The journey begins.</h1>
+                    
                     <p>Dear ${contactName},</p>
-                    <p>Thank you for considering Swissperiences for <strong>${companyName}</strong>.</p>
-                    <p>We have successfully received your inquiry. Our team is currently reviewing your team's requirements and the details you provided.</p>
-                    <p>We design every retreat as a bespoke experience. A member of our curation team will reach out to you shortly to discuss how we can tailor a program for your team's goals.</p>
+                    <p>We have received your inquiry for <strong>${companyName}</strong>.</p>
+                    <p>True clarity is rarely found in the noise of the day-to-day. It is found in the silence of the Alps, in the pause between moments.</p>
+                    <p>Our curation team is reviewing your requirements. We will design a proposal that aligns with your team's intent and goals.</p>
                     
-                    <hr class="divider">
+                    <hr class="divider-small">
                     
-                    <p style="margin-bottom: 0;">Warm regards,</p>
-                    <p style="margin-top: 5px; font-weight: 500; color: #1A1D2E;">The Swissperiences Team</p>
-                </td>
-            </tr>
-            <tr>
-                <td class="footer">
-                    <p>© 2025 SWISSPERIENCES | GENEVA, SWITZERLAND</p>
-                    <p><a href="https://swissperiences.ch">WEBSITE</a> • <a href="mailto:hello@swissperiences.ch">CONTACT</a></p>
-                </td>
-            </tr>
-        </table>
-    </center>
+                    <p style="font-size: 13px; color: #888; margin-top: 30px;">You entered the following details:</p>
+                    
+                    <div class="details-box">
+                        <span class="detail-label">TEAM SIZE</span>
+                        <div class="detail-value" style="margin-bottom: 20px;">${teamSize}</div>
+                        
+                        <span class="detail-label">VISION / MESSAGE</span>
+                        <div class="detail-value">${message || "No specific message provided."}</div>
+                    </div>
+                </div>
+                
+                <div class="footer">
+                     <p>© 2025 SWISSPERIENCES • GENEVA, SWITZERLAND</p>
+                     <p><a href="https://swissperiences.ch">WEBSITE</a> &nbsp;&nbsp; <a href="mailto:hello@swissperiences.ch">CONTACT</a></p>
+                </div>
+            </div>
+        </center>
+    </div>
 </body>
-</html>`,
+</html>`
         });
 
-        // 2. Internal Notification (Admin Template - Corporate Variant)
+        // 2. Internal Notification to ADMIN (The "Intelligence Report")
         await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
             to: ['hello@swissperiences.ch'],
-            subject: `New Lead – Swissperiences (Corporate: ${companyName})`,
+            subject: `[INTEL] New Corp Inquiry: ${companyName}`,
             html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Swissperiences Admin Notification</title>
+    <title>Intelligence Report</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #FDFDFD; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1A1D2E; -webkit-font-smoothing: antialiased; }
-        .wrapper { width: 100%; table-layout: fixed; background-color: #FDFDFD; padding: 40px 0; }
-        .main { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 600px; border-spacing: 0; border: 1px solid #EEEEEE; border-radius: 2px; }
-        .header { padding: 40px 50px; border-bottom: 1px solid #F5F5F5; }
-        .status-badge { display: inline-block; background-color: #1A1D2E; color: #ffffff; font-size: 10px; padding: 4px 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; border-radius: 1px; margin-bottom: 15px; }
-        .header-title { font-size: 22px; font-weight: 300; letter-spacing: -0.5px; color: #1A1D2E; }
-        .content { padding: 40px 50px; }
-        .data-table { width: 100%; margin-bottom: 40px; border-collapse: collapse; }
-        .data-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #888888; padding-bottom: 8px; font-weight: 600; }
-        .data-value { font-size: 16px; color: #1A1D2E; padding-bottom: 25px; border-bottom: 1px solid #F5F5F5; }
-        .message-box { background: #f9f9f9; padding: 20px; font-size: 14px; line-height: 1.6; color: #444; margin-top: 10px; border-left: 2px solid #D8B58A; }
-        .action-row { padding-top: 20px; text-align: center; }
-        .button { display: inline-block; padding: 14px 24px; text-decoration: none; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; transition: all 0.2s; }
-        .btn-primary { background-color: #1A1D2E; color: #ffffff !important; margin-right: 10px; }
-        .btn-secondary { border: 1px solid #EEEEEE; color: #1A1D2E !important; }
-        .footer { padding: 40px; text-align: center; font-size: 9px; color: #BBBBBB; letter-spacing: 1.5px; text-transform: uppercase; }
+        body { background-color: #1A1D2E; color: #E5E7EB; font-family: 'Courier New', Courier, monospace; margin: 0; padding: 40px 20px; }
+        .intel-card { background-color: #11131F; max-width: 500px; margin: 0 auto; border: 1px solid #333; border-top: 4px solid #D8B58A; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .header { border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
+        .title { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #fff; font-weight: 700; }
+        .badge { background: #D8B58A; color: #000; font-size: 10px; padding: 4px 8px; font-weight: bold; border-radius: 2px; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed #333; padding-bottom: 5px; }
+        .label { color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        .value { color: #F3F4F6; font-size: 13px; font-weight: 500; text-align: right; }
+        .message-block { background: #000; padding: 15px; margin-top: 20px; font-size: 12px; line-height: 1.5; color: #D1D5DB; border-left: 2px solid #555; }
+        .footer { margin-top: 30px; font-size: 10px; color: #4B5563; text-align: center; letter-spacing: 1px; }
+        .action-link { display: block; text-align: center; margin-top: 25px; color: #D8B58A; text-decoration: none; font-size: 12px; border: 1px solid #D8B58A; padding: 10px; transition: all 0.2s; }
+        .action-link:hover { background: #D8B58A; color: #000; }
     </style>
 </head>
 <body>
-    <center class="wrapper">
-        <table class="main" width="100%">
-            <tr>
-                <td class="header">
-                    <div class="status-badge">Corporate Lead</div>
-                    <div class="header-title">New Team Inquiry</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="content">
-                    <table class="data-table">
-                        <tr><td class="data-label">Company Name</td></tr>
-                        <tr><td class="data-value">${companyName}</td></tr>
-                        
-                        <tr><td style="padding-top: 20px;" class="data-label">Contact Person</td></tr>
-                        <tr><td class="data-value">${contactName}</td></tr>
-
-                        <tr><td style="padding-top: 20px;" class="data-label">Email</td></tr>
-                        <tr><td class="data-value">${email}</td></tr>
-
-                        <tr><td style="padding-top: 20px;" class="data-label">Team Size</td></tr>
-                        <tr><td class="data-value">${teamSize}</td></tr>
-
-                        <tr><td style="padding-top: 20px;" class="data-label">Message</td></tr>
-                        <tr><td><div class="message-box">${message}</div></td></tr>
-                    </table>
-
-                    <div class="action-row">
-                        <a href="mailto:${email}" class="button btn-primary">Reply to Lead</a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="footer">
-                    Swissperiences System Notification<br>
-                    <span style="color: #D8B58A;">Automated Confirmation Sent</span>
-                </td>
-            </tr>
-        </table>
-    </center>
+    <div class="intel-card">
+        <div class="header">
+            <span class="title">New Inquiry</span>
+            <span class="badge">CORPORATE</span>
+        </div>
+        
+        <div class="data-row">
+            <span class="label">Organization</span>
+            <span class="value">${companyName}</span>
+        </div>
+        <div class="data-row">
+            <span class="label">Point of Contact</span>
+            <span class="value">${contactName}</span>
+        </div>
+        <div class="data-row">
+            <span class="label">Email Frequency</span>
+            <span class="value">${email}</span>
+        </div>
+        <div class="data-row">
+            <span class="label">Est. Cohort</span>
+            <span class="value">${teamSize}</span>
+        </div>
+        
+        <div class="label" style="margin-top: 20px;">Briefing / Intent</div>
+        <div class="message-block">
+            "${message}"
+        </div>
+        
+        <a href="mailto:${email}" class="action-link">:: INITIATE CONTACT ::</a>
+        
+        <div class="footer">
+            SECURE TRANSMISSION // ${new Date().toISOString().split('T')[0]}<br>
+            SWISSPERIENCES INTELLIGENCE UNIT
+        </div>
+    </div>
 </body>
 </html>`
         });
