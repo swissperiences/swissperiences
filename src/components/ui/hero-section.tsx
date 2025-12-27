@@ -1,167 +1,244 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { InfiniteSlider } from '@/components/ui/infinite-slider';
-import { ProgressiveBlur } from '@/components/ui/progressive-blur';
 import { cn } from '@/lib/utils';
-import { ChevronRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { useScroll, motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
-// Import logos
-// import ubsLogo from '@/assets/logos/ubs-logo.png';
-// import franckMullerLogo from '@/assets/logos/franck-muller-logo.png';
-// import ssbmGenevaLogo from '@/assets/logos/ssbm-geneva-logo.png';
-// import franckProvostLogo from '@/assets/logos/franck-provost-logo.png';
-
-interface SwissperiencesHeroSectionProps {
+interface HeroSectionProps {
   onJoinWaitlist?: () => void;
 }
 
-export function HeroSection({ onJoinWaitlist }: SwissperiencesHeroSectionProps) {
+export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
+  const { scrollYProgress } = useScroll();
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      // Map scroll progress to 0-1 range for the first screen
+      const progress = Math.min(latest * 2, 1);
+      setScrollProgress(progress);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  // Calculate transformations based on scroll
+  const videoScale = 1.2 - scrollProgress * 0.2; // 1.2 -> 1.0
+  const videoOpacity = 1 - scrollProgress * 0.3; // 1 -> 0.7
+
+  // Text convergence: start separated, end centered
+  const topTextY = -100 * (1 - scrollProgress); // -100 -> 0
+  const topTextX = -50 * (1 - scrollProgress); // -50 -> 0
+  const bottomTextY = 100 * (1 - scrollProgress); // 100 -> 0
+  const bottomTextX = 50 * (1 - scrollProgress); // 50 -> 0
+
+  const textOpacity = 0.3 + scrollProgress * 0.7; // 0.3 -> 1
+  const ctaOpacity = scrollProgress; // 0 -> 1
+  const ctaScale = 0.8 + scrollProgress * 0.2; // 0.8 -> 1
+
   return (
-    <main className="overflow-hidden bg-background">
-      <section>
-        <div className="relative pt-32 md:pt-44 pb-20">
-          {/* Subtle gradient glow - dark theme */}
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none overflow-hidden"
-          >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-primary/5 to-transparent blur-3xl" />
-          </div>
+    <>
+      <HeroHeader onJoinWaitlist={onJoinWaitlist} />
+      <section className="relative h-screen w-full overflow-hidden">
+        {/* Full-screen Video Background with scroll effect */}
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            scale: videoScale,
+            opacity: videoOpacity,
+          }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-full w-full object-cover"
+            src="/hero-video.mp4"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+        </motion.div>
 
-          <div className="mx-auto max-w-6xl px-6 lg:px-8">
-            <div className="relative z-10 mx-auto max-w-3xl text-center">
-              {/* Eyebrow */}
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="mb-6 text-xs uppercase tracking-[0.25em] text-muted-foreground font-medium"
-              >
-                Premium Swiss Experiences
-              </motion.p>
-
-              {/* Main headline */}
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-balance text-4xl font-semibold md:text-5xl lg:text-6xl text-foreground leading-[1.1] tracking-tight"
-              >
-                Cinematic Swiss visuals,
-                <br />
-                <span className="text-muted-foreground">captured from above.</span>
-              </motion.h1>
-
-              {/* Subheadline */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="mx-auto mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed"
-              >
-                A curated library of premium drone footage showcasing Switzerland's
-                landscapes — designed for brands, media, and storytelling.
-              </motion.p>
-
-              {/* CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-12 flex flex-wrap justify-center gap-4"
-              >
-                <Button
-                  variant="hero"
-                  size="xl"
-                  onClick={onJoinWaitlist}
-                  className="group"
-                >
-                  <span>Explore the Collection</span>
-                  <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Button>
-                <Button
-                  variant="heroOutline"
-                  size="xl"
-                  onClick={onJoinWaitlist}
-                >
-                  <span>Request Licensing</span>
-                </Button>
-              </motion.div>
-
-              {/* Stats row */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="mt-20 grid grid-cols-3 gap-8 border-t border-border/50 pt-10"
-              >
-                <div className="text-center">
-                  <p className="text-2xl font-semibold text-foreground">4K–8K</p>
-                  <p className="text-sm text-muted-foreground mt-1">Ultra-high resolution</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-2xl font-semibold text-foreground">Swiss-shot</p>
-                  <p className="text-sm text-muted-foreground mt-1">Original aerial content</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-2xl font-semibold text-foreground">Licensable</p>
-                  <p className="text-sm text-muted-foreground mt-1">Commercial ready</p>
-                </div>
-              </motion.div>
+        <div className="relative z-10 flex min-h-screen items-center justify-center px-6">
+          <div className="mx-auto w-full max-w-6xl text-center">
+            <div className="mb-5 text-xs font-medium uppercase tracking-[0.35em] text-white/70">
+              Curated in Switzerland
             </div>
-          </div>
 
-          {/* Trusted By Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="relative mx-auto mt-24 max-w-4xl px-6"
-          >
-            <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground mb-8">
-              Trusted by leading brands
+            {/* Headline (LOCKED) */}
+            <h1 className="text-white font-medium tracking-tight leading-[1.06]">
+              <span className="block text-[clamp(3.8rem,6.6vw,7.2rem)]">
+                Switzerland is not a
+              </span>
+              <span className="block text-[clamp(3.8rem,6.6vw,7.2rem)]">
+                destination.
+              </span>
+              <span className="block text-[clamp(3.8rem,6.6vw,7.2rem)]">
+                It&apos;s a state of mind.
+              </span>
+            </h1>
+
+            {/* Subheadline */}
+            <p className="mx-auto mt-6 max-w-2xl text-sm md:text-base text-white/70">
+              Immersive nature. For those seeking less noise and more feeling.
+            </p>
+            <p className="mx-auto mt-2 max-w-2xl text-sm md:text-base text-white/70">
+              Curated Swiss experiences — from intimate moments to immersive journeys.
             </p>
 
-            <div className="relative overflow-hidden py-4">
-              {/* <InfiniteSlider gap={80} duration={30}>
-                <img
-                  className="mx-auto h-6 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300 invert"
-                  src={ubsLogo}
-                  alt="UBS"
-                />
-                <img
-                  className="mx-auto h-8 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300 invert"
-                  src={franckMullerLogo}
-                  alt="Franck Muller"
-                />
-                <img
-                  className="mx-auto h-10 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300 invert"
-                  src={ssbmGenevaLogo}
-                  alt="SSBM Geneva"
-                />
-                <img
-                  className="mx-auto h-6 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300 invert"
-                  src={franckProvostLogo}
-                  alt="Franck Provost"
-                />
-              </InfiniteSlider>
+            {/* Micro-phrase (Lead-first, editorial, discreet) */}
+            <p className="mx-auto mt-3 text-xs text-white/50 font-light tracking-wide">
+              Inquiries limited. Curated individually.
+            </p>
 
-              <ProgressiveBlur
-                className="pointer-events-none absolute left-0 top-0 h-full w-24"
-                direction="left"
-                blurIntensity={1}
-              />
-              <ProgressiveBlur
-                className="pointer-events-none absolute right-0 top-0 h-full w-24"
-                direction="right"
-                blurIntensity={1}
-              /> */}
+            {/* CTA */}
+            <div className="mt-10 flex justify-center">
+              <button
+                onClick={onJoinWaitlist}
+                className="rounded-full bg-white px-8 py-3 text-sm font-medium text-black hover:bg-white/90 transition-colors"
+              >
+                Request Access
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+const menuItems = [
+  { name: 'Experiences', href: '#experiences' },
+  { name: 'How It Works', href: '#how-it-works' },
+  { name: 'For Teams', href: '/for-teams' },
+];
+
+const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
+  const [menuState, setMenuState] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      setScrolled(latest > 0.05);
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress]);
+
+  const handleNavClick = (href: string) => {
+    setMenuState(false);
+    if (href.startsWith('/')) {
+      navigate(href);
+      return;
+    }
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <header>
+      <nav
+        data-state={menuState && 'active'}
+        className="group fixed z-50 w-full pt-4 px-4"
+      >
+        <div
+          className={cn(
+            'mx-auto max-w-7xl rounded-full px-6 transition-all duration-300',
+            scrolled || menuState ? 'bg-background/95 backdrop-blur-md border border-white/10 shadow-lg' : 'bg-white/5 backdrop-blur-sm border border-white/10'
+          )}
+        >
+          <motion.div
+            className={cn(
+              'relative flex flex-wrap items-center justify-between gap-6 py-3 duration-200 lg:gap-0',
+              scrolled ? 'lg:py-3' : 'lg:py-4'
+            )}
+          >
+            <div className="flex w-full items-center justify-between gap-12 lg:w-auto">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={cn(
+                  "flex items-center space-x-2 font-semibold text-lg tracking-tight hover:opacity-80 transition-opacity",
+                  scrolled ? "text-foreground" : "text-white"
+                )}
+                aria-label="home"
+              >
+                Swissperiences
+              </a>
+
+              <button
+                onClick={() => setMenuState(!menuState)}
+                aria-label={menuState ? 'Close Menu' : 'Open Menu'}
+                className="relative z-50 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+              >
+                <Menu className={cn(
+                  "group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200",
+                  scrolled ? "text-foreground" : "text-white"
+                )} />
+                <X className={cn(
+                  "group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200",
+                  scrolled ? "text-foreground" : "text-white"
+                )} />
+              </button>
+
+              <div className="hidden lg:block">
+                <ul className="flex gap-8 text-sm font-medium">
+                  {menuItems.map((item, index) => (
+                    <li key={index}>
+                      <button
+                        onClick={() => handleNavClick(item.href)}
+                        className={cn(
+                          "block duration-150 transition-colors",
+                          scrolled ? "text-muted-foreground hover:text-foreground" : "text-white/80 hover:text-white"
+                        )}
+                      >
+                        <span>{item.name}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-background lg:bg-transparent group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:p-0 lg:shadow-none dark:shadow-none">
+              <div className="lg:hidden w-full">
+                <ul className="space-y-4 text-lg">
+                  {menuItems.map((item, index) => (
+                    <li key={index}>
+                      <button
+                        onClick={() => handleNavClick(item.href)}
+                        className="text-muted-foreground hover:text-foreground block duration-150 transition-colors w-full text-left py-2"
+                      >
+                        <span>{item.name}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+                <Button
+                  onClick={() => {
+                    setMenuState(false);
+                    onJoinWaitlist?.();
+                  }}
+                  className="rounded-full px-6"
+                  variant="hero"
+                >
+                  Request Access
+                </Button>
+              </div>
             </div>
           </motion.div>
         </div>
-      </section>
-    </main>
+      </nav>
+    </header>
   );
-}
+};

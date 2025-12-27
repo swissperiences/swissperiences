@@ -13,17 +13,18 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { cn } from "@/lib/utils";
 
 const valueProps = [
+  {
+    icon: Target,
+    title: "Swiss Precision",
+    description: "Meticulous planning and flawless execution",
+  },
   {
     icon: Building2,
     title: "Curated Venues",
     description: "Hand-selected locations that inspire creativity",
-  },
-  {
-    icon: Users,
-    title: "Full Support",
-    description: "We handle every detail from start to finish",
   },
   {
     icon: Heart,
@@ -31,9 +32,9 @@ const valueProps = [
     description: "Experiences that strengthen bonds and trust",
   },
   {
-    icon: Target,
-    title: "Swiss Precision",
-    description: "Meticulous planning and flawless execution",
+    icon: Users,
+    title: "Full Support",
+    description: "We handle every detail from start to finish",
   },
 ];
 
@@ -42,6 +43,7 @@ const teamSizes = ["10-15", "16-30", "31-50", "51-100", "100+"];
 export default function CorporateRetreats() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     companyName: "",
     contactName: "",
@@ -52,7 +54,8 @@ export default function CorporateRetreats() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setHasSubmitted(true);
+
     if (!formData.companyName || !formData.contactName || !formData.email) {
       toast({
         title: "Please fill in all required fields",
@@ -62,7 +65,7 @@ export default function CorporateRetreats() {
     }
 
     setIsSubmitting(true);
-    
+
     try {
       const { error } = await supabase
         .from('corporate_inquiries')
@@ -76,6 +79,19 @@ export default function CorporateRetreats() {
 
       if (error) throw error;
 
+      // Send Email Notification (Vercel Function)
+      fetch('/api/send-inquiry-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          companyName: formData.companyName,
+          contactName: formData.contactName,
+          email: formData.email,
+          teamSize: formData.teamSize,
+          message: formData.message
+        }),
+      }).catch(console.error);
+
       toast({
         title: "Request received",
         description: "We'll be in touch within 24 hours.",
@@ -87,7 +103,9 @@ export default function CorporateRetreats() {
         teamSize: "",
         message: "",
       });
+      setHasSubmitted(false);
     } catch (error) {
+      console.error(error);
       toast({
         title: "Something went wrong",
         description: "Please try again later.",
@@ -103,7 +121,7 @@ export default function CorporateRetreats() {
       {/* Hero Introduction */}
       <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=80')",
@@ -111,9 +129,9 @@ export default function CorporateRetreats() {
         />
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-background" />
-        
+
         {/* Content */}
-        <motion.div 
+        <motion.div
           className="relative z-10 text-center px-6 py-24 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -124,10 +142,10 @@ export default function CorporateRetreats() {
             For Teams
           </span>
           <h2 className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight">
-            Corporate Retreats
+            Curated Team Experiences
           </h2>
           <p className="text-xl md:text-2xl text-white/80 font-light max-w-2xl mx-auto">
-            Unforgettable team experiences in Switzerland—from 10 to 120 participants, fully curated for connection and clarity.
+            From focused offsites to immersive retreats, we design curated team experiences in Switzerland — tailored for clarity, trust, and human connection.
           </p>
         </motion.div>
       </div>
@@ -135,7 +153,7 @@ export default function CorporateRetreats() {
       {/* Value Propositions */}
       <div className="bg-background py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -166,7 +184,7 @@ export default function CorporateRetreats() {
 
       {/* Contact Form Section */}
       <div className="bg-black py-24 px-6">
-        <motion.div 
+        <motion.div
           className="max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -175,7 +193,7 @@ export default function CorporateRetreats() {
         >
           <div className="text-center mb-12">
             <p className="text-sm uppercase tracking-[0.3em] text-white/40 mb-4">
-              Start Planning
+              Start the conversation
             </p>
             <h3 className="text-3xl md:text-4xl font-light text-white mb-3">
               Tell Us About Your Team
@@ -185,7 +203,7 @@ export default function CorporateRetreats() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             <div className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm space-y-5">
               <div className="grid grid-cols-1 gap-5">
                 <div className="space-y-2">
@@ -195,10 +213,11 @@ export default function CorporateRetreats() {
                     type="text"
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12"
+                    className={cn(
+                      "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12",
+                      hasSubmitted && !formData.companyName && "border-red-500 focus-visible:ring-red-500"
+                    )}
                     placeholder="Your company"
-                    required
-                    aria-required="true"
                   />
                 </div>
                 <div className="space-y-2">
@@ -208,10 +227,11 @@ export default function CorporateRetreats() {
                     type="text"
                     value={formData.contactName}
                     onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12"
+                    className={cn(
+                      "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12",
+                      hasSubmitted && !formData.contactName && "border-red-500 focus-visible:ring-red-500"
+                    )}
                     placeholder="Your name"
-                    required
-                    aria-required="true"
                   />
                 </div>
               </div>
@@ -224,10 +244,11 @@ export default function CorporateRetreats() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12"
+                    className={cn(
+                      "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12",
+                      hasSubmitted && !formData.email && "border-red-500 focus-visible:ring-red-500"
+                    )}
                     placeholder="email@company.com"
-                    required
-                    aria-required="true"
                   />
                 </div>
                 <div className="space-y-2">
@@ -236,13 +257,16 @@ export default function CorporateRetreats() {
                     value={formData.teamSize}
                     onValueChange={(value) => setFormData({ ...formData, teamSize: value })}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 [&>span]:text-white/60">
+                    <SelectTrigger className={cn(
+                      "bg-white/5 border-white/10 text-white h-12 [&>span]:text-white/60",
+                      hasSubmitted && !formData.teamSize && "border-red-500 ring-red-500"
+                    )}>
                       <SelectValue placeholder="Select team size" />
                     </SelectTrigger>
                     <SelectContent className="bg-zinc-900 border-white/10">
                       {teamSizes.map((size) => (
-                        <SelectItem 
-                          key={size} 
+                        <SelectItem
+                          key={size}
                           value={size}
                           className="text-white focus:bg-white/10 focus:text-white"
                         >

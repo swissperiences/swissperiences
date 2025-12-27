@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
+import { useNavigate, useLocation, Link } from "react-router-dom";
+
 interface NavigationProps {
   onWaitlistClick: () => void;
 }
@@ -9,12 +11,14 @@ interface NavigationProps {
 const navLinks = [
   { label: "Experiences", href: "#experiences" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "For Teams", href: "#corporate-retreats" },
+  { label: "For Teams", href: "/for-teams" },
 ];
 
 export default function Navigation({ onWaitlistClick }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +31,25 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
+
+    // Handle path navigation
+    if (href.startsWith("/")) {
+      navigate(href);
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    // Handle hash navigation from other pages
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+      return;
+    }
+
+    // Handle hash navigation on home page
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -39,26 +62,21 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
+        className="fixed top-4 left-0 right-0 z-[80] flex justify-center px-4"
       >
         <nav
-          className={`flex items-center justify-between gap-6 px-6 py-3 rounded-full transition-all duration-300 max-w-fit ${
-            isScrolled
-              ? "bg-black/80 backdrop-blur-md border border-white/10 shadow-lg"
-              : "bg-black/40 backdrop-blur-sm border border-white/5"
-          }`}
+          className={`flex items-center justify-between gap-6 px-6 py-3 rounded-full transition-all duration-300 max-w-fit ${isScrolled
+            ? "bg-black/80 backdrop-blur-md border border-white/10 shadow-lg"
+            : "bg-black/40 backdrop-blur-sm border border-white/5"
+            }`}
         >
           {/* Logo */}
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+          <Link
+            to="/"
             className="text-lg font-semibold text-white hover:text-white/80 transition-colors tracking-tight"
           >
             Swissperiences
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">

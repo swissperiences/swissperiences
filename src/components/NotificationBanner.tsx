@@ -15,11 +15,11 @@ export const NotificationBanner = ({ onJoinNow }: NotificationBannerProps) => {
 
   useEffect(() => {
     const dismissedData = localStorage.getItem(STORAGE_KEY);
-    
+
     if (dismissedData) {
       const { timestamp } = JSON.parse(dismissedData);
       const expiryTime = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
-      
+
       if (Date.now() - timestamp > expiryTime) {
         localStorage.removeItem(STORAGE_KEY);
         setIsVisible(true);
@@ -41,12 +41,12 @@ export const NotificationBanner = ({ onJoinNow }: NotificationBannerProps) => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          transition={{ 
-            duration: 0.5, 
+          transition={{
+            duration: 0.5,
             ease: "easeOut",
-            delay: ENTRANCE_DELAY 
+            delay: ENTRANCE_DELAY
           }}
-          className="fixed bottom-4 sm:bottom-6 left-0 right-0 z-50 flex justify-center px-4"
+          className="fixed bottom-4 sm:bottom-6 left-0 right-0 z-[90] flex justify-center px-4"
         >
           {/* Mobile: rounded-2xl stacked layout, Desktop: pill horizontal */}
           <div className="w-full sm:w-auto sm:max-w-5xl rounded-2xl sm:rounded-full bg-[hsl(var(--surface-banner)/0.95)] backdrop-blur-md shadow-2xl px-5 py-4 sm:px-8 sm:py-4">

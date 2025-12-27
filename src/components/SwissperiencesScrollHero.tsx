@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import ScrollExpandMedia from "@/components/ui/scroll-expansion-hero";
+import { HeroSection } from "@/components/ui/hero-section";
 import { WaitlistModal } from "@/components/WaitlistModal";
 import { Toaster } from "@/components/ui/toaster";
 import { NotificationBanner } from "@/components/NotificationBanner";
-import Navigation from "@/components/Navigation";
+// import Navigation from "@/components/Navigation";
 import AnimatedStatCounter from "@/components/AnimatedStatCounter";
 import TrustedBy from "@/components/TrustedBy";
 import WhatWeCurate from "@/components/WhatWeCurate";
@@ -129,22 +129,9 @@ export default function SwissperiencesScrollHero() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation onWaitlistClick={() => setWaitlistOpen(true)} />
-      <ScrollExpandMedia
-        mediaType="video"
-        mediaSrc="https://www.youtube.com/watch?v=linlz7-Pnvw"
-        posterSrc={heroImage}
-        bgImageSrc="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80"
-        title="Swissperiences"
-        tagline="Feel the world again"
-        subtitle="One platform for curated Swiss retreats, adventures, and cultural experiences—for mindful travelers and modern teams. Launching Spring 2026."
-        audienceLabel="For mindful travelers & teams"
-        scrollToExpand="Scroll to explore"
-        textBlend
-        onCtaClick={() => setWaitlistOpen(true)}
-      >
-        <SwissperiencesContent onWaitlist={() => setWaitlistOpen(true)} />
-      </ScrollExpandMedia>
+      <HeroSection onJoinWaitlist={() => setWaitlistOpen(true)} />
+
+      <SwissperiencesContent onWaitlist={() => setWaitlistOpen(true)} />
 
       <WaitlistModal open={waitlistOpen} onOpenChange={setWaitlistOpen} />
       <NotificationBanner onJoinNow={() => setWaitlistOpen(true)} />

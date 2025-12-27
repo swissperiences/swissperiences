@@ -33,7 +33,6 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       toast({
         title: 'Invalid email',
         description: result.error.errors[0].message,
-        variant: 'destructive',
       });
       return;
     }
@@ -45,14 +44,13 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       setIsLoading(false);
       setIsSuccess(true);
       toast({
-        title: 'Welcome to the waitlist',
-        description: "We'll be in touch soon.",
+        title: 'Request submitted',
+        description: "We'll respond personally within 48 hours.",
       });
     }, 1500);
 
-    /* 
-    // Supabase integration deferred
     try {
+      // 1. Database Insert
       const { error } = await supabase
         .from('waitlist')
         .insert({ email: result.data });
@@ -63,17 +61,28 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
             title: 'Already registered',
             description: 'This email is already on the waitlist.',
           });
+          return;
         } else {
           throw error;
         }
-      } else {
-        setIsSuccess(true);
-        toast({
-          title: 'Welcome to the waitlist',
-          description: "We'll be in touch soon.",
-        });
       }
+
+      // 2. Email Notification (Vercel Function)
+      // Non-blocking call - we don't want to fail the UI if email fails
+      fetch('/api/send-waitlist-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: result.data }),
+      }).catch(console.error);
+
+      setIsSuccess(true);
+      toast({
+        title: 'Welcome to the waitlist',
+        description: "We'll be in touch soon.",
+      });
+
     } catch (error) {
+      console.error(error);
       toast({
         title: 'Something went wrong',
         description: 'Please try again later.',
@@ -82,7 +91,6 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
     } finally {
       setIsLoading(false);
     }
-    */
   };
 
   const handleClose = () => {
@@ -99,12 +107,12 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       <DialogContent className="sm:max-w-md bg-background border-border animate-in fade-in-0 zoom-in-95 duration-300">
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold text-foreground">
-            {isSuccess ? "You're in" : 'Join the Waitlist'}
+            {isSuccess ? 'Request Received' : 'Request Access'}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
             {isSuccess
-              ? "Thank you for your interest. We'll reach out when it's your turn to experience the pause."
-              : 'Be among the first to experience analog wellness from Switzerland.'}
+              ? "We'll review your request and respond personally within 48 hours."
+              : 'Each request is reviewed personally. This is not a mailing list.'}
           </DialogDescription>
         </DialogHeader>
 
@@ -115,7 +123,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
               placeholder="your@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-secondary border-border text-foreground placeholder:text-muted-foreground"
+              className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-white/40 transition-colors"
               disabled={isLoading}
               required
             />
@@ -126,10 +134,10 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
               size="xl"
               disabled={isLoading}
             >
-              {isLoading ? 'Joining...' : 'Join Waitlist'}
+              {isLoading ? 'Submitting...' : 'Submit Request'}
             </Button>
-            <p className="text-xs text-center text-muted-foreground">
-              No spam. Just presence.
+            <p className="text-xs text-center text-white/40 font-light">
+              No automation. A human reply within 48 hours.
             </p>
           </form>
         ) : (

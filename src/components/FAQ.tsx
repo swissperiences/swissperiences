@@ -12,16 +12,13 @@ const faqs = [
   },
   {
     question: "What's included in a retreat?",
-    answer: "Accommodation, meals, guided activities, and full support. Custom packages available for corporate teams.",
+    answer: "Accommodation, meals, guided activities, and full support.",
   },
   {
     question: "How are experiences selected?",
     answer: "Every location and host is personally vetted. We prioritize quality over quantity—expect 15-20 exceptional experiences, not hundreds.",
   },
-  {
-    question: "Can I customize for my corporate team?",
-    answer: "Absolutely. We design bespoke retreats for teams of 10-120 participants.",
-  },
+
   {
     question: "What makes this different?",
     answer: "No screens, no performance pressure, no content creation. Just authentic Swiss experiences designed for presence, not productivity.",
@@ -35,11 +32,11 @@ export default function FAQ() {
         <p className="text-sm uppercase tracking-widest text-muted-foreground text-center mb-12">
           Frequently Asked Questions
         </p>
-        
+
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, index) => (
-            <AccordionItem 
-              key={index} 
+            <AccordionItem
+              key={index}
               value={`item-${index}`}
               className="border-border/30 hover:bg-secondary/30 transition-colors duration-200 px-4 rounded-lg"
             >

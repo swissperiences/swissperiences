@@ -28,7 +28,7 @@ function AnimatedNumber({ value, suffix, duration = 1.5 }: { value: number; suff
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      
+
       // Ease-out function
       const easeOut = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(easeOut * value));
@@ -59,13 +59,13 @@ export default function AnimatedStatCounter() {
   const isInView = useInView(containerRef, { once: true, margin: "-50px" });
 
   return (
-    <section className="bg-black py-24 sm:py-36 grain-overlay">
+    <section className="bg-black py-20 sm:py-24 grain-overlay">
       <div ref={containerRef} className="max-w-7xl mx-auto px-6">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-xs tracking-widest text-white/60 mb-16 text-center uppercase"
+          className="text-sm tracking-[0.3em] text-white/80 mb-16 text-center uppercase font-light"
         >
           By the Numbers
         </motion.p>

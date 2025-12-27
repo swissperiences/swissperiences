@@ -3,18 +3,18 @@ import { motion } from "framer-motion";
 const steps = [
   {
     number: "01",
-    title: "We Curate",
-    description: "Every experience is personally vetted for quality and authenticity",
+    title: "Request Access",
+    description: "A short inquiry. We respond personally.",
   },
   {
     number: "02",
-    title: "You Discover",
-    description: "Browse unique Swiss experiences matched to your interests",
+    title: "We Curate",
+    description: "We consider timing, pace, and intention — not volume.",
   },
   {
     number: "03",
-    title: "Experience Switzerland",
-    description: "Book with confidence and feel the world again",
+    title: "Receive an Invitation",
+    description: "If it aligns, you’ll receive a curated proposal.",
   },
 ];
 
@@ -27,9 +27,9 @@ export default function HowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="text-xs tracking-widest text-white/60 mb-16 text-center uppercase"
+          className="text-sm tracking-[0.3em] text-white/80 mb-16 text-center uppercase font-light"
         >
-          How It Works
+          How Access Works
         </motion.p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
@@ -54,7 +54,17 @@ export default function HowItWorks() {
             </motion.div>
           ))}
         </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-16 text-center text-xs text-white/40 font-light tracking-wide"
+        >
+          Access is intentional. Scale is not the goal.
+        </motion.p>
       </div>
-    </section>
+    </section >
   );
 }
