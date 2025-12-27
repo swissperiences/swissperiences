@@ -31,6 +31,19 @@ export default async function handler(req, res) {
       `,
         });
 
+        // 2. Internal Notification
+        await resend.emails.send({
+            from: 'Swissperiences <hello@swissperiences.ch>',
+            to: ['hello@swissperiences.ch'],
+            subject: 'New Lead – Swissperiences (Waitlist)',
+            html: `
+                <div style="font-family: sans-serif;">
+                    <h1>New Waitlist Request</h1>
+                    <p><strong>Email:</strong> ${email}</p>
+                </div>
+            `,
+        });
+
         return res.status(200).json(data);
     } catch (error) {
         return res.status(500).json({ error: error.message });

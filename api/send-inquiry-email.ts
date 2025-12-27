@@ -32,9 +32,9 @@ export default async function handler(req, res) {
     // but typically we'd send an admin alert too. 
     // Adding admin alert block:
     await resend.emails.send({
-      from: 'Swissperiences System <system@swissperiences.ch>',
-      to: ['concierge@swissperiences.ch'], // Replace with actual admin email if known, or keep generic
-      subject: `New Corporate Inquiry: ${companyName}`,
+      from: 'Swissperiences <hello@swissperiences.ch>',
+      to: ['hello@swissperiences.ch'],
+      subject: 'New Lead – Swissperiences (Corporate)',
       html: `
           <h1>New Team Inquiry</h1>
           <p><strong>Company:</strong> ${companyName}</p>
