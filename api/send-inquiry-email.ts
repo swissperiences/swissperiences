@@ -3,19 +3,19 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
 
-  const { companyName, contactName, email, teamSize, message } = req.body;
+    const { companyName, contactName, email, teamSize = "", message = "" } = req.body;
 
-  try {
-    // 1. Send confirmation to user (Institutional/Professional)
-    await resend.emails.send({
-      from: 'Swissperiences <hello@swissperiences.ch>',
-      to: [email],
-      subject: 'Swissperiences Team Inquiry Received',
-      html: `<!DOCTYPE html>
+    try {
+        // 1. Send confirmation to user (Institutional/Professional)
+        await resend.emails.send({
+            from: 'Swissperiences <hello@swissperiences.ch>',
+            to: [email],
+            subject: 'Swissperiences Team Inquiry Received',
+            html: `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -39,14 +39,14 @@ export default async function handler(req, res) {
 </div>
 </body>
 </html>`,
-    });
+        });
 
-    // 2. Internal Notification (Admin Template - Corporate Variant)
-    await resend.emails.send({
-      from: 'Swissperiences <hello@swissperiences.ch>',
-      to: ['hello@swissperiences.ch'],
-      subject: `New Lead – Swissperiences (Corporate: ${companyName})`,
-      html: `<!DOCTYPE html>
+        // 2. Internal Notification (Admin Template - Corporate Variant)
+        await resend.emails.send({
+            from: 'Swissperiences <hello@swissperiences.ch>',
+            to: ['hello@swissperiences.ch'],
+            subject: `New Lead – Swissperiences (Corporate: ${companyName})`,
+            html: `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -113,10 +113,10 @@ export default async function handler(req, res) {
     </center>
 </body>
 </html>`
-    });
+        });
 
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
+        return res.status(200).json({ success: true });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
 }

@@ -257,10 +257,7 @@ export default function CorporateRetreats() {
                     value={formData.teamSize}
                     onValueChange={(value) => setFormData({ ...formData, teamSize: value })}
                   >
-                    <SelectTrigger className={cn(
-                      "bg-white/5 border-white/10 text-white h-12 [&>span]:text-white/60",
-                      hasSubmitted && !formData.teamSize && "border-red-500 ring-red-500"
-                    )}>
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 [&>span]:text-white/60 focus:ring-0 focus:border-white/30">
                       <SelectValue placeholder="Select team size" />
                     </SelectTrigger>
                     <SelectContent className="bg-zinc-900 border-white/10">
@@ -284,7 +281,7 @@ export default function CorporateRetreats() {
                   id="message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 min-h-[120px] resize-none"
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-0 focus-visible:ring-0 min-h-[120px] resize-none"
                   placeholder="Tell us about your retreat goals..."
                   aria-describedby="message-hint"
                 />
