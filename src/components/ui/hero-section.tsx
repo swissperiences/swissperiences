@@ -54,9 +54,12 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             loop
             muted
             playsInline
+            preload="auto"
             className="h-full w-full object-cover"
-            src="/hero-video.mp4"
-          />
+          >
+            <source src="/hero-video-v2.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
         </motion.div>
