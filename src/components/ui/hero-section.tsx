@@ -113,7 +113,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
         {/* --- DESKTOP LAYOUT (Preserved) --- */}
         <div className="relative z-10 hidden md:flex h-screen items-center justify-center px-6">
           <div className="mx-auto w-full max-w-6xl text-center lg:-translate-y-[8vh]">
-            <div className="mb-5 text-xs font-medium uppercase tracking-[0.35em] text-white/70">
+            <div className="mb-5 text-xs font-medium uppercase tracking-[0.35em] text-white/90" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)" }}>
               Curated in Switzerland
             </div>
 
