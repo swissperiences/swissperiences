@@ -71,13 +71,17 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="fixed top-6 left-0 right-0 z-[80] flex justify-center px-4"
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-[80]"
       >
         <motion.nav
-          className="relative flex items-center justify-between gap-6 px-8 py-4 rounded-full text-white"
+          className="relative px-8 py-4 rounded-full text-white"
+          initial={{
+            width: '95%',
+            maxWidth: '1280px',
+          }}
           animate={{
-            width: scrolled ? 'auto' : '100%',
-            maxWidth: scrolled ? 'fit-content' : '100%',
+            width: scrolled ? 'auto' : '95%',
+            maxWidth: scrolled ? 'fit-content' : '1280px',
           }}
           transition={{
             duration: 0.7,
@@ -99,7 +103,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             style={{ pointerEvents: 'none' }}
           />
 
-          {/* Content wrapper */}
+          {/* Content */}
           <div className="relative flex items-center justify-between gap-6 w-full">
           {/* Logo */}
           <Link
