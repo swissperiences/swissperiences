@@ -67,14 +67,9 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-[80]"
-      >
+      <header>
         <motion.nav
-          className="relative px-8 py-4 rounded-full text-white"
+          className="group fixed top-6 left-1/2 -translate-x-1/2 z-50"
           initial={{
             width: '95%',
             maxWidth: '1280px',
@@ -103,48 +98,59 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             style={{ pointerEvents: 'none' }}
           />
 
-          {/* Content */}
-          <div className="relative flex items-center justify-between gap-6 w-full">
-          {/* Logo */}
-          <Link
-            to="/"
-            className="text-lg text-white hover:text-white/80 transition-colors uppercase tracking-[0.2em]"
-          >
-            Swissperiences
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => handleNavClick(link.href)}
-                className="text-sm text-white/70 hover:text-white transition-colors focus:outline-none focus:text-white relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
-                aria-label={`Navigate to ${link.label} section`}
+          <div className="relative rounded-full px-8 py-4 text-white">
+            <div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0">
+            {/* Logo + Mobile Button + Desktop Nav Links */}
+            <div className="flex w-full items-center justify-between lg:w-auto lg:gap-16">
+              <Link
+                to="/"
+                className="text-lg text-white hover:text-white/80 transition-colors uppercase tracking-[0.2em]"
               >
-                {link.label}
-              </button>
-            ))}
-            <button
-              onClick={onWaitlistClick}
-              className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
-              aria-label="Reserve your spot on the waitlist"
-            >
-              <span className="border-b border-white/40 group-hover:border-white pb-1">Reserve Your Spot</span>
-            </button>
-          </div>
+                Swissperiences
+              </Link>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+
+              {/* Desktop Navigation Links */}
+              <div className="hidden lg:block">
+                <ul className="flex gap-8 text-sm font-medium">
+                  {navLinks.map((link) => (
+                    <li key={link.href}>
+                      <button
+                        onClick={() => handleNavClick(link.href)}
+                        className="block duration-150 transition-colors text-white/80 hover:text-white"
+                      >
+                        <span>{link.label}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Desktop CTA */}
+            <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-8">
+              {/* Invisible spacer */}
+              <div className="hidden lg:block h-6 w-px opacity-0"></div>
+              <button
+                onClick={onWaitlistClick}
+                className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
+                aria-label="Reserve your spot on the waitlist"
+              >
+                <span className="border-b border-white/40 group-hover:border-white pb-1">Reserve Your Spot</span>
+              </button>
+            </div>
+            </div>
           </div>
         </motion.nav>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
       <AnimatePresence>

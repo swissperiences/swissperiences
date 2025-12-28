@@ -30,8 +30,11 @@ const cards = [
 
 export default function WhatWeCurate() {
   return (
-    <section id="experiences" className="bg-black py-20 sm:py-24 scroll-mt-20 grain-overlay">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="experiences" className="relative py-20 sm:py-24 scroll-mt-20">
+      {/* Darker overlay for experiences section */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +52,7 @@ export default function WhatWeCurate() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px", amount: 0.3 }}
             transition={{ duration: 0.4, delay: 0, ease: "easeOut" }}
-            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/50"
+            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/30 backdrop-blur-sm"
           >
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
               <Leaf className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
@@ -71,7 +74,7 @@ export default function WhatWeCurate() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px", amount: 0.3 }}
             transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
-            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/50"
+            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/30 backdrop-blur-sm"
           >
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
               <Wind className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
@@ -93,7 +96,7 @@ export default function WhatWeCurate() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px", amount: 0.3 }}
             transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/50"
+            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/30 backdrop-blur-sm"
           >
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
               <Mountain className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
@@ -115,7 +118,7 @@ export default function WhatWeCurate() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px", amount: 0.3 }}
             transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
-            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/50"
+            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/30 backdrop-blur-sm"
           >
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
               <Palette className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />

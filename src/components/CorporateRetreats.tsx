@@ -122,20 +122,10 @@ export default function CorporateRetreats() {
   return (
     <section id="corporate-retreats" className="relative scroll-mt-20">
       {/* Hero Introduction */}
-      <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=80')",
-          }}
-        />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-background" />
-
-        {/* Content */}
+      <div className="relative min-h-[60vh] flex items-start justify-start overflow-hidden">
+        {/* Content - positioned left and top */}
         <motion.div
-          className="relative z-10 text-center px-6 py-24 max-w-4xl mx-auto"
+          className="relative z-10 text-left px-6 lg:px-12 pt-32 pb-24 max-w-2xl"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -147,15 +137,18 @@ export default function CorporateRetreats() {
           <h2 className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight">
             Curated Team Experiences
           </h2>
-          <p className="text-xl md:text-2xl text-white/80 font-light max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-white/80 font-light">
             From focused offsites to immersive retreats, we design curated team experiences in Switzerland — tailored for clarity, trust, and human connection.
           </p>
         </motion.div>
       </div>
 
       {/* Value Propositions */}
-      <div className="bg-background py-20 px-6">
-        <div className="max-w-6xl mx-auto">
+      <div className="relative py-20 px-6">
+        {/* Overlay for value props section */}
+        <div className="absolute inset-0 bg-black/30" />
+
+        <div className="relative z-10 max-w-6xl mx-auto">
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
             initial={{ opacity: 0, y: 20 }}
@@ -186,9 +179,12 @@ export default function CorporateRetreats() {
       </div>
 
       {/* Contact Form Section */}
-      <div className="bg-black py-24 px-6">
+      <div className="relative py-24 px-6 overflow-hidden">
+        {/* Darker overlay for form section */}
+        <div className="absolute inset-0 bg-black/60" />
+
         <motion.div
-          className="max-w-2xl mx-auto"
+          className="relative z-10 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

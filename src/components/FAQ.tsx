@@ -28,8 +28,11 @@ const faqs = [
 export default function FAQ() {
   return (
     <section className="relative py-24 px-6" aria-labelledby="faq-title">
-      <div className="max-w-3xl mx-auto">
-        <p className="text-sm uppercase tracking-widest text-muted-foreground text-center mb-12">
+      {/* Overlay for FAQ section */}
+      <div className="absolute inset-0 bg-black/40" />
+
+      <div className="relative z-10 max-w-3xl mx-auto">
+        <p className="text-sm uppercase tracking-widest text-white/60 text-center mb-12">
           Frequently Asked Questions
         </p>
 
@@ -38,12 +41,12 @@ export default function FAQ() {
             <AccordionItem
               key={index}
               value={`item-${index}`}
-              className="border-border/30 hover:bg-secondary/30 transition-colors duration-200 px-4 rounded-lg"
+              className="border-white/20 hover:bg-white/10 transition-colors duration-200 px-4 rounded-lg"
             >
-              <AccordionTrigger className="text-foreground text-left text-lg font-medium hover:no-underline py-6">
+              <AccordionTrigger className="text-white text-left text-lg font-medium hover:no-underline py-6">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-6">
+              <AccordionContent className="text-white/70 text-base leading-relaxed pb-6">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

@@ -21,7 +21,10 @@ const steps = [
 export default function HowItWorks() {
   return (
     <section id="how-it-works" className="relative py-20 sm:py-32 border-t border-white/10 scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Overlay for how it works section */}
+      <div className="absolute inset-0 bg-black/30" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
