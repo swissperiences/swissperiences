@@ -99,9 +99,9 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
           />
 
           <div className="relative rounded-full px-8 py-4 text-white">
-            <div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0">
+            <div className="relative flex items-center justify-between gap-6 lg:gap-0">
             {/* Logo + Mobile Button + Desktop Nav Links */}
-            <div className="flex w-full items-center justify-between lg:w-auto lg:gap-16">
+            <div className="flex items-center justify-between lg:w-auto lg:gap-16">
               <Link
                 to="/"
                 className="text-lg text-white hover:text-white/80 transition-colors uppercase tracking-[0.2em]"
