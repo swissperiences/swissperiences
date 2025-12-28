@@ -99,9 +99,9 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
           />
 
           <div className="relative rounded-full px-8 py-4 text-white">
-            <div className="relative flex items-center justify-between gap-6 lg:gap-0">
+            <div className="relative flex flex-wrap items-center justify-between gap-6 lg:flex-nowrap lg:gap-0">
             {/* Logo + Mobile Button + Desktop Nav Links */}
-            <div className="flex items-center justify-between lg:w-auto lg:gap-16">
+            <div className="flex w-full items-center justify-between lg:w-auto lg:gap-16">
               <Link
                 to="/"
                 className="text-lg text-white hover:text-white/80 transition-colors uppercase tracking-[0.2em]"
@@ -125,7 +125,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                     <li key={link.href}>
                       <button
                         onClick={() => handleNavClick(link.href)}
-                        className="block duration-150 transition-colors text-white/80 hover:text-white"
+                        className="block duration-150 transition-colors text-white/80 hover:text-white whitespace-nowrap"
                       >
                         <span>{link.label}</span>
                       </button>
@@ -136,12 +136,12 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-8">
+            <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-8 lg:flex-shrink-0">
               {/* Invisible spacer */}
               <div className="hidden lg:block h-6 w-px opacity-0"></div>
               <button
                 onClick={onWaitlistClick}
-                className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
+                className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em] whitespace-nowrap"
                 aria-label="Reserve your spot on the waitlist"
               >
                 <span className="border-b border-white/40 group-hover:border-white pb-1">Reserve Your Spot</span>
