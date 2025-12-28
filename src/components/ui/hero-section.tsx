@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { useScroll, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 interface HeroSectionProps {
@@ -11,59 +11,11 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
-  const { scrollYProgress } = useScroll();
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      // Map scroll progress to 0-1 range for the first screen
-      const progress = Math.min(latest * 2, 1);
-      setScrollProgress(progress);
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
-
-  // Calculate transformations based on scroll
-  const videoScale = 1.2 - scrollProgress * 0.2; // 1.2 -> 1.0
-  const videoOpacity = 1 - scrollProgress * 0.3; // 1 -> 0.7
-
-  // Text convergence: start separated, end centered
-  const topTextY = -100 * (1 - scrollProgress); // -100 -> 0
-  const topTextX = -50 * (1 - scrollProgress); // -50 -> 0
-  const bottomTextY = 100 * (1 - scrollProgress); // 100 -> 0
-  const bottomTextX = 50 * (1 - scrollProgress); // 50 -> 0
-
-  const textOpacity = 0.3 + scrollProgress * 0.7; // 0.3 -> 1
-  const ctaOpacity = scrollProgress; // 0 -> 1
-  const ctaScale = 0.8 + scrollProgress * 0.2; // 0.8 -> 1
-
   return (
     <>
       <HeroHeader onJoinWaitlist={onJoinWaitlist} />
       <section className="relative w-full min-h-screen overflow-x-hidden">
-        {/* Full-screen Video Background */}
-        <motion.div
-          className="absolute inset-0 z-0"
-          style={{
-            scale: videoScale,
-            opacity: videoOpacity,
-          }}
-        >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="h-full w-full object-cover"
-          >
-            <source src="/hero-video-v2.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          {/* Light overlay: Subtle gradient for text readability while keeping video visible */}
-          <div className="absolute inset-0 bg-black/15 md:bg-gradient-to-b md:from-black/25 md:via-black/20 md:to-black/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 md:hidden" />
-        </motion.div>
+        {/* Video background is now global - no local video needed */}
 
         {/* --- MOBILE LAYOUT (One idea per viewport) --- */}
         <div className="relative z-10 flex flex-col md:hidden">
@@ -71,27 +23,24 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
           {/* Viewport 1: The Hook - Pure & Simple */}
           <div className="flex min-h-[100dvh] pt-20 w-full flex-col items-center justify-center px-6 text-center">
             {/* Note: Removed pre-header for absolute focus */}
-            <h1 className="text-white font-medium tracking-tight leading-[1.15] drop-shadow-lg">
-              <span className="block text-[2.5rem]">
-                Switzerland
+            <h1 className="text-white leading-[1.2] drop-shadow-lg">
+              <span className="block text-[3rem] font-normal tracking-wide">
+                Switzerland.
               </span>
-              <span className="block text-[2.5rem]">
-                is not a
-              </span>
-              <span className="block text-[2.5rem]">
-                destination.
+              <span className="block text-[2.2rem] font-light mt-4 opacity-90 tracking-wide">
+                A state of mind.
               </span>
             </h1>
           </div>
 
           {/* Viewport 2: The Resolution & Action */}
           <div className="flex min-h-[85vh] pt-20 w-full flex-col items-center justify-center px-6 text-center pb-24 bg-gradient-to-b from-transparent to-black/40">
-            <h1 className="text-white font-medium tracking-tight leading-[1.15] drop-shadow-lg mb-8">
-              <span className="block text-[2.2rem] opacity-90">
-                It&apos;s a state
+            <h1 className="text-white leading-[1.2] drop-shadow-lg mb-8">
+              <span className="block text-[3rem] font-normal tracking-wide">
+                Switzerland.
               </span>
-              <span className="block text-[2.2rem] opacity-90">
-                of mind.
+              <span className="block text-[2.2rem] font-light mt-4 opacity-90 tracking-wide">
+                A state of mind.
               </span>
             </h1>
 
@@ -102,9 +51,9 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             <div className="mt-10 flex justify-center">
               <button
                 onClick={onJoinWaitlist}
-                className="rounded-full bg-white/95 px-10 py-4 text-sm font-medium text-black hover:bg-white transition-colors shadow-xl"
+                className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
               >
-                Request Access
+                <span className="border-b border-white/40 group-hover:border-white pb-1">Request Access</span>
               </button>
             </div>
           </div>
@@ -117,16 +66,13 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
               Curated in Switzerland
             </div>
 
-            {/* Headline (LOCKED) */}
-            <h1 className="text-white font-medium tracking-tight leading-[1.06]" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.25)" }}>
-              <span className="block text-[clamp(3.4rem,6.0vw,6.4rem)]">
-                Switzerland is not a
+            {/* Headline */}
+            <h1 className="text-white leading-[1.15]" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.25)" }}>
+              <span className="block text-[clamp(4rem,7vw,8rem)] font-normal tracking-wide">
+                Switzerland.
               </span>
-              <span className="block text-[clamp(3.4rem,6.0vw,6.4rem)]">
-                destination.
-              </span>
-              <span className="block text-[clamp(3.4rem,6.0vw,6.4rem)]">
-                It&apos;s a state of mind.
+              <span className="block text-[clamp(3rem,5.5vw,7rem)] font-light mt-6 opacity-90 tracking-wide">
+                A state of mind.
               </span>
             </h1>
 
@@ -149,9 +95,9 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             <div className="mt-[12vh] flex justify-center">
               <button
                 onClick={onJoinWaitlist}
-                className="rounded-full bg-white/90 px-8 py-3 text-sm font-medium text-black hover:bg-white/100 transition-colors"
+                className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
               >
-                Request Access
+                <span className="border-b border-white/40 group-hover:border-white pb-1">Request Access</span>
               </button>
             </div>
           </div>
@@ -180,15 +126,15 @@ const menuItems = [
 const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
   const [menuState, setMenuState] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { scrollYProgress } = useScroll();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      setScrolled(latest > 0.05);
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleNavClick = (href: string) => {
     setMenuState(false);
@@ -206,19 +152,18 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
     <header>
       <nav
         data-state={menuState && 'active'}
-        className="group fixed z-50 w-full pt-4 px-4"
+        className="group fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl"
       >
         <div
           className={cn(
-            'mx-auto max-w-7xl rounded-full px-6 transition-all duration-300',
-            scrolled || menuState ? 'bg-background/95 backdrop-blur-md border border-white/10 shadow-lg' : 'bg-white/5 backdrop-blur-sm border border-white/10'
+            'rounded-full px-8 py-4 transition-all duration-500 ease-in-out text-white',
+            scrolled
+              ? 'bg-[#1A1614]/95 backdrop-blur-lg border border-white/10'
+              : 'bg-transparent backdrop-blur-sm border border-white/20'
           )}
         >
           <motion.div
-            className={cn(
-              'relative flex flex-wrap items-center justify-between gap-6 py-3 duration-200 lg:gap-0',
-              scrolled ? 'lg:py-3' : 'lg:py-4'
-            )}
+            className="relative flex flex-wrap items-center justify-between gap-6 duration-200 lg:gap-0"
           >
             <div className="flex w-full items-center justify-between gap-12 lg:w-auto">
               <a
@@ -227,10 +172,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                   e.preventDefault();
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className={cn(
-                  "flex items-center space-x-2 font-semibold text-lg tracking-tight hover:opacity-80 transition-opacity",
-                  scrolled ? "text-foreground" : "text-white"
-                )}
+                className="flex items-center space-x-2 text-lg uppercase tracking-[0.2em] hover:opacity-80 transition-opacity text-white"
                 aria-label="home"
               >
                 Swissperiences
@@ -241,14 +183,8 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                 aria-label={menuState ? 'Close Menu' : 'Open Menu'}
                 className="relative z-50 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
               >
-                <Menu className={cn(
-                  "group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200",
-                  scrolled ? "text-foreground" : "text-white"
-                )} />
-                <X className={cn(
-                  "group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200",
-                  scrolled ? "text-foreground" : "text-white"
-                )} />
+                <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200 text-white" />
+                <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200 text-white" />
               </button>
 
               <div className="hidden lg:block">
@@ -257,10 +193,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                     <li key={index}>
                       <button
                         onClick={() => handleNavClick(item.href)}
-                        className={cn(
-                          "block duration-150 transition-colors",
-                          scrolled ? "text-muted-foreground hover:text-foreground" : "text-white/80 hover:text-white"
-                        )}
+                        className="block duration-150 transition-colors text-white/80 hover:text-white"
                       >
                         <span>{item.name}</span>
                       </button>
@@ -270,7 +203,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
               </div>
             </div>
 
-            <div className="bg-black/50 backdrop-blur-xl lg:bg-transparent group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-8 shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:p-0 lg:shadow-none">
+            <div className="bg-[#1A1614]/80 backdrop-blur-xl lg:bg-transparent group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-8 shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:p-0 lg:shadow-none">
               <div className="lg:hidden w-full">
                 <ul className="space-y-6 text-base font-light tracking-wide text-white/80">
                   {menuItems.map((item, index) => (

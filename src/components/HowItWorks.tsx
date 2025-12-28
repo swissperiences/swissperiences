@@ -20,24 +20,8 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="relative bg-black py-20 sm:py-32 border-t border-white/10 scroll-mt-20 overflow-hidden">
-      {/* Video Background */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="h-full w-full object-cover"
-        >
-          <source src="/hero-video-v2.mp4" type="video/mp4" />
-        </video>
-        {/* Light overlay for readability */}
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+    <section id="how-it-works" className="relative py-20 sm:py-32 border-t border-white/10 scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +45,7 @@ export default function HowItWorks() {
               <span className="text-6xl sm:text-7xl font-light text-white/20 mb-4 block">
                 {step.number}
               </span>
-              <h3 className="text-xl font-semibold text-white mb-3">
+              <h3 className="text-xl text-white mb-3">
                 {step.title}
               </h3>
               <p className="text-sm text-white/60 leading-relaxed max-w-xs mx-auto">

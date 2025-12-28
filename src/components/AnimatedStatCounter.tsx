@@ -79,7 +79,7 @@ export default function AnimatedStatCounter() {
               transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
               className="text-center flex flex-col items-center justify-start p-4 sm:p-6"
             >
-              <p className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tabular-nums">
+              <p className="text-4xl sm:text-5xl lg:text-6xl text-white tabular-nums">
                 <AnimatedNumber value={stat.value} suffix={stat.suffix} />
               </p>
               <p className="text-xs sm:text-sm text-white/50 mt-3 leading-relaxed max-w-[140px]">

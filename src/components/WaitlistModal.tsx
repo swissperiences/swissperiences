@@ -102,7 +102,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md bg-background border-border animate-in fade-in-0 zoom-in-95 duration-300">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-semibold text-foreground">
+          <DialogTitle className="text-2xl text-foreground">
             {isSuccess ? 'Request Received' : 'Request Access'}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">

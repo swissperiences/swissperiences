@@ -33,10 +33,9 @@ const SwissperiencesContent = ({ onWaitlist }: { onWaitlist: () => void }) => {
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-10">
             Philosophy
           </p>
-          <blockquote className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed italic text-foreground/90">
-            Switzerland is not a destination.
-            <br />
-            <span className="text-foreground">It's a state of mind.</span>
+          <blockquote className="text-2xl md:text-3xl lg:text-4xl leading-relaxed text-foreground">
+            <span className="block font-normal tracking-wide">Switzerland.</span>
+            <span className="block font-light mt-4 opacity-90 tracking-wide">A state of mind.</span>
           </blockquote>
         </motion.section>
 

@@ -25,18 +25,17 @@ const navLinks = [
 ];
 
 export default function Navigation({ onWaitlistClick }: NavigationProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 80);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -72,18 +71,19 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="fixed top-4 left-0 right-0 z-[80] flex justify-center px-4"
+        className="fixed top-6 left-0 right-0 z-[80] flex justify-center px-4"
       >
         <nav
-          className={`flex items-center justify-between gap-6 px-6 py-3 rounded-full transition-all duration-300 max-w-fit ${isScrolled
-            ? "bg-black/80 backdrop-blur-md border border-white/10 shadow-lg"
-            : "bg-black/40 backdrop-blur-sm border border-white/5"
-            }`}
+          className={`flex items-center justify-between gap-6 px-8 py-4 rounded-full transition-all duration-500 ease-in-out max-w-fit text-white ${
+            scrolled
+              ? 'bg-[#1A1614]/95 backdrop-blur-lg border border-white/10'
+              : 'bg-transparent backdrop-blur-sm border border-white/20'
+          }`}
         >
           {/* Logo */}
           <Link
             to="/"
-            className="text-lg font-semibold text-white hover:text-white/80 transition-colors tracking-tight"
+            className="text-lg text-white hover:text-white/80 transition-colors uppercase tracking-[0.2em]"
           >
             Swissperiences
           </Link>
@@ -102,10 +102,10 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             ))}
             <button
               onClick={onWaitlistClick}
-              className="text-sm px-5 py-2 bg-white text-black rounded-full font-medium hover:bg-white/90 hover:scale-105 active:scale-95 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black"
+              className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
               aria-label="Reserve your spot on the waitlist"
             >
-              Reserve Your Spot
+              <span className="border-b border-white/40 group-hover:border-white pb-1">Reserve Your Spot</span>
             </button>
           </div>
 
@@ -128,7 +128,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-4 top-20 z-40 bg-black/95 backdrop-blur-md border border-white/10 rounded-2xl md:hidden"
+            className="fixed inset-x-4 top-20 z-40 bg-[#1A1614]/95 backdrop-blur-md border border-white/10 rounded-2xl md:hidden"
           >
             <div className="px-6 py-6 space-y-4">
               {navLinks.map((link) => (
@@ -145,10 +145,10 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                   setIsMobileMenuOpen(false);
                   onWaitlistClick();
                 }}
-                className="w-full mt-4 text-base px-5 py-3 bg-white text-black rounded-full font-medium hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/50"
+                className="group w-full mt-4 text-sm text-white/90 hover:text-white transition-colors text-center uppercase tracking-[0.15em]"
                 aria-label="Reserve your spot on the waitlist"
               >
-                Reserve Your Spot
+                <span className="border-b border-white/40 group-hover:border-white pb-1">Reserve Your Spot</span>
               </button>
             </div>
           </motion.div>

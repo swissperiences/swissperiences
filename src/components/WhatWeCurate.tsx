@@ -54,7 +54,7 @@ export default function WhatWeCurate() {
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
               <Leaf className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
             </div>
-            <h3 className="text-lg font-semibold text-white mb-3">
+            <h3 className="text-lg text-white mb-3">
               Wellness Retreats
             </h3>
             <p className="text-sm text-white/60 leading-relaxed mb-4">
@@ -76,7 +76,7 @@ export default function WhatWeCurate() {
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
               <Wind className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
             </div>
-            <h3 className="text-lg font-semibold text-white mb-3">
+            <h3 className="text-lg text-white mb-3">
               Mindful Experiences
             </h3>
             <p className="text-sm text-white/60 leading-relaxed mb-4">
@@ -98,7 +98,7 @@ export default function WhatWeCurate() {
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
               <Mountain className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
             </div>
-            <h3 className="text-lg font-semibold text-white mb-3">
+            <h3 className="text-lg text-white mb-3">
               Alpine Adventures
             </h3>
             <p className="text-sm text-white/60 leading-relaxed mb-4">
@@ -120,7 +120,7 @@ export default function WhatWeCurate() {
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
               <Palette className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
             </div>
-            <h3 className="text-lg font-semibold text-white mb-3">
+            <h3 className="text-lg text-white mb-3">
               Cultural Immersion
             </h3>
             <p className="text-sm text-white/60 leading-relaxed mb-4">
