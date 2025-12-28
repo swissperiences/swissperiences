@@ -40,10 +40,10 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
   return (
     <>
       <HeroHeader onJoinWaitlist={onJoinWaitlist} />
-      <section className="relative w-full overflow-x-hidden">
+      <section className="relative w-full min-h-screen overflow-x-hidden">
         {/* Full-screen Video Background */}
         <motion.div
-          className="fixed inset-0 z-0"
+          className="absolute inset-0 z-0"
           style={{
             scale: videoScale,
             opacity: videoOpacity,
@@ -69,7 +69,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
         <div className="relative z-10 flex flex-col md:hidden">
 
           {/* Viewport 1: The Hook - Pure & Simple */}
-          <div className="flex h-[100dvh] w-full flex-col items-center justify-center px-6 text-center">
+          <div className="flex min-h-[100dvh] pt-20 w-full flex-col items-center justify-center px-6 text-center">
             {/* Note: Removed pre-header for absolute focus */}
             <h1 className="text-white font-medium tracking-tight leading-[1.15] drop-shadow-lg">
               <span className="block text-[2.5rem]">
@@ -85,7 +85,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
           </div>
 
           {/* Viewport 2: The Resolution & Action */}
-          <div className="flex min-h-[85vh] w-full flex-col items-center justify-center px-6 text-center pb-24 bg-gradient-to-b from-transparent to-black/40">
+          <div className="flex min-h-[85vh] pt-20 w-full flex-col items-center justify-center px-6 text-center pb-24 bg-gradient-to-b from-transparent to-black/40">
             <h1 className="text-white font-medium tracking-tight leading-[1.15] drop-shadow-lg mb-8">
               <span className="block text-[2.2rem] opacity-90">
                 It&apos;s a state
@@ -111,8 +111,8 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
         </div>
 
         {/* --- DESKTOP LAYOUT (Preserved) --- */}
-        <div className="relative z-10 hidden md:flex h-screen items-center justify-center px-6">
-          <div className="mx-auto w-full max-w-6xl text-center lg:-translate-y-[8vh]">
+        <div className="relative z-10 hidden md:flex min-h-screen pt-24 items-center justify-center px-6">
+          <div className="mx-auto w-full max-w-6xl text-center">
             <div className="mb-5 text-xs font-medium uppercase tracking-[0.35em] text-white/90" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)" }}>
               Curated in Switzerland
             </div>
