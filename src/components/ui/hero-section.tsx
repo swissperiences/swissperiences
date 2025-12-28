@@ -60,8 +60,8 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             <source src="/hero-video-v2.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          {/* Dark overlay: Lighter on mobile (bottom gradient only), Standard on desktop */}
-          <div className="absolute inset-0 bg-black/20 md:bg-gradient-to-b md:from-black/60 md:via-black/50 md:to-black/70" />
+          {/* Dark overlay: Lighter on mobile (bottom gradient only), Enhanced on desktop for text contrast */}
+          <div className="absolute inset-0 bg-black/20 md:bg-gradient-to-b md:from-black/50 md:via-black/40 md:to-black/80" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 md:hidden" />
         </motion.div>
 
@@ -95,7 +95,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
               </span>
             </h1>
 
-            <p className="mx-auto text-sm text-white/55 font-light leading-relaxed">
+            <p className="mx-auto text-sm text-white/90 font-light leading-relaxed drop-shadow-md">
               Curated Swiss experiences.
             </p>
 
@@ -130,16 +130,18 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
               </span>
             </h1>
 
-            {/* Subheadline */}
-            <p className="mx-auto mt-6 max-w-2xl text-sm md:text-base text-white/60 font-light">
-              Immersive nature. For those seeking less noise and more feeling.
-            </p>
-            <p className="mx-auto mt-2 max-w-2xl text-sm md:text-base text-white/60 font-light">
-              Curated Swiss experiences — from intimate moments to immersive journeys.
-            </p>
+            {/* Subheadline: Increased contrast and spacing */}
+            <div className="space-y-3 mt-8">
+              <p className="mx-auto max-w-2xl text-base md:text-lg text-white/90 font-light leading-relaxed drop-shadow-md">
+                Immersive nature. For those seeking less noise and more feeling.
+              </p>
+              <p className="mx-auto max-w-2xl text-base md:text-lg text-white/90 font-light leading-relaxed drop-shadow-md">
+                Curated Swiss experiences — from intimate moments to immersive journeys.
+              </p>
+            </div>
 
-            {/* Micro-phrase (Lead-first, editorial, discreet) */}
-            <p className="mx-auto mt-3 text-xs text-white/50 font-light tracking-wide">
+            {/* Micro-phrase: Increased visibility */}
+            <p className="mx-auto mt-6 text-sm text-white/80 font-normal tracking-wide drop-shadow-sm">
               Inquiries limited. Curated individually.
             </p>
 
