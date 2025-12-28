@@ -40,10 +40,10 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
   return (
     <>
       <HeroHeader onJoinWaitlist={onJoinWaitlist} />
-      <section className="relative h-screen w-full overflow-hidden">
-        {/* Full-screen Video Background with scroll effect */}
+      <section className="relative w-full overflow-x-hidden">
+        {/* Full-screen Video Background */}
         <motion.div
-          className="absolute inset-0"
+          className="fixed inset-0 z-0"
           style={{
             scale: videoScale,
             opacity: videoOpacity,
@@ -60,18 +60,65 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             <source src="/hero-video-v2.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+          {/* Dark overlay: Lighter on mobile (bottom gradient only), Standard on desktop */}
+          <div className="absolute inset-0 bg-black/20 md:bg-gradient-to-b md:from-black/60 md:via-black/50 md:to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 md:hidden" />
         </motion.div>
 
-        <div className="relative z-10 flex min-h-screen items-center justify-center px-6">
-          <div className="mx-auto w-full max-w-6xl text-center">
+        {/* --- MOBILE LAYOUT (One idea per viewport) --- */}
+        <div className="relative z-10 flex flex-col md:hidden">
+
+          {/* Viewport 1: The Hook - Pure & Simple */}
+          <div className="flex h-[100dvh] w-full flex-col items-center justify-center px-6 text-center">
+            {/* Note: Removed pre-header for absolute focus */}
+            <h1 className="text-white font-medium tracking-tight leading-[1.15] drop-shadow-lg">
+              <span className="block text-[2.75rem]">
+                Switzerland
+              </span>
+              <span className="block text-[2.75rem]">
+                is not a
+              </span>
+              <span className="block text-[2.75rem]">
+                destination.
+              </span>
+            </h1>
+          </div>
+
+          {/* Viewport 2: The Resolution & Action */}
+          <div className="flex min-h-[85vh] w-full flex-col items-center justify-center px-6 text-center pb-24 bg-gradient-to-b from-transparent to-black/40">
+            <h1 className="text-white font-medium tracking-tight leading-[1.15] drop-shadow-lg mb-8">
+              <span className="block text-[2.75rem]">
+                It&apos;s a state
+              </span>
+              <span className="block text-[2.75rem]">
+                of mind.
+              </span>
+            </h1>
+
+            <p className="mx-auto text-base text-white/80 font-light leading-relaxed">
+              Curated Swiss experiences.
+            </p>
+
+            <div className="mt-10 flex justify-center">
+              <button
+                onClick={onJoinWaitlist}
+                className="rounded-full bg-white/95 px-10 py-4 text-sm font-medium text-black hover:bg-white transition-colors shadow-xl"
+              >
+                Request Access
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* --- DESKTOP LAYOUT (Preserved) --- */}
+        <div className="relative z-10 hidden md:flex h-screen items-center justify-center px-6">
+          <div className="mx-auto w-full max-w-6xl text-center lg:-translate-y-[8vh]">
             <div className="mb-5 text-xs font-medium uppercase tracking-[0.35em] text-white/70">
               Curated in Switzerland
             </div>
 
             {/* Headline (LOCKED) */}
-            <h1 className="text-white font-medium tracking-tight leading-[1.06]">
+            <h1 className="text-white font-medium tracking-tight leading-[1.06]" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.25)" }}>
               <span className="block text-[clamp(3.8rem,6.6vw,7.2rem)]">
                 Switzerland is not a
               </span>
@@ -84,10 +131,10 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             </h1>
 
             {/* Subheadline */}
-            <p className="mx-auto mt-6 max-w-2xl text-sm md:text-base text-white/70">
+            <p className="mx-auto mt-6 max-w-2xl text-sm md:text-base text-white/60 font-light">
               Immersive nature. For those seeking less noise and more feeling.
             </p>
-            <p className="mx-auto mt-2 max-w-2xl text-sm md:text-base text-white/70">
+            <p className="mx-auto mt-2 max-w-2xl text-sm md:text-base text-white/60 font-light">
               Curated Swiss experiences — from intimate moments to immersive journeys.
             </p>
 
@@ -97,10 +144,10 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             </p>
 
             {/* CTA */}
-            <div className="mt-10 flex justify-center">
+            <div className="mt-[12vh] flex justify-center">
               <button
                 onClick={onJoinWaitlist}
-                className="rounded-full bg-white px-8 py-3 text-sm font-medium text-black hover:bg-white/90 transition-colors"
+                className="rounded-full bg-white/90 px-8 py-3 text-sm font-medium text-black hover:bg-white/100 transition-colors"
               >
                 Request Access
               </button>

@@ -39,16 +39,6 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
 
     setIsLoading(true);
 
-    // Mock successful submission for UI testing
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSuccess(true);
-      toast({
-        title: 'Request submitted',
-        description: "We'll respond personally within 48 hours.",
-      });
-    }, 1500);
-
     try {
       // 1. Database Insert
       const { error } = await supabase
@@ -57,11 +47,13 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
 
       if (error) {
         if (error.code === '23505') {
+          // Duplicate email - treat as info/success but don't show "request received" screen to avoid confusion
+          // OR show a specific message. User prompt said: show calm message like "You're already on the list."
           toast({
-            title: 'Already registered',
-            description: 'This email is already on the waitlist.',
+            title: 'Already on the list',
+            description: "You're already registered for the waitlist.",
           });
-          return;
+          return; // Do not set isSuccess(true)
         } else {
           throw error;
         }
@@ -75,6 +67,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
         body: JSON.stringify({ email: result.data }),
       }).catch(console.error);
 
+      // ONLY set success state if DB insert worked
       setIsSuccess(true);
       toast({
         title: 'Welcome to the waitlist',
