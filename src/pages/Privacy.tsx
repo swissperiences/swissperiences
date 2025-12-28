@@ -24,7 +24,7 @@ export default function Privacy() {
           Privacy & Cookies
         </h1>
         <p className="text-white/40 text-sm mb-12">
-          Last updated: December 2024
+          Last updated: December 2025
         </p>
 
         <div className="space-y-12">
@@ -65,11 +65,11 @@ export default function Privacy() {
             <h2 className="text-xl font-medium mb-4">Questions?</h2>
             <p className="text-white/70 leading-relaxed">
               For any privacy-related inquiries, please contact us at{" "}
-              <a 
-                href="mailto:contact@swissperiences.ch" 
+              <a
+                href="mailto:hello@swissperiences.ch"
                 className="text-white hover:underline focus:outline-none focus:underline"
               >
-                contact@swissperiences.ch
+                hello@swissperiences.ch
               </a>
             </p>
           </section>

@@ -130,7 +130,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+      setScrolled(window.scrollY > 90);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -150,22 +150,42 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
 
   return (
     <header>
-      <nav
+      <motion.nav
         data-state={menuState && 'active'}
-        className="group fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl"
+        className="group fixed top-6 left-1/2 -translate-x-1/2 z-50"
+        initial={{
+          width: '95%',
+          maxWidth: '1280px',
+        }}
+        animate={{
+          width: scrolled ? 'auto' : '95%',
+          maxWidth: scrolled ? 'fit-content' : '1280px',
+        }}
+        transition={{
+          duration: 0.7,
+          ease: [0.16, 1, 0.3, 1],
+        }}
       >
-        <div
-          className={cn(
-            'rounded-full px-8 py-4 transition-all duration-500 ease-in-out text-white',
-            scrolled
-              ? 'bg-[#1A1614]/95 backdrop-blur-lg border border-white/10'
-              : 'bg-transparent backdrop-blur-sm border border-white/20'
-          )}
-        >
+        {/* Pieces-style materializing pill background */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: scrolled ? 1 : 0,
+            scale: scrolled ? 1 : 0.8,
+          }}
+          transition={{
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1], // Pieces.app easing curve
+          }}
+          className="absolute inset-0 bg-[#1A1614]/95 backdrop-blur-lg border border-white/10 rounded-full"
+          style={{ pointerEvents: 'none' }}
+        />
+
+        <div className="relative rounded-full px-8 py-4 text-white">
           <motion.div
             className="relative flex flex-wrap items-center justify-between gap-6 duration-200 lg:gap-0"
           >
-            <div className="flex w-full items-center justify-between gap-12 lg:w-auto">
+            <div className="flex w-full items-center justify-between lg:w-auto lg:gap-16">
               <a
                 href="#"
                 onClick={(e) => {
@@ -203,7 +223,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
               </div>
             </div>
 
-            <div className="bg-[#1A1614]/80 backdrop-blur-xl lg:bg-transparent group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-8 shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:p-0 lg:shadow-none">
+            <div className="bg-[#1A1614]/80 backdrop-blur-xl lg:bg-transparent group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-8 shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-0 lg:space-y-0 lg:border-transparent lg:p-0 lg:shadow-none">
               <div className="lg:hidden w-full">
                 <ul className="space-y-6 text-base font-light tracking-wide text-white/80">
                   {menuItems.map((item, index) => (
@@ -218,7 +238,9 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:block hidden">
+              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:flex lg:flex-row lg:items-center lg:gap-8 hidden">
+                {/* Invisible spacer - Desktop only */}
+                <div className="hidden lg:block h-6 w-px opacity-0"></div>
                 {/* Desktop CTA only - Hidden on mobile menu to avoid duplication urgency */}
                 <Button
                   onClick={() => {
@@ -234,7 +256,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
             </div>
           </motion.div>
         </div>
-      </nav>
+      </motion.nav>
     </header>
   );
 };

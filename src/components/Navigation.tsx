@@ -32,7 +32,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+      setScrolled(window.scrollY > 90);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -73,13 +73,34 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="fixed top-6 left-0 right-0 z-[80] flex justify-center px-4"
       >
-        <nav
-          className={`flex items-center justify-between gap-6 px-8 py-4 rounded-full transition-all duration-500 ease-in-out max-w-fit text-white ${
-            scrolled
-              ? 'bg-[#1A1614]/95 backdrop-blur-lg border border-white/10'
-              : 'bg-transparent backdrop-blur-sm border border-white/20'
-          }`}
+        <motion.nav
+          className="relative flex items-center justify-between gap-6 px-8 py-4 rounded-full text-white"
+          animate={{
+            width: scrolled ? 'auto' : '100%',
+            maxWidth: scrolled ? 'fit-content' : '100%',
+          }}
+          transition={{
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         >
+          {/* Pieces-style materializing pill background */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: scrolled ? 1 : 0,
+              scale: scrolled ? 1 : 0.8,
+            }}
+            transition={{
+              duration: 0.7,
+              ease: [0.16, 1, 0.3, 1], // Pieces.app easing curve
+            }}
+            className="absolute inset-0 bg-[#1A1614]/95 backdrop-blur-lg border border-white/10 rounded-full"
+            style={{ pointerEvents: 'none' }}
+          />
+
+          {/* Content wrapper */}
+          <div className="relative flex items-center justify-between gap-6 w-full">
           {/* Logo */}
           <Link
             to="/"
@@ -117,7 +138,8 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
           >
             {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-        </nav>
+          </div>
+        </motion.nav>
       </motion.header>
 
       {/* Mobile Menu */}
