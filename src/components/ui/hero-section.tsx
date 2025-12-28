@@ -61,7 +61,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             Your browser does not support the video tag.
           </video>
           {/* Dark overlay: Lighter on mobile (bottom gradient only), Enhanced on desktop for text contrast */}
-          <div className="absolute inset-0 bg-black/20 md:bg-gradient-to-b md:from-black/50 md:via-black/40 md:to-black/80" />
+          <div className="absolute inset-0 bg-black/20 md:bg-gradient-to-b md:from-black/60 md:via-black/50 md:to-black/90" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 md:hidden" />
         </motion.div>
 
@@ -95,7 +95,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
               </span>
             </h1>
 
-            <p className="mx-auto text-sm text-white/90 font-light leading-relaxed drop-shadow-md">
+            <p className="mx-auto text-sm text-white font-light leading-relaxed drop-shadow-md">
               Curated Swiss experiences.
             </p>
 
@@ -130,18 +130,18 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
               </span>
             </h1>
 
-            {/* Subheadline: Increased contrast and spacing */}
+            {/* Subheadline: Maximum contrast */}
             <div className="space-y-3 mt-8">
-              <p className="mx-auto max-w-2xl text-base md:text-lg text-white/90 font-light leading-relaxed drop-shadow-md">
+              <p className="mx-auto max-w-2xl text-base md:text-lg text-white font-normal leading-relaxed drop-shadow-lg">
                 Immersive nature. For those seeking less noise and more feeling.
               </p>
-              <p className="mx-auto max-w-2xl text-base md:text-lg text-white/90 font-light leading-relaxed drop-shadow-md">
+              <p className="mx-auto max-w-2xl text-base md:text-lg text-white font-normal leading-relaxed drop-shadow-lg">
                 Curated Swiss experiences — from intimate moments to immersive journeys.
               </p>
             </div>
 
-            {/* Micro-phrase: Increased visibility */}
-            <p className="mx-auto mt-6 text-sm text-white/80 font-normal tracking-wide drop-shadow-sm">
+            {/* Micro-phrase: High visibility */}
+            <p className="mx-auto mt-6 text-sm text-white/90 font-medium tracking-wide drop-shadow-md">
               Inquiries limited. Curated individually.
             </p>
 
