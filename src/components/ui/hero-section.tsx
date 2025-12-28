@@ -72,13 +72,13 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
           <div className="flex h-[100dvh] w-full flex-col items-center justify-center px-6 text-center">
             {/* Note: Removed pre-header for absolute focus */}
             <h1 className="text-white font-medium tracking-tight leading-[1.15] drop-shadow-lg">
-              <span className="block text-[2.75rem]">
+              <span className="block text-[2.5rem]">
                 Switzerland
               </span>
-              <span className="block text-[2.75rem]">
+              <span className="block text-[2.5rem]">
                 is not a
               </span>
-              <span className="block text-[2.75rem]">
+              <span className="block text-[2.5rem]">
                 destination.
               </span>
             </h1>
@@ -87,15 +87,15 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
           {/* Viewport 2: The Resolution & Action */}
           <div className="flex min-h-[85vh] w-full flex-col items-center justify-center px-6 text-center pb-24 bg-gradient-to-b from-transparent to-black/40">
             <h1 className="text-white font-medium tracking-tight leading-[1.15] drop-shadow-lg mb-8">
-              <span className="block text-[2.75rem]">
+              <span className="block text-[2.2rem] opacity-90">
                 It&apos;s a state
               </span>
-              <span className="block text-[2.75rem]">
+              <span className="block text-[2.2rem] opacity-90">
                 of mind.
               </span>
             </h1>
 
-            <p className="mx-auto text-base text-white/80 font-light leading-relaxed">
+            <p className="mx-auto text-sm text-white/55 font-light leading-relaxed">
               Curated Swiss experiences.
             </p>
 
@@ -119,13 +119,13 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
 
             {/* Headline (LOCKED) */}
             <h1 className="text-white font-medium tracking-tight leading-[1.06]" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.25)" }}>
-              <span className="block text-[clamp(3.8rem,6.6vw,7.2rem)]">
+              <span className="block text-[clamp(3.4rem,6.0vw,6.4rem)]">
                 Switzerland is not a
               </span>
-              <span className="block text-[clamp(3.8rem,6.6vw,7.2rem)]">
+              <span className="block text-[clamp(3.4rem,6.0vw,6.4rem)]">
                 destination.
               </span>
-              <span className="block text-[clamp(3.8rem,6.6vw,7.2rem)]">
+              <span className="block text-[clamp(3.4rem,6.0vw,6.4rem)]">
                 It&apos;s a state of mind.
               </span>
             </h1>
@@ -258,14 +258,14 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
               </div>
             </div>
 
-            <div className="bg-background lg:bg-transparent group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:p-0 lg:shadow-none dark:shadow-none">
+            <div className="bg-black/50 backdrop-blur-xl lg:bg-transparent group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-8 shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:p-0 lg:shadow-none">
               <div className="lg:hidden w-full">
-                <ul className="space-y-4 text-lg">
+                <ul className="space-y-6 text-base font-light tracking-wide text-white/80">
                   {menuItems.map((item, index) => (
                     <li key={index}>
                       <button
                         onClick={() => handleNavClick(item.href)}
-                        className="text-muted-foreground hover:text-foreground block duration-150 transition-colors w-full text-left py-2"
+                        className="hover:text-white block duration-200 transition-colors w-full text-left py-1"
                       >
                         <span>{item.name}</span>
                       </button>
@@ -273,7 +273,8 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:block hidden">
+                {/* Desktop CTA only - Hidden on mobile menu to avoid duplication urgency */}
                 <Button
                   onClick={() => {
                     setMenuState(false);
