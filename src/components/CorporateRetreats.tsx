@@ -122,10 +122,10 @@ export default function CorporateRetreats() {
   return (
     <section id="corporate-retreats" className="relative scroll-mt-20">
       {/* Hero Introduction */}
-      <div className="relative min-h-[60vh] flex items-start justify-start overflow-hidden">
-        {/* Content - positioned left and top */}
+      <div className="relative min-h-[70vh] lg:min-h-[60vh] flex items-center lg:items-start justify-center lg:justify-start overflow-hidden">
+        {/* Content - centered on mobile, left on desktop */}
         <motion.div
-          className="relative z-10 text-left px-6 lg:px-12 pt-32 pb-24 max-w-2xl"
+          className="relative z-10 text-center lg:text-left px-6 lg:px-12 pt-20 lg:pt-32 pb-24 max-w-2xl mx-auto lg:mx-0"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -134,10 +134,10 @@ export default function CorporateRetreats() {
           <span className="inline-block px-4 py-1.5 mb-6 text-xs uppercase tracking-[0.2em] text-white/80 bg-white/10 rounded-full border border-white/20">
             For Teams
           </span>
-          <h2 className="text-4xl md:text-6xl font-light text-white mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-light text-white mb-6 tracking-tight">
             Curated Team Experiences
           </h2>
-          <p className="text-xl md:text-2xl text-white/80 font-light">
+          <p className="text-lg md:text-xl lg:text-2xl text-white/80 font-light max-w-xl mx-auto lg:mx-0">
             From focused offsites to immersive retreats, we design curated team experiences in Switzerland — tailored for clarity, trust, and human connection.
           </p>
         </motion.div>
