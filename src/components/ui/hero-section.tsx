@@ -60,9 +60,9 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             <source src="/hero-video-v2.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          {/* Dark overlay: Lighter on mobile (bottom gradient only), Enhanced on desktop for text contrast */}
-          <div className="absolute inset-0 bg-black/30 md:bg-gradient-to-b md:from-black/70 md:via-black/65 md:to-black/95" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 md:hidden" />
+          {/* Light overlay: Subtle gradient for text readability while keeping video visible */}
+          <div className="absolute inset-0 bg-black/15 md:bg-gradient-to-b md:from-black/25 md:via-black/20 md:to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 md:hidden" />
         </motion.div>
 
         {/* --- MOBILE LAYOUT (One idea per viewport) --- */}
@@ -167,6 +167,16 @@ const menuItems = [
   { name: 'For Teams', href: '/for-teams' },
 ];
 
+/**
+ * HeroHeader - Navigation component integrated with HeroSection
+ *
+ * NOTE: This component is similar to the standalone Navigation component
+ * TODO: Consider consolidating both into a single shared navigation component
+ *
+ * Current usage:
+ * - Embedded in HeroSection (Index page with hero video)
+ * - Navigation.tsx is used in ForTeams page (standalone)
+ */
 const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
   const [menuState, setMenuState] = useState(false);
   const [scrolled, setScrolled] = useState(false);

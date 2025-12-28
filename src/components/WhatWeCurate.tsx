@@ -45,10 +45,10 @@ export default function WhatWeCurate() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Card 1: Wellness Retreats */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0 }}
+            viewport={{ once: true, margin: "-100px", amount: 0.3 }}
+            transition={{ duration: 0.4, delay: 0, ease: "easeOut" }}
             className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/50"
           >
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
@@ -67,10 +67,10 @@ export default function WhatWeCurate() {
 
           {/* Card 2: Mindful Experiences */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true, margin: "-100px", amount: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
             className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/50"
           >
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
@@ -89,10 +89,10 @@ export default function WhatWeCurate() {
 
           {/* Card 3: Alpine Adventures */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true, margin: "-100px", amount: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
             className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/50"
           >
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
@@ -111,10 +111,10 @@ export default function WhatWeCurate() {
 
           {/* Card 4: Cultural Immersion */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true, margin: "-100px", amount: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
             className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/50"
           >
             <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">

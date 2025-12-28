@@ -2,8 +2,24 @@ import { Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-black border-t border-white/10 py-16 sm:py-20">
-      <div className="max-w-7xl mx-auto px-6">
+    <footer className="relative bg-black border-t border-white/10 py-16 sm:py-20 overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="h-full w-full object-cover"
+        >
+          <source src="/hero-video-v2.mp4" type="video/mp4" />
+        </video>
+        {/* Light overlay for readability */}
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center text-center">
           {/* Logo & Tagline */}
           <h2 className="text-2xl font-semibold text-white mb-2">

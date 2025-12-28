@@ -14,23 +14,23 @@ const stats: StatItem[] = [
   { value: 26, suffix: "", label: "Cantons available to explore" },
 ];
 
-function AnimatedNumber({ value, suffix, duration = 1.5 }: { value: number; suffix: string; duration?: number }) {
+function AnimatedNumber({ value, suffix, duration = 1.2 }: { value: number; suffix: string; duration?: number }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-150px", amount: 0.5 });
 
   useEffect(() => {
     if (!isInView) return;
 
-    let startTime: number;
+    let startTime: number | null = null;
     let animationFrame: number;
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
 
-      // Ease-out function
-      const easeOut = 1 - Math.pow(1 - progress, 3);
+      // Simplified ease-out for better performance
+      const easeOut = 1 - Math.pow(1 - progress, 2);
       setCount(Math.floor(easeOut * value));
 
       if (progress < 1) {
@@ -56,7 +56,7 @@ function AnimatedNumber({ value, suffix, duration = 1.5 }: { value: number; suff
 
 export default function AnimatedStatCounter() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-50px" });
+  const isInView = useInView(containerRef, { once: true, margin: "-100px", amount: 0.3 });
 
   return (
     <section className="bg-black py-20 sm:py-24 grain-overlay">
@@ -64,7 +64,7 @@ export default function AnimatedStatCounter() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-sm tracking-[0.3em] text-white/80 mb-16 text-center uppercase font-light"
         >
           By the Numbers
@@ -74,9 +74,9 @@ export default function AnimatedStatCounter() {
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
               className="text-center flex flex-col items-center justify-start p-4 sm:p-6"
             >
               <p className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tabular-nums">

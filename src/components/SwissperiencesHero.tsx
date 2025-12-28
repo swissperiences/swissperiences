@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-swiss-alps.jpg";
 
 export default function SwissperiencesHero() {
   return (
@@ -7,7 +6,7 @@ export default function SwissperiencesHero() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src={heroImage}
+          src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=80"
           alt="Cinematic aerial view of Swiss Alps with snow-capped mountains and alpine lakes at golden hour"
           className="h-full w-full object-cover animate-scale-in"
         />

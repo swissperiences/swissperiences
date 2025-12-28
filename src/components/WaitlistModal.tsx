@@ -65,7 +65,10 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: result.data }),
-      }).catch(console.error);
+      }).catch((error) => {
+        console.error('[Waitlist] Failed to send email notification:', error);
+        // TODO: Add error monitoring service (e.g., Sentry) here
+      });
 
       // ONLY set success state if DB insert worked
       setIsSuccess(true);
@@ -75,7 +78,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       });
 
     } catch (error) {
-      console.error(error);
+      console.error('[Waitlist] Database error:', error);
       toast({
         title: 'Something went wrong',
         description: 'Please try again later.',

@@ -1,3 +1,13 @@
+/**
+ * Standalone Navigation Component
+ *
+ * NOTE: This component is similar to HeroHeader in hero-section.tsx
+ * TODO: Consider consolidating both into a single shared navigation component
+ *
+ * Current usage:
+ * - ForTeams page (standalone header without hero)
+ * - HeroHeader is used in Index page (integrated with hero section)
+ */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";

@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -126,7 +126,7 @@
     animation: scaleIn 1.2s ease-out forwards;
   }
 
-  /* Premium grain texture overlay */
+  /* Premium grain texture overlay - Optimized for performance */
   .grain-overlay {
     position: relative;
   }
@@ -139,6 +139,10 @@
     opacity: 0.03;
     pointer-events: none;
     z-index: 1;
+    /* Performance optimizations */
+    will-change: opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 }
 

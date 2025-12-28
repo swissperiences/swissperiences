@@ -1,14 +1,8 @@
 import { motion } from "framer-motion";
-import ubsLogo from "@/assets/logos/ubs-logo.png";
-import franckMullerLogo from "@/assets/logos/franck-muller-logo.png";
-import ssbmLogo from "@/assets/logos/ssbm-geneva-logo.png";
 import franckProvostLogo from "@/assets/logos/franck-provost-logo.png";
 
 const logos = [
-  { name: "UBS", src: ubsLogo },
   { name: "Franck Provost", src: franckProvostLogo },
-  { name: "SSBM Geneva", src: ssbmLogo },
-  { name: "Franck Muller", src: franckMullerLogo },
 ];
 
 export default function TrustedBy() {

@@ -90,7 +90,10 @@ export default function CorporateRetreats() {
           teamSize: formData.teamSize,
           message: formData.message
         }),
-      }).catch(console.error);
+      }).catch((error) => {
+        console.error('[Corporate Inquiry] Failed to send email notification:', error);
+        // TODO: Add error monitoring service (e.g., Sentry) here
+      });
 
       toast({
         title: "Request received",
@@ -105,7 +108,7 @@ export default function CorporateRetreats() {
       });
       setHasSubmitted(false);
     } catch (error) {
-      console.error(error);
+      console.error('[Corporate Inquiry] Database error:', error);
       toast({
         title: "Something went wrong",
         description: "Please try again later.",

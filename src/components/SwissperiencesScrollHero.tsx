@@ -12,7 +12,6 @@ import HowItWorks from "@/components/HowItWorks";
 import CorporateRetreats from "@/components/CorporateRetreats";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
-import heroImage from "@/assets/hero-swiss-alps.jpg";
 
 const SwissperiencesContent = ({ onWaitlist }: { onWaitlist: () => void }) => {
   return (
