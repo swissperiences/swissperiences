@@ -57,8 +57,8 @@ export default async function handler(req, res) {
     <div class="wrapper">
         <center>
             <div class="main">
-                <!-- Hero Image: A stunning view from a Swiss cabin window (Winter) -->
-                <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?q=80&w=1200&auto=format&fit=crop" alt="Alpine Retreat View" class="hero-img">
+                <!-- Hero Image: Team contemplating Matterhorn at sunset -->
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200&auto=format&fit=crop" alt="Team Retreat at Matterhorn" class="hero-img">
                 
                 <div class="logo-area">
                     <div class="logo-text">Swissperiences</div>
