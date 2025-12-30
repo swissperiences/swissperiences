@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { checkRateLimit } from './lib/rate-limit';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -11,6 +12,12 @@ export default async function handler(req, res) {
 
     if (!email) {
         return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Rate limiting check
+    const rateLimitResult = await checkRateLimit(email, 'waitlist');
+    if (!rateLimitResult.success) {
+        return res.status(429).json({ error: rateLimitResult.error });
     }
 
     try {

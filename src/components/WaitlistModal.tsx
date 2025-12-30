@@ -21,12 +21,19 @@ interface WaitlistModalProps {
 
 export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
   const [email, setEmail] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Honeypot check - if filled, it's a bot
+    if (honeypot) {
+      console.warn('[Security] Honeypot triggered - potential bot detected');
+      return;
+    }
 
     const result = emailSchema.safeParse(email);
     if (!result.success) {
@@ -114,6 +121,23 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
 
         {!isSuccess ? (
           <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+            {/* Honeypot field - hidden from humans, visible to bots */}
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                width: '1px',
+                height: '1px',
+                opacity: 0,
+              }}
+              aria-hidden="true"
+            />
             <Input
               type="email"
               placeholder="your@email.com"

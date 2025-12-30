@@ -50,11 +50,18 @@ export default function CorporateRetreats() {
     email: "",
     teamSize: "",
     message: "",
+    honeypot: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setHasSubmitted(true);
+
+    // Honeypot check - if filled, it's a bot
+    if (formData.honeypot) {
+      console.warn('[Security] Honeypot triggered on corporate form - potential bot detected');
+      return;
+    }
 
     if (!formData.companyName || !formData.contactName || !formData.email) {
       toast({
@@ -105,6 +112,7 @@ export default function CorporateRetreats() {
         email: "",
         teamSize: "",
         message: "",
+        honeypot: "",
       });
       setHasSubmitted(false);
     } catch (error) {
@@ -203,6 +211,23 @@ export default function CorporateRetreats() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+            {/* Honeypot field - hidden from humans, visible to bots */}
+            <input
+              type="text"
+              name="website"
+              value={formData.honeypot}
+              onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+              tabIndex={-1}
+              autoComplete="off"
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                width: '1px',
+                height: '1px',
+                opacity: 0,
+              }}
+              aria-hidden="true"
+            />
             <div className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm space-y-5">
               <div className="grid grid-cols-1 gap-5">
                 <div className="space-y-2">
