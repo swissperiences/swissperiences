@@ -28,7 +28,7 @@ export async function checkRateLimit(
 ): Promise<{ success: boolean; error?: string }> {
   const ratelimit = type === 'waitlist' ? waitlistRatelimit : corporateRatelimit;
 
-  const { success, limit, reset, remaining } = await ratelimit.limit(identifier);
+  const { success, reset } = await ratelimit.limit(identifier);
 
   if (!success) {
     const resetDate = new Date(reset);

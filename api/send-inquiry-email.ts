@@ -1,5 +1,5 @@
 import { Resend } from 'resend';
-import { checkRateLimit } from './lib/rate-limit';
+import { checkRateLimit } from './lib/rate-limit.js';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
