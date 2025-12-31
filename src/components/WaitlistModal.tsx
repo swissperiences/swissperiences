@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { trackWaitlistSignup } from '@/lib/analytics';
 
 const emailSchema = z.string().trim().email({ message: 'Please enter a valid email address' }).max(255);
 
@@ -79,6 +80,10 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
 
       // ONLY set success state if DB insert worked
       setIsSuccess(true);
+
+      // Track waitlist signup
+      trackWaitlistSignup(result.data);
+
       toast({
         title: 'Welcome to the waitlist',
         description: "We'll be in touch soon.",

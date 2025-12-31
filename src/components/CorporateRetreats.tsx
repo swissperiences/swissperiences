@@ -14,6 +14,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+import { trackCorporateInquiry } from "@/lib/analytics";
 
 const valueProps = [
   {
@@ -101,6 +102,9 @@ export default function CorporateRetreats() {
         console.error('[Corporate Inquiry] Failed to send email notification:', error);
         // TODO: Add error monitoring service (e.g., Sentry) here
       });
+
+      // Track corporate inquiry
+      trackCorporateInquiry(formData.companyName);
 
       toast({
         title: "Request received",
