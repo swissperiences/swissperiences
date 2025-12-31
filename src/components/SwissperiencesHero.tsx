@@ -5,13 +5,28 @@ export default function SwissperiencesHero() {
     <section className="relative min-h-screen overflow-hidden bg-background">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=80"
-          alt="Cinematic aerial view of Swiss Alps with snow-capped mountains and alpine lakes at golden hour"
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-cover animate-scale-in"
-        />
+        <picture>
+          {/* WebP format for modern browsers (50-80% smaller) */}
+          <source
+            type="image/webp"
+            srcSet="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=768&q=75&fm=webp 768w,
+                    https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1280&q=75&fm=webp 1280w,
+                    https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=80&fm=webp 1920w"
+            sizes="100vw"
+          />
+          {/* Fallback JPEG for older browsers */}
+          <img
+            src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=80"
+            srcSet="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=768&q=75 768w,
+                    https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1280&q=75 1280w,
+                    https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=80 1920w"
+            sizes="100vw"
+            alt="Cinematic aerial view of Swiss Alps with snow-capped mountains and alpine lakes at golden hour"
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover animate-scale-in"
+          />
+        </picture>
         <div className="absolute inset-0 gradient-overlay" />
       </div>
 
