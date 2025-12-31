@@ -1,9 +1,16 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 export default function Terms() {
   return (
     <div className="min-h-screen bg-black text-white">
+      <SEO
+        title="Terms of Service | Swissperiences"
+        description="Swissperiences Terms of Service. Read our terms and conditions for using our website and booking experiences in Switzerland."
+        keywords="terms of service, terms and conditions, legal"
+        canonical="https://swissperiences.ch/terms"
+      />
       {/* Header */}
       <header className="border-b border-white/10">
         <div className="max-w-4xl mx-auto px-6 py-6">

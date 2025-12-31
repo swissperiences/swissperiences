@@ -3,6 +3,7 @@ import CorporateRetreats from "@/components/CorporateRetreats";
 import Footer from "@/components/Footer";
 import { WaitlistModal } from "@/components/WaitlistModal";
 import TeamsVideoBackground from "@/components/TeamsVideoBackground";
+import SEO from "@/components/SEO";
 import { useState } from "react";
 import {
     Accordion,
@@ -14,8 +15,28 @@ import {
 const ForTeams = () => {
     const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Corporate Retreats in Switzerland",
+        "provider": {
+            "@type": "TravelAgency",
+            "name": "Swissperiences"
+        },
+        "description": "Tailored corporate retreats and team experiences in the Swiss Alps. Strengthen team bonds through authentic Swiss experiences.",
+        "areaServed": "Switzerland",
+        "availableLanguage": ["en"]
+    };
+
     return (
         <div className="min-h-screen bg-background relative">
+            <SEO
+                title="Corporate Retreats Switzerland | Swissperiences for Teams"
+                description="Tailored corporate retreats and team experiences in the Swiss Alps. Strengthen team bonds through authentic Swiss experiences. Perfect for team building and corporate offsites."
+                keywords="corporate retreats switzerland, team building switzerland, swiss alps corporate events, company retreats switzerland, team offsites geneva, corporate team building"
+                canonical="https://swissperiences.ch/for-teams"
+                structuredData={structuredData}
+            />
             {/* Global video background for entire page */}
             <TeamsVideoBackground />
 

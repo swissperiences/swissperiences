@@ -1,9 +1,16 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 export default function Privacy() {
   return (
     <div className="min-h-screen bg-black text-white">
+      <SEO
+        title="Privacy Policy | Swissperiences"
+        description="Swissperiences Privacy Policy. We respect your privacy and comply with Swiss FADP and GDPR. Learn about our cookie-free analytics and data protection practices."
+        keywords="privacy policy, data protection, GDPR, Swiss FADP, privacy-first analytics"
+        canonical="https://swissperiences.ch/privacy"
+      />
       {/* Header */}
       <header className="border-b border-white/10">
         <div className="max-w-4xl mx-auto px-6 py-6">
