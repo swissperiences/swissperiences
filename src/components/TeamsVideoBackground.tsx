@@ -6,7 +6,8 @@ export default function TeamsVideoBackground() {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
+        loading="lazy"
         className="h-full w-full object-cover"
       >
         <source src="/teams-hero.mp4" type="video/mp4" />

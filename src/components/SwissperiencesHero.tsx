@@ -8,6 +8,8 @@ export default function SwissperiencesHero() {
         <img
           src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1920&q=80"
           alt="Cinematic aerial view of Swiss Alps with snow-capped mountains and alpine lakes at golden hour"
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover animate-scale-in"
         />
         <div className="absolute inset-0 gradient-overlay" />

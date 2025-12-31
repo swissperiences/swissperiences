@@ -6,7 +6,8 @@ export default function GlobalVideoBackground() {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
+        loading="lazy"
         className="h-full w-full object-cover"
       >
         <source src="/hero-video-v2.mp4" type="video/mp4" />

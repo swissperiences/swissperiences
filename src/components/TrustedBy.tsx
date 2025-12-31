@@ -32,6 +32,8 @@ export default function TrustedBy() {
               <img
                 src={logo.src}
                 alt={`${logo.name} logo`}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-auto max-w-[120px] md:max-w-[140px] object-contain brightness-0 invert"
               />
             </motion.div>
