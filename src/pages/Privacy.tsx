@@ -31,32 +31,96 @@ export default function Privacy() {
           {/* Privacy Section */}
           <section>
             <h2 className="text-xl font-medium mb-4">Your Privacy</h2>
-            <p className="text-white/70 leading-relaxed">
+            <p className="text-white/70 leading-relaxed mb-4">
               Swissperiences respects your privacy. We believe in transparency and keeping things simple.
+            </p>
+            <p className="text-white/70 leading-relaxed">
+              This privacy policy is compliant with the Swiss Federal Act on Data Protection (FADP)
+              and the EU General Data Protection Regulation (GDPR).
+            </p>
+          </section>
+
+          {/* Analytics Section */}
+          <section>
+            <h2 className="text-xl font-medium mb-4">Website Analytics</h2>
+            <p className="text-white/70 leading-relaxed mb-4">
+              We use <a href="https://plausible.io" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">Plausible Analytics</a>,
+              a privacy-first web analytics tool that does not use cookies and does not collect any personal data.
+            </p>
+            <p className="text-white/70 leading-relaxed mb-4">
+              Plausible is fully compliant with GDPR, CCPA, and PECR. All site measurement is carried out
+              absolutely anonymously. We measure only aggregated metrics such as page views, referral sources,
+              and geographic regions—without tracking individual visitors.
+            </p>
+            <p className="text-white/70 leading-relaxed">
+              <strong>No consent banner is required</strong> because Plausible does not track you across websites,
+              does not use cookies, and does not collect personal data. Learn more about{" "}
+              <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">
+                Plausible's data policy
+              </a>.
             </p>
           </section>
 
           {/* Cookies Section */}
           <section>
-            <h2 className="text-xl font-medium mb-4">Cookies We Use</h2>
+            <h2 className="text-xl font-medium mb-4">Cookies</h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              This website uses only strictly necessary cookies required for basic functionality, 
-              such as page navigation and form submissions.
+              This website does not use cookies for tracking or marketing purposes.
             </p>
             <p className="text-white/70 leading-relaxed">
-              We do not use advertising cookies, tracking pixels, or third-party marketing tools.
+              We may use strictly necessary technical cookies in the future for essential functions
+              such as user authentication. These technical cookies do not require consent under GDPR
+              and Swiss data protection law.
             </p>
           </section>
 
-          {/* Data Sharing Section */}
+          {/* Data Collection Section */}
           <section>
-            <h2 className="text-xl font-medium mb-4">Your Data</h2>
+            <h2 className="text-xl font-medium mb-4">Data We Collect</h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              No personal data is sold or shared with third parties.
+              We only collect data that you explicitly provide to us through:
             </p>
+            <ul className="list-disc list-inside text-white/70 leading-relaxed space-y-2 mb-4">
+              <li><strong>Waitlist signups:</strong> Your email address</li>
+              <li><strong>Corporate inquiry forms:</strong> Company name, contact name, email, team size, and message</li>
+            </ul>
             <p className="text-white/70 leading-relaxed">
-              If you join the waitlist, your email is stored securely and used only for 
-              Swissperiences communications. You can request removal at any time by contacting us.
+              This information is stored securely and used exclusively for Swissperiences communications.
+              We do not sell, rent, or share your personal data with third parties.
+            </p>
+          </section>
+
+          {/* Your Rights Section */}
+          <section>
+            <h2 className="text-xl font-medium mb-4">Your Rights</h2>
+            <p className="text-white/70 leading-relaxed mb-4">
+              Under Swiss FADP and GDPR, you have the right to:
+            </p>
+            <ul className="list-disc list-inside text-white/70 leading-relaxed space-y-2 mb-4">
+              <li>Access your personal data</li>
+              <li>Correct inaccurate data</li>
+              <li>Request deletion of your data</li>
+              <li>Object to data processing</li>
+              <li>Request data portability</li>
+            </ul>
+            <p className="text-white/70 leading-relaxed">
+              To exercise any of these rights, contact us at{" "}
+              <a
+                href="mailto:hello@swissperiences.ch"
+                className="text-white hover:underline focus:outline-none focus:underline"
+              >
+                hello@swissperiences.ch
+              </a>
+            </p>
+          </section>
+
+          {/* Data Security Section */}
+          <section>
+            <h2 className="text-xl font-medium mb-4">Data Security</h2>
+            <p className="text-white/70 leading-relaxed">
+              We implement appropriate technical and organizational measures to protect your personal
+              data against unauthorized access, alteration, disclosure, or destruction. All data is
+              transmitted over secure HTTPS connections and stored using industry-standard encryption.
             </p>
           </section>
 
@@ -64,7 +128,8 @@ export default function Privacy() {
           <section>
             <h2 className="text-xl font-medium mb-4">Questions?</h2>
             <p className="text-white/70 leading-relaxed">
-              For any privacy-related inquiries, please contact us at{" "}
+              For any privacy-related inquiries or to exercise your data protection rights,
+              please contact us at{" "}
               <a
                 href="mailto:hello@swissperiences.ch"
                 className="text-white hover:underline focus:outline-none focus:underline"

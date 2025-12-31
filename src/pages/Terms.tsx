@@ -90,11 +90,25 @@ export default function Terms() {
             </p>
           </section>
 
+          {/* Data Protection Section */}
+          <section>
+            <h2 className="text-xl font-medium mb-4">Data Protection</h2>
+            <p className="text-white/70 leading-relaxed">
+              Your use of this website is also governed by our Privacy Policy, which explains how we
+              collect, use, and protect your personal data in compliance with Swiss FADP and GDPR.
+              Please review our{" "}
+              <a href="/privacy" className="text-white hover:underline focus:outline-none focus:underline">
+                Privacy Policy
+              </a>{" "}
+              for more information.
+            </p>
+          </section>
+
           {/* Governing Law Section */}
           <section>
             <h2 className="text-xl font-medium mb-4">Governing Law</h2>
             <p className="text-white/70 leading-relaxed">
-              These terms shall be governed by and construed in accordance with the laws of Switzerland. 
+              These terms shall be governed by and construed in accordance with the laws of Switzerland.
               Any disputes shall be subject to the exclusive jurisdiction of the courts of Switzerland.
             </p>
           </section>
