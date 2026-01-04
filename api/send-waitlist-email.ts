@@ -1,5 +1,5 @@
 import { Resend } from 'resend';
-import { checkRateLimit } from './lib/rate-limit.js';
+// import { checkRateLimit } from './lib/rate-limit.js';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -14,11 +14,11 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Email is required' });
     }
 
-    // Rate limiting check
-    const rateLimitResult = await checkRateLimit(email, 'waitlist');
-    if (!rateLimitResult.success) {
-        return res.status(429).json({ error: rateLimitResult.error });
-    }
+    // Rate limiting check - TEMPORARILY DISABLED due to Redis env var issue
+    // const rateLimitResult = await checkRateLimit(email, 'waitlist');
+    // if (!rateLimitResult.success) {
+    //     return res.status(429).json({ error: rateLimitResult.error });
+    // }
 
     try {
         // 1. Send confirmation to user (Editorial Welcome - Refined "Manifesto")
