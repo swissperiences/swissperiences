@@ -102,31 +102,32 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
               </button>
             </div>
 
-            {/* Scroll Indicator */}
+          </motion.div>
+
+          {/* Scroll Indicator - Outside motion.div to avoid absolute positioning conflicts */}
+          <motion.div
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer z-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            onClick={() => {
+              const element = document.querySelector('#experiences');
+              if (element) element.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            <span className="text-white/60 text-xs uppercase tracking-widest">Scroll</span>
             <motion.div
-              className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2, duration: 1 }}
-              onClick={() => {
-                const element = document.querySelector('#experiences');
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
+              className="w-[1px] h-12 bg-gradient-to-b from-white/60 to-transparent"
+              animate={{
+                scaleY: [1, 1.2, 1],
+                opacity: [0.6, 1, 0.6]
               }}
-            >
-              <span className="text-white/60 text-xs uppercase tracking-widest">Scroll</span>
-              <motion.div
-                className="w-[1px] h-12 bg-gradient-to-b from-white/60 to-transparent"
-                animate={{
-                  scaleY: [1, 1.2, 1],
-                  opacity: [0.6, 1, 0.6]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-            </motion.div>
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
           </motion.div>
         </div>
       </section>
