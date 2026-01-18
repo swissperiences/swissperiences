@@ -11,17 +11,19 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
+import { Button } from '@/components/ui/button';
 
 interface NavigationProps {
   onWaitlistClick: () => void;
 }
 
-const navLinks = [
-  { label: "Experiences", href: "#experiences" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "For Teams", href: "/for-teams" },
+const navLinksConfig = [
+  { key: "experiences", href: "#experiences" },
+  { key: "howItWorks", href: "#how-it-works" },
+  { key: "forTeams", href: "/for-teams" },
 ];
 
 export default function Navigation({ onWaitlistClick }: NavigationProps) {
@@ -29,6 +31,13 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation('common');
+
+  // Generate nav links with translations
+  const navLinks = navLinksConfig.map(item => ({
+    label: t(`nav.${item.key}`),
+    href: item.href.startsWith('/') ? `/${i18n.language}${item.href}` : item.href,
+  }));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,8 +58,9 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
     }
 
     // Handle hash navigation from other pages
-    if (location.pathname !== "/") {
-      navigate("/");
+    const currentLangPath = `/${i18n.language}`;
+    if (location.pathname !== currentLangPath && location.pathname !== '/') {
+      navigate(currentLangPath);
       setTimeout(() => {
         const element = document.querySelector(href);
         if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -135,17 +145,16 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               </div>
             </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-8 lg:flex-shrink-0">
-              {/* Invisible spacer */}
-              <div className="hidden lg:block h-6 w-px opacity-0"></div>
-              <button
+            {/* Desktop: Language Switcher + CTA */}
+            <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-6 lg:flex-shrink-0">
+              <LanguageSwitcher />
+              <Button
                 onClick={onWaitlistClick}
-                className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em] whitespace-nowrap"
-                aria-label="Reserve your spot on the waitlist"
+                className="rounded-full px-6"
+                variant="hero"
               >
-                <span className="border-b border-white/40 group-hover:border-white pb-1">Reserve Your Spot</span>
-              </button>
+                {t('buttons.reserveSpot')}
+              </Button>
             </div>
             </div>
           </div>
@@ -172,16 +181,23 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                   {link.label}
                 </button>
               ))}
-              <button
+
+              {/* Mobile: Language Switcher */}
+              <div className="pt-4 mt-4 border-t border-white/10 flex justify-center">
+                <LanguageSwitcher />
+              </div>
+
+              {/* Mobile: CTA Button */}
+              <Button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   onWaitlistClick();
                 }}
-                className="group w-full mt-4 text-sm text-white/90 hover:text-white transition-colors text-center uppercase tracking-[0.15em]"
-                aria-label="Reserve your spot on the waitlist"
+                className="rounded-full w-full mt-4"
+                variant="hero"
               >
-                <span className="border-b border-white/40 group-hover:border-white pb-1">Reserve Your Spot</span>
-              </button>
+                {t('buttons.reserveSpot')}
+              </Button>
             </div>
           </motion.div>
         )}

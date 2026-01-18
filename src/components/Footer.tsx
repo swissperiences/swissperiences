@@ -1,6 +1,9 @@
 import { Instagram, Linkedin } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t, i18n } = useTranslation('common');
+
   return (
     <footer className="relative border-t border-white/10 py-16 sm:py-20">
       <div className="max-w-7xl mx-auto px-6">
@@ -10,18 +13,18 @@ export default function Footer() {
             Swissperiences
           </h2>
           <p className="text-sm text-white/60 italic mb-3">
-            A pause — designed.
+            {t('footer.tagline')}
           </p>
           <p className="text-sm text-white/70 tracking-wide mb-8">
-            For those who know Switzerland is earned, not toured.
+            {t('footer.subtitle')}
           </p>
 
           {/* Contact */}
           <a
-            href="mailto:hello@swissperiences.ch"
+            href={`mailto:${t('footer.contact')}`}
             className="text-sm text-white/70 hover:text-white transition-colors mb-6"
           >
-            hello@swissperiences.ch
+            {t('footer.contact')}
           </a>
 
           {/* Social Links */}
@@ -51,14 +54,14 @@ export default function Footer() {
 
           {/* Bottom Row */}
           <div className="flex flex-col items-center gap-3 text-xs text-white/40">
-            <span>© 2024–2026 Swissperiences. All rights reserved.</span>
+            <span>{t('footer.copyright')}</span>
             <div className="flex gap-4 text-[10px] text-white/30">
-              <a href="/privacy" className="hover:text-white/50 transition-colors focus:outline-none focus:underline">
-                Privacy
+              <a href={`/${i18n.language}/privacy`} className="hover:text-white/50 transition-colors focus:outline-none focus:underline">
+                {t('footer.privacy')}
               </a>
               <span className="text-white/20">·</span>
-              <a href="/terms" className="hover:text-white/50 transition-colors focus:outline-none focus:underline">
-                Terms
+              <a href={`/${i18n.language}/terms`} className="hover:text-white/50 transition-colors focus:outline-none focus:underline">
+                {t('footer.terms')}
               </a>
             </div>
           </div>

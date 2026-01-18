@@ -221,78 +221,41 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
         />
 
         <div className="relative rounded-full px-8 py-4 text-white">
-          <motion.div
-            className="relative flex flex-wrap items-center justify-between gap-6 duration-200 lg:gap-0"
-          >
-            <div className="flex w-full items-center justify-between lg:w-auto lg:gap-16">
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="flex items-center space-x-2 text-lg uppercase tracking-[0.2em] hover:opacity-80 transition-opacity text-white"
-                aria-label="home"
-              >
-                Swissperiences
-              </a>
+          <div className="relative flex items-center justify-between gap-6">
+            {/* Logo */}
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="flex items-center space-x-2 text-lg uppercase tracking-[0.2em] hover:opacity-80 transition-opacity text-white"
+              aria-label="home"
+            >
+              Swissperiences
+            </a>
 
-              <button
-                onClick={() => setMenuState(!menuState)}
-                aria-label={menuState ? 'Close Menu' : 'Open Menu'}
-                className="relative z-50 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
-              >
-                <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200 text-white" />
-                <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200 text-white" />
-              </button>
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-8">
+              <ul className="flex gap-8 text-sm font-medium">
+                {menuItems.map((item, index) => (
+                  <li key={index}>
+                    <button
+                      onClick={() => handleNavClick(item.href)}
+                      className="group relative block duration-150 transition-colors text-white/80 hover:text-white"
+                    >
+                      <span>{item.name}</span>
+                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
 
-              <div className="hidden lg:block">
-                <ul className="flex gap-8 text-sm font-medium">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
-                      <button
-                        onClick={() => handleNavClick(item.href)}
-                        className="group relative block duration-150 transition-colors text-white/80 hover:text-white"
-                      >
-                        <span>{item.name}</span>
-                        <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full" />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="bg-[#1A1614]/80 backdrop-blur-xl lg:bg-transparent group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-8 shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-0 lg:space-y-0 lg:border-transparent lg:p-0 lg:shadow-none">
-              <div className="lg:hidden w-full">
-                <ul className="space-y-6 text-base font-light tracking-wide text-white/80">
-                  {menuItems.map((item, index) => (
-                    <li key={index}>
-                      <button
-                        onClick={() => handleNavClick(item.href)}
-                        className="hover:text-white block duration-200 transition-colors w-full text-left py-1"
-                      >
-                        <span>{item.name}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-                {/* Language Switcher - Mobile */}
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <LanguageSwitcher />
-                </div>
-              </div>
-              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:flex lg:flex-row lg:items-center lg:gap-8 hidden">
-                {/* Invisible spacer - Desktop only */}
-                <div className="hidden lg:block h-6 w-px opacity-0"></div>
-                {/* Language Switcher - Desktop only */}
+              {/* Desktop: Language Switcher + CTA */}
+              <div className="flex items-center gap-6">
                 <LanguageSwitcher />
-                {/* Desktop CTA only - Hidden on mobile menu to avoid duplication urgency */}
                 <Button
-                  onClick={() => {
-                    setMenuState(false);
-                    onJoinWaitlist?.();
-                  }}
+                  onClick={() => onJoinWaitlist?.()}
                   className="rounded-full px-6"
                   variant="hero"
                 >
@@ -300,7 +263,54 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                 </Button>
               </div>
             </div>
-          </motion.div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMenuState(!menuState)}
+              aria-label={menuState ? 'Close Menu' : 'Open Menu'}
+              className="relative z-50 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+            >
+              <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200 text-white" />
+              <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200 text-white" />
+            </button>
+          </div>
+
+          {/* Mobile Menu Dropdown */}
+          {menuState && (
+            <div className="lg:hidden absolute top-full left-0 right-0 mt-4 bg-[#1A1614]/95 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
+              <ul className="space-y-6 text-base font-light tracking-wide text-white/80">
+                {menuItems.map((item, index) => (
+                  <li key={index}>
+                    <button
+                      onClick={() => handleNavClick(item.href)}
+                      className="hover:text-white block duration-200 transition-colors w-full text-left py-1"
+                    >
+                      <span>{item.name}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Mobile: Language Switcher */}
+              <div className="mt-6 pt-6 border-t border-white/10 flex justify-center">
+                <LanguageSwitcher />
+              </div>
+
+              {/* Mobile: CTA Button */}
+              <div className="mt-6">
+                <Button
+                  onClick={() => {
+                    setMenuState(false);
+                    onJoinWaitlist?.();
+                  }}
+                  className="rounded-full w-full"
+                  variant="hero"
+                >
+                  {t('common:nav.requestAccess')}
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </motion.nav>
     </header>
