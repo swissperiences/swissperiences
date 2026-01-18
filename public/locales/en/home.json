@@ -1,0 +1,80 @@
+{
+  "hero": {
+    "title": "Switzerland.",
+    "subtitle": "A state of mind.",
+    "tagline1": "Immersive nature. For those seeking less noise and more feeling.",
+    "tagline2": "Curated Swiss experiences — from intimate moments to immersive journeys.",
+    "microPhrase": "Inquiries limited. Curated individually.",
+    "cta": "Request Access"
+  },
+  "whatWeCurate": {
+    "heading": "What We Curate",
+    "wellnessRetreats": {
+      "title": "Wellness Retreats",
+      "description": "Digital detox escapes in Swiss mountain sanctuaries",
+      "audience": "Executives & creatives seeking a reset"
+    },
+    "mindfulExperiences": {
+      "title": "Mindful Experiences",
+      "description": "Meditation, yoga, and breathwork in nature",
+      "audience": "Individuals reconnecting with their center"
+    },
+    "alpineAdventures": {
+      "title": "Alpine Adventures",
+      "description": "Guided hikes to hidden peaks and pristine lakes",
+      "audience": "Explorers searching for raw nature"
+    },
+    "culturalImmersion": {
+      "title": "Cultural Immersion",
+      "description": "Artisan workshops and local Swiss traditions",
+      "audience": "Travelers valuing depth over sight-seeing"
+    },
+    "droneVideography": {
+      "title": "Drone Videography",
+      "description": "Cinematic aerial footage of your Swiss journey",
+      "audience": "Individuals & small groups seeking keepsakes"
+    },
+    "footer": "Each experience is curated individually. Access is limited."
+  },
+  "howItWorks": {
+    "heading": "How It Works",
+    "step1": {
+      "number": "01",
+      "title": "Request Access",
+      "description": "A short inquiry. We respond personally."
+    },
+    "step2": {
+      "number": "02",
+      "title": "We Curate",
+      "description": "We consider timing, pace, and intention — not volume."
+    },
+    "step3": {
+      "number": "03",
+      "title": "Receive an Invitation",
+      "description": "If it aligns, you'll receive a curated proposal."
+    }
+  },
+  "faq": {
+    "heading": "Frequently Asked Questions",
+    "q1": {
+      "question": "When will experiences launch?",
+      "answer": "Spring 2026. Waitlist members get first access."
+    },
+    "q2": {
+      "question": "What's included in a retreat?",
+      "answer": "Varies by experience. Most include accommodation, curated activities, and meals. Specific inclusions are detailed in each proposal."
+    },
+    "q3": {
+      "question": "Do you offer airport transfers?",
+      "answer": "Yes. For individuals and small groups (up to 3), we provide private airport pickup in a Range Rover Evoque 2024, ensuring your journey begins the moment you arrive."
+    },
+    "q4": {
+      "question": "How are experiences selected?",
+      "answer": "We prioritize quality over quantity. Each host and location is personally vetted to ensure it aligns with our values: mindful, intentional, and uncommon."
+    },
+    "q5": {
+      "question": "What makes this different?",
+      "answer": "We don't list everything. We curate what's worth your time. Access is limited by design, not scarcity marketing."
+    }
+  }
+}

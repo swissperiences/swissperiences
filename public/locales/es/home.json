@@ -1,0 +1,80 @@
+{
+  "hero": {
+    "title": "Suiza.",
+    "subtitle": "Un estado mental.",
+    "tagline1": "Naturaleza inmersiva. Para quienes buscan menos ruido y más sentimiento.",
+    "tagline2": "Experiencias suizas curadas — de momentos íntimos a viajes inmersivos.",
+    "microPhrase": "Consultas limitadas. Curado individualmente.",
+    "cta": "Solicitar Acceso"
+  },
+  "whatWeCurate": {
+    "heading": "Lo Que Curamos",
+    "wellnessRetreats": {
+      "title": "Retiros de Bienestar",
+      "description": "Escapadas de desintoxicación digital en santuarios de montaña suizos",
+      "audience": "Ejecutivos y creativos en busca de renovación"
+    },
+    "mindfulExperiences": {
+      "title": "Experiencias Conscientes",
+      "description": "Meditación, yoga y respiración consciente en la naturaleza",
+      "audience": "Individuos reconectando con su centro"
+    },
+    "alpineAdventures": {
+      "title": "Aventuras Alpinas",
+      "description": "Caminatas guiadas hacia picos escondidos y lagos prístinos",
+      "audience": "Exploradores en busca de naturaleza pura"
+    },
+    "culturalImmersion": {
+      "title": "Inmersión Cultural",
+      "description": "Talleres artesanales y tradiciones locales suizas",
+      "audience": "Viajeros que valoran la profundidad sobre el turismo"
+    },
+    "droneVideography": {
+      "title": "Videografía con Drone",
+      "description": "Footage aéreo cinematográfico de tu viaje suizo",
+      "audience": "Individuos y pequeños grupos buscando recuerdos"
+    },
+    "footer": "Cada experiencia es curada individualmente. El acceso es limitado."
+  },
+  "howItWorks": {
+    "heading": "Cómo Funciona",
+    "step1": {
+      "number": "01",
+      "title": "Solicita Acceso",
+      "description": "Una breve consulta. Respondemos personalmente."
+    },
+    "step2": {
+      "number": "02",
+      "title": "Nosotros Curamos",
+      "description": "Consideramos timing, ritmo e intención — no volumen."
+    },
+    "step3": {
+      "number": "03",
+      "title": "Recibe una Invitación",
+      "description": "Si está alineado, recibirás una propuesta curada."
+    }
+  },
+  "faq": {
+    "heading": "Preguntas Frecuentes",
+    "q1": {
+      "question": "¿Cuándo se lanzarán las experiencias?",
+      "answer": "Primavera 2026. Los miembros de la lista de espera tienen acceso prioritario."
+    },
+    "q2": {
+      "question": "¿Qué incluye un retiro?",
+      "answer": "Varía según la experiencia. La mayoría incluye alojamiento, actividades curadas y comidas. Las inclusiones específicas se detallan en cada propuesta."
+    },
+    "q3": {
+      "question": "¿Ofrecen transferencias de aeropuerto?",
+      "answer": "Sí. Para individuos y pequeños grupos (hasta 3 personas), ofrecemos transferencia privada desde el aeropuerto en un Range Rover Evoque 2024, garantizando que tu viaje comience en el momento de tu llegada."
+    },
+    "q4": {
+      "question": "¿Cómo se seleccionan las experiencias?",
+      "answer": "Priorizamos calidad sobre cantidad. Cada anfitrión y localización es personalmente verificado para garantizar alineación con nuestros valores: consciente, intencional e inusual."
+    },
+    "q5": {
+      "question": "¿Qué hace esto diferente?",
+      "answer": "No listamos todo. Curamos lo que vale tu tiempo. El acceso es limitado por diseño, no por marketing de escasez."
+    }
+  }
+}

@@ -5,12 +5,15 @@ import { cn } from '@/lib/utils';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 interface HeroSectionProps {
   onJoinWaitlist?: () => void;
 }
 
 export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
+  const { t } = useTranslation(['home', 'common']);
   return (
     <>
       <HeroHeader onJoinWaitlist={onJoinWaitlist} />
@@ -25,10 +28,10 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             {/* Note: Removed pre-header for absolute focus */}
             <h1 className="text-white leading-[1.2]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.15)" }}>
               <span className="block text-[3rem] font-light tracking-tight">
-                Switzerland.
+                {t('home:hero.title')}
               </span>
               <span className="block text-[2.2rem] font-extralight mt-4 opacity-95 tracking-wide">
-                A state of mind.
+                {t('home:hero.subtitle')}
               </span>
             </h1>
           </div>
@@ -37,15 +40,15 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
           <div className="flex min-h-[85vh] pt-20 w-full flex-col items-center justify-center px-6 text-center pb-24 bg-gradient-to-b from-transparent to-black/40">
             <h1 className="text-white leading-[1.2] mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.15)" }}>
               <span className="block text-[3rem] font-light tracking-tight">
-                Switzerland.
+                {t('home:hero.title')}
               </span>
               <span className="block text-[2.2rem] font-extralight mt-4 opacity-95 tracking-wide">
-                A state of mind.
+                {t('home:hero.subtitle')}
               </span>
             </h1>
 
             <p className="mx-auto text-sm text-white font-light leading-relaxed drop-shadow-md">
-              Curated Swiss experiences.
+              {t('home:hero.tagline2')}
             </p>
 
             <div className="mt-10 flex justify-center">
@@ -53,7 +56,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
                 onClick={onJoinWaitlist}
                 className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
               >
-                <span className="border-b border-white/40 group-hover:border-white pb-1">Request Access</span>
+                <span className="border-b border-white/40 group-hover:border-white pb-1">{t('common:nav.requestAccess')}</span>
               </button>
             </div>
           </div>
@@ -70,26 +73,26 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             {/* Headline */}
             <h1 className="text-white leading-[1.15]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.15)" }}>
               <span className="block text-[clamp(4rem,7vw,8rem)] font-light tracking-tight">
-                Switzerland.
+                {t('home:hero.title')}
               </span>
               <span className="block text-[clamp(3rem,5.5vw,7rem)] font-extralight mt-6 opacity-95 tracking-wide">
-                A state of mind.
+                {t('home:hero.subtitle')}
               </span>
             </h1>
 
             {/* Subheadline: Maximum contrast */}
             <div className="space-y-4 mt-10">
               <p className="mx-auto max-w-2xl text-base md:text-lg text-white/95 font-normal leading-relaxed" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4)" }}>
-                Immersive nature. For those seeking less noise and more feeling.
+                {t('home:hero.tagline1')}
               </p>
               <p className="mx-auto max-w-2xl text-base md:text-lg text-white/95 font-normal leading-relaxed" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4)" }}>
-                Curated Swiss experiences — from intimate moments to immersive journeys.
+                {t('home:hero.tagline2')}
               </p>
             </div>
 
             {/* Micro-phrase: High visibility */}
             <p className="mx-auto mt-8 text-sm text-white/95 font-medium tracking-wide" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)" }}>
-              Inquiries limited. Curated individually.
+              {t('home:hero.microPhrase')}
             </p>
 
             {/* CTA */}
@@ -98,7 +101,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
                 onClick={onJoinWaitlist}
                 className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
               >
-                <span className="border-b border-white/40 group-hover:border-white pb-1">Request Access</span>
+                <span className="border-b border-white/40 group-hover:border-white pb-1">{t('common:nav.requestAccess')}</span>
               </button>
             </div>
 
@@ -115,7 +118,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            <span className="text-white/60 text-xs uppercase tracking-widest">Scroll</span>
+            <span className="text-white/60 text-xs uppercase tracking-widest">{t('common:scroll')}</span>
             <motion.div
               className="w-[1px] h-12 bg-gradient-to-b from-white/60 to-transparent"
               animate={{
@@ -135,10 +138,11 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
   );
 }
 
-const menuItems = [
-  { name: 'Experiences', href: '#experiences' },
-  { name: 'How It Works', href: '#how-it-works' },
-  { name: 'For Teams', href: '/for-teams' },
+// Menu items structure - translations will be applied in HeroHeader
+const menuItemsConfig = [
+  { key: 'experiences', href: '#experiences' },
+  { key: 'howItWorks', href: '#how-it-works' },
+  { key: 'forTeams', href: '/for-teams' },
 ];
 
 /**
@@ -155,6 +159,13 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
   const [menuState, setMenuState] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation(['common']);
+
+  // Generate menu items with translated names
+  const menuItems = menuItemsConfig.map(item => ({
+    name: t(`common:nav.${item.key}`),
+    href: item.href.startsWith('/') ? `/${i18n.language}${item.href}` : item.href,
+  }));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -266,10 +277,16 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                     </li>
                   ))}
                 </ul>
+                {/* Language Switcher - Mobile */}
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <LanguageSwitcher />
+                </div>
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:flex lg:flex-row lg:items-center lg:gap-8 hidden">
                 {/* Invisible spacer - Desktop only */}
                 <div className="hidden lg:block h-6 w-px opacity-0"></div>
+                {/* Language Switcher - Desktop only */}
+                <LanguageSwitcher />
                 {/* Desktop CTA only - Hidden on mobile menu to avoid duplication urgency */}
                 <Button
                   onClick={() => {
@@ -279,7 +296,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                   className="rounded-full px-6"
                   variant="hero"
                 >
-                  Request Access
+                  {t('common:nav.requestAccess')}
                 </Button>
               </div>
             </div>

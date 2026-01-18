@@ -1,0 +1,32 @@
+{
+  "nav": {
+    "experiences": "Experiencias",
+    "howItWorks": "Cómo Funciona",
+    "forTeams": "Para Empresas",
+    "requestAccess": "Solicitar Acceso"
+  },
+  "footer": {
+    "tagline": "Una pausa — diseñada.",
+    "subtitle": "Para quienes saben que Suiza se conquista, no se visita.",
+    "contact": "hello@swissperiences.ch",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "copyright": "© 2024-2026 Swissperiences. Todos los derechos reservados."
+  },
+  "buttons": {
+    "submit": "Enviar",
+    "close": "Cerrar",
+    "learnMore": "Conocer Más",
+    "reserveSpot": "Reserva Tu Lugar"
+  },
+  "forms": {
+    "email": "Correo Electrónico",
+    "emailPlaceholder": "nombre@empresa.com",
+    "loading": "Enviando...",
+    "success": "Solicitud Recibida",
+    "error": "Algo salió mal",
+    "successMessage": "Revisaremos tu solicitud y te responderemos personalmente dentro de 48 horas.",
+    "description": "Cada solicitud se revisa personalmente. Esto no es una lista de correos."
+  },
+  "scroll": "Desplazarse"
+}
