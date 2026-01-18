@@ -23,11 +23,11 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
           {/* Viewport 1: The Hook - Pure & Simple */}
           <div className="flex min-h-[100dvh] pt-20 w-full flex-col items-center justify-center px-6 text-center">
             {/* Note: Removed pre-header for absolute focus */}
-            <h1 className="text-white leading-[1.2] drop-shadow-lg">
-              <span className="block text-[3rem] font-normal tracking-wide">
+            <h1 className="text-white leading-[1.2]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
+              <span className="block text-[3rem] font-light tracking-wide">
                 Switzerland.
               </span>
-              <span className="block text-[2.2rem] font-light mt-4 opacity-90 tracking-wide">
+              <span className="block text-[2.2rem] font-extralight mt-4 opacity-95 tracking-wide">
                 A state of mind.
               </span>
             </h1>
@@ -35,11 +35,11 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
 
           {/* Viewport 2: The Resolution & Action */}
           <div className="flex min-h-[85vh] pt-20 w-full flex-col items-center justify-center px-6 text-center pb-24 bg-gradient-to-b from-transparent to-black/40">
-            <h1 className="text-white leading-[1.2] drop-shadow-lg mb-8">
-              <span className="block text-[3rem] font-normal tracking-wide">
+            <h1 className="text-white leading-[1.2] mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
+              <span className="block text-[3rem] font-light tracking-wide">
                 Switzerland.
               </span>
-              <span className="block text-[2.2rem] font-light mt-4 opacity-90 tracking-wide">
+              <span className="block text-[2.2rem] font-extralight mt-4 opacity-95 tracking-wide">
                 A state of mind.
               </span>
             </h1>
@@ -63,11 +63,11 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
         <div className="relative z-10 hidden md:flex min-h-screen pt-24 items-center justify-center px-6">
           <div className="mx-auto w-full max-w-6xl text-center">
             {/* Headline */}
-            <h1 className="text-white leading-[1.15]" style={{ textShadow: "0 1px 8px rgba(0,0,0,0.25)" }}>
-              <span className="block text-[clamp(4rem,7vw,8rem)] font-normal tracking-wide">
+            <h1 className="text-white leading-[1.15]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
+              <span className="block text-[clamp(4rem,7vw,8rem)] font-light tracking-wide">
                 Switzerland.
               </span>
-              <span className="block text-[clamp(3rem,5.5vw,7rem)] font-light mt-6 opacity-90 tracking-wide">
+              <span className="block text-[clamp(3rem,5.5vw,7rem)] font-extralight mt-6 opacity-95 tracking-wide">
                 A state of mind.
               </span>
             </h1>

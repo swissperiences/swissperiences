@@ -6,14 +6,12 @@ export default function GlobalVideoBackground() {
         loop
         muted
         playsInline
-        preload="metadata"
-        loading="lazy"
         className="h-full w-full object-cover"
       >
-        <source src="/hero-video-v2.mp4" type="video/mp4" />
+        <source src="/hero-fpv.mp4" type="video/mp4" />
       </video>
-      {/* Light overlay for readability */}
-      <div className="absolute inset-0 bg-black/20" />
+      {/* Subtle gradient overlay for depth and readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/15 to-black/30" />
     </div>
   );
 }
