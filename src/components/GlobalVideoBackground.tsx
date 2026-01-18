@@ -1,4 +1,16 @@
+import { useEffect, useState } from 'react';
+
 export default function GlobalVideoBackground() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="fixed inset-0 z-0">
       <video
@@ -8,6 +20,10 @@ export default function GlobalVideoBackground() {
         playsInline
         poster="/hero-poster.jpg"
         className="h-full w-full object-cover"
+        style={{
+          transform: `scale(${1 + scrollY * 0.0002})`,
+          transition: 'transform 0.1s ease-out'
+        }}
       >
         <source src="/hero-fpv.mp4" type="video/mp4" />
       </video>

@@ -78,7 +78,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             </h1>
 
             {/* Subheadline: Maximum contrast */}
-            <div className="space-y-3 mt-8">
+            <div className="space-y-4 mt-10">
               <p className="mx-auto max-w-2xl text-base md:text-lg text-white/95 font-normal leading-relaxed" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4)" }}>
                 Immersive nature. For those seeking less noise and more feeling.
               </p>
@@ -88,7 +88,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             </div>
 
             {/* Micro-phrase: High visibility */}
-            <p className="mx-auto mt-6 text-sm text-white/95 font-medium tracking-wide" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)" }}>
+            <p className="mx-auto mt-8 text-sm text-white/95 font-medium tracking-wide" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)" }}>
               Inquiries limited. Curated individually.
             </p>
 
@@ -101,6 +101,32 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
                 <span className="border-b border-white/40 group-hover:border-white pb-1">Request Access</span>
               </button>
             </div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+              className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2, duration: 1 }}
+              onClick={() => {
+                const element = document.querySelector('#experiences');
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              <span className="text-white/60 text-xs uppercase tracking-widest">Scroll</span>
+              <motion.div
+                className="w-[1px] h-12 bg-gradient-to-b from-white/60 to-transparent"
+                animate={{
+                  scaleY: [1, 1.2, 1],
+                  opacity: [0.6, 1, 0.6]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -214,9 +240,10 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                     <li key={index}>
                       <button
                         onClick={() => handleNavClick(item.href)}
-                        className="block duration-150 transition-colors text-white/80 hover:text-white"
+                        className="group relative block duration-150 transition-colors text-white/80 hover:text-white"
                       >
                         <span>{item.name}</span>
+                        <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full" />
                       </button>
                     </li>
                   ))}
