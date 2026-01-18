@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mountain, Leaf, Palette, Wind } from "lucide-react";
+import { Mountain, Leaf, Palette, Wind, Video } from "lucide-react";
 
 const cards = [
   {
@@ -26,6 +26,12 @@ const cards = [
     description: "Meditation, yoga, and breathwork in nature",
     audience: "For those seeking stillness",
   },
+  {
+    icon: Video,
+    title: "Drone Videography",
+    description: "Cinematic aerial footage of your Swiss journey",
+    audience: "For individuals & small groups seeking keepsakes",
+  },
 ];
 
 export default function WhatWeCurate() {
@@ -45,7 +51,7 @@ export default function WhatWeCurate() {
           What We Curate
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Card 1: Wellness Retreats */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -131,6 +137,28 @@ export default function WhatWeCurate() {
             </p>
             <p className="text-xs text-white/40 italic">
               Travelers valuing depth over sight-seeing
+            </p>
+          </motion.div>
+
+          {/* Card 5: Drone Videography */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px", amount: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+            className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/30 backdrop-blur-sm"
+          >
+            <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
+              <Video className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
+            </div>
+            <h3 className="text-lg text-white mb-3">
+              Drone Videography
+            </h3>
+            <p className="text-sm text-white/60 leading-relaxed mb-4">
+              Cinematic aerial footage of your Swiss journey
+            </p>
+            <p className="text-xs text-white/40 italic">
+              Individuals & small groups seeking keepsakes
             </p>
           </motion.div>
         </div>

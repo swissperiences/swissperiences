@@ -13,7 +13,7 @@ export default function GlobalVideoBackground() {
         <source src="/hero-video-v2.mp4" type="video/mp4" />
       </video>
       {/* Light overlay for readability */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/20" />
     </div>
   );
 }

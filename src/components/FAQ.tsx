@@ -15,6 +15,10 @@ const faqs = [
     answer: "Accommodation, meals, guided activities, and full support.",
   },
   {
+    question: "Do you offer airport transfers?",
+    answer: "Yes. For individuals and small groups (up to 3), we provide private airport pickup in a Range Rover Evoque 2024, ensuring your journey begins the moment you arrive.",
+  },
+  {
     question: "How are experiences selected?",
     answer: "Every location and host is personally vetted. We prioritize quality over quantity—expect 15-20 exceptional experiences, not hundreds.",
   },
