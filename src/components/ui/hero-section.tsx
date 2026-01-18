@@ -23,8 +23,8 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
           {/* Viewport 1: The Hook - Pure & Simple */}
           <div className="flex min-h-[100dvh] pt-20 w-full flex-col items-center justify-center px-6 text-center">
             {/* Note: Removed pre-header for absolute focus */}
-            <h1 className="text-white leading-[1.2]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
-              <span className="block text-[3rem] font-light tracking-wide">
+            <h1 className="text-white leading-[1.2]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.15)" }}>
+              <span className="block text-[3rem] font-light tracking-tight">
                 Switzerland.
               </span>
               <span className="block text-[2.2rem] font-extralight mt-4 opacity-95 tracking-wide">
@@ -35,8 +35,8 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
 
           {/* Viewport 2: The Resolution & Action */}
           <div className="flex min-h-[85vh] pt-20 w-full flex-col items-center justify-center px-6 text-center pb-24 bg-gradient-to-b from-transparent to-black/40">
-            <h1 className="text-white leading-[1.2] mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
-              <span className="block text-[3rem] font-light tracking-wide">
+            <h1 className="text-white leading-[1.2] mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.15)" }}>
+              <span className="block text-[3rem] font-light tracking-tight">
                 Switzerland.
               </span>
               <span className="block text-[2.2rem] font-extralight mt-4 opacity-95 tracking-wide">
@@ -61,10 +61,15 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
 
         {/* --- DESKTOP LAYOUT (Preserved) --- */}
         <div className="relative z-10 hidden md:flex min-h-screen pt-24 items-center justify-center px-6">
-          <div className="mx-auto w-full max-w-6xl text-center">
+          <motion.div
+            className="mx-auto w-full max-w-6xl text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          >
             {/* Headline */}
-            <h1 className="text-white leading-[1.15]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4)" }}>
-              <span className="block text-[clamp(4rem,7vw,8rem)] font-light tracking-wide">
+            <h1 className="text-white leading-[1.15]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.15)" }}>
+              <span className="block text-[clamp(4rem,7vw,8rem)] font-light tracking-tight">
                 Switzerland.
               </span>
               <span className="block text-[clamp(3rem,5.5vw,7rem)] font-extralight mt-6 opacity-95 tracking-wide">
@@ -96,7 +101,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
                 <span className="border-b border-white/40 group-hover:border-white pb-1">Request Access</span>
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>

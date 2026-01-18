@@ -6,6 +6,7 @@ export default function GlobalVideoBackground() {
         loop
         muted
         playsInline
+        poster="/hero-poster.jpg"
         className="h-full w-full object-cover"
       >
         <source src="/hero-fpv.mp4" type="video/mp4" />
