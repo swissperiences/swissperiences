@@ -229,23 +229,23 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="flex items-center space-x-2 text-lg uppercase tracking-[0.2em] hover:opacity-80 transition-opacity text-white"
+              className="flex items-center space-x-2 text-lg font-light uppercase tracking-[0.3em] hover:opacity-80 transition-opacity text-white"
               aria-label="home"
             >
               Swissperiences
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
-              <ul className="flex gap-8 text-sm font-medium">
+            <div className="hidden lg:flex items-center gap-10">
+              <ul className="flex gap-10 text-sm font-light tracking-wide">
                 {menuItems.map((item, index) => (
                   <li key={index}>
                     <button
                       onClick={() => handleNavClick(item.href)}
-                      className="group relative block duration-150 transition-colors text-white/80 hover:text-white"
+                      className="group relative block duration-300 transition-all text-white/70 hover:text-white"
                     >
                       <span>{item.name}</span>
-                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full" />
+                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white/60 transition-all duration-300 group-hover:w-full group-hover:bg-white" />
                     </button>
                   </li>
                 ))}
@@ -256,7 +256,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
                 <LanguageSwitcher />
                 <Button
                   onClick={() => onJoinWaitlist?.()}
-                  className="rounded-full px-6"
+                  className="rounded-full px-8 py-2.5 font-light tracking-wide"
                   variant="hero"
                 >
                   {t('common:nav.requestAccess')}
@@ -268,22 +268,31 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
             <button
               onClick={() => setMenuState(!menuState)}
               aria-label={menuState ? 'Close Menu' : 'Open Menu'}
-              className="relative z-50 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+              className="relative z-50 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden hover:bg-white/5 rounded-full transition-colors"
             >
-              <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200 text-white" />
-              <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200 text-white" />
+              {menuState ? (
+                <X className="size-5 duration-200 text-white" />
+              ) : (
+                <Menu className="size-5 duration-200 text-white" />
+              )}
             </button>
           </div>
 
           {/* Mobile Menu Dropdown */}
           {menuState && (
-            <div className="lg:hidden absolute top-full left-0 right-0 mt-4 bg-[#1A1614]/95 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl">
-              <ul className="space-y-6 text-base font-light tracking-wide text-white/80">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden absolute top-full left-0 right-0 mt-4 bg-[#1A1614]/98 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-2xl"
+            >
+              <ul className="space-y-5 text-base font-light tracking-wide text-white/70">
                 {menuItems.map((item, index) => (
                   <li key={index}>
                     <button
                       onClick={() => handleNavClick(item.href)}
-                      className="hover:text-white block duration-200 transition-colors w-full text-left py-1"
+                      className="hover:text-white block duration-300 transition-colors w-full text-left py-1.5"
                     >
                       <span>{item.name}</span>
                     </button>
@@ -292,24 +301,24 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
               </ul>
 
               {/* Mobile: Language Switcher */}
-              <div className="mt-6 pt-6 border-t border-white/10 flex justify-center">
+              <div className="mt-8 pt-6 border-t border-white/10 flex justify-center">
                 <LanguageSwitcher />
               </div>
 
               {/* Mobile: CTA Button */}
-              <div className="mt-6">
+              <div className="mt-7">
                 <Button
                   onClick={() => {
                     setMenuState(false);
                     onJoinWaitlist?.();
                   }}
-                  className="rounded-full w-full"
+                  className="rounded-full w-full font-light tracking-wide"
                   variant="hero"
                 >
                   {t('common:nav.requestAccess')}
                 </Button>
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
       </motion.nav>

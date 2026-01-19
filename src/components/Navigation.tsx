@@ -114,7 +114,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             <div className="flex w-full items-center justify-between lg:w-auto lg:gap-16">
               <Link
                 to="/"
-                className="text-lg text-white hover:text-white/80 transition-colors uppercase tracking-[0.2em]"
+                className="text-lg font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.3em]"
               >
                 Swissperiences
               </Link>
@@ -122,7 +122,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 text-white hover:bg-white/10 rounded-full transition-colors"
+                className="lg:hidden p-2.5 text-white hover:bg-white/5 rounded-full transition-colors"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -130,14 +130,15 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
 
               {/* Desktop Navigation Links */}
               <div className="hidden lg:block">
-                <ul className="flex gap-8 text-sm font-medium">
+                <ul className="flex gap-10 text-sm font-light tracking-wide">
                   {navLinks.map((link) => (
                     <li key={link.href}>
                       <button
                         onClick={() => handleNavClick(link.href)}
-                        className="block duration-150 transition-colors text-white/80 hover:text-white whitespace-nowrap"
+                        className="group relative block duration-300 transition-all text-white/70 hover:text-white whitespace-nowrap"
                       >
                         <span>{link.label}</span>
+                        <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white/60 transition-all duration-300 group-hover:w-full group-hover:bg-white" />
                       </button>
                     </li>
                   ))}
@@ -150,7 +151,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               <LanguageSwitcher />
               <Button
                 onClick={onWaitlistClick}
-                className="rounded-full px-6"
+                className="rounded-full px-8 py-2.5 font-light tracking-wide"
                 variant="hero"
               >
                 {t('buttons.reserveSpot')}
@@ -165,25 +166,25 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-x-4 top-20 z-40 bg-[#1A1614]/95 backdrop-blur-md border border-white/10 rounded-2xl md:hidden"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-4 top-20 z-40 bg-[#1A1614]/98 backdrop-blur-xl border border-white/10 rounded-3xl md:hidden shadow-2xl"
           >
-            <div className="px-6 py-6 space-y-4">
+            <div className="px-8 py-8 space-y-5">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="block w-full text-left text-lg text-white/80 hover:text-white transition-colors py-2"
+                  className="block w-full text-left text-base font-light tracking-wide text-white/70 hover:text-white transition-colors duration-300 py-1.5"
                 >
                   {link.label}
                 </button>
               ))}
 
               {/* Mobile: Language Switcher */}
-              <div className="pt-4 mt-4 border-t border-white/10 flex justify-center">
+              <div className="pt-6 mt-8 border-t border-white/10 flex justify-center">
                 <LanguageSwitcher />
               </div>
 
@@ -193,7 +194,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                   setIsMobileMenuOpen(false);
                   onWaitlistClick();
                 }}
-                className="rounded-full w-full mt-4"
+                className="rounded-full w-full mt-7 font-light tracking-wide"
                 variant="hero"
               >
                 {t('buttons.reserveSpot')}
