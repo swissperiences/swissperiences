@@ -39,10 +39,10 @@ export default function WhatWeCurate() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px", amount: 0.3 }}
                 transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-                className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/30 transition-all duration-300 cursor-default bg-black/30 backdrop-blur-sm"
+                className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/40 hover:-translate-y-1 transition-all duration-300 cursor-default bg-black/30 backdrop-blur-sm hover:bg-white/5"
               >
-                <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-colors duration-300">
-                  <Icon className="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
+                <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-all duration-300">
+                  <Icon className="w-6 h-6 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
                 </div>
                 <h3 className="text-lg text-white mb-3">
                   {t(`whatWeCurate.${card.key}.title`)}

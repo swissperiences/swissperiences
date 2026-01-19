@@ -9,13 +9,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col items-center text-center">
           {/* Logo & Tagline */}
-          <h2 className="text-2xl text-white mb-2 uppercase tracking-[0.2em]">
+          <h2 className="text-2xl text-white mb-2 uppercase tracking-[0.3em] font-light">
             Swissperiences
           </h2>
-          <p className="text-sm text-white/60 italic mb-3">
+          <p className="text-sm text-white/60 italic mb-3 font-light">
             {t('footer.tagline')}
           </p>
-          <p className="text-sm text-white/70 tracking-wide mb-8">
+          <p className="text-sm text-white/70 tracking-wide mb-8 leading-relaxed">
             {t('footer.subtitle')}
           </p>
 

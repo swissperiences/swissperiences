@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from 'react-i18next';
 
 const emailSchema = z.string().trim().email({ message: 'Please enter a valid email address' }).max(255);
 
@@ -25,6 +26,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation('common');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,13 +56,11 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
 
       if (error) {
         if (error.code === '23505') {
-          // Duplicate email - treat as info/success but don't show "request received" screen to avoid confusion
-          // OR show a specific message. User prompt said: show calm message like "You're already on the list."
           toast({
-            title: 'Already on the list',
-            description: "You're already registered for the waitlist.",
+            title: t('forms.success'),
+            description: 'Your application is already under review.',
           });
-          return; // Do not set isSuccess(true)
+          return;
         } else {
           throw error;
         }
@@ -77,18 +77,17 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
         // TODO: Add error monitoring service (e.g., Sentry) here
       });
 
-      // ONLY set success state if DB insert worked
       setIsSuccess(true);
 
       toast({
-        title: 'Welcome to the waitlist',
-        description: "We'll be in touch soon.",
+        title: t('forms.success'),
+        description: t('forms.successMessage'),
       });
 
     } catch (error) {
       console.error('[Waitlist] Database error:', error);
       toast({
-        title: 'Something went wrong',
+        title: t('forms.error'),
         description: 'Please try again later.',
         variant: 'destructive',
       });
@@ -110,13 +109,13 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md bg-background border-border animate-in fade-in-0 zoom-in-95 duration-300">
         <DialogHeader>
-          <DialogTitle className="text-2xl text-foreground">
-            {isSuccess ? 'Request Received' : 'Request Access'}
+          <DialogTitle className="text-2xl text-foreground font-light tracking-wide">
+            {isSuccess ? t('forms.success') : 'Request Invitation'}
           </DialogTitle>
-          <DialogDescription className="text-muted-foreground">
+          <DialogDescription className="text-muted-foreground leading-relaxed">
             {isSuccess
-              ? "We'll review your request and respond personally within 48 hours."
-              : 'Each request is reviewed personally. This is not a mailing list.'}
+              ? t('forms.successMessage')
+              : t('forms.description')}
           </DialogDescription>
         </DialogHeader>
 
@@ -141,7 +140,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
             />
             <Input
               type="email"
-              placeholder="your@email.com"
+              placeholder={t('forms.emailPlaceholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-white/40 transition-colors"
@@ -155,10 +154,10 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
               size="xl"
               disabled={isLoading}
             >
-              {isLoading ? 'Submitting...' : 'Submit Request'}
+              {isLoading ? t('forms.loading') : t('buttons.submit')}
             </Button>
-            <p className="text-xs text-center text-white/40 font-light">
-              No automation. A human reply within 48 hours.
+            <p className="text-xs text-center text-white/30 font-light tracking-wide">
+              Applications reviewed within 48 hours
             </p>
           </form>
         ) : (
@@ -169,7 +168,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
               variant="heroOutline"
               size="xl"
             >
-              Close
+              {t('buttons.close')}
             </Button>
           </div>
         )}
