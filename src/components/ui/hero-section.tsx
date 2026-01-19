@@ -216,27 +216,47 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
             duration: 0.7,
             ease: [0.16, 1, 0.3, 1], // Pieces.app easing curve
           }}
-          className="absolute inset-0 bg-[#1A1614]/95 backdrop-blur-lg border border-white/10 rounded-full"
+          className="absolute inset-0 bg-[#1A1614]/95 backdrop-blur-lg border border-white/15 rounded-full shadow-xl"
           style={{ pointerEvents: 'none' }}
         />
 
-        <div className="relative rounded-full px-8 py-4 text-white">
+        <motion.div
+          className="relative rounded-full text-white"
+          animate={{
+            paddingLeft: scrolled ? '32px' : '32px',
+            paddingRight: scrolled ? '32px' : '32px',
+            paddingTop: scrolled ? '14px' : '16px',
+            paddingBottom: scrolled ? '14px' : '16px',
+          }}
+          transition={{
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        >
           <div className="relative flex items-center justify-between gap-6">
             {/* Logo */}
-            <a
+            <motion.a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="flex items-center space-x-2 text-lg font-light uppercase tracking-[0.3em] hover:opacity-80 transition-opacity text-white"
+              className="flex items-center space-x-2 font-light uppercase hover:opacity-80 transition-opacity text-white"
               aria-label="home"
+              animate={{
+                fontSize: scrolled ? '0.95rem' : '1.125rem',
+                letterSpacing: scrolled ? '0.25em' : '0.3em',
+              }}
+              transition={{
+                duration: 0.7,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               Swissperiences
-            </a>
+            </motion.a>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-10">
+            <div className="hidden lg:flex items-center gap-12">
               <ul className="flex gap-10 text-sm font-light tracking-wide">
                 {menuItems.map((item, index) => (
                   <li key={index}>
@@ -254,13 +274,24 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
               {/* Desktop: Language Switcher + CTA */}
               <div className="flex items-center gap-6">
                 <LanguageSwitcher />
-                <Button
-                  onClick={() => onJoinWaitlist?.()}
-                  className="rounded-full px-8 py-2.5 font-light tracking-wide"
-                  variant="hero"
+                <motion.div
+                  animate={{
+                    opacity: scrolled ? 0.95 : 1,
+                    scale: scrolled ? 0.95 : 1,
+                  }}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                 >
-                  {t('common:nav.requestAccess')}
-                </Button>
+                  <Button
+                    onClick={() => onJoinWaitlist?.()}
+                    className="rounded-full px-8 py-2.5 font-light tracking-wide"
+                    variant="hero"
+                  >
+                    {t('common:nav.requestAccess')}
+                  </Button>
+                </motion.div>
               </div>
             </div>
 
@@ -320,7 +351,7 @@ const HeroHeader = ({ onJoinWaitlist }: { onJoinWaitlist?: () => void }) => {
               </div>
             </motion.div>
           )}
-        </div>
+        </motion.div>
       </motion.nav>
     </header>
   );

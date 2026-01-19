@@ -104,20 +104,43 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               duration: 0.7,
               ease: [0.16, 1, 0.3, 1], // Pieces.app easing curve
             }}
-            className="absolute inset-0 bg-[#1A1614]/95 backdrop-blur-lg border border-white/10 rounded-full"
+            className="absolute inset-0 bg-[#1A1614]/95 backdrop-blur-lg border border-white/15 rounded-full shadow-xl"
             style={{ pointerEvents: 'none' }}
           />
 
-          <div className="relative rounded-full px-8 py-4 text-white">
+          <motion.div
+            className="relative rounded-full text-white"
+            animate={{
+              paddingLeft: scrolled ? '32px' : '32px',
+              paddingRight: scrolled ? '32px' : '32px',
+              paddingTop: scrolled ? '14px' : '16px',
+              paddingBottom: scrolled ? '14px' : '16px',
+            }}
+            transition={{
+              duration: 0.7,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+          >
             <div className="relative flex flex-wrap items-center justify-between gap-6 lg:flex-nowrap lg:gap-0">
             {/* Logo + Mobile Button + Desktop Nav Links */}
             <div className="flex w-full items-center justify-between lg:w-auto lg:gap-16">
-              <Link
-                to="/"
-                className="text-lg font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.3em]"
+              <motion.div
+                animate={{
+                  fontSize: scrolled ? '0.95rem' : '1.125rem',
+                  letterSpacing: scrolled ? '0.25em' : '0.3em',
+                }}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               >
-                Swissperiences
-              </Link>
+                <Link
+                  to="/"
+                  className="font-light text-white hover:opacity-80 transition-opacity uppercase"
+                >
+                  Swissperiences
+                </Link>
+              </motion.div>
 
               {/* Mobile Menu Button */}
               <button
@@ -147,18 +170,29 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             </div>
 
             {/* Desktop: Language Switcher + CTA */}
-            <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-6 lg:flex-shrink-0">
+            <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-12 lg:flex-shrink-0">
               <LanguageSwitcher />
-              <Button
-                onClick={onWaitlistClick}
-                className="rounded-full px-8 py-2.5 font-light tracking-wide"
-                variant="hero"
+              <motion.div
+                animate={{
+                  opacity: scrolled ? 0.95 : 1,
+                  scale: scrolled ? 0.95 : 1,
+                }}
+                transition={{
+                  duration: 0.7,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               >
-                {t('buttons.reserveSpot')}
-              </Button>
+                <Button
+                  onClick={onWaitlistClick}
+                  className="rounded-full px-8 py-2.5 font-light tracking-wide"
+                  variant="hero"
+                >
+                  {t('buttons.reserveSpot')}
+                </Button>
+              </motion.div>
             </div>
             </div>
-          </div>
+          </motion.div>
         </motion.nav>
       </header>
 
