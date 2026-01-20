@@ -11,7 +11,7 @@ export default async function handler(req: any, res: any) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { email, newsletter_opt_in = true } = req.body;
+    const { email, first_name = null, newsletter_opt_in = true } = req.body;
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const isTestMode = process.env.EMAIL_TEST_MODE === 'true';
