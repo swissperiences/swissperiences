@@ -167,12 +167,7 @@ export default async function handler(req: any, res: any) {
         return res.status(200).json({
             success: true,
             userMessageId: userData?.id,
-            adminMessageId: adminData?.id,
-            debug: {
-                keyPrefix: process.env.RESEND_API_KEY?.substring(0, 7),
-                keySuffix: process.env.RESEND_API_KEY?.substring(process.env.RESEND_API_KEY.length - 4),
-                keyLength: process.env.RESEND_API_KEY?.length
-            }
+            adminMessageId: adminData?.id
         });
     } catch (error: any) {
         return res.status(500).json({ error: error.message });
