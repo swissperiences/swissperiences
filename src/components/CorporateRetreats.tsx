@@ -50,6 +50,7 @@ export default function CorporateRetreats() {
     email: "",
     teamSize: "",
     message: "",
+    newsletter: true, // Default to opt-in
     honeypot: "",
   });
 
@@ -82,6 +83,7 @@ export default function CorporateRetreats() {
           email: formData.email,
           team_size: formData.teamSize || null,
           message: formData.message || null,
+          newsletter_opt_in: formData.newsletter,
         });
 
       if (error) throw error;
@@ -112,6 +114,7 @@ export default function CorporateRetreats() {
         email: "",
         teamSize: "",
         message: "",
+        newsletter: true,
         honeypot: "",
       });
       setHasSubmitted(false);
@@ -203,7 +206,7 @@ export default function CorporateRetreats() {
               Start the conversation
             </p>
             <h3 className="text-3xl md:text-4xl font-light text-white mb-3">
-              Tell Us About Your Team
+              Request Access
             </h3>
             <p className="text-white/50">
               Share a few details and we'll explore options together.
@@ -312,6 +315,20 @@ export default function CorporateRetreats() {
               </div>
             </div>
 
+            {/* Newsletter Opt-in Checkbox */}
+            <label className="flex items-start gap-3 cursor-pointer group px-2">
+              <input
+                type="checkbox"
+                checked={formData.newsletter}
+                onChange={(e) => setFormData({ ...formData, newsletter: e.target.checked })}
+                className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-white focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                disabled={isSubmitting}
+              />
+              <span className="text-sm text-white/60 font-light leading-relaxed group-hover:text-white/80 transition-colors">
+                Send me curated stories, seasonal experiences, and exclusive invitations for teams. (You can unsubscribe anytime.)
+              </span>
+            </label>
+
             <div className="space-y-3">
               <Button
                 type="submit"
@@ -319,7 +336,7 @@ export default function CorporateRetreats() {
                 className="w-full h-14 text-base font-medium bg-white text-black hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98] rounded-xl transition-all duration-300 focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-black"
                 aria-label="Submit corporate retreat inquiry"
               >
-                {isSubmitting ? "Sending..." : "Tell Us About Your Team"}
+                {isSubmitting ? "Sending..." : "Request Access"}
               </Button>
               <p className="text-center text-sm text-white/40">
                 No obligation—share a few details and we'll explore options together.

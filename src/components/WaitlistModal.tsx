@@ -23,6 +23,7 @@ interface WaitlistModalProps {
 export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
   const [email, setEmail] = useState('');
   const [honeypot, setHoneypot] = useState('');
+  const [newsletter, setNewsletter] = useState(true); // Default to opt-in
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
@@ -52,7 +53,10 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       // 1. Database Insert
       const { error } = await supabase
         .from('waitlist')
-        .insert({ email: result.data });
+        .insert({
+          email: result.data,
+          newsletter_opt_in: newsletter
+        });
 
       if (error) {
         if (error.code === '23505') {
@@ -101,6 +105,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
     // Reset state after modal closes
     setTimeout(() => {
       setEmail('');
+      setNewsletter(true);
       setIsSuccess(false);
     }, 300);
   };
@@ -110,7 +115,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       <DialogContent className="sm:max-w-md bg-background border-border animate-in fade-in-0 zoom-in-95 duration-300">
         <DialogHeader>
           <DialogTitle className="text-2xl text-foreground font-light tracking-wide">
-            {isSuccess ? t('forms.success') : 'Request Invitation'}
+            {isSuccess ? t('forms.success') : 'Request Access'}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground leading-relaxed">
             {isSuccess
@@ -147,6 +152,21 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
               disabled={isLoading}
               required
             />
+
+            {/* Newsletter Opt-in Checkbox */}
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                checked={newsletter}
+                onChange={(e) => setNewsletter(e.target.checked)}
+                className="mt-1 w-4 h-4 rounded border-border bg-secondary text-primary focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                disabled={isLoading}
+              />
+              <span className="text-sm text-white/60 font-light leading-relaxed group-hover:text-white/80 transition-colors">
+                Send me curated stories, seasonal experiences, and exclusive invitations. (You can unsubscribe anytime.)
+              </span>
+            </label>
+
             <Button
               type="submit"
               className="w-full"

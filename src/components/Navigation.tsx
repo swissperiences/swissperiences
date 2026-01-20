@@ -1,12 +1,10 @@
 /**
- * Standalone Navigation Component
+ * Unified Navigation Component
  *
- * NOTE: This component is similar to HeroHeader in hero-section.tsx
- * TODO: Consider consolidating both into a single shared navigation component
- *
- * Current usage:
- * - ForTeams page (standalone header without hero)
- * - HeroHeader is used in Index page (integrated with hero section)
+ * Consolidated navigation used across all pages:
+ * - Index page (with hero section)
+ * - ForTeams page (standalone)
+ * - All other pages
  */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -95,16 +93,16 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
         >
           {/* Pieces-style materializing pill background */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0.3, scale: 1 }}
             animate={{
-              opacity: scrolled ? 1 : 0,
-              scale: scrolled ? 1 : 0.8,
+              opacity: scrolled ? 1 : 0.3,
+              scale: scrolled ? 1 : 1,
             }}
             transition={{
               duration: 0.7,
               ease: [0.16, 1, 0.3, 1], // Pieces.app easing curve
             }}
-            className="absolute inset-0 bg-[#1A1614]/95 backdrop-blur-lg border border-white/15 rounded-full shadow-xl"
+            className="absolute inset-0 bg-[#1A1614]/80 backdrop-blur-md border border-white/10 rounded-full"
             style={{ pointerEvents: 'none' }}
           />
 
@@ -187,7 +185,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                   className="rounded-full px-8 py-2.5 font-light tracking-wide"
                   variant="hero"
                 >
-                  {t('buttons.reserveSpot')}
+                  {t('common:nav.requestAccess')}
                 </Button>
               </motion.div>
             </div>
@@ -231,7 +229,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                 className="rounded-full w-full mt-7 font-light tracking-wide"
                 variant="hero"
               >
-                {t('buttons.reserveSpot')}
+                {t('common:nav.requestAccess')}
               </Button>
             </div>
           </motion.div>

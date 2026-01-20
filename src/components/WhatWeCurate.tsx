@@ -3,6 +3,7 @@ import { Mountain, Leaf, Palette, Wind, Video } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 
 // Card configuration - icons and translation keys
+// TODO: Replace icons with real photos when available (aspect-square images with object-cover)
 const cardsConfig = [
   { icon: Leaf, key: 'wellnessRetreats' },
   { icon: Wind, key: 'mindfulExperiences' },

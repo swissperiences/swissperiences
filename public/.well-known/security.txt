@@ -1,0 +1,13 @@
+Contact: mailto:security@swissperiences.ch
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en, de, fr
+Canonical: https://www.swissperiences.ch/.well-known/security.txt
+Policy: https://www.swissperiences.ch/security-policy
+Acknowledgments: https://www.swissperiences.ch/security-acknowledgments
+
+# Security Policy
+#
+# If you discover a security vulnerability in Swissperiences,
+# please report it responsibly by emailing security@swissperiences.ch
+#
+# We appreciate your efforts to responsibly disclose your findings.

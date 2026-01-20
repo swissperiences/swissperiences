@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/ui/hero-section";
 import WhatWeCurate from "@/components/WhatWeCurate";
+import { TrustedBy } from "@/components/TrustedBy";
 import HowItWorks from "@/components/HowItWorks";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -51,6 +52,7 @@ const Index = () => {
       {/* All content with relative positioning */}
       <div className="relative z-10">
         <HeroSection onJoinWaitlist={() => setIsWaitlistOpen(true)} />
+        <TrustedBy />
         <WhatWeCurate />
         {/* AnimatedStatCounter removed - stats contradict Maison-level positioning */}
         <HowItWorks />
