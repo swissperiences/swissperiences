@@ -1,12 +1,13 @@
 import { HeroSection } from "@/components/ui/hero-section";
 import WhatWeCurate from "@/components/WhatWeCurate";
 import { TrustedBy } from "@/components/TrustedBy";
-import HowItWorks from "@/components/HowItWorks";
+import JourneyTimeline from "@/components/JourneyTimeline";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { WaitlistModal } from "@/components/WaitlistModal";
 import GlobalVideoBackground from "@/components/GlobalVideoBackground";
 import SEO from "@/components/SEO";
+import Mentors from "@/components/Mentors";
 // import AnimatedStatCounter from "@/components/AnimatedStatCounter"; // Removed: Stats feel achievement-oriented, not aligned with quiet luxury positioning
 import { useState } from "react";
 
@@ -53,9 +54,9 @@ const Index = () => {
       <div className="relative z-10">
         <HeroSection onJoinWaitlist={() => setIsWaitlistOpen(true)} />
         <TrustedBy />
+        <Mentors />
+        <JourneyTimeline />
         <WhatWeCurate />
-        {/* AnimatedStatCounter removed - stats contradict Maison-level positioning */}
-        <HowItWorks />
         <FAQ />
         <Footer />
       </div>

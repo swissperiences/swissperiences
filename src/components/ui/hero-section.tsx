@@ -13,103 +13,63 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
   return (
     <>
       <Navigation onWaitlistClick={() => onJoinWaitlist?.()} />
-      <section className="relative w-full min-h-screen overflow-x-hidden">
-        {/* Video background is now global - no local video needed */}
+      <section className="relative w-full min-h-screen overflow-x-hidden flex items-center justify-center">
+        {/* Simplified centralized layout for all devices */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-20 pb-12 flex flex-col items-center justify-center min-h-screen text-center">
 
-        {/* --- MOBILE LAYOUT (Simplified to single viewport) --- */}
-        <div className="relative z-10 flex flex-col md:hidden">
-          {/* Single unified mobile hero */}
-          <div className="flex min-h-[100dvh] pt-20 w-full flex-col items-center justify-center px-6 text-center pb-24">
-            <h1 className="text-white leading-[1.2] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.15)" }}>
-              <span className="block text-[3rem] font-light tracking-tight">
-                {t('home:hero.title')}
-              </span>
-              <span className="block text-[2.2rem] font-extralight mt-4 opacity-95 tracking-wide">
-                {t('home:hero.subtitle')}
-              </span>
-            </h1>
-
-            <p className="mx-auto max-w-md text-sm text-white/90 font-light leading-relaxed" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
-              {t('home:hero.tagline1')}
-            </p>
-
-            <p className="mx-auto max-w-md mt-4 text-sm text-white/90 font-light leading-relaxed" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
-              {t('home:hero.tagline2')}
-            </p>
-
-            <div className="mt-12 flex justify-center">
-              <button
-                onClick={() => {
-                  const element = document.querySelector('#experiences');
-                  if (element) element.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
-              >
-                <span className="border-b border-white/40 group-hover:border-white pb-1">{t('common:nav.requestAccess')}</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* --- DESKTOP LAYOUT (Preserved) --- */}
-        <div className="relative z-10 hidden md:flex min-h-screen pt-24 items-center justify-center px-6">
           <motion.div
-            className="mx-auto w-full max-w-6xl text-center"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-5xl mx-auto"
           >
-            {/* Headline */}
-            <h1 className="text-white leading-[1.15]" style={{ fontFamily: "'Cormorant Garamond', serif", textShadow: "0 2px 12px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.15)" }}>
-              <span className="block text-[clamp(4rem,7vw,8rem)] font-light tracking-tight">
+            {/* Editorial Headline */}
+            <h1 className="text-white leading-none mb-8" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              <span className="block text-[13vw] md:text-[8rem] lg:text-[9.5rem] font-light tracking-tighter mix-blend-overlay opacity-90">
                 {t('home:hero.title')}
               </span>
-              <span className="block text-[clamp(3rem,5.5vw,7rem)] font-extralight mt-6 opacity-95 tracking-wide">
+              <span className="block text-2xl md:text-3xl lg:text-4xl font-light italic mt-2 md:mt-4 opacity-80 tracking-wide font-sans">
                 {t('home:hero.subtitle')}
               </span>
             </h1>
 
-            {/* Subheadline: Maximum contrast */}
-            <div className="space-y-4 mt-10">
-              <p className="mx-auto max-w-2xl text-base md:text-lg text-white/95 font-normal leading-relaxed" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4)" }}>
-                {t('home:hero.tagline1')}
-              </p>
-              <p className="mx-auto max-w-2xl text-base md:text-lg text-white/95 font-normal leading-relaxed" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4)" }}>
-                {t('home:hero.tagline2')}
-              </p>
-            </div>
+            {/* Minimalist Divider */}
+            <div className="w-[1px] h-16 bg-white/20 mx-auto my-8 hidden md:block" />
 
-            {/* Micro-phrase: High visibility */}
-            <p className="mx-auto mt-8 text-sm text-white/95 font-medium tracking-wide" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.3)" }}>
-              {t('home:hero.microPhrase')}
+            {/* Subtext */}
+            <p className="mx-auto max-w-lg text-sm md:text-base text-white/70 font-light leading-relaxed tracking-wide mb-12">
+              {t('home:hero.tagline1')} <br className="hidden md:block" /> {t('home:hero.tagline2')}
             </p>
 
-            {/* CTA */}
-            <div className="mt-[12vh] flex justify-center">
-              <button
-                onClick={() => {
-                  const element = document.querySelector('#experiences');
-                  if (element) element.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="group text-sm text-white/90 hover:text-white transition-colors uppercase tracking-[0.15em]"
-              >
-                <span className="border-b border-white/40 group-hover:border-white pb-1">{t('common:nav.requestAccess')}</span>
-              </button>
-            </div>
-
+            {/* Premium CTA */}
+            <button
+              onClick={() => {
+                const element = document.querySelector('#experiences');
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden transition-all duration-300"
+            >
+              <span className="absolute inset-0 border border-white/20 group-hover:border-white/40 transition-colors duration-300" />
+              <span className="relative text-xs text-white uppercase tracking-[0.25em] group-hover:text-white transition-colors duration-300">
+                {t('common:nav.requestAccess')}
+              </span>
+            </button>
           </motion.div>
 
-          {/* Scroll Indicator - Simplified (removed decorative animation) */}
-          <div
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer z-20 opacity-80 hover:opacity-100 transition-opacity"
+          {/* Bottom Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 cursor-pointer"
             onClick={() => {
               const element = document.querySelector('#experiences');
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            <span className="text-white/60 text-xs uppercase tracking-widest">{t('common:scroll')}</span>
-            <div className="w-[1px] h-12 bg-gradient-to-b from-white/60 to-transparent" />
-          </div>
+            <span className="text-[10px] text-white/40 uppercase tracking-[0.2em]">Scroll</span>
+            <div className="w-[1px] h-12 bg-white/10" />
+          </motion.div>
         </div>
       </section>
     </>
