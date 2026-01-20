@@ -1,62 +1,64 @@
 import { motion } from "framer-motion";
-import { Mountain, Leaf, Palette, Wind, Video } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 
-// Card configuration - icons and translation keys
-// TODO: Replace icons with real photos when available (aspect-square images with object-cover)
+// Editorial configuration - Roman numerals and keys
 const cardsConfig = [
-  { icon: Leaf, key: 'wellnessRetreats' },
-  { icon: Wind, key: 'mindfulExperiences' },
-  { icon: Mountain, key: 'alpineAdventures' },
-  { icon: Palette, key: 'culturalImmersion' },
-  { icon: Video, key: 'droneVideography' },
+  { number: 'I', key: 'wellnessRetreats' },
+  { number: 'II', key: 'mindfulExperiences' },
+  { number: 'III', key: 'alpineAdventures' },
+  { number: 'IV', key: 'culturalImmersion' },
+  { number: 'V', key: 'droneVideography' },
 ];
 
 export default function WhatWeCurate() {
   const { t } = useTranslation('home');
   return (
-    <section id="experiences" className="relative py-20 sm:py-24 scroll-mt-20">
-      {/* Darker overlay for experiences section */}
-      <div className="absolute inset-0 bg-black/50" />
+    <section id="experiences" className="relative py-32 bg-background border-t border-white/5 scroll-mt-20">
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className="text-sm tracking-[0.3em] text-white/80 mb-16 text-center uppercase font-light"
+          viewport={{ once: true }}
+          className="text-center mb-24"
         >
-          {t('whatWeCurate.heading')}
-        </motion.p>
+          <span className="text-switz-red text-xs font-bold tracking-[0.2em] uppercase block mb-6">
+            Our Curation
+          </span>
+          <h2 className="text-4xl md:text-5xl font-serif text-white">
+            Beyond the <span className="italic text-white/50">guidebook.</span>
+          </h2>
+        </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-          {cardsConfig.map((card, index) => {
-            const Icon = card.icon;
-            return (
-              <motion.div
-                key={card.key}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px", amount: 0.3 }}
-                transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-                className="group p-6 sm:p-8 border border-white/10 rounded-xl hover:border-white/40 hover:-translate-y-1 transition-all duration-300 cursor-default bg-black/30 backdrop-blur-sm hover:bg-white/5"
-              >
-                <div className="aspect-square w-12 h-12 flex items-center justify-center rounded-lg bg-white/5 mb-6 group-hover:bg-white/10 transition-all duration-300">
-                  <Icon className="w-6 h-6 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
-                </div>
-                <h3 className="text-lg text-white mb-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-px bg-white/10 border border-white/10 overflow-hidden">
+          {cardsConfig.map((card, index) => (
+            <motion.div
+              key={card.key}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative bg-background p-10 md:p-8 lg:p-10 flex flex-col justify-between min-h-[300px] hover:bg-white/5 transition-colors duration-500"
+            >
+              <div>
+                <span className="text-switz-red font-serif text-xl italic opacity-60 mb-6 block group-hover:opacity-100 transition-opacity">
+                  {card.number}
+                </span>
+                <h3 className="text-xl text-white font-serif mb-4 leading-heading">
                   {t(`whatWeCurate.${card.key}.title`)}
                 </h3>
-                <p className="text-sm text-white/60 leading-relaxed mb-4">
+                <p className="text-sm text-white/60 font-light leading-relaxed">
                   {t(`whatWeCurate.${card.key}.description`)}
                 </p>
-                <p className="text-xs text-white/40 italic">
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/5 group-hover:border-white/20 transition-colors">
+                <p className="text-[10px] text-white/40 uppercase tracking-widest">
                   {t(`whatWeCurate.${card.key}.audience`)}
                 </p>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Footer Statement */}
@@ -65,7 +67,7 @@ export default function WhatWeCurate() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-24 text-xs text-white/50 tracking-wide font-light"
+          className="text-center mt-24 text-xs text-white/30 tracking-[0.2em] uppercase font-light"
         >
           {t('whatWeCurate.footer')}
         </motion.p>
