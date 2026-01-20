@@ -181,6 +181,26 @@ export default async function handler(req: any, res: any) {
             console.log('[API] Resend admin data:', adminData);
         }
 
+        // 3. Sync to Resend Audiences (Automation)
+        if (newsletter_opt_in && process.env.RESEND_AUDIENCE_ID) {
+            try {
+                const { data: contactData, error: contactError } = await resend.contacts.create({
+                    email: email,
+                    firstName: contactName,
+                    audienceId: process.env.RESEND_AUDIENCE_ID,
+                    unsubscribed: false,
+                });
+
+                if (contactError) {
+                    console.error('[API] Resend contact sync error:', contactError);
+                } else {
+                    console.log('[API] Resend contact sync success:', contactData);
+                }
+            } catch (syncError) {
+                console.error('[API] Resend contact sync exception:', syncError);
+            }
+        }
+
         return res.status(200).json({
             success: true,
             userMessageId: userData?.id,
