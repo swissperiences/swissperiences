@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { createClient } from '@supabase/supabase-js';
 // import { checkRateLimit } from './lib/rate-limit.js';
 
 export default async function handler(req: any, res: any) {
@@ -9,12 +10,36 @@ export default async function handler(req: any, res: any) {
     const { companyName, contactName, email, teamSize = "", message = "", newsletter_opt_in = true } = req.body;
 
     const resend = new Resend(process.env.RESEND_API_KEY);
+    const supabase = createClient(
+        process.env.VITE_SUPABASE_URL!,
+        process.env.VITE_SUPABASE_PUBLISHABLE_KEY!
+    );
     const isTestMode = process.env.EMAIL_TEST_MODE === 'true';
 
     console.log(`[API] Processing corporate inquiry for: ${email} (${companyName})`);
 
     try {
-        // 1. Send confirmation to USER
+        // 1. Save to database FIRST
+        const { error: dbError } = await supabase
+            .from('corporate_inquiries')
+            .insert({
+                company_name: companyName,
+                contact_name: contactName,
+                email: email,
+                team_size: teamSize,
+                message: message,
+                newsletter_opt_in: newsletter_opt_in,
+                source: 'inquiry_modal',
+                status: 'new'
+            });
+
+        if (dbError) {
+            console.error('[API] Database error:', dbError);
+            // We continue even if DB fails? ideally we should probably warn or throw. 
+            // For now, let's log heavily but try to send email so lead isn't lost.
+        }
+
+        // 2. Send confirmation to USER
         const { data: userData, error: userError } = await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
             to: [email],
