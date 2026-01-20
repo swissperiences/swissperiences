@@ -20,13 +20,19 @@ export default async function handler(req: any, res: any) {
 
     try {
         // 1. Save to database first
+        const insertData: any = {
+            email: email,
+            newsletter_opt_in: newsletter_opt_in
+        };
+
+        // Only add first_name if provided (and if column exists in DB)
+        if (first_name) {
+            insertData.first_name = first_name;
+        }
+
         const { error: dbError } = await supabase
             .from('waitlist')
-            .insert({
-                email: email,
-                first_name: first_name,
-                newsletter_opt_in: newsletter_opt_in
-            });
+            .insert(insertData);
 
         if (dbError) {
             // Check for duplicate email
