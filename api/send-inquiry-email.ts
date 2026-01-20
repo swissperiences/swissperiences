@@ -1,24 +1,21 @@
 import { Resend } from 'resend';
 // import { checkRateLimit } from './lib/rate-limit.js';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
     const { companyName, contactName, email, teamSize = "", message = "", newsletter_opt_in = true } = req.body;
 
-    // Rate limiting check - TEMPORARILY DISABLED due to Redis env var issue
-    // const rateLimitResult = await checkRateLimit(email, 'corporate');
-    // if (!rateLimitResult.success) {
-    //     return res.status(429).json({ error: rateLimitResult.error });
-    // }
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const isTestMode = process.env.EMAIL_TEST_MODE === 'true';
+
+    console.log(`[API] Processing corporate inquiry for: ${email} (${companyName})`);
 
     try {
-        // 1. Send confirmation to USER (The "Professional Stunning")
-        await resend.emails.send({
+        // 1. Send confirmation to USER
+        const { data: userData, error: userError } = await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
             to: [email],
             subject: 'Your team inquiry received.',
@@ -93,8 +90,8 @@ export default async function handler(req, res) {
                 </div>
                 
                 <div class="footer">
-                     <p>© 2025 SWISSPERIENCES • GENEVA, SWITZERLAND</p>
-                     <p><a href="https://swissperiences.ch">WEBSITE</a> &nbsp;&nbsp; <a href="mailto:hello@swissperiences.ch">CONTACT</a></p>
+                    <p>© 2025 SWISSPERIENCES • GENEVA, SWITZERLAND</p>
+                    <p><a href="https://swissperiences.ch">WEBSITE</a> &nbsp;&nbsp; <a href="mailto:hello@swissperiences.ch">CONTACT</a></p>
                 </div>
             </div>
         </center>
@@ -103,8 +100,14 @@ export default async function handler(req, res) {
 </html>`
         });
 
-        // 2. Internal Notification to ADMIN (The "Intelligence Report")
-        await resend.emails.send({
+        if (userError) {
+            console.error('[API] Resend user error:', userError);
+        } else {
+            console.log('[API] Resend user data:', userData);
+        }
+
+        // 2. Internal Notification to ADMIN
+        const { data: adminData, error: adminError } = await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
             to: ['hello@swissperiences.ch'],
             subject: `[INTEL] New Corp Inquiry: ${companyName}`,
@@ -144,7 +147,7 @@ export default async function handler(req, res) {
             <span class="value">${contactName}</span>
         </div>
         <div class="data-row">
-            <span class="label">Email Frequency</span>
+            <span class="label">Contact Email</span>
             <span class="value">${email}</span>
         </div>
         <div class="data-row">
@@ -172,8 +175,18 @@ export default async function handler(req, res) {
 </html>`
         });
 
-        return res.status(200).json({ success: true });
-    } catch (error) {
+        if (adminError) {
+            console.error('[API] Resend admin error:', adminError);
+        } else {
+            console.log('[API] Resend admin data:', adminData);
+        }
+
+        return res.status(200).json({
+            success: true,
+            userMessageId: userData?.id,
+            adminMessageId: adminData?.id
+        });
+    } catch (error: any) {
         return res.status(500).json({ error: error.message });
     }
 }
