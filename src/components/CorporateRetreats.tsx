@@ -97,7 +97,8 @@ export default function CorporateRetreats() {
           contactName: formData.contactName,
           email: formData.email,
           teamSize: formData.teamSize,
-          message: formData.message
+          message: formData.message,
+          newsletter_opt_in: formData.newsletter
         }),
       }).catch((error) => {
         console.error('[Corporate Inquiry] Failed to send email notification:', error);

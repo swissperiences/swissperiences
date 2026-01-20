@@ -8,7 +8,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { companyName, contactName, email, teamSize = "", message = "" } = req.body;
+    const { companyName, contactName, email, teamSize = "", message = "", newsletter_opt_in = true } = req.body;
 
     // Rate limiting check - TEMPORARILY DISABLED due to Redis env var issue
     // const rateLimitResult = await checkRateLimit(email, 'corporate');
@@ -151,7 +151,11 @@ export default async function handler(req, res) {
             <span class="label">Est. Cohort</span>
             <span class="value">${teamSize}</span>
         </div>
-        
+        <div class="data-row">
+            <span class="label">Newsletter Consent</span>
+            <span class="value" style="color: ${newsletter_opt_in ? '#10B981' : '#EF4444'};">${newsletter_opt_in ? '✓ OPTED-IN' : '✗ OPTED-OUT'}</span>
+        </div>
+
         <div class="label" style="margin-top: 20px;">Briefing / Intent</div>
         <div class="message-block">
             "${message}"

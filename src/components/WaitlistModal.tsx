@@ -75,7 +75,10 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       fetch('/api/send-waitlist-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: result.data }),
+        body: JSON.stringify({
+          email: result.data,
+          newsletter_opt_in: newsletter
+        }),
       }).catch((error) => {
         console.error('[Waitlist] Failed to send email notification:', error);
         // TODO: Add error monitoring service (e.g., Sentry) here

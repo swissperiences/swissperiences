@@ -8,7 +8,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { email } = req.body;
+    const { email, newsletter_opt_in = true } = req.body;
 
     if (!email) {
         return res.status(400).json({ error: 'Email is required' });
@@ -72,7 +72,11 @@ export default async function handler(req, res) {
             <span class="label">Origin</span>
             <span class="value">swissperiences.ch</span>
         </div>
-        
+        <div class="data-row">
+            <span class="label">Newsletter Consent</span>
+            <span class="value" style="color: ${newsletter_opt_in ? '#10B981' : '#EF4444'};">${newsletter_opt_in ? '✓ OPTED-IN' : '✗ OPTED-OUT'}</span>
+        </div>
+
         <a href="mailto:${email}" class="action-link">:: ACKNOWLEDGE SIGNAL ::</a>
         
         <div class="footer">
