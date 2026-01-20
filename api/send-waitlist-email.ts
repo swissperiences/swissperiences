@@ -76,9 +76,9 @@ export default async function handler(req: any, res: any) {
 
         if (userError) {
             console.error('[API] Resend user error:', userError);
-        } else {
-            console.log('[API] Resend user data:', userData);
+            throw new Error(`Failed to send user email: ${userError.message}`);
         }
+        console.log('[API] Resend user data:', userData);
 
         // 2. Internal Notification
         const { data: adminData, error: adminError } = await resend.emails.send({
@@ -141,9 +141,9 @@ export default async function handler(req: any, res: any) {
 
         if (adminError) {
             console.error('[API] Resend admin error:', adminError);
-        } else {
-            console.log('[API] Resend admin data:', adminData);
+            throw new Error(`Failed to send admin notification: ${adminError.message}`);
         }
+        console.log('[API] Resend admin data:', adminData);
 
         // 3. Sync to Resend Audiences (Automation)
         if (newsletter_opt_in && process.env.RESEND_AUDIENCE_ID) {
