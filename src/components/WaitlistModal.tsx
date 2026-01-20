@@ -50,49 +50,41 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
     setIsLoading(true);
 
     try {
-      // 1. Database Insert
-      const { error } = await supabase
-        .from('waitlist')
-        .insert({
-          email: result.data,
-          newsletter_opt_in: newsletter
+      // Validate email format
+      const result = emailSchema.safeParse(email);
+      if (!result.success) {
+        toast({
+          title: 'Invalid email',
+          description: result.error.errors[0].message,
         });
-
-      if (error) {
-        if (error.code === '23505') {
-          toast({
-            title: t('forms.success'),
-            description: 'Your application is already under review.',
-          });
-          return;
-        } else {
-          throw error;
-        }
+        setIsLoading(false);
+        return;
       }
 
-      // 2. Email Notification (Vercel Function)
-      // Non-blocking call - we don't want to fail the UI if email fails
-      fetch('/api/send-waitlist-email', {
+      // Call API directly - it handles both database insert AND email sending
+      const response = await fetch('/api/send-waitlist-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: result.data,
           newsletter_opt_in: newsletter
         }),
-      }).catch((error) => {
-        console.error('[Waitlist] Failed to send email notification:', error);
-        // TODO: Add error monitoring service (e.g., Sentry) here
       });
 
-      setIsSuccess(true);
+      const data = await response.json();
 
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit');
+      }
+
+      setIsSuccess(true);
       toast({
         title: t('forms.success'),
         description: t('forms.successMessage'),
       });
 
     } catch (error) {
-      console.error('[Waitlist] Database error:', error);
+      console.error('[Waitlist] Submission error:', error);
       toast({
         title: t('forms.error'),
         description: 'Please try again later.',

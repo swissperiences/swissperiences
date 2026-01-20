@@ -1,5 +1,10 @@
 import { Resend } from 'resend';
-// import { checkRateLimit } from './lib/rate-limit.js';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+    process.env.VITE_SUPABASE_URL!,
+    process.env.VITE_SUPABASE_PUBLISHABLE_KEY!
+);
 
 export default async function handler(req: any, res: any) {
     if (req.method !== 'POST') {
@@ -13,13 +18,28 @@ export default async function handler(req: any, res: any) {
 
     console.log(`[API] Processing waitlist signup for: ${email}`);
 
-    // Rate limiting check - TEMPORARILY DISABLED due to Redis env var issue
-    // const rateLimitResult = await checkRateLimit(email, 'waitlist');
-    // if (!rateLimitResult.success) {
-    //     return res.status(429).json({ error: rateLimitResult.error });
-    // }
-
     try {
+        // 1. Save to database first
+        const { error: dbError } = await supabase
+            .from('waitlist')
+            .insert({
+                email: email,
+                newsletter_opt_in: newsletter_opt_in
+            });
+
+        if (dbError) {
+            // Check for duplicate email
+            if (dbError.code === '23505') {
+                return res.status(200).json({
+                    success: true,
+                    message: 'Email already registered'
+                });
+            }
+            console.error('[API] Database error:', dbError);
+            throw dbError;
+        }
+
+        // 2. Continue with email sending...
         // TEST MODE: Log emails to console instead of sending
         if (isTestMode) {
             console.log('\n🧪 EMAIL TEST MODE - Email would be sent:\n');
