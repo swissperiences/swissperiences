@@ -152,6 +152,7 @@ export default async function handler(req: any, res: any) {
                     email: email,
                     audienceId: process.env.RESEND_AUDIENCE_ID,
                     unsubscribed: false,
+                    first_name: first_name || undefined
                 });
 
                 if (contactError) {
