@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { z } from 'zod';
-import { supabase } from '@/integrations/supabase/client';
 import {
   Dialog,
   DialogContent,
@@ -22,6 +21,7 @@ interface WaitlistModalProps {
 
 export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [honeypot, setHoneypot] = useState('');
   const [newsletter, setNewsletter] = useState(true); // Default to opt-in
   const [isLoading, setIsLoading] = useState(false);
@@ -67,6 +67,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: result.data,
+          first_name: firstName.trim() || null,
           newsletter_opt_in: newsletter
         }),
       });
@@ -100,6 +101,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
     // Reset state after modal closes
     setTimeout(() => {
       setEmail('');
+      setFirstName('');
       setNewsletter(true);
       setIsSuccess(false);
     }, 300);
@@ -146,6 +148,15 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
               className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-white/40 transition-colors"
               disabled={isLoading}
               required
+            />
+
+            <Input
+              type="text"
+              placeholder="First name (optional)"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-white/40 transition-colors"
+              disabled={isLoading}
             />
 
             {/* Newsletter Opt-in Checkbox */}

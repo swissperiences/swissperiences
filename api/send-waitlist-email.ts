@@ -24,6 +24,7 @@ export default async function handler(req: any, res: any) {
             .from('waitlist')
             .insert({
                 email: email,
+                first_name: first_name,
                 newsletter_opt_in: newsletter_opt_in
             });
 
