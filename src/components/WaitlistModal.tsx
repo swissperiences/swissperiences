@@ -55,7 +55,9 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
         .from('waitlist')
         .insert({
           email: result.data,
-          newsletter_opt_in: newsletter
+          newsletter_opt_in: newsletter,
+          source: 'waitlist_modal',
+          status: 'new'
         });
 
       if (error) {
