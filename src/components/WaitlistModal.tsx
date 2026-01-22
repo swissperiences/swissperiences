@@ -245,7 +245,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                     <SelectTrigger className="bg-secondary border-border">
                       <SelectValue placeholder="Guests" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="z-[200]">
                       <SelectItem value="1">1 Guest</SelectItem>
                       <SelectItem value="2">2 Guests</SelectItem>
                       <SelectItem value="3">3 Guests</SelectItem>
