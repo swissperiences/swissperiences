@@ -10,6 +10,23 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { DateRange } from 'react-day-picker';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useTranslation } from 'react-i18next';
 
 const emailSchema = z.string().trim().email({ message: 'Please enter a valid email address' }).max(255);
@@ -17,17 +34,32 @@ const emailSchema = z.string().trim().email({ message: 'Please enter a valid ema
 interface WaitlistModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  selectedTier?: string; // Optional tier context
 }
 
-export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
+export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Waitlist' }: WaitlistModalProps) {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
+  const [date, setDate] = useState<DateRange | undefined>();
+  const [guests, setGuests] = useState<string>('');
   const [honeypot, setHoneypot] = useState('');
   const [newsletter, setNewsletter] = useState(true); // Default to opt-in
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
   const { t } = useTranslation('common');
+
+  // Dynamic title based on tier
+  const getModalTitle = () => {
+    if (isSuccess) return t('forms.success');
+    if (selectedTier === 'Private Escape') {
+      return 'Inquire for your Private Escape';
+    }
+    if (selectedTier && selectedTier !== 'General Waitlist') {
+      return `Join the ${selectedTier} Waitlist`;
+    }
+    return 'Request Access';
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,13 +94,17 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       }
 
       // Call API directly - it handles both database insert AND email sending
-      const response = await fetch('/api/send-waitlist-email', {
+      const response = await fetch('http://localhost:3001/api/send-waitlist-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: result.data,
           first_name: firstName.trim() || null,
-          newsletter_opt_in: newsletter
+          newsletter_opt_in: newsletter,
+          tier: selectedTier, // Pass tier to API
+          start_date: date?.from ? format(date.from, 'yyyy-MM-dd') : null,
+          end_date: date?.to ? format(date.to, 'yyyy-MM-dd') : null,
+          num_guests: guests || null
         }),
       });
 
@@ -112,7 +148,7 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
       <DialogContent className="sm:max-w-md bg-background border-border animate-in fade-in-0 zoom-in-95 duration-300">
         <DialogHeader>
           <DialogTitle className="text-2xl text-foreground font-light tracking-wide">
-            {isSuccess ? t('forms.success') : 'Request Access'}
+            {getModalTitle()}
           </DialogTitle>
           <DialogDescription className="text-muted-foreground leading-relaxed">
             {isSuccess
@@ -158,6 +194,67 @@ export function WaitlistModal({ open, onOpenChange }: WaitlistModalProps) {
               className="bg-secondary border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-white/40 transition-colors"
               disabled={isLoading}
             />
+
+            {selectedTier === 'Private Escape' && (
+              <div className="flex gap-4">
+                <div className="grid gap-2 flex-1">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        id="date"
+                        variant={"outline"}
+                        className={cn(
+                          "w-full justify-start text-left font-normal bg-secondary border-border hover:bg-secondary/80",
+                          !date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date?.from ? (
+                          date.to ? (
+                            <>
+                              {format(date.from, "LLL dd, y")} -{" "}
+                              {format(date.to, "LLL dd, y")}
+                            </>
+                          ) : (
+                            format(date.from, "LLL dd, y")
+                          )
+                        ) : (
+                          <span>Pick dates</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0 z-[200] max-w-[95vw]" align="start">
+                      <Calendar
+                        initialFocus
+                        mode="range"
+                        defaultMonth={date?.from || new Date(2026, 4)}
+                        selected={date}
+                        onSelect={setDate}
+                        numberOfMonths={1}
+                        fromDate={new Date()}
+                        toDate={new Date(2027, 11)}
+                        disabled={(date) => date < new Date()}
+                        className="rounded-md border bg-black/90"
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                <div className="w-32">
+                  <Select value={guests} onValueChange={setGuests}>
+                    <SelectTrigger className="bg-secondary border-border">
+                      <SelectValue placeholder="Guests" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="1">1 Guest</SelectItem>
+                      <SelectItem value="2">2 Guests</SelectItem>
+                      <SelectItem value="3">3 Guests</SelectItem>
+                      <SelectItem value="4">4 Guests</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            )}
 
             {/* Newsletter Opt-in Checkbox */}
             <label className="flex items-start gap-3 cursor-pointer group">

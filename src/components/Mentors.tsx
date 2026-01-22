@@ -9,28 +9,28 @@ interface Mentor {
 
 const mentors: Mentor[] = [
     {
-        name: "Alexandre V.",
-        role: "Strategy & Vision",
-        credential: "Ex-Goldman Sachs • INSEAD",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-        name: "Dr. Sarah L.",
-        role: "Cultural Anthropology",
-        credential: "PhD Cambridge • UNESCO Fellow",
-        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-        name: "Jean-Marc D.",
-        role: "Alpine Logistics",
-        credential: "uimla Guide • 20+ Years Exp.",
+        name: "Expert Partner",
+        role: "Alpine Safety Specialist",
+        credential: "IFMGA Certified Guide • 15+ Years",
         image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=600&auto=format&fit=crop"
     },
     {
-        name: "Elena R.",
-        role: "Curartorial Lead",
-        credential: "Ex-Monocle • Art Basel",
+        name: "Expert Partner",
+        role: "Cultural Historian",
+        credential: "PhD History • Heritage Consultant",
+        image: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=600&auto=format&fit=crop"
+    },
+    {
+        name: "Expert Partner",
+        role: "Fine Arts Consultant",
+        credential: "Art Basel Veteran • Curator",
         image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=600&auto=format&fit=crop"
+    },
+    {
+        name: "Expert Partner",
+        role: "Logistics Director",
+        credential: "Luxury Concierge Background",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop"
     }
 ];
 
@@ -61,7 +61,7 @@ export const Mentors = () => {
             <div className="max-w-7xl mx-auto">
                 <div className="mb-20 space-y-6">
                     <span className="text-switz-red text-xs font-bold tracking-[0.2em] uppercase block">
-                        The Curators
+                        Expert Network
                     </span>
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight">
                         Guided by those who have <br />

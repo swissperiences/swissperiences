@@ -11,7 +11,7 @@ const itinerary = [
     {
         day: "Day 02",
         title: "The Ascent & Stillness",
-        description: "Morning mindfulness session facing the Matterhorn. Guided hike to Riffelsee. Gourmet picnic in the wild.",
+        description: "Guided alpine trek to the hidden Lac des Chavonnes or the peaks of Bretaye, with private gourmet catering facing the Mont Blanc massif and majestic Dents du Midi.",
         icon: "🧘"
     },
     {
@@ -23,13 +23,25 @@ const itinerary = [
     {
         day: "Day 04",
         title: "The Peak",
-        description: "Private helicopter tour around the Matterhorn summit. Landing on a glacier for a champagne toast. Farewell gala.",
+        description: "Private helicopter crossing to the Glacier 3000. Experience the Peak Walk and a champagne toast on the ice, surrounded by 24 summits over 4,000 meters.",
         icon: "🚁"
     },
     {
         day: "Day 05",
+        title: "The Deepening",
+        description: "Thermal serenity and private spa immersion. A guided reflection day to integrate the alpine stillness.",
+        icon: "💧"
+    },
+    {
+        day: "Day 06",
+        title: "The Celebration",
+        description: "Michelin-starred farewell gala. Curated vintage pairings and a culinary masterpiece closing the circle.",
+        icon: "✨"
+    },
+    {
+        day: "Day 07",
         title: "Departure",
-        description: "Farewell brunch. Private transfer back to Geneva or Zurich. You leave different than when you arrived.",
+        description: "Private transfer back to Geneva or Zurich. You leave different than when you arrived.",
         icon: "✈️"
     }
 ];

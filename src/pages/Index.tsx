@@ -1,18 +1,25 @@
 import { HeroSection } from "@/components/ui/hero-section";
 import WhatWeCurate from "@/components/WhatWeCurate";
-import { TrustedBy } from "@/components/TrustedBy";
+import TrustedBy from "@/components/TrustedBy";
 import JourneyTimeline from "@/components/JourneyTimeline";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { WaitlistModal } from "@/components/WaitlistModal";
 import GlobalVideoBackground from "@/components/GlobalVideoBackground";
 import SEO from "@/components/SEO";
-import Mentors from "@/components/Mentors";
-// import AnimatedStatCounter from "@/components/AnimatedStatCounter"; // Removed: Stats feel achievement-oriented, not aligned with quiet luxury positioning
+import { Mentors } from "@/components/Mentors";
+import { Founder } from "@/components/Founder";
+import { UpcomingRetreats } from "@/components/UpcomingRetreats";
 import { useState } from "react";
 
 const Index = () => {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
+  const [waitlistTier, setWaitlistTier] = useState<string>("General Waitlist");
+
+  const openWaitlist = (tier: string = "General Waitlist") => {
+    setWaitlistTier(tier);
+    setIsWaitlistOpen(true);
+  };
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -52,9 +59,11 @@ const Index = () => {
 
       {/* All content with relative positioning */}
       <div className="relative z-10">
-        <HeroSection onJoinWaitlist={() => setIsWaitlistOpen(true)} />
+        <HeroSection onJoinWaitlist={() => openWaitlist("General Waitlist")} />
         <TrustedBy />
+        <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier)} />
         <Mentors />
+        <Founder />
         <JourneyTimeline />
         <WhatWeCurate />
         <FAQ />
@@ -64,6 +73,7 @@ const Index = () => {
       <WaitlistModal
         open={isWaitlistOpen}
         onOpenChange={setIsWaitlistOpen}
+        selectedTier={waitlistTier}
       />
     </div>
   );

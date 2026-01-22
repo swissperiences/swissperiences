@@ -4,6 +4,7 @@ import { Building2, Users, Heart, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -89,7 +90,8 @@ export default function CorporateRetreats() {
       if (error) throw error;
 
       // Send Email Notification (Vercel Function)
-      fetch('/api/send-inquiry-email', {
+      console.log('[Corporate Form] Sending email notification...');
+      const emailResponse = await fetch('http://localhost:3001/api/send-inquiry-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -100,10 +102,15 @@ export default function CorporateRetreats() {
           message: formData.message,
           newsletter_opt_in: formData.newsletter
         }),
-      }).catch((error) => {
-        console.error('[Corporate Inquiry] Failed to send email notification:', error);
-        // TODO: Add error monitoring service (e.g., Sentry) here
       });
+
+      if (!emailResponse.ok) {
+        const errorData = await emailResponse.json();
+        console.error('[Corporate Form] Email API error:', errorData);
+        throw new Error(`Email sending failed: ${errorData.error || 'Unknown error'}`);
+      }
+
+      console.log('[Corporate Form] Email sent successfully!');
 
       toast({
         title: "Request received",
@@ -203,149 +210,183 @@ export default function CorporateRetreats() {
           transition={{ duration: 0.7 }}
         >
           <div className="text-center mb-12">
-            <p className="text-sm uppercase tracking-[0.3em] text-white/40 mb-4">
-              Start the conversation
-            </p>
-            <h3 className="text-3xl md:text-4xl font-light text-white mb-3">
+            <span className="text-xs font-medium tracking-[0.2em] text-[#D8B58A] uppercase mb-4 block">
+              Start the Conversation
+            </span>
+            <h3 className="text-3xl md:text-4xl font-serif text-white mb-4">
               Request Access
             </h3>
-            <p className="text-white/50">
+            <p className="text-muted-foreground text-sm max-w-md mx-auto">
               Share a few details and we'll explore options together.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-            {/* Honeypot field - hidden from humans, visible to bots */}
-            <input
-              type="text"
-              name="website"
-              value={formData.honeypot}
-              onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
-              tabIndex={-1}
-              autoComplete="off"
-              style={{
-                position: 'absolute',
-                left: '-9999px',
-                width: '1px',
-                height: '1px',
-                opacity: 0,
-              }}
-              aria-hidden="true"
-            />
-            <div className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm space-y-5">
-              <div className="grid grid-cols-1 gap-5">
-                <div className="space-y-2">
-                  <label htmlFor="companyName" className="text-sm text-white/60">Company Name *</label>
-                  <Input
-                    id="companyName"
-                    type="text"
-                    value={formData.companyName}
-                    onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    className={cn(
-                      "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12",
-                      hasSubmitted && !formData.companyName && "border-red-500 focus-visible:ring-red-500"
-                    )}
-                    placeholder="Your company"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="contactName" className="text-sm text-white/60">Contact Name *</label>
-                  <Input
-                    id="contactName"
-                    type="text"
-                    value={formData.contactName}
-                    onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                    className={cn(
-                      "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12",
-                      hasSubmitted && !formData.contactName && "border-red-500 focus-visible:ring-red-500"
-                    )}
-                    placeholder="Your name"
-                  />
-                </div>
-              </div>
+          <Card className="border-white/10 bg-card/50 backdrop-blur-sm hover:border-white/20 transition-all duration-500 group">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg pointer-events-none" />
 
-              <div className="grid grid-cols-1 gap-5">
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm text-white/60">Email *</label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className={cn(
-                      "bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-2 focus:ring-white/20 h-12",
-                      hasSubmitted && !formData.email && "border-red-500 focus-visible:ring-red-500"
-                    )}
-                    placeholder="email@company.com"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="teamSize" className="text-sm text-white/60">Team Size</label>
-                  <Select
-                    value={formData.teamSize}
-                    onValueChange={(value) => setFormData({ ...formData, teamSize: value })}
-                  >
-                    <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 [&>span]:text-white/60 focus:ring-0 focus:border-white/30">
-                      <SelectValue placeholder="Select team size" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-zinc-900 border-white/10">
-                      {teamSizes.map((size) => (
-                        <SelectItem
-                          key={size}
-                          value={size}
-                          className="text-white focus:bg-white/10 focus:text-white"
-                        >
-                          {size} participants
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+            <CardHeader className="space-y-2 text-center pb-6">
+              <CardTitle className="text-2xl font-serif text-white">
+                Corporate Inquiry
+              </CardTitle>
+              <CardDescription className="text-white/60 font-light">
+                Tell us about your team's vision
+              </CardDescription>
+            </CardHeader>
 
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm text-white/60">Message</label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-white/30 focus:ring-0 focus-visible:ring-0 min-h-[120px] resize-none"
-                  placeholder="Tell us about your retreat goals..."
-                  aria-describedby="message-hint"
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                {/* Honeypot field - hidden from humans, visible to bots */}
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.honeypot}
+                  onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{
+                    position: 'absolute',
+                    left: '-9999px',
+                    width: '1px',
+                    height: '1px',
+                    opacity: 0,
+                  }}
+                  aria-hidden="true"
                 />
-              </div>
-            </div>
 
-            {/* Newsletter Opt-in Checkbox */}
-            <label className="flex items-start gap-3 cursor-pointer group px-2">
-              <input
-                type="checkbox"
-                checked={formData.newsletter}
-                onChange={(e) => setFormData({ ...formData, newsletter: e.target.checked })}
-                className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-white focus:ring-0 focus:ring-offset-0 cursor-pointer"
-                disabled={isSubmitting}
-              />
-              <span className="text-sm text-white/60 font-light leading-relaxed group-hover:text-white/80 transition-colors">
-                Send me curated stories, seasonal experiences, and exclusive invitations for teams. (You can unsubscribe anytime.)
-              </span>
-            </label>
+                <div className="space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="space-y-2">
+                      <label htmlFor="companyName" className="text-sm font-medium text-white/70">
+                        Company Name *
+                      </label>
+                      <Input
+                        id="companyName"
+                        type="text"
+                        value={formData.companyName}
+                        onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                        className={cn(
+                          "bg-white/5 border-white/10 text-white placeholder:text-white/30",
+                          "focus:border-[#D8B58A]/50 focus:ring-2 focus:ring-[#D8B58A]/20",
+                          "h-12 transition-all duration-300",
+                          hasSubmitted && !formData.companyName && "border-red-500 focus:ring-red-500/20"
+                        )}
+                        placeholder="Your company"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="contactName" className="text-sm font-medium text-white/70">
+                        Contact Name *
+                      </label>
+                      <Input
+                        id="contactName"
+                        type="text"
+                        value={formData.contactName}
+                        onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                        className={cn(
+                          "bg-white/5 border-white/10 text-white placeholder:text-white/30",
+                          "focus:border-[#D8B58A]/50 focus:ring-2 focus:ring-[#D8B58A]/20",
+                          "h-12 transition-all duration-300",
+                          hasSubmitted && !formData.contactName && "border-red-500 focus:ring-red-500/20"
+                        )}
+                        placeholder="Your name"
+                      />
+                    </div>
+                  </div>
 
-            <div className="space-y-3">
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full h-14 text-base font-medium bg-white text-black hover:bg-white/90 hover:scale-[1.02] active:scale-[0.98] rounded-xl transition-all duration-300 focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-black"
-                aria-label="Submit corporate retreat inquiry"
-              >
-                {isSubmitting ? "Sending..." : "Request Access"}
-              </Button>
-              <p className="text-center text-sm text-white/40">
-                No obligation—share a few details and we'll explore options together.
-              </p>
-            </div>
-          </form>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-medium text-white/70">
+                        Email *
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className={cn(
+                          "bg-white/5 border-white/10 text-white placeholder:text-white/30",
+                          "focus:border-[#D8B58A]/50 focus:ring-2 focus:ring-[#D8B58A]/20",
+                          "h-12 transition-all duration-300",
+                          hasSubmitted && !formData.email && "border-red-500 focus:ring-red-500/20"
+                        )}
+                        placeholder="email@company.com"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="teamSize" className="text-sm font-medium text-white/70">
+                        Team Size
+                      </label>
+                      <Select
+                        value={formData.teamSize}
+                        onValueChange={(value) => setFormData({ ...formData, teamSize: value })}
+                      >
+                        <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 [&>span]:text-white/60 focus:ring-2 focus:ring-[#D8B58A]/20 focus:border-[#D8B58A]/50 transition-all duration-300">
+                          <SelectValue placeholder="Select team size" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-zinc-900 border-white/10">
+                          {teamSizes.map((size) => (
+                            <SelectItem
+                              key={size}
+                              value={size}
+                              className="text-white focus:bg-white/10 focus:text-white"
+                            >
+                              {size} participants
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="text-sm font-medium text-white/70">
+                      Message
+                    </label>
+                    <Textarea
+                      id="message"
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-[#D8B58A]/50 focus:ring-2 focus:ring-[#D8B58A]/20 min-h-[120px] resize-none transition-all duration-300"
+                      placeholder="Tell us about your retreat goals..."
+                      aria-describedby="message-hint"
+                    />
+                  </div>
+                </div>
+
+                {/* Newsletter Opt-in Checkbox */}
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={formData.newsletter}
+                    onChange={(e) => setFormData({ ...formData, newsletter: e.target.checked })}
+                    className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-[#D8B58A] focus:ring-2 focus:ring-[#D8B58A]/20 focus:ring-offset-0 cursor-pointer transition-all"
+                    disabled={isSubmitting}
+                  />
+                  <span className="text-sm text-white/60 font-light leading-relaxed group-hover:text-white/80 transition-colors">
+                    Send me curated stories, seasonal experiences, and exclusive invitations for teams. (You can unsubscribe anytime.)
+                  </span>
+                </label>
+
+                <div className="space-y-3 pt-2">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    variant="hero"
+                    className="w-full h-14 text-base font-medium hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                    aria-label="Submit corporate retreat inquiry"
+                  >
+                    {isSubmitting ? "Sending..." : "Request Access"}
+                  </Button>
+                  <p className="text-center text-xs text-muted-foreground">
+                    No obligation—share a few details and we'll explore options together.
+                  </p>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
         </motion.div>
       </div>
     </section>
   );
 }
+

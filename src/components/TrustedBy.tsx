@@ -1,60 +1,59 @@
-import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
+import { motion } from "framer-motion";
 
-export function TrustedBy() {
-  const { t } = useTranslation(['home']);
+const logos = [
+  { name: "UBS", width: "120px" },
+  { name: "Franck Provost", width: "160px" },
+  { name: "SSBM Geneva", width: "140px" },
+  { name: "Franck Muller", width: "150px" },
+];
 
-  // Placeholder logos - realistic Swiss/luxury brands
-  const trustedLogos = [
-    { name: 'Lindt', width: '120px' },
-    { name: 'Rolex', width: '100px' },
-    { name: 'Swiss International Air Lines', width: '140px' },
-    { name: 'Credit Suisse', width: '130px' },
-    { name: 'Nestlé', width: '110px' },
-  ];
-
+export default function TrustedBy() {
   return (
-    <section className="relative w-full py-20 bg-black/30 backdrop-blur-sm border-y border-white/10">
-      <div className="mx-auto max-w-7xl px-6">
-        <motion.div
+    <section className="bg-black py-24 grain-overlay border-y border-white/5">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+          className="text-[10px] tracking-[0.3em] text-white/30 mb-16 text-center uppercase font-medium"
         >
-          {/* Heading */}
-          <p className="text-center text-sm text-white/50 font-light tracking-widest uppercase mb-12">
-            {t('home:trustedBy.heading', 'Trusted by Leading Organizations')}
-          </p>
+          Our Network & Heritage
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-white/60 text-sm md:text-base font-light text-center mb-16 max-w-2xl mx-auto -mt-10"
+        >
+          Deeply connected with Switzerland’s most prestigious institutions and maisons.
+        </motion.p>
 
-          {/* Logo Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 items-center justify-items-center">
-            {trustedLogos.map((logo, index) => (
-              <motion.div
-                key={logo.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="flex items-center justify-center"
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 items-center justify-items-center">
+          {logos.map((logo, index) => (
+            <motion.div
+              key={logo.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              className="flex items-center justify-center opacity-40 hover:opacity-80 transition-opacity duration-500"
+            >
+              <span
+                className="text-white text-2xl md:text-3xl tracking-wide text-center"
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  width: logo.width
+                }}
               >
-                {/* Placeholder logo - elegant text representation */}
-                <div
-                  className="text-white/40 font-light tracking-wider text-lg hover:text-white/70 transition-colors duration-300"
-                  style={{ width: logo.width }}
-                >
-                  {logo.name}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Subtle tagline */}
-          <p className="text-center text-xs text-white/30 font-light mt-12 max-w-2xl mx-auto">
-            {t('home:trustedBy.tagline', 'Join exclusive organizations experiencing Switzerland beyond the ordinary.')}
-          </p>
-        </motion.div>
+                {logo.name}
+              </span>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+

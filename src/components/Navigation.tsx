@@ -84,7 +84,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
           }}
           animate={{
             width: scrolled ? 'auto' : '95%',
-            maxWidth: scrolled ? 'fit-content' : '1280px',
+            maxWidth: scrolled ? 'fit-content' : '1400px',
           }}
           transition={{
             duration: 0.7,
@@ -102,7 +102,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               duration: 0.7,
               ease: [0.16, 1, 0.3, 1], // Pieces.app easing curve
             }}
-            className="absolute inset-0 bg-[#1A1614]/80 backdrop-blur-md border border-white/10 rounded-full"
+            className="absolute inset-0 bg-black/40 backdrop-blur-[20px] border border-white/10 rounded-full shadow-2xl"
             style={{ pointerEvents: 'none' }}
           />
 
@@ -111,8 +111,8 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             animate={{
               paddingLeft: scrolled ? '32px' : '32px',
               paddingRight: scrolled ? '32px' : '32px',
-              paddingTop: scrolled ? '14px' : '16px',
-              paddingBottom: scrolled ? '14px' : '16px',
+              paddingTop: scrolled ? '8px' : '14px',
+              paddingBottom: scrolled ? '8px' : '14px',
             }}
             transition={{
               duration: 0.7,
@@ -120,75 +120,76 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             }}
           >
             <div className="relative flex flex-wrap items-center justify-between gap-6 lg:flex-nowrap lg:gap-0">
-            {/* Logo + Mobile Button + Desktop Nav Links */}
-            <div className="flex w-full items-center justify-between lg:w-auto lg:gap-16">
-              <motion.div
-                animate={{
-                  fontSize: scrolled ? '0.95rem' : '1.125rem',
-                  letterSpacing: scrolled ? '0.25em' : '0.3em',
-                }}
-                transition={{
-                  duration: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                <Link
-                  to="/"
-                  className="font-light text-white hover:opacity-80 transition-opacity uppercase"
+              {/* Logo + Mobile Button + Desktop Nav Links */}
+              <div className="flex w-full items-center justify-between lg:w-auto lg:gap-20">
+                <motion.div
+                  animate={{
+                    fontSize: scrolled ? '0.9rem' : '1.05rem',
+                    letterSpacing: scrolled ? '0.15em' : '0.2em',
+                  }}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                 >
-                  Swissperiences
-                </Link>
-              </motion.div>
+                  <Link
+                    to="/"
+                    className="font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.2em]"
+                  >
+                    Swissperiences
+                  </Link>
+                </motion.div>
 
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2.5 text-white hover:bg-white/5 rounded-full transition-colors"
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
+                {/* Mobile Menu Button */}
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="lg:hidden p-2.5 text-white hover:bg-white/5 rounded-full transition-colors"
+                  aria-label="Toggle menu"
+                >
+                  {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                </button>
 
-              {/* Desktop Navigation Links */}
-              <div className="hidden lg:block">
-                <ul className="flex gap-10 text-sm font-light tracking-wide">
-                  {navLinks.map((link) => (
-                    <li key={link.href}>
-                      <button
-                        onClick={() => handleNavClick(link.href)}
-                        className="group relative block duration-300 transition-all text-white/70 hover:text-white whitespace-nowrap"
-                      >
-                        <span>{link.label}</span>
-                        <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white/60 transition-all duration-300 group-hover:w-full group-hover:bg-white" />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+                {/* Desktop Navigation Links */}
+                <div className="hidden lg:block">
+                  <ul className="flex gap-14 text-[13px] font-light uppercase tracking-[0.15em]">
+                    {navLinks.map((link) => (
+                      <li key={link.href}>
+                        <button
+                          onClick={() => handleNavClick(link.href)}
+                          className="group relative block duration-500 transition-all text-white/60 hover:text-white whitespace-nowrap"
+                        >
+                          <span className="relative z-10">{link.label}</span>
+                          <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[#D8B58A] transition-all duration-500 group-hover:w-full" />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
 
-            {/* Desktop: Language Switcher + CTA */}
-            <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-12 lg:flex-shrink-0">
-              <LanguageSwitcher />
-              <motion.div
-                animate={{
-                  opacity: scrolled ? 0.95 : 1,
-                  scale: scrolled ? 0.95 : 1,
-                }}
-                transition={{
-                  duration: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                <Button
-                  onClick={onWaitlistClick}
-                  className="rounded-full px-8 py-2.5 font-light tracking-wide"
-                  variant="hero"
+              {/* Desktop: Language Switcher + CTA */}
+              <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-12 lg:flex-shrink-0">
+                <LanguageSwitcher />
+                <motion.div
+                  animate={{
+                    opacity: scrolled ? 0.95 : 1,
+                    scale: scrolled ? 0.95 : 1,
+                  }}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                 >
-                  {t('common:nav.requestAccess')}
-                </Button>
-              </motion.div>
-            </div>
+                  <Button
+                    onClick={onWaitlistClick}
+                    className="rounded-0 px-8 py-6 font-light tracking-[0.1em] uppercase text-xs border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 transition-all duration-500 backdrop-blur-sm"
+                    variant="ghost"
+                    style={{ borderRadius: '2px' }}
+                  >
+                    {t('common:nav.requestAccess')}
+                  </Button>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
         </motion.nav>
