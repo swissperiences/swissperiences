@@ -1,6 +1,6 @@
-
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
+import { Resend } from 'resend';
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -69,7 +69,55 @@ export default async function handler(req: any, res: any) {
                 console.error('Error updating Supabase:', error);
             }
 
-            // TODO: Send confirmation email via Resend
+            // Send confirmation email via Resend
+            try {
+                const resend = new Resend(process.env.RESEND_API_KEY!);
+                // Fetch user email from session if not present in application link, 
+                // but usually session.customer_details.email is reliable.
+                const customerEmail = session.customer_details?.email || session.customer_email;
+
+                if (customerEmail) {
+                    await resend.emails.send({
+                        from: 'hello@swissperiences.ch',
+                        to: [customerEmail],
+                        subject: 'Payment Confirmed: Your Swissperiences Deposit',
+                        html: `
+                              <!DOCTYPE html>
+                              <html>
+                                <head>
+                                  <style>
+                                    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f9f9f9; padding: 40px; color: #333; }
+                                    .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 40px; border: 1px solid #eee; }
+                                    .header { text-align: center; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; color: #1A1D2E; }
+                                    .content { line-height: 1.6; font-size: 16px; color: #555; }
+                                    .amount { font-size: 24px; color: #1A1D2E; margin: 20px 0; font-weight: 500; }
+                                    .footer { margin-top: 40px; font-size: 12px; color: #999; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
+                                  </style>
+                                </head>
+                                <body>
+                                  <div class="container">
+                                    <div class="header">Swissperiences</div>
+                                    <div class="content">
+                                      <p>Dear Traveler,</p>
+                                      <p>We have received your secure deposit for the Spring 2026 Intake.</p>
+                                      <div class="amount">Deposit Confirmed: CHF 500.00</div>
+                                      <p>This secures your priority position. Our team will be in touch shortly with your personalized onboarding documents and next steps.</p>
+                                      <p>Until then, breathe.</p>
+                                    </div>
+                                    <div class="footer">
+                                      © 2026 Swissperiences. Geneva, Switzerland.
+                                    </div>
+                                  </div>
+                                </body>
+                              </html>
+                            `
+                    });
+                    console.log(`[Stripe Webhook] Confirmation email sent to ${customerEmail}`);
+                }
+            } catch (emailError: any) {
+                console.error('[Stripe Webhook] Failed to send email:', emailError);
+                // Do not throw, we don't want to fail the webhook response to Stripe
+            }
         }
     }
 

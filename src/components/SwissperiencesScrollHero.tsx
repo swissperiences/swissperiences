@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { NotificationBanner } from "@/components/NotificationBanner";
 // import Navigation from "@/components/Navigation";
 import AnimatedStatCounter from "@/components/AnimatedStatCounter";
-import TrustedBy from "@/components/TrustedBy";
+
 import WhatWeCurate from "@/components/WhatWeCurate";
 import HowItWorks from "@/components/HowItWorks";
 import CorporateRetreats from "@/components/CorporateRetreats";
@@ -17,8 +17,7 @@ const SwissperiencesContent = ({ onWaitlist }: { onWaitlist: () => void }) => {
   return (
     <div className="bg-background">
       <AnimatedStatCounter />
-      {/* TrustedBy hidden until logos are finalized */}
-      {/* <TrustedBy /> */}
+
       <WhatWeCurate />
 
       <div className="max-w-4xl mx-auto space-y-32 py-32 px-6">

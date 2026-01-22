@@ -14,6 +14,7 @@ const Index = lazy(() => import("./pages/Index"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const ForTeams = lazy(() => import("./pages/ForTeams"));
+const SecureDeposit = lazy(() => import("./pages/SecureDeposit"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const App = () => (
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/for-teams" element={<ForTeams />} />
+                <Route path="/secure-deposit" element={<SecureDeposit />} />
 
                 {/* Legacy language routes (keep temporarily for existing links, but can be removed later) */}
                 <Route path="/:lang" element={<LanguageWrapper><Index /></LanguageWrapper>} />

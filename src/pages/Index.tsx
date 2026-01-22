@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/ui/hero-section";
 import WhatWeCurate from "@/components/WhatWeCurate";
-import TrustedBy from "@/components/TrustedBy";
+import PhilosophySpacer from "@/components/PhilosophySpacer";
+import HowItWorks from "@/components/HowItWorks";
 import JourneyTimeline from "@/components/JourneyTimeline";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -10,7 +11,8 @@ import SEO from "@/components/SEO";
 import { Mentors } from "@/components/Mentors";
 import { Founder } from "@/components/Founder";
 import { UpcomingRetreats } from "@/components/UpcomingRetreats";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
@@ -20,6 +22,21 @@ const Index = () => {
     setWaitlistTier(tier);
     setIsWaitlistOpen(true);
   };
+
+  // Check for payment success
+  const { toast } = useToast();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('payment') === 'success') {
+      toast({
+        title: "Deposit Confirmed",
+        description: "Welcome to Swissperiences. We will be in touch shortly.",
+        duration: 6000,
+      });
+      // Clean URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -60,12 +77,13 @@ const Index = () => {
       {/* All content with relative positioning */}
       <div className="relative z-10">
         <HeroSection onJoinWaitlist={() => openWaitlist("General Waitlist")} />
-        <TrustedBy />
+        <PhilosophySpacer />
         <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier)} />
         <Mentors />
         <Founder />
         <JourneyTimeline />
         <WhatWeCurate />
+        <HowItWorks />
         <FAQ />
         <Footer />
       </div>

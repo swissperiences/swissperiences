@@ -19,10 +19,28 @@ export default async function handler(request: Request) {
     }
 
     try {
-        const { email, application_id } = await request.json();
 
-        if (!email || !application_id) {
-            return new Response('Missing required fields', { status: 400 });
+
+        let { email, application_id } = await request.json();
+
+        if (!email) {
+            return new Response('Email is required', { status: 400 });
+        }
+
+        // Auto-resolve application_id if not provided
+        if (!application_id) {
+            const { data: applicants } = await supabase
+                .from('waitlist')
+                .select('id')
+                .eq('email', email)
+                .order('created_at', { ascending: false })
+                .limit(1);
+
+            if (applicants && applicants.length > 0) {
+                application_id = applicants[0].id;
+            } else {
+                return new Response(JSON.stringify({ error: 'No application found. Please join the waitlist first.' }), { status: 404 });
+            }
         }
 
         // 1. Create Stripe Checkout Session

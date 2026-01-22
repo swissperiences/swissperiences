@@ -16,7 +16,7 @@ export function UpcomingRetreats({ onJoinWaitlist }: UpcomingRetreatsProps) {
     const { signature, basecamp } = nextRetreat.tiers;
 
     return (
-        <section className="py-24 bg-background relative overflow-hidden">
+        <section id="upcoming-retreats" className="py-24 bg-background relative overflow-hidden">
             <div className="container mx-auto px-6 max-w-6xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

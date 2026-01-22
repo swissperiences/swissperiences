@@ -20,6 +20,7 @@ interface NavigationProps {
 
 const navLinksConfig = [
   { key: "experiences", href: "#experiences" },
+  { key: "calendar", href: "#upcoming-retreats" },
   { key: "howItWorks", href: "#how-it-works" },
   { key: "forTeams", href: "/for-teams" },
 ];
@@ -119,7 +120,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <div className="relative flex flex-wrap items-center justify-between gap-6 lg:flex-nowrap lg:gap-0">
+            <div className="relative flex flex-wrap items-center justify-between gap-6 lg:flex-nowrap lg:gap-10">
               {/* Logo + Mobile Button + Desktop Nav Links */}
               <div className="flex w-full items-center justify-between lg:w-auto lg:gap-20">
                 <motion.div
