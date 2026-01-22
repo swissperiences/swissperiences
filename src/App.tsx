@@ -50,22 +50,17 @@ const App = () => (
             <ScrollToTop />
             <Suspense fallback={<PageLoader />}>
               <Routes>
-                {/* Redirect root to /en */}
-                <Route path="/" element={<Navigate to="/en" replace />} />
+                {/* Direct routes without language prefix */}
+                <Route path="/" element={<Index />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/for-teams" element={<ForTeams />} />
 
-                {/* Localized routes */}
+                {/* Legacy language routes (keep temporarily for existing links, but can be removed later) */}
                 <Route path="/:lang" element={<LanguageWrapper><Index /></LanguageWrapper>} />
                 <Route path="/:lang/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/:lang/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
-
-                {/* Legacy routes redirect to /en */}
-                <Route path="/privacy" element={<Navigate to="/en/privacy" replace />} />
-                <Route path="/terms" element={<Navigate to="/en/terms" replace />} />
-                <Route path="/for-teams" element={<Navigate to="/en/for-teams" replace />} />
-
-                {/* Catch-all 404 */}
-                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </BrowserRouter>

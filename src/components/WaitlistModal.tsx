@@ -94,7 +94,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
       }
 
       // Call API directly - it handles both database insert AND email sending
-      const response = await fetch('http://localhost:3001/api/send-waitlist-email', {
+      const response = await fetch('/api/send-waitlist-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

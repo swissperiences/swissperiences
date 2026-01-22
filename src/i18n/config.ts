@@ -24,9 +24,8 @@ i18n
     defaultNS: 'common',
 
     detection: {
-      order: ['path', 'localStorage', 'navigator'],
+      order: ['localStorage', 'navigator'],
       caches: ['localStorage'],
-      lookupFromPathIndex: 0,
     },
   });
 
