@@ -73,9 +73,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <SEO
-        title="Swissperiences | Curated Swiss Experiences for Mindful Travelers"
-        description="From alpine peaks to artisan workshops—authentic Swiss experiences you won't find elsewhere. Launching Spring 2026."
-        keywords="swiss experiences, switzerland travel, alpine retreats, luxury switzerland, swiss alps, mindful travel, authentic switzerland, curated experiences"
+        title="Swissperiences | Your Private Sanctuary in the Alps"
+        description="A boutique home base in Villars-sur-Ollon curated by Caueh Vidal. Private alpine retreats and curated road journeys."
+        keywords="swiss experiences, switzerland travel, alpine retreats, luxury switzerland, swiss alps, boutique host, authentic switzerland"
         canonical="https://swissperiences.ch"
         structuredData={structuredData}
       />
