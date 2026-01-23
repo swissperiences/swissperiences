@@ -9,8 +9,6 @@ const UpcomingRetreats = lazy(() => import("@/components/UpcomingRetreats").then
 const Founder = lazy(() => import("@/components/Founder").then(m => ({ default: m.Founder })));
 const JourneyTimeline = lazy(() => import("@/components/JourneyTimeline"));
 const WhatWeCurate = lazy(() => import("@/components/WhatWeCurate"));
-const HowItWorks = lazy(() => import("@/components/HowItWorks"));
-const FAQ = lazy(() => import("@/components/FAQ"));
 const Footer = lazy(() => import("@/components/Footer"));
 const PhilosophySpacer = lazy(() => import("@/components/PhilosophySpacer"));
 const WaitlistModal = lazy(() => import("@/components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
@@ -92,8 +90,6 @@ const Index = () => {
           <Founder />
           <JourneyTimeline />
           <WhatWeCurate />
-          <HowItWorks />
-          <FAQ />
           <Footer />
         </Suspense>
       </div>

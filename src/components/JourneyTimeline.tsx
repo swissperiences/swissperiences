@@ -140,7 +140,7 @@ export default function JourneyTimeline() {
                                             <img
                                                 src={item.image}
                                                 alt={item.title}
-                                                className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
+                                                className="w-full h-full object-cover object-center scale-[1.01] group-hover:scale-105 transition-all duration-1000 ease-out"
                                             />
                                         </div>
 

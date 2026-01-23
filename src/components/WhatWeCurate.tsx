@@ -14,7 +14,7 @@ const cardsConfig = [
 export default function WhatWeCurate() {
   const { t } = useTranslation('home');
   return (
-    <section id="experiences" className="relative py-32 bg-background border-t border-white/5 scroll-mt-20">
+    <section id="experiences" className="relative pt-32 pb-16 bg-background border-t border-white/5 scroll-mt-20">
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <motion.div
@@ -86,16 +86,7 @@ export default function WhatWeCurate() {
           })}
         </div>
 
-        {/* Footer Statement */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-24 text-xs text-white/30 tracking-[0.2em] uppercase font-light"
-        >
-          {t('whatWeCurate.footer')}
-        </motion.p>
+
       </div>
     </section>
   );

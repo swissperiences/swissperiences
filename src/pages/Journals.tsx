@@ -163,12 +163,13 @@ export default function Journals() {
                                                 transition={{ duration: 0.8 }}
                                                 className="group"
                                             >
-                                                <div className="relative aspect-video w-full overflow-hidden rounded-sm mb-8 bg-neutral-900 shadow-2xl">
+                                                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm mb-8 bg-neutral-900 shadow-2xl">
                                                     <img
                                                         src={item.image}
                                                         alt={item.title}
-                                                        className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-1000"
+                                                        className="w-full h-full object-cover object-center scale-[1.01] hover:scale-105 transition-all duration-1000 ease-out"
                                                     />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60 pointer-events-none" />
                                                 </div>
                                                 <div className="max-w-xl">
                                                     <div className="flex items-center gap-4 mb-4">

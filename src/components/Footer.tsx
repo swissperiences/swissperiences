@@ -1,71 +1,28 @@
-import { Instagram, Linkedin } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
   const { t, i18n } = useTranslation('common');
 
   return (
-    <footer className="relative border-t border-white/10 py-16 sm:py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col items-center text-center">
-          {/* Logo & Tagline */}
-          <h2 className="text-2xl text-white mb-2 uppercase tracking-[0.3em] font-light">
-            Swissperiences
-          </h2>
-          <p className="text-sm text-white/60 italic mb-3 font-light">
-            {t('footer.tagline')}
-          </p>
-          <p className="text-sm text-white/70 tracking-wide mb-8 leading-relaxed">
-            {t('footer.subtitle')}
-          </p>
+    <footer className="relative border-t border-white/5 bg-black h-[200px] flex items-center justify-center">
+      <div className="max-w-7xl mx-auto px-6 w-full text-center">
+        {/* Multilingual Disclaimer */}
+        <p className="text-[10px] md:text-xs text-white/40 tracking-[0.3em] uppercase mb-6 font-light">
+          Multilingual Service (EN/PT/ES). Each experience is curated individually.
+        </p>
 
-          {/* Contact */}
-          <a
-            href={`mailto:${t('footer.contact')}`}
-            className="text-sm text-white/70 hover:text-white transition-colors mb-6"
-          >
-            {t('footer.contact')}
-          </a>
-
-          {/* Social Links */}
-          <div className="flex gap-6 mb-10">
-            <a
-              href="https://instagram.com/swissperiences"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/60 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded-sm"
-              aria-label="Follow us on Instagram"
-            >
-              <Instagram className="w-5 h-5" />
-            </a>
-            <a
-              href="https://linkedin.com/company/swissperiences"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/60 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-black rounded-sm"
-              aria-label="Connect with us on LinkedIn"
-            >
-              <Linkedin className="w-5 h-5" />
-            </a>
-          </div>
-
-          {/* Divider */}
-          <div className="w-full h-px bg-white/10 mb-8" />
-
-          {/* Bottom Row */}
-          <div className="flex flex-col items-center gap-3 text-xs text-white/40">
-            <span>{t('footer.copyright')}</span>
-            <div className="flex gap-4 text-[10px] text-white/30">
-              <a href={`/${i18n.language}/privacy`} className="hover:text-white/50 transition-colors focus:outline-none focus:underline">
-                {t('footer.privacy')}
-              </a>
-              <span className="text-white/20">·</span>
-              <a href={`/${i18n.language}/terms`} className="hover:text-white/50 transition-colors focus:outline-none focus:underline">
-                {t('footer.terms')}
-              </a>
-            </div>
-          </div>
+        {/* Navigation Links */}
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-6">
+          <a href="/" className="text-[10px] text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest">Home</a>
+          <a href="/journals" className="text-[10px] text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest">Journals</a>
+          <a href={`/${i18n.language}/privacy`} className="text-[10px] text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest">Privacy</a>
+          <a href={`/${i18n.language}/terms`} className="text-[10px] text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest">Terms</a>
         </div>
+
+        {/* Copyright */}
+        <p className="text-[9px] text-white/20 tracking-widest uppercase">
+          {t('footer.copyright')}
+        </p>
       </div>
     </footer>
   );
