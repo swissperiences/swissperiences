@@ -19,6 +19,7 @@ const Ideas = lazy(() => import("./pages/Ideas"));
 const ToDo = lazy(() => import("./pages/ToDo"));
 const VillarsRetreat = lazy(() => import("./pages/VillarsRetreat"));
 const RoadJourney = lazy(() => import("./pages/RoadJourney"));
+const Journals = lazy(() => import("./pages/Journals"));
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,7 @@ const App = () => (
                 <Route path="/todo" element={<ToDo />} />
                 <Route path="/villars-retreat" element={<VillarsRetreat />} />
                 <Route path="/road-journey" element={<RoadJourney />} />
+                <Route path="/journals" element={<Journals />} />
                 <Route path="/" element={<Index />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />

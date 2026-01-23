@@ -21,7 +21,7 @@ interface NavigationProps {
 const navLinksConfig = [
   { key: "experiences", href: "#experiences" },
   { key: "calendar", href: "#upcoming-retreats" },
-  { key: "howItWorks", href: "#how-it-works" },
+  { key: "journals", href: "/journals" },
   { key: "forTeams", href: "/for-teams" },
 ];
 

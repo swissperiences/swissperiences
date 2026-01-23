@@ -1,8 +1,10 @@
 {
   "nav": {
     "experiences": "Experiências",
+    "calendar": "Calendário",
     "howItWorks": "Como Funciona",
     "forTeams": "Para Empresas",
+    "journals": "Diários",
     "requestAccess": "Solicitar Acesso"
   },
   "footer": {

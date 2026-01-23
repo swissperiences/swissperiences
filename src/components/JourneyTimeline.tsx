@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useScroll } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const journals = [
     {
@@ -83,6 +84,7 @@ const journals = [
 ];
 
 export default function JourneyTimeline() {
+    const navigate = useNavigate();
     const containerRef = useRef<HTMLDivElement>(null);
     useScroll({
         target: containerRef,
@@ -150,7 +152,10 @@ export default function JourneyTimeline() {
 
                                 {journal.itinerary.length > 3 && (
                                     <div className="pt-4">
-                                        <button className="text-[10px] text-white/30 uppercase tracking-[0.2em] hover:text-switz-red transition-colors duration-300">
+                                        <button
+                                            onClick={() => navigate("/journals")}
+                                            className="text-[10px] text-white/30 uppercase tracking-[0.2em] hover:text-switz-red transition-colors duration-300"
+                                        >
                                             + {journal.itinerary.length - 3} More Moments
                                         </button>
                                     </div>
@@ -160,6 +165,15 @@ export default function JourneyTimeline() {
                     ))}
                 </div>
 
+                <div className="mt-24 text-center">
+                    <button
+                        onClick={() => navigate("/journals")}
+                        className="group inline-flex items-center gap-4 text-xs text-white uppercase tracking-[0.3em] hover:text-switz-red transition-colors"
+                    >
+                        <span>View Full Archives</span>
+                        <div className="w-12 h-px bg-white/20 group-hover:bg-switz-red group-hover:w-20 transition-all duration-500" />
+                    </button>
+                </div>
             </div>
         </section>
     );
