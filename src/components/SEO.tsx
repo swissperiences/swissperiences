@@ -29,6 +29,11 @@ export default function SEO({
       <meta name="theme-color" content="#000000" />
       <link rel="canonical" href={canonical} />
 
+      {/* Multilingual SEO */}
+      <link rel="alternate" hrefLang="en" href={`${canonical}/en`} />
+      <link rel="alternate" hrefLang="pt" href={`${canonical}/pt`} />
+      <link rel="alternate" hrefLang="x-default" href={`${canonical}/en`} />
+
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonical} />

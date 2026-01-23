@@ -80,8 +80,7 @@ const Index = () => {
       {/* Global video background for entire page */}
       <GlobalVideoBackground />
 
-      {/* All content with relative positioning */}
-      <div className="relative z-10">
+      <main className="relative z-10">
         <HeroSection onJoinWaitlist={() => openWaitlist("General Waitlist")} />
 
         <Suspense fallback={<ComponentLoader />}>
@@ -90,6 +89,11 @@ const Index = () => {
           <Founder />
           <JourneyTimeline />
           <WhatWeCurate />
+        </Suspense>
+      </main>
+
+      <div className="relative z-10">
+        <Suspense fallback={<ComponentLoader />}>
           <Footer />
         </Suspense>
       </div>

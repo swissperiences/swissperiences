@@ -43,7 +43,7 @@ const ForTeams = () => {
             {/* All content with relative positioning */}
             <div className="relative z-10">
                 <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
-                <div className="pt-20">
+                <main className="pt-20">
                     <CorporateRetreats />
 
                     {/* Corporate FAQ Section */}
@@ -79,7 +79,7 @@ const ForTeams = () => {
                             </Accordion>
                         </div>
                     </section>
-                </div>
+                </main>
                 <Footer />
             </div>
 
