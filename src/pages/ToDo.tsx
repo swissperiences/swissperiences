@@ -24,8 +24,8 @@ export default function ToDoPage() {
                     <section className="space-y-6">
                         <h2 className="text-2xl font-serif border-l-2 border-switz-red pl-4">1. Gather Assets</h2>
                         <div className="bg-white/5 p-6 rounded-sm border border-white/10 space-y-4">
-                            <TaskItem status="pending" text="Upload Range Rover photos" />
-                            <TaskItem status="pending" text="Select best 5 apartment photos" />
+                            <TaskItem status="done" text="Upload Range Rover photos" />
+                            <TaskItem status="done" text="Select best 5 apartment photos" />
                             <TaskItem status="pending" text="Edit 30s drone showreel" />
                         </div>
                     </section>
@@ -36,7 +36,7 @@ export default function ToDoPage() {
                         <div className="bg-white/5 p-6 rounded-sm border border-white/10 space-y-4">
                             <TaskItem status="pending" text="Define nightly rates for Apt" />
                             <TaskItem status="pending" text="Set pricing for Day Trips" />
-                            <TaskItem status="pending" text="Create Calendly/Booking link" />
+                            <TaskItem status="done" text="Create Booking inquiry flow" />
                         </div>
                     </section>
 

@@ -26,10 +26,10 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             {/* Editorial Headline */}
             <h1 className="text-white leading-none mb-8" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               <span className="block text-[13vw] md:text-[8rem] lg:text-[9.5rem] font-light tracking-tighter mix-blend-overlay opacity-90">
-                Swissperiences
+                {t('hero.title')}
               </span>
               <span className="block text-2xl md:text-3xl lg:text-4xl font-light italic mt-2 md:mt-4 opacity-80 tracking-wide font-sans">
-                Your Private Sanctuary in the Alps.
+                {t('hero.subtitle')}
               </span>
             </h1>
 
@@ -38,8 +38,8 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
 
             {/* Subtext */}
             <p className="mx-auto max-w-lg text-sm md:text-base text-white/70 font-light leading-relaxed tracking-wide mb-12">
-              A boutique home base in Villars-sur-Ollon. <br className="hidden md:block" />
-              Curated by Caueh Vidal.
+              {t('hero.tagline1')} <br className="hidden md:block" />
+              {t('hero.tagline2')}
             </p>
 
             {/* Premium CTA */}
