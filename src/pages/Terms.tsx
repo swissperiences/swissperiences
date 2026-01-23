@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import Footer from "@/components/Footer";
 
 export default function Terms() {
   return (
@@ -14,8 +15,8 @@ export default function Terms() {
       {/* Header */}
       <header className="border-b border-white/10">
         <div className="max-w-4xl mx-auto px-6 py-6">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 rounded-sm"
             aria-label="Back to home"
           >
@@ -39,7 +40,7 @@ export default function Terms() {
           <section>
             <h2 className="text-xl font-medium mb-4">Agreement to Terms</h2>
             <p className="text-white/70 leading-relaxed">
-              By accessing or using the Swissperiences website, you agree to be bound by these 
+              By accessing or using the Swissperiences website, you agree to be bound by these
               Terms of Service. If you do not agree to these terms, please do not use our website.
             </p>
           </section>
@@ -48,11 +49,11 @@ export default function Terms() {
           <section>
             <h2 className="text-xl font-medium mb-4">Our Services</h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Swissperiences is a curated retreat and experience service launching in Spring 2026. 
+              Swissperiences is a curated retreat and experience service launching in Spring 2026.
               Currently, we offer a waitlist for early access to our experiences.
             </p>
             <p className="text-white/70 leading-relaxed">
-              All experiences, accommodations, and activities will be subject to availability and 
+              All experiences, accommodations, and activities will be subject to availability and
               additional terms at the time of booking.
             </p>
           </section>
@@ -61,8 +62,8 @@ export default function Terms() {
           <section>
             <h2 className="text-xl font-medium mb-4">Waitlist</h2>
             <p className="text-white/70 leading-relaxed">
-              Joining our waitlist is free and non-binding. Waitlist members will receive priority 
-              access to book experiences when we launch. You may unsubscribe from the waitlist at 
+              Joining our waitlist is free and non-binding. Waitlist members will receive priority
+              access to book experiences when we launch. You may unsubscribe from the waitlist at
               any time by contacting us.
             </p>
           </section>
@@ -71,8 +72,8 @@ export default function Terms() {
           <section>
             <h2 className="text-xl font-medium mb-4">Intellectual Property</h2>
             <p className="text-white/70 leading-relaxed">
-              All content on this website, including text, images, logos, and design elements, 
-              is the property of Swissperiences and is protected by copyright laws. You may not 
+              All content on this website, including text, images, logos, and design elements,
+              is the property of Swissperiences and is protected by copyright laws. You may not
               reproduce, distribute, or create derivative works without our written permission.
             </p>
           </section>
@@ -81,8 +82,8 @@ export default function Terms() {
           <section>
             <h2 className="text-xl font-medium mb-4">Limitation of Liability</h2>
             <p className="text-white/70 leading-relaxed">
-              Swissperiences provides this website on an "as is" basis. We make no warranties 
-              regarding the accuracy or completeness of any content. We shall not be liable for 
+              Swissperiences provides this website on an "as is" basis. We make no warranties
+              regarding the accuracy or completeness of any content. We shall not be liable for
               any indirect, incidental, or consequential damages arising from your use of the website.
             </p>
           </section>
@@ -91,8 +92,8 @@ export default function Terms() {
           <section>
             <h2 className="text-xl font-medium mb-4">Changes to Terms</h2>
             <p className="text-white/70 leading-relaxed">
-              We reserve the right to modify these terms at any time. Changes will be effective 
-              immediately upon posting to the website. Your continued use of the website 
+              We reserve the right to modify these terms at any time. Changes will be effective
+              immediately upon posting to the website. Your continued use of the website
               constitutes acceptance of the updated terms.
             </p>
           </section>
@@ -136,14 +137,7 @@ export default function Terms() {
         </div>
       </main>
 
-      {/* Simple Footer */}
-      <footer className="border-t border-white/10 py-8">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-xs text-white/40">
-            © 2024–2026 Swissperiences. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

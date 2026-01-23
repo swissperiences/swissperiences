@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, Suspense, lazy } from "react";
 import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
 import { MapPin, Clock, Users, ArrowRight } from "lucide-react";
 
 const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
@@ -126,7 +127,7 @@ export default function RoadJourney() {
             </section>
 
             {/* Gallery / Visual Break */}
-            <section className="w-full h-[400px] md:h-[600px] overflow-hidden relative">
+            <section className="w-full h-[400px] md:h-[600px] overflow-hidden relative mb-24">
                 <img
                     src="/images/range-rover-enhanced.jpg"
                     alt="On the road"
@@ -138,6 +139,8 @@ export default function RoadJourney() {
                     </p>
                 </div>
             </section>
+
+            <Footer />
 
             <Suspense fallback={null}>
                 <WaitlistModal

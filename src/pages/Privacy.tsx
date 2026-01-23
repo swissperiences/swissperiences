@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import Footer from "@/components/Footer";
 
 export default function Privacy() {
   return (
@@ -14,8 +15,8 @@ export default function Privacy() {
       {/* Header */}
       <header className="border-b border-white/10">
         <div className="max-w-4xl mx-auto px-6 py-6">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 rounded-sm"
             aria-label="Back to home"
           >
@@ -148,14 +149,7 @@ export default function Privacy() {
         </div>
       </main>
 
-      {/* Simple Footer */}
-      <footer className="border-t border-white/10 py-8">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-xs text-white/40">
-            © 2024–2026 Swissperiences. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

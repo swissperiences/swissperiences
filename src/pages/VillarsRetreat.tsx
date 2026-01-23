@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, Suspense, lazy } from "react";
 import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
 
 const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
 
@@ -143,6 +144,8 @@ export default function VillarsRetreat() {
                     Check Availability
                 </button>
             </div>
+
+            <Footer />
 
             <Suspense fallback={null}>
                 <WaitlistModal

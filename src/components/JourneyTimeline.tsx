@@ -121,45 +121,54 @@ export default function JourneyTimeline() {
                             </div>
 
                             {/* Mini Timeline */}
-                            <div className="space-y-12 border-l border-white/10 pl-8 ml-4 relative">
-                                {journal.itinerary.slice(0, 3).map((item, index) => (
-                                    <div key={index} className="relative group">
+                            <div className="space-y-12 border-l border-white/5 pl-8 ml-4 relative">
+                                {journal.itinerary.slice(0, 2).map((item, index) => (
+                                    <div key={index} className="relative group/item">
                                         {/* Dot */}
-                                        <div className="absolute -left-[37.5px] top-1.5 w-3 h-3 rounded-full bg-background border border-white/30 group-hover:bg-switz-red group-hover:border-switz-red transition-colors duration-300" />
+                                        <div className="absolute -left-[37.5px] top-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover/item:bg-switz-red transition-colors duration-300" />
 
                                         <div className="mb-4">
-                                            <span className="text-switz-red text-[10px] font-bold tracking-widest uppercase block opacity-70 mb-1">
+                                            <span className="text-switz-red text-[9px] font-bold tracking-[0.3em] uppercase block opacity-60 mb-2">
                                                 {item.day}
                                             </span>
-                                            <h4 className="text-lg text-white font-serif group-hover:text-switz-red-light transition-colors">
+                                            <h4 className="text-lg text-white font-serif group-hover/item:text-switz-red-light transition-colors duration-500">
                                                 {item.title}
                                             </h4>
                                         </div>
 
-                                        <div className="relative aspect-video w-full overflow-hidden rounded-sm mb-4 bg-neutral-900">
+                                        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm bg-neutral-900 border border-white/5">
                                             <img
                                                 src={item.image}
                                                 alt={item.title}
-                                                className="w-full h-full object-cover object-center scale-[1.01] group-hover:scale-105 transition-all duration-1000 ease-out"
+                                                className="w-full h-full object-cover object-center scale-[1.01] group-hover/item:scale-105 transition-all duration-1000 ease-out"
                                             />
                                         </div>
-
-                                        <p className="text-white/50 text-sm font-light leading-relaxed">
-                                            {item.description}
-                                        </p>
                                     </div>
                                 ))}
 
-                                {journal.itinerary.length > 3 && (
-                                    <div className="pt-4">
-                                        <button
-                                            onClick={() => navigate("/journals")}
-                                            className="text-[10px] text-white/30 uppercase tracking-[0.2em] hover:text-switz-red transition-colors duration-300"
-                                        >
-                                            + {journal.itinerary.length - 3} More Moments
-                                        </button>
+                                {/* Mysterious Teaser Item */}
+                                <div
+                                    onClick={() => navigate("/journals")}
+                                    className="relative group/teaser cursor-pointer opacity-40 hover:opacity-100 transition-all duration-700"
+                                >
+                                    <div className="absolute -left-[37.5px] top-1.5 w-1.5 h-1.5 rounded-full bg-white/10" />
+
+                                    <div className="mb-4 blur-[3px] group-hover/teaser:blur-0 transition-all duration-700">
+                                        <span className="text-white/20 text-[9px] font-bold tracking-[0.3em] uppercase block mb-2">
+                                            Hidden Segment
+                                        </span>
+                                        <h4 className="text-lg text-white/40 font-serif lowercase italic">
+                                            and the moments that followed...
+                                        </h4>
                                     </div>
-                                )}
+
+                                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm bg-white/[0.02] border border-dashed border-white/10 flex items-center justify-center group-hover/teaser:bg-white/[0.05] transition-all duration-700">
+                                        <div className="flex flex-col items-center gap-2">
+                                            <div className="w-8 h-px bg-white/10 group-hover/teaser:w-12 transition-all duration-700" />
+                                            <span className="text-[10px] text-white/20 uppercase tracking-[0.4em]">Archived</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ))}
