@@ -50,9 +50,8 @@ export function HeroVideoPlayer({ className = '' }: HeroVideoPlayerProps) {
       {/* Video */}
       <video
         ref={videoRef}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-          isLoading ? 'opacity-0' : 'opacity-100'
-        }`}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isLoading ? 'opacity-0' : 'opacity-100'
+          }`}
         autoPlay
         loop
         muted
@@ -60,10 +59,9 @@ export function HeroVideoPlayer({ className = '' }: HeroVideoPlayerProps) {
         preload="metadata"
         poster="/videos/hero-poster.jpg"
       >
-        {/* AV1 for maximum compression - 9.3MB (Chrome 90+, Edge 90+, Opera 77+) */}
-        <source src="/videos/hero-av1.mp4" type="video/mp4; codecs=av01.0.05M.08" />
-        {/* WebM/VP9 fallback - 11MB (Chrome, Firefox, Edge) */}
-        <source src="/videos/hero-optimized.webm" type="video/webm" />
+        {/* User provided Cliff Walk Video */}
+        <source src="/videos/hero-cliff-walk.mov" type="video/quicktime" />
+        <source src="/videos/hero-cliff-walk.mp4" type="video/mp4" />
         {/* H.264 fallback for Safari/older browsers - 17MB */}
         <source src="/videos/hero-final.mp4" type="video/mp4" />
       </video>

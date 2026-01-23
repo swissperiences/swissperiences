@@ -16,6 +16,9 @@ const Terms = lazy(() => import("./pages/Terms"));
 const ForTeams = lazy(() => import("./pages/ForTeams"));
 const SecureDeposit = lazy(() => import("./pages/SecureDeposit"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Ideas = lazy(() => import("./pages/Ideas"));
+const ToDo = lazy(() => import("./pages/ToDo"));
+const VillarsRetreat = lazy(() => import("./pages/VillarsRetreat"));
 
 const queryClient = new QueryClient();
 
@@ -52,6 +55,10 @@ const App = () => (
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 {/* Direct routes without language prefix */}
+                <Route path="/ideas" element={<Ideas />} />
+                <Route path="/todo" element={<ToDo />} />
+                <Route path="/villars-retreat" element={<VillarsRetreat />} />
+                <Route path="/road-journey" element={<RoadJourney />} />
                 <Route path="/" element={<Index />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />

@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
+import { Link } from "react-router-dom";
 
-// Editorial configuration - Roman numerals and keys
+// Real offerings based on available assets
 const cardsConfig = [
-  { number: 'I', key: 'wellnessRetreats' },
-  { number: 'II', key: 'mindfulExperiences' },
-  { number: 'III', key: 'alpineAdventures' },
-  { number: 'IV', key: 'culturalImmersion' },
-  { number: 'V', key: 'droneVideography' },
+  { number: 'I', key: 'villarsRetreat', image: '/images/apt-living-room-2.jpg', link: '/villars-retreat' },
+  { number: 'II', key: 'roadJourney', image: '/images/range-rover-enhanced.jpg', link: '/road-journey' },
+  { number: 'III', key: 'droneMemories', image: '/images/villars-drone.jpg' },
+  { number: 'IV', key: 'luxuryPackage', image: '/images/snowy-view.jpg' },
+  { number: 'V', key: 'bespokeJourney', image: '/images/mountain-sunset.jpg' },
 ];
 
 export default function WhatWeCurate() {
@@ -31,34 +32,58 @@ export default function WhatWeCurate() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-px bg-white/10 border border-white/10 overflow-hidden">
-          {cardsConfig.map((card, index) => (
-            <motion.div
-              key={card.key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative bg-background p-10 md:p-8 lg:p-10 flex flex-col justify-between min-h-[300px] hover:bg-white/5 transition-colors duration-500"
-            >
-              <div>
-                <span className="text-switz-red font-serif text-xl italic opacity-60 mb-6 block group-hover:opacity-100 transition-opacity">
-                  {card.number}
-                </span>
-                <h3 className="text-xl text-white font-serif mb-4 leading-heading">
-                  {t(`whatWeCurate.${card.key}.title`)}
-                </h3>
-                <p className="text-sm text-white/60 font-light leading-relaxed">
-                  {t(`whatWeCurate.${card.key}.description`)}
-                </p>
-              </div>
+          {cardsConfig.map((card, index) => {
+            const CardContent = (
+              <motion.div
+                key={card.key}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative bg-neutral-900 p-10 md:p-8 lg:p-10 flex flex-col justify-between min-h-[400px] overflow-hidden cursor-pointer"
+              >
+                {/* Background Image with Overlay */}
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={card.image}
+                    alt={t(`whatWeCurate.${card.key}.title`)}
+                    className="w-full h-full object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 group-hover:via-black/60 transition-colors duration-500" />
+                </div>
 
-              <div className="mt-8 pt-6 border-t border-white/5 group-hover:border-white/20 transition-colors">
-                <p className="text-[10px] text-white/40 uppercase tracking-widest">
-                  {t(`whatWeCurate.${card.key}.audience`)}
-                </p>
+                <div className="relative z-10 h-full flex flex-col justify-between">
+                  <div>
+                    <span className="text-switz-red font-serif text-xl italic opacity-80 mb-6 block group-hover:scale-110 origin-left transition-transform duration-500">
+                      {card.number}
+                    </span>
+                    <h3 className="text-2xl text-white font-serif mb-4 leading-heading drop-shadow-md">
+                      {t(`whatWeCurate.${card.key}.title`)}
+                    </h3>
+                    <p className="text-sm text-white/90 font-light leading-relaxed drop-shadow-sm max-w-[90%]">
+                      {t(`whatWeCurate.${card.key}.description`)}
+                    </p>
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-white/20 group-hover:border-switz-red/50 transition-colors">
+                    <p className="text-[10px] text-white/80 uppercase tracking-widest font-medium">
+                      {t(`whatWeCurate.${card.key}.audience`)}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            );
+
+            return card.link ? (
+              <Link to={card.link} className="block h-full w-full">
+                {CardContent}
+              </Link>
+            ) : (
+              <div key={card.key} className="block h-full w-full">
+                {CardContent}
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Footer Statement */}

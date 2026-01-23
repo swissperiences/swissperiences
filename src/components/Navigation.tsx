@@ -187,7 +187,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                     variant="ghost"
                     style={{ borderRadius: '2px' }}
                   >
-                    {t('common:nav.requestAccess')}
+                    Check Availability
                   </Button>
                 </motion.div>
               </div>
@@ -231,7 +231,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                 className="rounded-full w-full mt-7 font-light tracking-wide"
                 variant="hero"
               >
-                {t('common:nav.requestAccess')}
+                Check Availability
               </Button>
             </div>
           </motion.div>

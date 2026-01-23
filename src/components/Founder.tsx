@@ -46,24 +46,26 @@ export const Founder = () => {
                     <div className="w-full md:w-7/12 space-y-8 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-200">
                         <div>
                             <span className="text-switz-red text-xs font-bold tracking-[0.2em] uppercase block mb-4">
-                                The Founder
+                                The Founder & Host
                             </span>
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight mb-6">
                                 Caueh Vidal <br />
-                                <span className="italic text-white/50 text-3xl md:text-4xl">Curator & Host.</span>
+                                <span className="italic text-white/50 text-3xl md:text-4xl">Your Private Alpine Guide.</span>
                             </h2>
                         </div>
 
                         <div className="space-y-6 text-lg text-white/70 font-light leading-relaxed max-w-xl">
                             <p>
-                                Based in Geneva and deeply rooted in the alpine serenity of Villars-sur-Ollon,
-                                I created Swissperiences to share a different side of Switzerland—one that exists
-                                beyond the guidebooks.
+                                Based in <strong>Geneva</strong> and deeply rooted in the alpine serenity of Villars-sur-Ollon, I created Swissperiences to offer what big agencies cannot:
+                                a personal connection to the Swiss Alps.
                             </p>
                             <p>
-                                Every journey is personal. From the moment you step into the Range Rover
-                                for your private transfer, to the hidden chalets and quiet peaks,
-                                I personally oversee the details that transform a trip into a memory.
+                                I don't just book your trip; I host it. From the moment I pick you up in my <strong>Range Rover</strong>,
+                                to the cinematic <strong>drone memories</strong> we capture together, every detail is personally curated.
+                            </p>
+                            <p className="text-sm border-l-2 border-switz-red pl-4 italic opacity-80">
+                                "Fluency in Portuguese, English, and Spanish allows me to bridge the gap between
+                                international warmth and Swiss precision."
                             </p>
                         </div>
 
@@ -74,8 +76,8 @@ export const Founder = () => {
                                     <p className="text-xs text-switz-red uppercase tracking-widest">Global Perspective</p>
                                 </div>
                                 <div>
-                                    <h4 className="text-white font-serif text-xl mb-1">Villars-sur-Ollon</h4>
-                                    <p className="text-xs text-switz-red uppercase tracking-widest">Alpine Home</p>
+                                    <h4 className="text-white font-serif text-xl mb-1">Villars Retreat</h4>
+                                    <p className="text-xs text-switz-red uppercase tracking-widest">Alpine Sanctuary</p>
                                 </div>
                             </div>
                         </div>

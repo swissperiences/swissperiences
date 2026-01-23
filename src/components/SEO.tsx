@@ -26,6 +26,7 @@ export default function SEO({
       <meta name="title" content={title} />
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
+      <meta name="theme-color" content="#000000" />
       <link rel="canonical" href={canonical} />
 
       {/* Open Graph / Facebook */}
@@ -38,12 +39,13 @@ export default function SEO({
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}
-      <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={canonical} />
-      <meta property="twitter:title" content={title} />
-      <meta property="twitter:description" content={description} />
-      <meta property="twitter:image" content={ogImage} />
-      <meta property="twitter:site" content="@Swissperiences" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={canonical} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:site" content="@Swissperiences" />
+      <meta name="twitter:creator" content="@Swissperiences" />
 
       {/* Additional SEO */}
       <meta name="robots" content="index, follow" />

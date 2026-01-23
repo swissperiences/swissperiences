@@ -1,40 +1,40 @@
 {
   "hero": {
-    "title": "Switzerland.",
-    "subtitle": "A state of mind.",
-    "tagline1": "Immersive nature. For those seeking less noise and more feeling.",
-    "tagline2": "Curated Swiss experiences — from intimate moments to immersive journeys.",
-    "microPhrase": "Inquiries limited. Curated individually.",
-    "cta": "Request Access"
+    "title": "Swissperiences.",
+    "subtitle": "Your Personal Alpine Guide.",
+    "tagline1": "Boutique experiences in Swiss Romande.",
+    "tagline2": "From luxury transport to private mountain sanctuaries. Curated by a local expert.",
+    "microPhrase": "Multilingual service (EN/PT/ES). Limited availability.",
+    "cta": "Explore Offerings"
   },
   "whatWeCurate": {
-    "heading": "What We Curate",
-    "wellnessRetreats": {
-      "title": "Wellness Retreats",
-      "description": "Digital detox escapes in Swiss mountain sanctuaries",
-      "audience": "Executives & creatives seeking a reset"
+    "heading": "What We Offer",
+    "villarsRetreat": {
+      "title": "Villars Alpine Retreat",
+      "description": "4-bedroom mountain sanctuary near ski station with local insider guidance",
+      "audience": "Small groups & families seeking authentic alpine living"
     },
-    "mindfulExperiences": {
-      "title": "Mindful Experiences",
-      "description": "Meditation, yoga, and breathwork in nature",
-      "audience": "Individuals reconnecting with their center"
+    "roadJourney": {
+      "title": "Swiss Alps Road Journey",
+      "description": "Curated day trips in luxury Range Rover to hidden Swiss gems",
+      "audience": "Travelers wanting premium transport & local expertise"
     },
-    "alpineAdventures": {
-      "title": "Alpine Adventures",
-      "description": "Alpine expeditions to hidden peaks and pristine lakes",
-      "audience": "Explorers searching for raw nature"
+    "droneMemories": {
+      "title": "Cinematic Swiss Memories",
+      "description": "Professional drone videography of your Swiss adventure",
+      "audience": "Those seeking cinematic keepsakes of their journey"
     },
-    "culturalImmersion": {
-      "title": "Cultural Immersion",
-      "description": "Artisan workshops and local Swiss traditions",
-      "audience": "Travelers valuing depth over sight-seeing"
+    "luxuryPackage": {
+      "title": "Villars Luxury Week",
+      "description": "7-night all-inclusive: accommodation, road trips & video documentation",
+      "audience": "High-ticket: CHF 8,000-12,000 for groups of 4-6"
     },
-    "droneVideography": {
-      "title": "Drone Videography",
-      "description": "Cinematic aerial footage of your Swiss journey",
-      "audience": "Individuals & small groups seeking keepsakes"
+    "bespokeJourney": {
+      "title": "Bespoke Swiss Journey",
+      "description": "Fully customized multi-day experience across Swiss regions",
+      "audience": "Ultra-premium: CHF 15,000+ for 7-10 day journeys"
     },
-    "footer": "Each experience is curated individually. Access is limited."
+    "footer": "Multilingual service (EN/PT/ES). Each experience is curated individually."
   },
   "howItWorks": {
     "heading": "How It Works",

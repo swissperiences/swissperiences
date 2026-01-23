@@ -30,7 +30,7 @@ export default async function handler(req: any, res: any) {
     // ============================================================
     // CORS HEADERS - Allow requests from frontend
     // ============================================================
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -44,13 +44,24 @@ export default async function handler(req: any, res: any) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { email, first_name = null, newsletter_opt_in = true, tier = 'General Waitlist', start_date = null, end_date = null, num_guests = null } = req.body;
+    const {
+        email,
+        first_name = null,
+        newsletter_opt_in = true,
+        tier = 'General Waitlist',
+        intent = null,
+        season = null,
+        start_date = null,
+        end_date = null,
+        num_guests = null
+    } = req.body;
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const isTestMode = process.env.EMAIL_TEST_MODE === 'true';
 
     console.log(`[API] Processing waitlist signup for: ${email}`);
-    console.log(`[API] 📋 Interest Tier: ${tier}`);
+    if (intent) console.log(`[API] 🎯 Intent: ${intent}`);
+    if (season) console.log(`[API] 🏔️ Season: ${season}`);
     if (start_date) console.log(`[API] 📅 Dates: ${start_date} to ${end_date}`);
     if (num_guests) console.log(`[API] 👥 Guests: ${num_guests}`);
 
@@ -163,6 +174,16 @@ export default async function handler(req: any, res: any) {
             <span class="label">Context / Tier</span>
             <span class="value" style="color: #D8B58A;">${tier}</span>
         </div>
+        ${intent ? `
+        <div class="data-row">
+            <span class="label">Primary Attraction</span>
+            <span class="value">${intent}</span>
+        </div>` : ''}
+        ${season ? `
+        <div class="data-row">
+            <span class="label">Preferred Timing</span>
+            <span class="value">${season}</span>
+        </div>` : ''}
         ${start_date ? `
         <div class="data-row">
             <span class="label">Requested Dates</span>

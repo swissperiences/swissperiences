@@ -8,33 +8,33 @@
     "cta": "Solicitar Acesso"
   },
   "whatWeCurate": {
-    "heading": "O Que Curamos",
-    "wellnessRetreats": {
-      "title": "Retiros de Bem-Estar",
-      "description": "Escapadas de desintoxicação digital em santuários nas montanhas suíças",
-      "audience": "Executivos e criativos buscando renovação"
+    "heading": "O Que Oferecemos",
+    "villarsRetreat": {
+      "title": "Villars Alpine Retreat",
+      "description": "Santuário de 4 quartos próximo à estação de esqui com guia local",
+      "audience": "Pequenos grupos e famílias buscando vivência alpina autêntica"
     },
-    "mindfulExperiences": {
-      "title": "Experiências Conscientes",
-      "description": "Meditação, yoga e respiração na natureza",
-      "audience": "Indivíduos reconectando com seu centro"
+    "roadJourney": {
+      "title": "Jornada nos Alpes Suíços",
+      "description": "Passeios curados em Range Rover de luxo para joias escondidas da Suíça",
+      "audience": "Viajantes buscando transporte premium e expertise local"
     },
-    "alpineAdventures": {
-      "title": "Aventuras Alpinas",
-      "description": "Caminhadas guiadas para picos escondidos e lagos pristinos",
-      "audience": "Exploradores em busca de natureza pura"
+    "droneMemories": {
+      "title": "Memórias Suíças Cinemáticas",
+      "description": "Videografia profissional com drone da sua aventura suíça",
+      "audience": "Quem busca recordações cinematográficas da jornada"
     },
-    "culturalImmersion": {
-      "title": "Imersão Cultural",
-      "description": "Oficinas artesanais e tradições locais suíças",
-      "audience": "Viajantes que valorizam profundidade acima de turismo"
+    "luxuryPackage": {
+      "title": "Semana de Luxo em Villars",
+      "description": "7 noites all-inclusive: acomodação, passeios e documentação em vídeo",
+      "audience": "High-ticket: CHF 8,000-12,000 para grupos de 4-6"
     },
-    "droneVideography": {
-      "title": "Videografia com Drone",
-      "description": "Imagens aéreas cinematográficas da sua jornada suíça",
-      "audience": "Indivíduos e pequenos grupos buscando lembranças"
+    "bespokeJourney": {
+      "title": "Jornada Suíça Sob Medida",
+      "description": "Experiência multi-dia totalmente personalizada pelas regiões suíças",
+      "audience": "Ultra-premium: CHF 15,000+ para jornadas de 7-10 dias"
     },
-    "footer": "Cada experiência é curada individualmente. O acesso é limitado."
+    "footer": "Atendimento multilíngue (EN/PT/ES). Cada experiência é curada pessoalmente."
   },
   "howItWorks": {
     "heading": "Como Funciona",

@@ -32,7 +32,7 @@
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 0 100% 50%;
+    --ring: 0 0% 40%;
 
     --radius: 0.75rem;
 
@@ -47,6 +47,7 @@
     /* Swiss-inspired tokens */
     --swiss-red: 0 100% 50%;
     --swiss-red-hover: 0 100% 45%;
+    --swiss-gold: 38 92% 50%;
     --glow-title: 0 0 60px hsl(0 0% 100% / 0.3), 0 0 120px hsl(0 0% 100% / 0.1);
 
     --sidebar-background: 0 0% 5%;
@@ -80,7 +81,9 @@
   }
 
   /* Editorial serif for headlines */
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: 'Lora', Georgia, serif;
     font-weight: 500;
   }

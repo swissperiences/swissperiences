@@ -26,10 +26,10 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             {/* Editorial Headline */}
             <h1 className="text-white leading-none mb-8" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               <span className="block text-[13vw] md:text-[8rem] lg:text-[9.5rem] font-light tracking-tighter mix-blend-overlay opacity-90">
-                {t('home:hero.title')}
+                Swissperiences
               </span>
               <span className="block text-2xl md:text-3xl lg:text-4xl font-light italic mt-2 md:mt-4 opacity-80 tracking-wide font-sans">
-                {t('home:hero.subtitle')}
+                Your Private Sanctuary in the Alps.
               </span>
             </h1>
 
@@ -38,7 +38,8 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
 
             {/* Subtext */}
             <p className="mx-auto max-w-lg text-sm md:text-base text-white/70 font-light leading-relaxed tracking-wide mb-12">
-              {t('home:hero.tagline1')} <br className="hidden md:block" /> {t('home:hero.tagline2')}
+              A boutique home base in Villars-sur-Ollon. <br className="hidden md:block" />
+              Curated by Caueh Vidal.
             </p>
 
             {/* Premium CTA */}
@@ -51,7 +52,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             >
               <span className="absolute inset-0 border border-white/20 group-hover:border-white/40 transition-colors duration-300" />
               <span className="relative text-xs text-white uppercase tracking-[0.25em] group-hover:text-white transition-colors duration-300">
-                {t('common:nav.requestAccess')}
+                Check Availability
               </span>
             </button>
           </motion.div>

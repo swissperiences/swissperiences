@@ -1,18 +1,26 @@
-import { HeroSection } from "@/components/ui/hero-section";
-import WhatWeCurate from "@/components/WhatWeCurate";
-import PhilosophySpacer from "@/components/PhilosophySpacer";
-import HowItWorks from "@/components/HowItWorks";
-import JourneyTimeline from "@/components/JourneyTimeline";
-import FAQ from "@/components/FAQ";
-import Footer from "@/components/Footer";
-import { WaitlistModal } from "@/components/WaitlistModal";
-import GlobalVideoBackground from "@/components/GlobalVideoBackground";
-import SEO from "@/components/SEO";
-import { Mentors } from "@/components/Mentors";
-import { Founder } from "@/components/Founder";
-import { UpcomingRetreats } from "@/components/UpcomingRetreats";
-import { useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { HeroSection } from "@/components/ui/hero-section";
+import SEO from "@/components/SEO";
+import GlobalVideoBackground from "@/components/GlobalVideoBackground";
+
+// Lazy-loaded components for performance optimization
+const UpcomingRetreats = lazy(() => import("@/components/UpcomingRetreats").then(m => ({ default: m.UpcomingRetreats })));
+const Founder = lazy(() => import("@/components/Founder").then(m => ({ default: m.Founder })));
+const JourneyTimeline = lazy(() => import("@/components/JourneyTimeline"));
+const WhatWeCurate = lazy(() => import("@/components/WhatWeCurate"));
+const HowItWorks = lazy(() => import("@/components/HowItWorks"));
+const FAQ = lazy(() => import("@/components/FAQ"));
+const Footer = lazy(() => import("@/components/Footer"));
+const PhilosophySpacer = lazy(() => import("@/components/PhilosophySpacer"));
+const WaitlistModal = lazy(() => import("@/components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
+
+// Subtle loading spinner for components
+const ComponentLoader = () => (
+  <div className="w-full py-12 flex items-center justify-center">
+    <div className="w-4 h-4 border-b-2 border-white/20 rounded-full animate-spin" />
+  </div>
+);
 
 const Index = () => {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
@@ -77,22 +85,26 @@ const Index = () => {
       {/* All content with relative positioning */}
       <div className="relative z-10">
         <HeroSection onJoinWaitlist={() => openWaitlist("General Waitlist")} />
-        <PhilosophySpacer />
-        <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier)} />
-        <Mentors />
-        <Founder />
-        <JourneyTimeline />
-        <WhatWeCurate />
-        <HowItWorks />
-        <FAQ />
-        <Footer />
+
+        <Suspense fallback={<ComponentLoader />}>
+          <PhilosophySpacer />
+          <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier)} />
+          <Founder />
+          <JourneyTimeline />
+          <WhatWeCurate />
+          <HowItWorks />
+          <FAQ />
+          <Footer />
+        </Suspense>
       </div>
 
-      <WaitlistModal
-        open={isWaitlistOpen}
-        onOpenChange={setIsWaitlistOpen}
-        selectedTier={waitlistTier}
-      />
+      <Suspense fallback={null}>
+        <WaitlistModal
+          open={isWaitlistOpen}
+          onOpenChange={setIsWaitlistOpen}
+          selectedTier={waitlistTier}
+        />
+      </Suspense>
     </div>
   );
 };
