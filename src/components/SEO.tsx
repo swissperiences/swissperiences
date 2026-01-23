@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "react-i18next";
 
 interface SEOProps {
   title?: string;
@@ -14,13 +15,19 @@ export default function SEO({
   title = "Swissperiences | Your Private Sanctuary in the Alps",
   description = "A boutique home base in Villars-sur-Ollon curated by Caueh Vidal. Private alpine retreats and curated road journeys.",
   keywords = "swiss experiences, switzerland travel, alpine retreats, luxury switzerland, swiss alps, boutique host switzerland, authentic switzerland",
-  canonical = "https://swissperiences.ch",
+  canonical = "https://www.swissperiences.ch",
   ogType = "website",
-  ogImage = "https://swissperiences.ch/og-image.jpg",
+  ogImage = "https://www.swissperiences.ch/og-image.jpg",
   structuredData,
 }: SEOProps) {
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language || "en";
+  const ogLocale = currentLang === "pt" ? "pt_PT" : "en_US";
+
   return (
-    <Helmet>
+    <Helmet
+      htmlAttributes={{ lang: currentLang }}
+    >
       {/* Primary Meta Tags */}
       <title>{title}</title>
       <meta name="title" content={title} />
@@ -29,10 +36,10 @@ export default function SEO({
       <meta name="theme-color" content="#000000" />
       <link rel="canonical" href={canonical} />
 
-      {/* Multilingual SEO */}
-      <link rel="alternate" hrefLang="en" href={`${canonical}/en`} />
-      <link rel="alternate" hrefLang="pt" href={`${canonical}/pt`} />
-      <link rel="alternate" hrefLang="x-default" href={`${canonical}/en`} />
+      {/* Multilingual SEO (Bidirectional & Self-referencing) */}
+      <link rel="alternate" hrefLang="en" href="https://www.swissperiences.ch/en" />
+      <link rel="alternate" hrefLang="pt" href="https://www.swissperiences.ch/pt" />
+      <link rel="alternate" hrefLang="x-default" href="https://www.swissperiences.ch/en" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
@@ -41,7 +48,7 @@ export default function SEO({
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
       <meta property="og:site_name" content="Swissperiences" />
-      <meta property="og:locale" content="en_US" />
+      <meta property="og:locale" content={ogLocale} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -54,7 +61,7 @@ export default function SEO({
 
       {/* Additional SEO */}
       <meta name="robots" content="index, follow" />
-      <meta name="language" content="English" />
+      <meta name="language" content={currentLang === "pt" ? "Portuguese" : "English"} />
       <meta name="revisit-after" content="7 days" />
       <meta name="author" content="Swissperiences" />
 

@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
-  const { t, i18n } = useTranslation('common');
+  const { t } = useTranslation('common');
 
   return (
     <footer className="relative border-t border-white/5 bg-black h-[200px] flex items-center justify-center">
@@ -12,11 +13,11 @@ export default function Footer() {
         </p>
 
         {/* Navigation Links */}
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-6">
-          <a href="/" className="text-[10px] text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest">Home</a>
-          <a href="/journals" className="text-[10px] text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest">Journals</a>
-          <a href={`/${i18n.language}/privacy`} className="text-[10px] text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest">Privacy</a>
-          <a href={`/${i18n.language}/terms`} className="text-[10px] text-white/30 hover:text-white/60 transition-colors uppercase tracking-widest">Terms</a>
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-6 text-white/30">
+          <Link to="/" className="text-[10px] hover:text-white/60 transition-colors uppercase tracking-widest">Home</Link>
+          <Link to="/journals" className="text-[10px] hover:text-white/60 transition-colors uppercase tracking-widest">Journals</Link>
+          <Link to="/privacy" className="text-[10px] hover:text-white/60 transition-colors uppercase tracking-widest">Privacy</Link>
+          <Link to="/terms" className="text-[10px] hover:text-white/60 transition-colors uppercase tracking-widest">Terms</Link>
         </div>
 
         {/* Copyright */}
