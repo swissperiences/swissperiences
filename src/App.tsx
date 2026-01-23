@@ -19,6 +19,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const Ideas = lazy(() => import("./pages/Ideas"));
 const ToDo = lazy(() => import("./pages/ToDo"));
 const VillarsRetreat = lazy(() => import("./pages/VillarsRetreat"));
+const RoadJourney = lazy(() => import("./pages/RoadJourney"));
 
 const queryClient = new QueryClient();
 
