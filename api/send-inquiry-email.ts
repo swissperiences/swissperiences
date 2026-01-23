@@ -6,7 +6,9 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 // import { checkRateLimit } from './lib/rate-limit.js';
 
-export default async function handler(req: any, res: any) {
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ============================================================
     // AGGRESSIVE DEBUG - FUNCTION START
     // ============================================================
@@ -179,9 +181,7 @@ export default async function handler(req: any, res: any) {
             console.error('Error object:', JSON.stringify(userError, null, 2));
             console.error('Error name:', userError.name);
             console.error('Error message:', userError.message);
-            if ((userError as any).statusCode) {
-                console.error('HTTP Status Code:', (userError as any).statusCode);
-            }
+
             // CRITICAL: Return 500 to frontend so user knows it failed
             return res.status(500).json({
                 error: `Failed to send user email: ${userError.message}`,
@@ -272,9 +272,7 @@ export default async function handler(req: any, res: any) {
             console.error('Error object:', JSON.stringify(adminError, null, 2));
             console.error('Error name:', adminError.name);
             console.error('Error message:', adminError.message);
-            if ((adminError as any).statusCode) {
-                console.error('HTTP Status Code:', (adminError as any).statusCode);
-            }
+
             // CRITICAL: Return 500 to frontend so user knows it failed
             return res.status(500).json({
                 error: `Failed to send admin notification: ${adminError.message}`,
@@ -319,11 +317,12 @@ export default async function handler(req: any, res: any) {
                     console.log('[CORPORATE API] ✅ Step 4 complete: Newsletter subscription successful');
                     console.log('[CORPORATE API] 📬 Contact ID:', contactData?.id);
                 }
-            } catch (syncError: any) {
-                console.error('[CORPORATE API] ❌ EXCEPTION during contact creation:', syncError);
+            } catch (syncError: unknown) {
+                const err = syncError as Error;
+                console.error('[CORPORATE API] ❌ EXCEPTION during contact creation:', err);
                 return res.status(500).json({
                     error: 'Exception during contact creation',
-                    details: syncError.message
+                    details: err.message
                 });
             }
         } else {
@@ -344,18 +343,19 @@ export default async function handler(req: any, res: any) {
             userMessageId: userData?.id,
             adminMessageId: adminData?.id
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const err = error as Error;
         console.error('\n' + '='.repeat(60));
         console.error('💥 CRITICAL ERROR IN CORPORATE API');
         console.error('='.repeat(60));
-        console.error('Error message:', error.message);
-        console.error('Error stack:', error.stack);
+        console.error('Error message:', err.message);
+        console.error('Error stack:', err.stack);
         console.error('='.repeat(60) + '\n');
 
         // FORCE ERROR TO FRONTEND - NO MORE FALSE POSITIVES
         return res.status(500).json({
-            error: error.message,
-            stack: error.stack,
+            error: err.message,
+            stack: err.stack,
             timestamp: new Date().toISOString()
         });
     }

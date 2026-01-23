@@ -76,7 +76,14 @@ export default function IdeasPage() {
     );
 }
 
-const IdeaCard = ({ title, date, concept, assets }: any) => (
+interface IdeaCardProps {
+    title: string;
+    date: string;
+    concept: string;
+    assets: string;
+}
+
+const IdeaCard = ({ title, date, concept, assets }: IdeaCardProps) => (
     <div className="bg-white/5 p-6 rounded-sm border border-white/10 hover:border-switz-red/50 transition-colors">
         <div className="flex justify-between items-start mb-4">
             <h3 className="text-xl font-medium">{title}</h3>

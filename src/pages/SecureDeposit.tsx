@@ -24,22 +24,18 @@ export default function SecureDeposit() {
             let data;
             try {
                 const text = await response.text();
-                try {
-                    data = JSON.parse(text);
-                } catch {
-                    if (import.meta.env.DEV) {
-                        toast({
-                            title: "Dev Mode: Checkout Simulation",
-                            description: "API unreachable on localhost. Redirecting...",
-                            duration: 3000,
-                        });
-                        setTimeout(() => { window.location.href = "/?payment=success"; }, 1000);
-                        return;
-                    }
-                    throw new Error("Invalid server response");
+                data = JSON.parse(text);
+            } catch {
+                if (import.meta.env.DEV) {
+                    toast({
+                        title: "Dev Mode: Checkout Simulation",
+                        description: "API unreachable on localhost. Redirecting...",
+                        duration: 3000,
+                    });
+                    setTimeout(() => { window.location.href = "/?payment=success"; }, 1000);
+                    return;
                 }
-            } catch (e) {
-                throw e;
+                throw new Error("Invalid server response");
             }
 
             if (!response.ok) {
@@ -49,10 +45,11 @@ export default function SecureDeposit() {
             if (data.url) {
                 window.location.href = data.url;
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
+            const err = error as Error;
             toast({
                 title: "Access Denied",
-                description: error.message,
+                description: err.message,
                 variant: "destructive",
             });
         } finally {

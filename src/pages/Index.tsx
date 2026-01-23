@@ -44,7 +44,7 @@ const Index = () => {
       // Clean URL
       window.history.replaceState({}, '', window.location.pathname);
     }
-  }, []);
+  }, [toast]);
 
   const structuredData = {
     "@context": "https://schema.org",

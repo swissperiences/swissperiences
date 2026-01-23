@@ -1,6 +1,7 @@
 
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -21,7 +22,9 @@ export default async function handler(request: Request) {
     try {
 
 
-        let { email, application_id } = await request.json();
+        const body = await request.json();
+        const email = body.email;
+        let application_id = body.application_id;
 
         if (!email) {
             return new Response('Email is required', { status: 400 });
@@ -84,8 +87,9 @@ export default async function handler(request: Request) {
             headers: { 'Content-Type': 'application/json' },
         });
 
-    } catch (error: any) {
-        console.error('Stripe error:', error);
-        return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    } catch (error: unknown) {
+        const err = error as Error;
+        console.error('Stripe error:', err);
+        return new Response(JSON.stringify({ error: err.message }), { status: 500 });
     }
 }

@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -21,7 +22,7 @@ export const config = {
     },
 };
 
-async function buffer(readable: any) {
+async function buffer(readable: VercelRequest) {
     const chunks = [];
     for await (const chunk of readable) {
         chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
@@ -29,7 +30,7 @@ async function buffer(readable: any) {
     return Buffer.concat(chunks);
 }
 
-export default async function handler(req: any, res: any) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') {
         res.setHeader('Allow', 'POST');
         return res.status(405).end('Method Not Allowed');
@@ -42,10 +43,11 @@ export default async function handler(req: any, res: any) {
     let event: Stripe.Event;
 
     try {
-        event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
-    } catch (err: any) {
-        console.error(`Webhook signature verification failed.`, err.message);
-        return res.status(400).send(`Webhook Error: ${err.message}`);
+        event = stripe.webhooks.constructEvent(buf, sig as string, webhookSecret);
+    } catch (err: unknown) {
+        const error = err as Error;
+        console.error(`Webhook signature verification failed.`, error.message);
+        return res.status(400).send(`Webhook Error: ${error.message}`);
     }
 
     // Handle the event
@@ -114,8 +116,9 @@ export default async function handler(req: any, res: any) {
                     });
                     console.log(`[Stripe Webhook] Confirmation email sent to ${customerEmail}`);
                 }
-            } catch (emailError: any) {
-                console.error('[Stripe Webhook] Failed to send email:', emailError);
+            } catch (emailError: unknown) {
+                const err = emailError as Error;
+                console.error('[Stripe Webhook] Failed to send email:', err);
                 // Do not throw, we don't want to fail the webhook response to Stripe
             }
         }

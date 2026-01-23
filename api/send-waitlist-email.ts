@@ -1,12 +1,13 @@
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL!,
     process.env.VITE_SUPABASE_PUBLISHABLE_KEY!
 );
 
-export default async function handler(req: any, res: any) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ============================================================
     // AGGRESSIVE DEBUG - FUNCTION START
     // ============================================================
@@ -67,7 +68,7 @@ export default async function handler(req: any, res: any) {
 
     try {
         // 1. Save to database first
-        const insertData: any = {
+        const insertData: Record<string, unknown> = {
             email: email,
             newsletter_opt_in: newsletter_opt_in
         };
@@ -245,11 +246,12 @@ export default async function handler(req: any, res: any) {
                 } else {
                     console.log('[API] Resend contact sync success:', contactData);
                 }
-            } catch (syncError: any) {
-                console.error('[API] ❌ EXCEPTION during contact creation:', syncError);
+            } catch (syncError: unknown) {
+                const err = syncError as Error;
+                console.error('[API] ❌ EXCEPTION during contact creation:', err);
                 return res.status(500).json({
                     error: 'Exception during contact creation',
-                    details: syncError.message
+                    details: err.message
                 });
             }
         }
@@ -259,18 +261,19 @@ export default async function handler(req: any, res: any) {
             userMessageId: userData?.id,
             adminMessageId: adminData?.id
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const err = error as Error;
         console.error('\n' + '='.repeat(60));
         console.error('💥 CRITICAL ERROR IN WAITLIST API');
         console.error('='.repeat(60));
-        console.error('Error message:', error.message);
-        console.error('Error stack:', error.stack);
+        console.error('Error message:', err.message);
+        console.error('Error stack:', err.stack);
         console.error('='.repeat(60) + '\n');
 
         // FORCE ERROR TO FRONTEND - NO MORE FALSE POSITIVES
         return res.status(500).json({
-            error: error.message,
-            stack: error.stack,
+            error: err.message,
+            stack: err.stack,
             timestamp: new Date().toISOString()
         });
     }
