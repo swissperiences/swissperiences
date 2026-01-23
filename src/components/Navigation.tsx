@@ -135,7 +135,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                 >
                   <Link
                     to="/"
-                    className="font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.2em]"
+                    className="font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.3em]"
                   >
                     Swissperiences
                   </Link>
@@ -150,17 +150,16 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                   {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
 
-                {/* Desktop Navigation Links */}
                 <div className="hidden lg:block">
-                  <ul className="flex gap-14 text-[13px] font-light uppercase tracking-[0.15em]">
+                  <ul className="flex gap-14 text-[11px] font-bold uppercase tracking-[0.2em]">
                     {navLinks.map((link) => (
                       <li key={link.href}>
                         <button
                           onClick={() => handleNavClick(link.href)}
-                          className="group relative block duration-500 transition-all text-white/60 hover:text-white whitespace-nowrap"
+                          className="group relative block duration-500 transition-all text-white/40 hover:text-white whitespace-nowrap"
                         >
                           <span className="relative z-10">{link.label}</span>
-                          <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-[#D8B58A] transition-all duration-500 group-hover:w-full" />
+                          <div className="absolute -bottom-1.5 left-0 w-0 h-px bg-white transition-all duration-500 group-hover:w-full" />
                         </button>
                       </li>
                     ))}
@@ -183,9 +182,8 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                 >
                   <Button
                     onClick={onWaitlistClick}
-                    className="rounded-0 px-8 py-6 font-light tracking-[0.1em] uppercase text-xs border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 transition-all duration-500 backdrop-blur-sm"
+                    className="rounded-none px-8 py-6 font-bold tracking-[0.25em] uppercase text-[10px] border border-white/10 bg-white/5 hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-md"
                     variant="ghost"
-                    style={{ borderRadius: '2px' }}
                   >
                     Check Availability
                   </Button>
