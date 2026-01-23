@@ -78,118 +78,76 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
     <>
       <header>
         <motion.nav
-          className="group fixed top-6 left-1/2 -translate-x-1/2 z-50"
+          className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center pointer-events-none"
           initial={{
-            width: '95%',
-            maxWidth: '1280px',
+            width: 'auto',
+            scale: 0.95,
+            opacity: 0
           }}
           animate={{
-            width: scrolled ? 'auto' : '95%',
-            maxWidth: scrolled ? 'fit-content' : '1400px',
+            scale: 1,
+            opacity: 1
           }}
           transition={{
-            duration: 0.7,
+            duration: 0.8,
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          {/* Pieces-style materializing pill background */}
+          {/* Consistent Luxury Pill Background */}
           <motion.div
-            initial={{ opacity: 0.3, scale: 1 }}
             animate={{
-              opacity: scrolled ? 1 : 0.3,
-              scale: scrolled ? 1 : 1,
+              backgroundColor: scrolled ? 'rgba(0, 0, 0, 0.85)' : 'rgba(0, 0, 0, 0.65)',
+              paddingLeft: scrolled ? '24px' : '32px',
+              paddingRight: scrolled ? '24px' : '32px'
             }}
-            transition={{
-              duration: 0.7,
-              ease: [0.16, 1, 0.3, 1], // Pieces.app easing curve
-            }}
-            className="absolute inset-0 bg-black/40 backdrop-blur-[20px] border border-white/10 rounded-full shadow-2xl"
-            style={{ pointerEvents: 'none' }}
-          />
-
-          <motion.div
-            className="relative rounded-full text-white"
-            animate={{
-              paddingLeft: scrolled ? '32px' : '32px',
-              paddingRight: scrolled ? '32px' : '32px',
-              paddingTop: scrolled ? '8px' : '14px',
-              paddingBottom: scrolled ? '8px' : '14px',
-            }}
-            transition={{
-              duration: 0.7,
-              ease: [0.16, 1, 0.3, 1],
-            }}
+            className="flex items-center gap-12 py-3 px-8 rounded-full border border-white/10 backdrop-blur-2xl shadow-2xl pointer-events-auto"
           >
-            <div className="relative flex flex-wrap items-center justify-between gap-6 lg:flex-nowrap lg:gap-10">
-              {/* Logo + Mobile Button + Desktop Nav Links */}
-              <div className="flex w-full items-center justify-between lg:w-auto lg:gap-20">
-                <motion.div
-                  animate={{
-                    fontSize: scrolled ? '0.9rem' : '1.05rem',
-                    letterSpacing: scrolled ? '0.15em' : '0.2em',
-                  }}
-                  transition={{
-                    duration: 0.7,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  <Link
-                    to="/"
-                    className="font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.3em]"
-                  >
-                    Swissperiences
-                  </Link>
-                </motion.div>
 
-                {/* Mobile Menu Button */}
-                <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="lg:hidden p-2.5 text-white hover:bg-white/5 rounded-full transition-colors"
-                  aria-label="Toggle menu"
-                >
-                  {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                </button>
+            {/* Logo */}
+            <Link
+              to="/"
+              className="font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.3em] text-sm shrink-0"
+            >
+              Swissperiences
+            </Link>
 
-                <div className="hidden lg:block">
-                  <ul className="flex gap-14 text-[11px] font-bold uppercase tracking-[0.2em]">
-                    {navLinks.map((link) => (
-                      <li key={link.href}>
-                        <button
-                          onClick={() => handleNavClick(link.href)}
-                          className="group relative block duration-500 transition-all text-white/40 hover:text-white whitespace-nowrap"
-                        >
-                          <span className="relative z-10">{link.label}</span>
-                          <div className="absolute -bottom-1.5 left-0 w-0 h-px bg-white transition-all duration-500 group-hover:w-full" />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Desktop: Language Switcher + CTA */}
-              <div className="hidden lg:flex lg:flex-row lg:items-center lg:gap-12 lg:flex-shrink-0">
-                <LanguageSwitcher />
-                <motion.div
-                  animate={{
-                    opacity: scrolled ? 0.95 : 1,
-                    scale: scrolled ? 0.95 : 1,
-                  }}
-                  transition={{
-                    duration: 0.7,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  <Button
-                    onClick={onWaitlistClick}
-                    className="rounded-none px-8 py-6 font-bold tracking-[0.25em] uppercase text-[10px] border border-white/10 bg-white/5 hover:bg-white hover:text-black transition-all duration-500 backdrop-blur-md"
-                    variant="ghost"
-                  >
-                    Check Availability
-                  </Button>
-                </motion.div>
-              </div>
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:block">
+              <ul className="flex gap-10 text-[10px] font-bold uppercase tracking-[0.25em]">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <button
+                      onClick={() => handleNavClick(link.href)}
+                      className="group relative block duration-500 transition-all text-white/30 hover:text-white whitespace-nowrap"
+                    >
+                      <span className="relative z-10">{link.label}</span>
+                      <div className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-500 group-hover:w-full" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
+
+            {/* Support Actions */}
+            <div className="hidden lg:flex items-center gap-8 shrink-0">
+              <LanguageSwitcher />
+              <Button
+                onClick={onWaitlistClick}
+                className="rounded-none px-6 py-2 h-auto font-bold tracking-[0.25em] uppercase text-[9px] border border-white/10 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
+                variant="ghost"
+              >
+                Check Availability
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 text-white hover:bg-white/5 rounded-full transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </motion.div>
         </motion.nav>
       </header>
