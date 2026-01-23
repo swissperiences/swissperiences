@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useScroll } from "framer-motion";
 
 const journals = [
     {
@@ -84,7 +84,7 @@ const journals = [
 
 export default function JourneyTimeline() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
+    useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
     });
@@ -106,7 +106,7 @@ export default function JourneyTimeline() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
-                    {journals.map((journal, jIdx) => (
+                    {journals.map((journal) => (
                         <div key={journal.id} className="relative">
 
                             {/* Journal Header */}
@@ -120,7 +120,7 @@ export default function JourneyTimeline() {
 
                             {/* Mini Timeline */}
                             <div className="space-y-12 border-l border-white/10 pl-8 ml-4 relative">
-                                {journal.itinerary.map((item, index) => (
+                                {journal.itinerary.slice(0, 3).map((item, index) => (
                                     <div key={index} className="relative group">
                                         {/* Dot */}
                                         <div className="absolute -left-[37.5px] top-1.5 w-3 h-3 rounded-full bg-background border border-white/30 group-hover:bg-switz-red group-hover:border-switz-red transition-colors duration-300" />
@@ -134,11 +134,11 @@ export default function JourneyTimeline() {
                                             </h4>
                                         </div>
 
-                                        <div className="relative aspect-video w-full overflow-hidden rounded-sm mb-4">
+                                        <div className="relative aspect-video w-full overflow-hidden rounded-sm mb-4 bg-neutral-900">
                                             <img
                                                 src={item.image}
                                                 alt={item.title}
-                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                                                className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
                                             />
                                         </div>
 
@@ -147,6 +147,14 @@ export default function JourneyTimeline() {
                                         </p>
                                     </div>
                                 ))}
+
+                                {journal.itinerary.length > 3 && (
+                                    <div className="pt-4">
+                                        <button className="text-[10px] text-white/30 uppercase tracking-[0.2em] hover:text-switz-red transition-colors duration-300">
+                                            + {journal.itinerary.length - 3} More Moments
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))}
