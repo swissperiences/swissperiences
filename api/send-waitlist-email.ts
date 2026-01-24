@@ -142,74 +142,74 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Intelligence Report</title>
+    <title>New Lead</title>
     <style>
-        body { background-color: #1A1D2E; color: #E5E7EB; font-family: 'Courier New', Courier, monospace; margin: 0; padding: 40px 20px; }
-        .intel-card { background-color: #11131F; max-width: 500px; margin: 0 auto; border: 1px solid #333; border-top: 4px solid #777; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .header { border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
-        .title { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #fff; font-weight: 700; }
-        .badge { background: #555; color: #fff; font-size: 10px; padding: 4px 8px; font-weight: bold; border-radius: 2px; }
-        .data-row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed #333; padding-bottom: 5px; }
-        .label { color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-        .value { color: #F3F4F6; font-size: 13px; font-weight: 500; text-align: right; }
-        .footer { margin-top: 30px; font-size: 10px; color: #4B5563; text-align: center; letter-spacing: 1px; }
-        .action-link { display: block; text-align: center; margin-top: 25px; color: #fff; text-decoration: none; font-size: 12px; border: 1px solid #555; padding: 10px; transition: all 0.2s; }
-        .action-link:hover { background: #333; }
+        body { background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 40px 20px; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #111111; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+        .header { background-color: #1A1A1A; padding: 30px; border-bottom: 1px solid #333; text-align: center; }
+        .logo { font-family: 'Times New Roman', serif; font-style: italic; font-size: 24px; color: #fff; letter-spacing: 1px; }
+        .badge { background: #D8B58A; color: #000; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; display: inline-block; }
+        .content { padding: 40px 30px; }
+        .row { margin-bottom: 24px; border-bottom: 1px solid #222; padding-bottom: 20px; }
+        .row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .label { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: 600; display: block; }
+        .value { color: #fff; font-size: 16px; font-weight: 400; line-height: 1.5; }
+        .highlight { color: #D8B58A; }
+        .opt-in { color: #4ADE80; font-weight: 600; }
+        .opt-out { color: #F87171; font-weight: 600; }
+        .footer { background-color: #0A0A0A; padding: 20px; text-align: center; font-size: 12px; color: #666; border-top: 1px solid #222; }
+        .btn { display: block; width: 100%; background-color: #ffffff; color: #000000; text-align: center; padding: 16px 0; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; border-radius: 6px; margin-top: 20px; }
+        .btn:hover { background-color: #e0e0e0; }
     </style>
 </head>
 <body>
-    <div class="intel-card">
+    <div class="container">
         <div class="header">
-            <span class="title">New Signal</span>
-            <span class="badge">WAITLIST</span>
+            <div class="logo">Swissperiences</div>
+            <div class="badge">New Waitlist Request</div>
         </div>
         
-        <div class="data-row">
-            <span class="label">Access ID</span>
-            <span class="value">${email}</span>
-        </div>
-        <div class="data-row">
-            <span class="label">Timestamp urn</span>
-            <span class="value">${new Date().toISOString()}</span>
-        </div>
-        <div class="data-row">
-            <span class="label">Origin</span>
-            <span class="value">swissperiences.ch</span>
-        </div>
-        <div class="data-row">
-            <span class="label">Context / Tier</span>
-            <span class="value" style="color: #D8B58A;">${tier}</span>
-        </div>
-        ${intent ? `
-        <div class="data-row">
-            <span class="label">Primary Attraction</span>
-            <span class="value">${intent}</span>
-        </div>` : ''}
-        ${season ? `
-        <div class="data-row">
-            <span class="label">Preferred Timing</span>
-            <span class="value">${season}</span>
-        </div>` : ''}
-        ${start_date ? `
-        <div class="data-row">
-            <span class="label">Requested Dates</span>
-            <span class="value">${start_date} - ${end_date || 'N/A'}</span>
-        </div>` : ''}
-        ${num_guests ? `
-        <div class="data-row">
-            <span class="label">Guests</span>
-            <span class="value">${num_guests}</span>
-        </div>` : ''}
-        <div class="data-row">
-            <span class="label">Newsletter Consent</span>
-            <span class="value" style="color: ${newsletter_opt_in ? '#10B981' : '#EF4444'};">${newsletter_opt_in ? '✓ OPTED-IN' : '✗ OPTED-OUT'}</span>
-        </div>
+        <div class="content">
+            <div class="row">
+                <span class="label">Client Email</span>
+                <div class="value">${email}</div>
+            </div>
+            
+            <div class="row">
+                <span class="label">Interest Tier</span>
+                <div class="value highlight">${tier}</div>
+            </div>
 
-        <a href="mailto:${email}" class="action-link">:: ACKNOWLEDGE SIGNAL ::</a>
+            ${intent ? `
+            <div class="row">
+                <span class="label">Experience Intent</span>
+                <div class="value">${intent}</div>
+            </div>` : ''}
+
+            ${start_date ? `
+            <div class="row">
+                <span class="label">Requested Dates</span>
+                <div class="value">${start_date} — ${end_date || 'N/A'}</div>
+            </div>` : ''}
+
+            ${num_guests ? `
+            <div class="row">
+                <span class="label">Guests</span>
+                <div class="value">${num_guests}</div>
+            </div>` : ''}
+
+            <div class="row">
+                <span class="label">Marketing Status</span>
+                <div class="value ${newsletter_opt_in ? 'opt-in' : 'opt-out'}">
+                    ${newsletter_opt_in ? '✓ SUBSCRIBED' : '✗ NOT SUBSCRIBED'}
+                </div>
+            </div>
+
+            <a href="mailto:${email}" class="btn">Click to Reply</a>
+        </div>
         
         <div class="footer">
-            SECURE TRANSMISSION // ${new Date().toISOString().split('T')[0]}<br>
-            SWISSPERIENCES INTELLIGENCE UNIT
+            Admin Notification • ${new Date().toLocaleString('en-CH', { timeZone: 'Europe/Zurich' })} (Zurich Time)
         </div>
     </div>
 </body>
