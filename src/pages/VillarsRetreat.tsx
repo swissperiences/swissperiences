@@ -65,7 +65,7 @@ export default function VillarsRetreat() {
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 text-sm text-white/80">
                             <div className="flex items-center gap-3">
-                                <span className="w-1.5 h-1.5 bg-switz-red rounded-full" /> 4 Bedrooms (Sleeps up to 8)
+                                <span className="w-1.5 h-1.5 bg-switz-red rounded-full" /> 2 Bedrooms (Sleeps up to 4)
                             </div>
                             <div className="flex items-center gap-3">
                                 <span className="w-1.5 h-1.5 bg-switz-red rounded-full" /> Steps from Ski Pistes
@@ -100,8 +100,8 @@ export default function VillarsRetreat() {
                 </section>
 
                 {/* The Gallery Grid */}
-                <section className="max-w-7xl mx-auto px-6 mb-24">
-                    <h3 className="text-xs font-bold text-switz-red tracking-[0.2em] uppercase mb-8 ml-1">The Residence</h3>
+                <section className="max-w-7xl mx-auto px-6 mb-24 text-center">
+                    <h3 className="text-xs font-bold text-switz-red tracking-[0.2em] uppercase mb-8 ml-1 text-left">The Residence</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-1 h-auto md:h-[500px]">
 
                         {/* Large Item */}
@@ -138,17 +138,20 @@ export default function VillarsRetreat() {
                             </div>
                         </div>
                     </div>
-                </section>
 
-                {/* CTA */}
-                <div className="flex justify-center pb-24">
-                    <button
-                        onClick={() => setIsWaitlistOpen(true)}
-                        className="bg-white text-black px-12 py-4 uppercase tracking-[0.25em] text-xs hover:bg-switz-red hover:text-white transition-colors duration-300"
-                    >
-                        Check Availability
-                    </button>
-                </div>
+                    {/* CTA Section - Fixed Alignment */}
+                    <div className="mt-16 md:mt-24">
+                        <button
+                            onClick={() => setIsWaitlistOpen(true)}
+                            className="bg-white text-black px-12 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 group relative overflow-hidden"
+                        >
+                            <span className="relative z-10 flex items-center gap-2">
+                                Check Availability
+                                <div className="w-0 group-hover:w-4 h-px bg-white transition-all duration-500" />
+                            </span>
+                        </button>
+                    </div>
+                </section>
             </main>
 
             <Footer />

@@ -6,7 +6,7 @@ const pillarsConfig = [
   {
     number: 'I',
     key: 'pillar1', // The Alpine Sanctuary
-    image: '/images/apt-living-room-2.jpg',
+    image: '/images/villars-feature.jpg',
     link: '/villars-retreat'
   },
   {
