@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Check, Calendar, Lock, Users, Camera, Mountain, Train, Plus, ShieldCheck, MapPin, Instagram } from "lucide-react";
+import { ArrowRight, Check, Calendar, Lock, Users, Camera, Mountain, Train, Plus, ShieldCheck, MapPin, Instagram, Home } from "lucide-react";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
 import { cn } from "@/lib/utils";
@@ -60,7 +60,7 @@ export default function AlexProposal() {
                     </p>
                     <div className="mt-12 p-8 bg-switz-red/5 border-l-2 border-switz-red max-w-2xl backdrop-blur-sm">
                         <p className="text-base text-switz-red/80 font-medium italic leading-relaxed">
-                            "Londres é excelente para fazer dinheiro, mas cobra caro da nossa alma. O que desenhei aqui não é turismo, é um resgate. Um santuário para limpar o sistema, dormir sono profundo e recuperar a energia que a cidade drena."
+                            "Viver em Londres é o palco das grandes ambições, mas os Alpes são onde a gente recupera o fôlego. O que desenhei aqui é um intervalo estratégico. Um santuário para silenciar o ruído, dormir sono profundo e voltar para o jogo com a clareza que só as montanhas trazem."
                         </p>
                     </div>
                 </section>
@@ -68,14 +68,14 @@ export default function AlexProposal() {
                 {/* Hero Visualization - Glacier 3000 */}
                 <section className="mb-32">
                     <div className="relative aspect-[21/9] w-full overflow-hidden rounded-sm mb-4 group shadow-2xl">
-                        <img src="/images/glacier_peak.png" alt="Glacier 3000" className="w-full h-full object-cover transition-transform duration-[4000ms] group-hover:scale-110 brightness-[0.8] group-hover:brightness-100" />
+                        <img src="/images/glacier3000.avif" alt="Glacier 3000" className="w-full h-full object-cover transition-transform duration-[4000ms] group-hover:scale-110 brightness-[0.8] group-hover:brightness-100" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                         <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
                             <div>
                                 <span className="text-switz-red text-[10px] font-bold tracking-[0.4em] uppercase mb-2 block animate-pulse">Peak State</span>
                                 <h3 className="text-3xl md:text-4xl font-serif text-white italic">Glacier 3000.</h3>
                             </div>
-                            <span className="text-[9px] uppercase tracking-widest text-white/30 hidden md:block">The Suspension Experience</span>
+                            <span className="text-[9px] uppercase tracking-widest text-white/30 hidden md:block">Real Swiss Peaks</span>
                         </div>
                     </div>
                 </section>
@@ -91,7 +91,7 @@ export default function AlexProposal() {
 
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:h-[650px]">
                         <div className="md:col-span-8 relative overflow-hidden rounded-sm group h-[400px] md:h-full">
-                            <img src="/images/loft_living.png" alt="Living Room" className="w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-110 brightness-[0.9] group-hover:brightness-100" />
+                            <img src="/images/villars-hero.jpg" alt="Living Room" className="w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-110 brightness-[0.9] group-hover:brightness-100" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
                             <div className="absolute bottom-12 left-12">
                                 <span className="text-switz-red text-[10px] font-bold tracking-[0.3em] uppercase block mb-3">Atmosphere</span>
@@ -101,13 +101,13 @@ export default function AlexProposal() {
 
                         <div className="md:col-span-4 flex flex-col gap-4">
                             <div className="flex-1 relative overflow-hidden rounded-sm group min-h-[220px]">
-                                <img src="/images/alpine_art.png" alt="Curated Art" className="w-full h-full object-contain bg-neutral-900 transition-all duration-1000 p-4" />
+                                <img src="/images/loft/IMG_8736.jpg" alt="Curated Art" className="w-full h-full object-cover transition-all duration-1000" />
                                 <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-2 py-1 text-[9px] uppercase tracking-widest text-white/80">
                                     Curated Space
                                 </div>
                             </div>
                             <div className="flex-1 relative overflow-hidden rounded-sm group min-h-[220px]">
-                                <img src="/images/loft_fireplace.png" alt="Fireplace" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                                <img src="/images/apartment-fireplace.jpg" alt="Fireplace" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                                 <div className="absolute bottom-4 left-4">
                                     <span className="text-white/40 text-[9px] uppercase tracking-widest italic group-hover:text-switz-red transition-colors">Wood Fireplace</span>
                                 </div>
@@ -146,7 +146,7 @@ export default function AlexProposal() {
                         {/* Entry 1: Ale & Alex */}
                         <div className="group cursor-pointer" onClick={() => window.open('/journals', '_blank')}>
                             <div className="relative aspect-video overflow-hidden rounded-lg mb-8 border border-white/10 shadow-2xl">
-                                <img src="/images/alex_social_proof.png" alt="Ale & Alex Journey" className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" />
+                                <img src="/images/guests/ale_alex/3.jpg" alt="Ale & Alex Journey" className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" />
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors duration-700" />
                             </div>
                             <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.3em] block mb-3 group-hover:translate-x-1 transition-transform">The Alpine Protocol // Ale & Alex</span>
@@ -158,7 +158,7 @@ export default function AlexProposal() {
                         {/* Entry 2: Wager family */}
                         <div className="group cursor-pointer" onClick={() => window.open('/journals', '_blank')}>
                             <div className="relative aspect-video overflow-hidden rounded-sm mb-8 border border-white/10 shadow-2xl">
-                                <img src="/images/wager_social_proof.png" alt="Wager Journey" className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" />
+                                <img src="/images/guests/wager/uploaded_image_1_1769163527795.jpg" alt="Wager Journey" className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" />
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors duration-700" />
                             </div>
                             <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.3em] block mb-3 group-hover:translate-x-1 transition-transform">The Winter Ascent // Wager & Family</span>
@@ -186,7 +186,7 @@ export default function AlexProposal() {
                         </div>
 
                         <div>
-                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 mb-8">Configuração do Grupo</h3>
+                            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 mb-12">Configuração do Grupo</h3>
                             <div className="space-y-3">
                                 {tiers.map((tier) => (
                                     <div
@@ -212,6 +212,17 @@ export default function AlexProposal() {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+
+                            <div className="mt-6 p-4 bg-white/5 border border-white/10 rounded-sm space-y-3">
+                                <div className="flex items-center gap-2">
+                                    <Home className="w-3 h-3 text-switz-red" />
+                                    <span className="text-[10px] text-white/40 uppercase tracking-widest font-bold">Logística da Residência</span>
+                                </div>
+                                <p className="text-[10px] text-white/33 leading-relaxed font-light italic">
+                                    O Villars Loft possui 2 quartos (2 camas double). No formato <span className="text-white/50">VIP Solo</span>, o host ocupa o segundo quarto para suporte completo. <br /><br />
+                                    No formato <span className="text-white/50">2+ pessoas</span>, a residência fica inteiramente para o seu grupo e o host se acomoda em locação externa.
+                                </p>
                             </div>
                         </div>
 
@@ -280,7 +291,7 @@ export default function AlexProposal() {
                         <div className="relative pl-16 border-l border-white/10 group">
                             <span className="absolute -left-[6px] top-0 w-[12px] h-[12px] rounded-full bg-switz-red shadow-[0_0_20px_rgba(255,46,46,0.5)] transition-all duration-700 group-hover:scale-150" />
                             <span className="text-[11px] uppercase tracking-[0.4em] text-white/20 mb-6 block font-bold">Day 01 // The Reset</span>
-                            <h3 className="text-5xl font-serif text-white mb-12 italic border-b border-white/5 pb-8 tracking-tighter">A Porta de Saída.</h3>
+                            <h3 className="text-5xl font-serif text-white mb-12 italic border-b border-white/5 pb-8 tracking-tighter">O Ritual de Descompressão.</h3>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                                 <div className="space-y-8">
@@ -314,7 +325,7 @@ export default function AlexProposal() {
                                             </div>
                                         </div>
                                         <div className="mt-auto aspect-[4/5] overflow-hidden rounded-sm border border-white/10">
-                                            <img src="/images/loft_fireplace.png" className="w-full h-full object-cover grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-1000" />
+                                            <img src="/images/apartment-fireplace.jpg" className="w-full h-full object-cover grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-1000" />
                                         </div>
                                     </div>
                                 </div>
@@ -350,7 +361,7 @@ export default function AlexProposal() {
                                             <p className="text-sm text-white/60 leading-relaxed font-light italic flex flex-col gap-4">
                                                 <span>Almoço secreto nos Alpes. Você volta para Londres não apenas descansado, mas revigorado e focado no que importa.</span>
                                                 <div className="aspect-[3/2] overflow-hidden rounded-sm border border-white/10 shadow-2xl">
-                                                    <img src="/images/range_rover_scenic.png" className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" />
+                                                    <img src="/images/range-rover-villars.jpg" className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" />
                                                 </div>
                                             </p>
                                         </div>
@@ -366,7 +377,7 @@ export default function AlexProposal() {
                     <div className="md:col-span-12 lg:col-span-5 relative group">
                         <div className="aspect-[4/5] bg-neutral-900 rounded-sm overflow-hidden border border-white/10 shadow-3xl">
                             <img
-                                src="/images/host_caueh.png"
+                                src="/images/caueh-vidal-spring.jpg"
                                 alt="Caueh Vidal"
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[2000ms] brightness-90 hover:brightness-100"
                             />
