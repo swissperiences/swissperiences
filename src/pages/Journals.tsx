@@ -8,41 +8,42 @@ import { cn } from "@/lib/utils";
 
 const journals = [
     {
-        id: "wager",
+        id: "wagner",
         title: "The Winter Ascent",
-        guests: "Wager, Andreia & Helena",
+        guests: "Wagner, Andreia & Helena",
         quote: "One weekend. A lifetime of memories.",
         description: "A seamless 48-hour condensed Grand Tour. From Geneva's urban luxury to the deep heart of the Bernese Oberland.",
         itinerary: [
             {
                 day: "Saturday Morning",
                 title: "From City to Vines",
-                description: "Departing Geneva, we drove along Lac Léman to the Lavaux UNESCO Vineyards. A private drive through the hanging terraces with Andreia, Helena, and Wager soaking in the lake views.",
-                image: "/images/guests/wager/uploaded_image_0_1769163527795.jpg"
+                description: "Departing Geneva, we drove along Lac Léman to the Lavaux UNESCO Vineyards. A private drive through the hanging terraces with Andreia, Helena, and Wagner soaking in the lake views.",
+                image: "/images/guests/wagner/1.jpeg",
+                position: "object-top"
             },
             {
                 day: "Saturday Afternoon",
                 title: "The Bernese Oberland",
                 description: "Climbing towards Interlaken and Grindelwald. We explored the valley floor and ascended to the viewpoints, surrounded by the Eiger, Mönch, and Jungfrau.",
-                image: "/images/guests/wager/uploaded_image_1_1769163527795.jpg"
+                image: "/images/guests/wagner/2.jpeg"
             },
             {
                 day: "The Overnight",
                 title: "Sleeping in the Shadow of Giants",
                 description: "A cozy evening in Grindelwald. Traditional fondue, mountain air, and the silence of the Alps after the day trippers have left.",
-                image: "/images/guests/wager/uploaded_image_2_1769163527795.jpg"
+                image: "/images/guests/wagner/3.jpeg"
             },
             {
                 day: "Sunday Morning",
                 title: "Valley of Waterfalls",
-                description: "Lauterbrunnen. Walking between the 72 waterfalls, feeling the spray of the Staubbach, and exploring the cliffs that inspired Tolkien's Rivendell.",
-                image: "/images/guests/wager/uploaded_image_3_1769163527795.jpg"
+                description: "Lauterbrunnen. Walking between the 72 waterfalls with the Swissperiences founder, feeling the spray of the Staubbach, and exploring the cliffs that inspired Tolkien's Rivendell.",
+                image: "/images/guests/wagner/4.jpeg"
             },
             {
                 day: "Sunday Early Afternoon",
                 title: "The Blue Jewel",
                 description: "A stop at Blausee Lake. Crystal clear trout waters and ancient pine forests before the scenic drive back descending to Geneva.",
-                image: "/images/guests/wager/uploaded_image_4_1769163527795.jpg"
+                image: "/images/guests/wagner/5.jpeg"
             }
         ]
     },

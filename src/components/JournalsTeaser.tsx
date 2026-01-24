@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
+import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
@@ -9,16 +10,18 @@ export const JournalsTeaser = () => {
 
     const dossiers = [
         {
-            id: 'wager',
-            title: 'Wager, Andreia & Helena',
+            id: 'wagner',
+            title: 'Wagner, Andreia & Helena',
             subtitle: 'The Winter Ascent',
-            image: '/images/guests/wager/uploaded_image_0_1769163527795.jpg'
+            image: '/images/guests/wagner/1.jpeg',
+            position: 'object-top'
         },
         {
             id: 'ale-alex',
             title: 'Ale & Alex',
             subtitle: 'The Alpine Protocol',
-            image: '/images/guests/ale_alex/1.jpg'
+            image: '/images/guests/ale_alex/1.jpg',
+            position: 'object-[center_30%]'
         }
     ];
 
@@ -61,7 +64,10 @@ export const JournalsTeaser = () => {
                             <img
                                 src={journal.image}
                                 alt={journal.title}
-                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-swiss-luxury"
+                                className={cn(
+                                    "w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-swiss-luxury",
+                                    journal.position || "object-center"
+                                )}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                             <div className="absolute bottom-8 left-8">

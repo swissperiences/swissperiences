@@ -155,13 +155,13 @@ export default function AlexProposal() {
                             </p>
                         </div>
 
-                        {/* Entry 2: Wager family */}
+                        {/* Entry 2: Wagner family */}
                         <div className="group cursor-pointer" onClick={() => window.open('/journals', '_blank')}>
                             <div className="relative aspect-video overflow-hidden rounded-sm mb-8 border border-white/10 shadow-2xl">
-                                <img src="/images/guests/wager/uploaded_image_1_1769163527795.jpg" alt="Wager Journey" className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" />
+                                <img src="/images/guests/wagner/2.jpeg" alt="Wagner Journey" className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" />
                                 <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors duration-700" />
                             </div>
-                            <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.3em] block mb-3 group-hover:translate-x-1 transition-transform">The Winter Ascent // Wager & Family</span>
+                            <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.3em] block mb-3 group-hover:translate-x-1 transition-transform">The Winter Ascent // Wagner & Family</span>
                             <p className="text-white/60 text-base font-light leading-relaxed italic border-l border-switz-red/30 pl-4">
                                 "Uma experiência condensada de 48h pelo Grand Tour. Do urban luxury às montanhas de Grindelwald e ao Glacier 3000."
                             </p>

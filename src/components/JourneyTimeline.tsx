@@ -2,26 +2,28 @@ import { useRef } from "react";
 import { useScroll } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { cn } from "@/lib/utils";
 
 const journals = [
     {
-        id: "wager",
+        id: "wagner",
         title: "The Winter Ascent",
-        guests: "Wager, Andreia & Helena",
+        guests: "Wagner, Andreia & Helena",
         quote: "One weekend. A lifetime of memories.",
         description: "A seamless 48-hour condensed Grand Tour. From Geneva's urban luxury to the deep heart of the Bernese Oberland.",
         itinerary: [
             {
                 day: "Saturday Morning",
                 title: "From City to Vines",
-                description: "Departing Geneva, we drove along Lac Léman to the Lavaux UNESCO Vineyards. A private drive through the hanging terraces with Andreia, Helena, and Wager soaking in the lake views.",
-                image: "/images/guests/wager/uploaded_image_0_1769163527795.jpg"
+                description: "Departing Geneva, we drove along Lac Léman to the Lavaux UNESCO Vineyards. A private drive through the hanging terraces with Andreia, Helena, and Wagner soaking in the lake views.",
+                image: "/images/guests/wagner/1.jpeg",
+                position: "object-top"
             },
             {
                 day: "Saturday Afternoon",
                 title: "The Bernese Oberland",
                 description: "Climbing towards Interlaken and Grindelwald. We explored the valley floor and ascended to the viewpoints, surrounded by the Eiger, Mönch, and Jungfrau.",
-                image: "/images/guests/wager/uploaded_image_1_1769163527795.jpg"
+                image: "/images/guests/wagner/2.jpeg"
             }
         ]
     },
@@ -111,7 +113,10 @@ export default function JourneyTimeline() {
                                             <img
                                                 src={item.image}
                                                 alt={item.title}
-                                                className="w-full h-full object-cover object-[center_30%] scale-[1.01] group-hover/item:scale-105 transition-all duration-1000 ease-out brightness-[0.85] contrast-[1.1] saturate-[0.9] group-hover/item:brightness-100"
+                                                className={cn(
+                                                    "w-full h-full object-cover scale-[1.01] group-hover/item:scale-105 transition-all duration-1000 ease-out brightness-[0.85] contrast-[1.1] saturate-[0.9] group-hover/item:brightness-100",
+                                                    (item as any).position || "object-[center_30%]"
+                                                )}
                                             />
                                         </div>
                                     </div>
