@@ -87,6 +87,7 @@ const Index = () => {
 
         <Suspense fallback={<ComponentLoader />}>
           <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier, 'retreat')} />
+          {/* Layout: Calendar then Curation as per strategic launch requirement */}
           <PhilosophySpacer />
           <WhatWeCurate onJoinWaitlist={openWaitlist} />
           <Founder />

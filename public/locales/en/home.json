@@ -1,11 +1,11 @@
 {
   "hero": {
-    "title": "Swissperiences",
-    "subtitle": "Your Private Sanctuary in the Alps.",
-    "tagline1": "A boutique home base in Villars-sur-Ollon.",
-    "tagline2": "Curated by Caueh Vidal.",
-    "microPhrase": "Multilingual service (EN/PT/ES). Limited availability.",
-    "cta": "Explore Offerings"
+    "title": "Switzerland.",
+    "subtitle": "A state of mind.",
+    "tagline1": "Immersive nature. For those seeking less noise and more feeling.",
+    "tagline2": "Bespoke Swiss experiences — from private mountain sanctuaries to artisan discoveries.",
+    "microPhrase": "Invitations are limited. Access is granted by inquiry only.",
+    "cta": "Request Access"
   },
   "whatWeCurate": {
     "heading": "The Swissperiences Elements",
@@ -16,17 +16,17 @@
     },
     "roadJourney": {
       "title": "Premium Logistics",
-      "description": "Available for guests and day-visitors.",
+      "description": "Private Range Rover Experience. Starting at CHF 850 (Half-Day) / CHF 1,500 (Full-Day).",
       "audience": "Inquire for Day Pass"
     },
     "droneMemories": {
       "title": "Cinematic Documentation",
-      "description": "Included in Signature / Add-on for Private Escape.",
+      "description": "Professional Drone & Content Session. CHF 600 (Includes edited social media reel).",
       "audience": "Automated cinematic capture"
     },
     "luxuryPackage": {
       "title": "Villars Luxury Week",
-      "description": "The blueprint of our Signature Cohort itinerary. All-inclusive execution.",
+      "description": "The blueprint of our Signature Retreats. Available for private groups upon request.",
       "audience": "Signature Cohort Blueprint"
     },
     "bespokeJourney": {
