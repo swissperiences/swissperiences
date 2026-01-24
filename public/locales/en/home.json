@@ -9,30 +9,20 @@
   },
   "whatWeCurate": {
     "heading": "The Swissperiences Elements",
-    "villarsRetreat": {
-      "title": "The Sanctuary",
-      "description": "4-bedroom boutique base in Villars-sur-Ollon.",
-      "audience": "Inquire for details"
+    "pillar1": {
+      "title": "The Alpine Sanctuary",
+      "description": "Chalet/Boutique Base in Villars-sur-Ollon.",
+      "audience": "Private Retreat Base"
     },
-    "roadJourney": {
-      "title": "Premium Logistics",
-      "description": "Private Range Rover Experience. Starting at CHF 850 (Half-Day) / CHF 1,500 (Full-Day).",
-      "audience": "Inquire for Day Pass"
+    "pillar2": {
+      "title": "Swiss Alps Road Journey",
+      "description": "Private Range Rover Experience. CHF 850 (Half-Day) / CHF 1,500 (Full-Day).",
+      "audience": "Premium Logistics"
     },
-    "droneMemories": {
-      "title": "Cinematic Documentation",
+    "pillar3": {
+      "title": "Cinematic Swiss Memories",
       "description": "Professional Drone & Content Session. CHF 600 (Includes edited social media reel).",
-      "audience": "Automated cinematic capture"
-    },
-    "luxuryPackage": {
-      "title": "Villars Luxury Week",
-      "description": "The blueprint of our Signature Retreats. Available for private groups upon request.",
-      "audience": "Signature Cohort Blueprint"
-    },
-    "bespokeJourney": {
-      "title": "Bespoke Swiss Journey",
-      "description": "Ultra-premium custom journeys to hidden Swiss gems.",
-      "audience": "Ultra-premium customization"
+      "audience": "Cinematic Documentation"
     },
     "footer": "Multilingual service (EN/PT/ES). Each experience is personally curated."
   },

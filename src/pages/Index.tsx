@@ -90,10 +90,10 @@ const Index = () => {
           {/* Layout: Calendar then Curation as per strategic launch requirement */}
           <PhilosophySpacer />
           <WhatWeCurate onJoinWaitlist={openWaitlist} />
-          <Founder />
-          <div className="pt-32 md:pt-64"> {/* Intentional luxury breathing room before Social Proof */}
+          <div className="pt-32 md:pt-64"> {/* Intentional luxury breathing room before Journey Timeline */}
             <JourneyTimeline />
           </div>
+          <Founder />
         </Suspense>
       </main>
 
