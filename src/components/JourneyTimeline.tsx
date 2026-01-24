@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useScroll } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const journals = [
     {
@@ -21,24 +22,6 @@ const journals = [
                 title: "The Bernese Oberland",
                 description: "Climbing towards Interlaken and Grindelwald. We explored the valley floor and ascended to the viewpoints, surrounded by the Eiger, Mönch, and Jungfrau.",
                 image: "/images/guests/wager/uploaded_image_1_1769163527795.jpg"
-            },
-            {
-                day: "The Overnight",
-                title: "Sleeping in the Shadow of Giants",
-                description: "A cozy evening in Grindelwald. Traditional fondue, mountain air, and the silence of the Alps after the day trippers have left.",
-                image: "/images/guests/wager/uploaded_image_2_1769163527795.jpg"
-            },
-            {
-                day: "Sunday Morning",
-                title: "Valley of Waterfalls",
-                description: "Lauterbrunnen. Walking between the 72 waterfalls, feeling the spray of the Staubbach, and exploring the cliffs that inspired Tolkien's Rivendell.",
-                image: "/images/guests/wager/uploaded_image_3_1769163527795.jpg"
-            },
-            {
-                day: "Sunday Early Afternoon",
-                title: "The Blue Jewel",
-                description: "A stop at Blausee Lake. Crystal clear trout waters and ancient pine forests before the scenic drive back descending to Geneva.",
-                image: "/images/guests/wager/uploaded_image_4_1769163527795.jpg"
             }
         ]
     },
@@ -60,30 +43,13 @@ const journals = [
                 title: "The Balcony",
                 description: "Mont Salève. Looking back at Geneva from above.",
                 image: "/images/guests/ale_alex/2.jpg"
-            },
-            {
-                day: "Day 02 // Exploration",
-                title: "Alpine Sanctuary",
-                description: "Settling into the rhythm of the mountains.",
-                image: "/images/guests/ale_alex/3.jpg"
-            },
-            {
-                day: "Day 02 // Atmosphere",
-                title: "Quiet Moments",
-                description: "Connection in the stillness of the peaks.",
-                image: "/images/guests/ale_alex/4.jpg"
-            },
-            {
-                day: "Day 03 // The Return",
-                title: "Lasting Memories",
-                description: "Descending with a new state of mind.",
-                image: "/images/guests/ale_alex/5.jpg"
             }
         ]
     }
 ];
 
 export default function JourneyTimeline() {
+    const { t, i18n } = useTranslation('home');
     const navigate = useNavigate();
     const containerRef = useRef<HTMLDivElement>(null);
     useScroll({
@@ -91,19 +57,24 @@ export default function JourneyTimeline() {
         offset: ["start end", "end start"]
     });
 
+    const handleNavigateToArchives = () => {
+        navigate(`/${i18n.language}/journals`);
+        window.scrollTo(0, 0);
+    };
+
     return (
-        <section ref={containerRef} className="relative py-32 bg-background overflow-hidden">
+        <section id="journals" ref={containerRef} className="relative py-32 bg-background overflow-hidden scroll-mt-20">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
 
                 <div className="text-center mb-24">
                     <span className="text-switz-red text-xs font-bold tracking-[0.2em] uppercase block mb-4">
-                        Guest Journals
+                        {t('archives.heading')}
                     </span>
                     <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">
-                        Curated Memories
+                        {t('archives.title')}
                     </h2>
-                    <p className="max-w-2xl mx-auto text-white/60 font-light">
-                        Every journey is bespoke. Here are two distinct stories from our archives.
+                    <p className="max-w-2xl mx-auto text-white/60 font-light text-lg">
+                        {t('archives.description')}
                     </p>
                 </div>
 
@@ -122,7 +93,7 @@ export default function JourneyTimeline() {
 
                             {/* Mini Timeline */}
                             <div className="space-y-12 border-l border-white/5 pl-8 ml-4 relative">
-                                {journal.itinerary.slice(0, 2).map((item, index) => (
+                                {journal.itinerary.map((item, index) => (
                                     <div key={index} className="relative group/item">
                                         {/* Dot */}
                                         <div className="absolute -left-[37.5px] top-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover/item:bg-switz-red transition-colors duration-300" />
@@ -148,7 +119,7 @@ export default function JourneyTimeline() {
 
                                 {/* Mysterious Teaser Item */}
                                 <div
-                                    onClick={() => navigate("/journals")}
+                                    onClick={handleNavigateToArchives}
                                     className="relative group/teaser cursor-pointer opacity-40 hover:opacity-100 transition-all duration-700"
                                 >
                                     <div className="absolute -left-[37.5px] top-1.5 w-1.5 h-1.5 rounded-full bg-white/10" />
@@ -165,7 +136,7 @@ export default function JourneyTimeline() {
                                     <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm bg-white/[0.02] border border-dashed border-white/10 flex items-center justify-center group-hover/teaser:bg-white/[0.05] transition-all duration-700">
                                         <div className="flex flex-col items-center gap-2">
                                             <div className="w-8 h-px bg-white/10 group-hover/teaser:w-12 transition-all duration-700" />
-                                            <span className="text-[10px] text-white/20 uppercase tracking-[0.4em]">Archived</span>
+                                            <span className="text-[10px] text-white/20 uppercase tracking-[0.4em]">Status: Archived</span>
                                         </div>
                                     </div>
                                 </div>
@@ -176,10 +147,10 @@ export default function JourneyTimeline() {
 
                 <div className="mt-24 text-center">
                     <button
-                        onClick={() => navigate("/journals")}
+                        onClick={handleNavigateToArchives}
                         className="group inline-flex items-center gap-4 text-xs text-white uppercase tracking-[0.3em] hover:text-switz-red transition-colors"
                     >
-                        <span>View Full Archives</span>
+                        <span>{t('archives.cta')}</span>
                         <div className="w-12 h-px bg-white/20 group-hover:bg-switz-red group-hover:w-20 transition-all duration-500" />
                     </button>
                 </div>

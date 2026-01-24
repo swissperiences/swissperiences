@@ -89,6 +89,9 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      transitionTimingFunction: {
+        "swiss-luxury": "cubic-bezier(0.23, 1, 0.32, 1)",
+      },
     },
   },
   plugins: [tailwindAnimate],

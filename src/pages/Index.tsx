@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState, useEffect } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import { HeroSection } from "@/components/ui/hero-section";
 import SEO from "@/components/SEO";
 import GlobalVideoBackground from "@/components/GlobalVideoBackground";
@@ -21,6 +21,7 @@ const ComponentLoader = () => (
 );
 
 const Index = () => {
+  const navigate = useNavigate();
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
   const [waitlistTier, setWaitlistTier] = useState<string>("General Waitlist");
   const [waitlistIntent, setWaitlistIntent] = useState<string>("");
@@ -32,19 +33,12 @@ const Index = () => {
   };
 
   // Check for payment success
-  const { toast } = useToast();
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('payment') === 'success') {
-      toast({
-        title: "Deposit Confirmed",
-        description: "Welcome to Swissperiences. We will be in touch shortly.",
-        duration: 6000,
-      });
-      // Clean URL
-      window.history.replaceState({}, '', window.location.pathname);
+      navigate('/success');
     }
-  }, [toast]);
+  }, [navigate]);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -86,14 +80,19 @@ const Index = () => {
         <HeroSection onJoinWaitlist={() => openWaitlist("General Waitlist")} />
 
         <Suspense fallback={<ComponentLoader />}>
-          <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier, 'retreat')} />
-          {/* Layout: Calendar then Curation as per strategic launch requirement */}
-          <PhilosophySpacer />
+          {/* 2. The Elements (Vibe) */}
           <WhatWeCurate onJoinWaitlist={openWaitlist} />
-          <div className="pt-32 md:pt-64"> {/* Intentional luxury breathing room before Journey Timeline */}
-            <JourneyTimeline />
-          </div>
+
+          <PhilosophySpacer />
+
+          {/* 3. The Archives (Proof & Detail) */}
+          <JourneyTimeline />
+
+          {/* 5. The Host (Trust) */}
           <Founder />
+
+          {/* 6. The Calendar (Access) */}
+          <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier, 'retreat')} />
         </Suspense>
       </main>
 

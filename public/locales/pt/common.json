@@ -1,10 +1,9 @@
 {
   "nav": {
     "experiences": "Experiências",
-    "calendar": "Calendário",
-    "howItWorks": "Como Funciona",
-    "forTeams": "Para Empresas",
     "journals": "Diários",
+    "host": "O Anfitrião",
+    "calendar": "Calendário",
     "requestAccess": "Solicitar Acesso"
   },
   "footer": {
@@ -30,5 +29,12 @@
     "successMessage": "Analisaremos sua solicitação e responderemos pessoalmente em até 48 horas.",
     "description": "Cada solicitação é analisada pessoalmente. Isto não é uma lista de emails."
   },
-  "scroll": "Rolar"
+  "scroll": "Rolar",
+  "successPage": {
+    "title": "Respire fundo.",
+    "subtitle": "Nós cuidamos do resto.",
+    "discretion": "Seus detalhes foram recebidos com total discrição.",
+    "contact": "Em breve, seu anfitrião entrará em contato pessoalmente para alinhar os detalhes do seu refúgio.",
+    "backLink": "Voltar ao Santuário"
+  }
 }

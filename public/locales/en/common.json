@@ -1,10 +1,9 @@
 {
   "nav": {
     "experiences": "Experiences",
-    "calendar": "The Calendar",
-    "howItWorks": "How It Works",
-    "forTeams": "For Teams",
     "journals": "Journals",
+    "host": "The Host",
+    "calendar": "The Calendar",
     "requestAccess": "Request Access"
   },
   "footer": {
@@ -30,5 +29,12 @@
     "successMessage": "We'll review your request and respond personally within 48 hours.",
     "description": "Each request is reviewed personally. This is not a mailing list."
   },
-  "scroll": "Scroll"
+  "scroll": "Scroll",
+  "successPage": {
+    "title": "Breathe deeply.",
+    "subtitle": "We’ll handle the rest.",
+    "discretion": "Your details have been received with complete discretion.",
+    "contact": "Soon, your host will contact you personally to align the details of your sanctuary.",
+    "backLink": "Back to Sanctuary"
+  }
 }

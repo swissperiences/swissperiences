@@ -2,7 +2,6 @@
 import Stripe from 'stripe';
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
-import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export const config = {
     runtime: 'edge', // Using Edge Runtime for better performance/standard API compatibility

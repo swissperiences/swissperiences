@@ -20,6 +20,10 @@ const ToDo = lazy(() => import("./pages/ToDo"));
 const VillarsRetreat = lazy(() => import("./pages/VillarsRetreat"));
 const RoadJourney = lazy(() => import("./pages/RoadJourney"));
 const Journals = lazy(() => import("./pages/Journals"));
+const Success = lazy(() => import("./pages/Success"));
+const AdminGallery = lazy(() => import("./pages/AdminGallery"));
+const CinematicMemories = lazy(() => import("./pages/CinematicMemories"));
+const AlexProposal = lazy(() => import("./pages/private/AlexProposal"));
 
 const queryClient = new QueryClient();
 
@@ -56,22 +60,34 @@ const App = () => (
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 {/* Direct routes without language prefix */}
-                <Route path="/ideas" element={<Ideas />} />
-                <Route path="/todo" element={<ToDo />} />
-                <Route path="/villars-retreat" element={<VillarsRetreat />} />
-                <Route path="/road-journey" element={<RoadJourney />} />
-                <Route path="/journals" element={<Journals />} />
-                <Route path="/" element={<Index />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/for-teams" element={<ForTeams />} />
-                <Route path="/secure-deposit" element={<SecureDeposit />} />
+                <Route path="/ideas" element={<LanguageWrapper><Ideas /></LanguageWrapper>} />
+                <Route path="/todo" element={<LanguageWrapper><ToDo /></LanguageWrapper>} />
+                <Route path="/villars-retreat" element={<LanguageWrapper><VillarsRetreat /></LanguageWrapper>} />
+                <Route path="/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
+                <Route path="/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
+                <Route path="/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
+                <Route path="/success" element={<LanguageWrapper><Success /></LanguageWrapper>} />
+                <Route path="/" element={<LanguageWrapper><Index /></LanguageWrapper>} />
+                <Route path="/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
+                <Route path="/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
+                <Route path="/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
+                <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
+                <Route path="/private/alex-proposal" element={<AlexProposal />} />
+                <Route path="/admin-gallery" element={<AdminGallery />} />
 
-                {/* Legacy language routes (keep temporarily for existing links, but can be removed later) */}
+                {/* Standardized language prefixed routes */}
                 <Route path="/:lang" element={<LanguageWrapper><Index /></LanguageWrapper>} />
+                <Route path="/:lang/ideas" element={<LanguageWrapper><Ideas /></LanguageWrapper>} />
+                <Route path="/:lang/todo" element={<LanguageWrapper><ToDo /></LanguageWrapper>} />
+                <Route path="/:lang/villars-retreat" element={<LanguageWrapper><VillarsRetreat /></LanguageWrapper>} />
+                <Route path="/:lang/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
+                <Route path="/:lang/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
+                <Route path="/:lang/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
+                <Route path="/:lang/success" element={<LanguageWrapper><Success /></LanguageWrapper>} />
                 <Route path="/:lang/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/:lang/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
+                <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
               </Routes>
             </Suspense>
           </BrowserRouter>

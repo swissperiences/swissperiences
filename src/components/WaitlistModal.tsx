@@ -47,7 +47,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
 
   // Sync intent when prop changes
   useState(() => {
@@ -76,7 +76,8 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
           intent: intent || 'general',
           start_date: date?.from ? format(date.from, 'yyyy-MM-dd') : null,
           end_date: date?.to ? format(date.to, 'yyyy-MM-dd') : null,
-          num_guests: guests || null
+          num_guests: guests || null,
+          language: i18n.language
         }),
       });
 
@@ -123,7 +124,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
 
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] as any } }
+    show: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.23, 1, 0.32, 1] as any } }
   };
 
   return (
@@ -241,26 +242,26 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
 
                   {/* Contact Info */}
                   <div className="grid grid-cols-1 gap-6">
-                    <motion.div variants={itemVariants} className="space-y-2">
-                      <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Your Full Name</label>
+                    <motion.div variants={itemVariants} className="space-y-3">
+                      <label className="text-[10px] text-white/20 font-light uppercase tracking-[0.3em]">Name</label>
                       <Input
                         type="text"
                         placeholder="e.g. Andreia Wager"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="bg-white/[0.03] border-white/5 h-12 text-sm placeholder:text-white/10 focus-visible:ring-white/10 focus-visible:border-white/20 transition-all"
+                        className="bg-white/[0.02] border-white/5 h-14 text-sm placeholder:text-white/5 focus-visible:ring-white/10 focus-visible:border-white/10 transition-all rounded-none"
                         required
                       />
                     </motion.div>
 
-                    <motion.div variants={itemVariants} className="space-y-2">
-                      <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Email Address</label>
+                    <motion.div variants={itemVariants} className="space-y-3">
+                      <label className="text-[10px] text-white/20 font-light uppercase tracking-[0.3em]">Email</label>
                       <Input
                         type="email"
                         placeholder="hello@world.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="bg-white/[0.03] border-white/5 h-12 text-sm placeholder:text-white/10 focus-visible:ring-white/10 focus-visible:border-white/20 transition-all"
+                        className="bg-white/[0.02] border-white/5 h-14 text-sm placeholder:text-white/5 focus-visible:ring-white/10 focus-visible:border-white/10 transition-all rounded-none"
                         required
                       />
                     </motion.div>

@@ -66,5 +66,59 @@
       "question": "O que torna isto diferente?",
       "answer": "Não listamos tudo. Curamos o que vale seu tempo. O acesso é limitado por design, não por marketing de escassez."
     }
+  },
+  "founder": {
+    "heading": "The Host",
+    "title": "Caueh Vidal",
+    "subtitle": "Geneva Based. Villars Rooted.",
+    "bio1": "Swissperiences nasceu da busca por silêncio. Mais do que organizar viagens, eu recebo convidados.",
+    "bio2": "Do volante do Range Rover às memórias capturadas por drone entre os picos de Villars-sur-Ollon, cada detalhe é uma curadoria pessoal.",
+    "quote": "Trabalho na intersecção entre o calor da hospitalidade internacional e a precisão absoluta dos Alpes Suíços. Sua jornada não é apenas agendada; ela é hospedada.",
+    "locationLabel": "Base em Genebra",
+    "locationSub": "Perspectiva Global",
+    "retreatLabel": "Retiro em Villars",
+    "retreatSub": "Santuário Alpino"
+  },
+  "archives": {
+    "heading": "Os Arquivos",
+    "title": "Memórias Curadas",
+    "description": "Histórias distintas dos nossos logs privados. Relatos reais de viajantes que escolheram o caminho mais silencioso.",
+    "cta": "Ver Arquivos Completos"
+  },
+  "cinematic": {
+    "heading": "Documentação Invisível",
+    "title": "Cinematic Swiss Memories",
+    "subtitle": "Um estado de espírito.",
+    "tagline": "Damos forma ao seu estado de espírito, não apenas à sua presença.",
+    "introTitle": "Documentando a Conexão Invisível.",
+    "introDesc1": "A fotografia tradicional muitas vezes interrompe o momento. Nossa abordagem é diferente. Nós nos fundimos à sua jornada, usando tecnologia de drone 4K e lentes profissionais para capturar a verdade bruta e espontânea da sua experiência.",
+    "introDesc2": "Da subida silenciosa às risadas compartilhadas no santuário, fazemos a curadoria de um legado digital que parece tão profundo quanto as próprias montanhas.",
+    "footerTitle": "Capture o seu legado.",
+    "cta": "Solicitar Documentação",
+    "philosophy": "Filosofia",
+    "sampleAesthetics": "Amostra Estética",
+    "theStyles": "Os Estilos.",
+    "stylesDescription": "Cada edição tem tratamento de cor para combinar com a atmosfera específica do seu dia de retiro.",
+    "cinemaGrade": "Qualidade Cinema",
+    "portfolioSample": "Amostra de Portfólio",
+    "priceSession": "CHF 600 / Sessão",
+    "package1": {
+      "title": "Perspectiva Aérea",
+      "description": "Documentação com Drone 4K do seu movimento através dos picos."
+    },
+    "package2": {
+      "title": "O Reel Social",
+      "description": "Uma narrativa de 60s editada profissionalmente pronta para o seu legado digital."
+    },
+    "package3": {
+      "title": "Fotos de Alta Resolução",
+      "description": "Mais de 30 fotografias com tratamento de cor capturando a atmosfera pura da Suíça."
+    },
+    "gallery": {
+      "nature": "Natureza",
+      "atmosphere": "Atmosfera",
+      "movement": "Movimento",
+      "portrait": "Retrato"
+    }
   }
 }

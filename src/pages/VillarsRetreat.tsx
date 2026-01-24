@@ -99,6 +99,78 @@ export default function VillarsRetreat() {
                     </div>
                 </section>
 
+                {/* Details & Atmosphere Section */}
+                <section className="bg-white/[0.02] border-y border-white/5 py-24">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="mb-16">
+                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">Details & Atmosphere</span>
+                            <h2 className="text-4xl font-serif">Curated for Comfort.</h2>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {/* Column 1: The Anchor (High Res Portrait) */}
+                            <div className="space-y-8">
+                                <div className="group relative aspect-[4/5] overflow-hidden rounded-sm bg-neutral-900 border border-white/5">
+                                    <img
+                                        src="/images/loft/IMG_8759.jpg"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
+                                        alt="Loft Texture"
+                                    />
+                                    <div className="absolute top-4 left-4">
+                                        <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans">Texture Log No. 01</span>
+                                    </div>
+                                </div>
+                                <div className="aspect-[1/1] overflow-hidden rounded-sm bg-neutral-900 group border border-white/5">
+                                    <img
+                                        src="/images/loft/IMG_6006.jpg"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
+                                        alt="Loft Light"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Column 2: The Narrative & Quote */}
+                            <div className="pt-12 space-y-12">
+                                <div className="aspect-[4/5] overflow-hidden rounded-sm bg-neutral-900 group border border-white/10 relative">
+                                    <img
+                                        src="/images/loft/IMG_8736.jpg"
+                                        className="w-full h-full object-cover group-hover:scale-105 group-hover:grayscale-0 transition-all duration-[2000ms] ease-out grayscale"
+                                        alt="Main Detail"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                                </div>
+                                <div className="relative pl-8 border-l border-switz-red/30">
+                                    <p className="text-white/60 font-light italic text-lg leading-relaxed max-w-[30ch]">
+                                        "Every object in the loft has a story. From the vintage finds to local artisan textures, it's a sanctuary for the senses."
+                                    </p>
+                                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mt-4">— Internal Log</span>
+                                </div>
+                            </div>
+
+                            {/* Column 3: Finishing Vignettes */}
+                            <div className="space-y-8">
+                                <div className="aspect-[1/1] overflow-hidden rounded-sm bg-neutral-900 group border border-white/5 relative">
+                                    <img
+                                        src="/images/loft/IMG_5973.jpg"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
+                                        alt="Loft Artifact"
+                                    />
+                                </div>
+                                <div className="group relative aspect-[4/5] overflow-hidden rounded-sm bg-neutral-900 border border-white/5">
+                                    <img
+                                        src="/images/loft/IMG_4277.jpg"
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
+                                        alt="Loft Evening"
+                                    />
+                                    <div className="absolute bottom-4 right-4">
+                                        <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans">046° 17' N / 007° 05' E</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* The Gallery Grid */}
                 <section className="max-w-7xl mx-auto px-6 mb-24 text-center">
                     <h3 className="text-xs font-bold text-switz-red tracking-[0.2em] uppercase mb-8 ml-1 text-left">The Residence</h3>

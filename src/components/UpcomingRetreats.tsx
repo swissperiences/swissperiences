@@ -16,13 +16,13 @@ export function UpcomingRetreats({ onJoinWaitlist }: UpcomingRetreatsProps) {
     const { signature, basecamp } = nextRetreat.tiers;
 
     return (
-        <section id="upcoming-retreats" className="py-24 bg-background relative overflow-hidden">
+        <section id="calendar" className="min-h-[100svh] py-24 md:py-32 bg-background relative overflow-hidden flex items-center">
             <div className="container mx-auto px-6 max-w-6xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
                     className="text-center mb-16"
                 >
                     <span className="text-xs font-medium tracking-[0.2em] text-[#D8B58A] uppercase mb-4 block">
@@ -45,7 +45,7 @@ export function UpcomingRetreats({ onJoinWaitlist }: UpcomingRetreatsProps) {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
                             className="h-full"
                         >
                             <Card className="h-full border-white/10 bg-card/50 backdrop-blur-sm hover:border-[#D8B58A]/30 transition-all duration-500 hover:scale-[1.02] group flex flex-col">
@@ -118,7 +118,7 @@ export function UpcomingRetreats({ onJoinWaitlist }: UpcomingRetreatsProps) {
                             initial={{ opacity: 0, x: 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
+                            transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.3 }}
                             className="h-full"
                         >
                             <Card className="h-full border-white/10 bg-card/50 backdrop-blur-sm hover:border-white/20 transition-all duration-500 hover:scale-[1.02] group flex flex-col">

@@ -66,8 +66,8 @@ export function HeroVideoPlayer({ className = '' }: HeroVideoPlayerProps) {
         <source src="/videos/hero-final.mp4" type="video/mp4" />
       </video>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
+      {/* Refined Antigravity Overlay: Dark on top/base, transparent in middle */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
     </div>
   );
 }

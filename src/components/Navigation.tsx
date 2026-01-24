@@ -20,10 +20,10 @@ interface NavigationProps {
 }
 
 const navLinksConfig = [
-  { key: "experiences", href: "#experiences" },
-  { key: "calendar", href: "#upcoming-retreats" },
-  { key: "journals", href: "/journals" },
-  { key: "forTeams", href: "/for-teams" },
+  { key: "experiences", href: "#elements" },
+  { key: "journals", href: "#journals" },
+  { key: "host", href: "#founder" },
+  { key: "calendar", href: "#calendar" },
 ];
 
 export default function Navigation({ onWaitlistClick }: NavigationProps) {
@@ -50,26 +50,38 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
 
-    // Handle path navigation
-    if (href.startsWith("/")) {
+    // Handle path navigation (non-hash links)
+    if (href.startsWith("/") && !href.includes("#")) {
       navigate(href);
       window.scrollTo(0, 0);
       return;
     }
 
-    // Handle hash navigation from other pages
-    const currentLangPath = `/${i18n.language}`;
-    if (location.pathname !== currentLangPath && location.pathname !== '/') {
-      navigate(currentLangPath);
+    // Determine if we are on the base "Index" page regardless of language prefix
+    const isHomePage = location.pathname === "/" ||
+      location.pathname === "/en" ||
+      location.pathname === "/pt" ||
+      location.pathname === `/${i18n.language}`;
+
+    // Handle hash navigation from other pages (like /journals or /ideas)
+    if (!isHomePage) {
+      // Navigate to homepage first, then scroll
+      navigate(location.pathname.startsWith('/pt') ? '/pt' : '/en');
+
+      // Wait for navigation and mount
       setTimeout(() => {
-        const element = document.querySelector(href);
-        if (element) element.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+        const id = href.startsWith('#') ? href.substring(1) : href;
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 300); // Increased delay to ensure page mount
       return;
     }
 
-    // Handle hash navigation on home page
-    const element = document.querySelector(href);
+    // Handle hash navigation on the home page itself
+    const id = href.startsWith('#') ? href.substring(1) : href;
+    const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -79,7 +91,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
     <>
       <header>
         <motion.nav
-          className="fixed top-6 inset-x-0 z-40 flex justify-center pointer-events-none p-safe-top"
+          className="fixed top-[calc(1.5rem+env(safe-area-inset-top,0px))] inset-x-0 z-40 flex justify-center pointer-events-none"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -89,7 +101,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             animate={{
               backgroundColor: scrolled ? 'rgba(0, 0, 0, 0.85)' : 'rgba(0, 0, 0, 0.7)',
             }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
             className="flex items-center gap-4 md:gap-8 py-2 px-6 md:px-8 rounded-full border border-white/10 backdrop-blur-2xl shadow-2xl pointer-events-auto mx-4 min-h-[44px]"
           >
             {/* Logo */}
@@ -104,21 +116,21 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             <div className="hidden lg:block border-l border-white/10 pl-8">
               <ul className="flex gap-6 text-[9px] font-bold uppercase tracking-[0.2em]">
                 {navLinks.map((link) => {
-                  const isActive = location.hash === link.href ||
-                    (location.pathname === link.href) ||
-                    (link.href.includes('#') && location.hash === link.href.split('#')[1]);
+                  const isActive = location.pathname === link.href ||
+                    location.hash === link.href ||
+                    (link.href.startsWith('#') && location.hash === link.href);
                   return (
                     <li key={link.href}>
                       <button
                         onClick={() => handleNavClick(link.href)}
                         className={cn(
-                          "group relative block py-2 duration-500 transition-all whitespace-nowrap",
+                          "group relative block py-2 duration-700 ease-swiss-luxury transition-all whitespace-nowrap",
                           isActive ? "text-white" : "text-white/40 hover:text-white"
                         )}
                       >
                         <span className="relative z-10">{link.label}</span>
                         <div className={cn(
-                          "absolute -bottom-1 left-0 h-px bg-white/40 transition-all duration-500",
+                          "absolute -bottom-1 left-0 h-px bg-white/40 transition-all duration-700 ease-swiss-luxury",
                           isActive ? "w-full bg-white" : "w-0 group-hover:w-full"
                         )} />
                       </button>
@@ -143,7 +155,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             {/* Mobile Menu Button - 44px Tap Target */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-11 h-11 flex items-center justify-center text-white hover:bg-white/5 rounded-full transition-colors"
+              className="lg:hidden w-11 h-11 flex items-center justify-center text-white hover:bg-white/5 rounded-full transition-all duration-700 ease-swiss-luxury"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -156,17 +168,20 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-4 top-20 z-40 bg-[#1A1614]/98 backdrop-blur-xl border border-white/10 rounded-3xl md:hidden shadow-2xl"
+            initial={{ opacity: 0, y: -20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.99 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-4 top-[calc(5.5rem+env(safe-area-inset-top,0px))] z-40 bg-[#1A1614]/98 backdrop-blur-xl border border-white/10 rounded-3xl md:hidden shadow-2xl overflow-hidden"
           >
-            <div className="px-8 py-8 space-y-5">
+            <div className="px-8 pt-8 pb-[calc(2rem+env(safe-area-inset-bottom,0px))] space-y-5">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
-                  onClick={() => handleNavClick(link.href)}
+                  onClick={() => {
+                    handleNavClick(link.href);
+                    setIsMobileMenuOpen(false);
+                  }}
                   className="block w-full text-left text-base font-light tracking-wide text-white/70 hover:text-white transition-colors duration-300 py-1.5"
                 >
                   {link.label}
@@ -178,14 +193,14 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                 <LanguageSwitcher />
               </div>
 
-              {/* Mobile: CTA Button */}
+              {/* Mobile: CTA Button with Glassmorphism */}
               <Button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   onWaitlistClick();
                 }}
-                className="rounded-full w-full mt-7 font-light tracking-wide"
-                variant="hero"
+                className="rounded-full w-full mt-7 font-light tracking-widest bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all"
+                variant="ghost"
               >
                 Check Availability
               </Button>

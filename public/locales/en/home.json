@@ -24,7 +24,7 @@
       "description": "Professional Drone & Content Session. CHF 600 (Includes edited social media reel).",
       "audience": "Cinematic Documentation"
     },
-    "footer": "Multilingual service (EN/PT/ES). Each experience is personally curated."
+    "footer": "Atendimento multilíngue (EN/PT/ES). Cada experiência é curada pessoalmente."
   },
   "howItWorks": {
     "heading": "How It Works",
@@ -62,9 +62,60 @@
       "question": "How are experiences selected?",
       "answer": "We prioritize quality over quantity. Each host and location is personally vetted to ensure it aligns with our values: mindful, intentional, and uncommon."
     },
-    "q5": {
-      "question": "What makes this different?",
-      "answer": "We don't list everything. We curate what's worth your time. Access is limited by design, not scarcity marketing."
+    "whatMakesDifferent": "We don’t list everything. We curate what's worth your time. Access is limited by design, not scarcity marketing."
+  },
+  "founder": {
+    "heading": "The Host",
+    "title": "Caueh Vidal",
+    "subtitle": "Geneva Based. Villars Rooted.",
+    "bio1": "Swissperiences was born from a search for silence. More than just organizing journeys, I receive guests.",
+    "bio2": "From the steering wheel of the Range Rover to the memories captured by drone among the peaks of Villars-sur-Ollon, every detail is a personal curation.",
+    "quote": "I work at the intersection of international hospitality warmth and the absolute precision of the Swiss Alps. Your journey is not just scheduled; it is hosted.",
+    "locationLabel": "Geneva Based",
+    "locationSub": "Global Perspective",
+    "retreatLabel": "Villars Retreat",
+    "retreatSub": "Alpine Sanctuary"
+  },
+  "archives": {
+    "heading": "The Archives",
+    "title": "Curated Memories",
+    "description": "Distinct stories from our private logs. Real stories from travelers who chose the quietest path.",
+    "cta": "View Full Archives"
+  },
+  "cinematic": {
+    "heading": "Invisible Documentation",
+    "title": "Cinematic Swiss Memories",
+    "subtitle": "A state of mind.",
+    "tagline": "We document your state of mind, not just your presence.",
+    "introTitle": "Documenting the Unseen Connection.",
+    "introDesc1": "Traditional photography often interrupts the moment. Our approach is different. We blend into your journey, using 4K drone technology and professional lenses to capture the raw, unposed truth of your experience.",
+    "introDesc2": "From the silent climb to the shared laughter in the sanctuary, we curate a digital legacy that feels as deep as the mountains themselves.",
+    "footerTitle": "Capture your legacy.",
+    "cta": "Request Documentation",
+    "philosophy": "Philosophy",
+    "sampleAesthetics": "Sample Aesthetics",
+    "theStyles": "The Styles.",
+    "stylesDescription": "Every edit is color-graded to match the specific atmosphere of your retreat day.",
+    "cinemaGrade": "Cinema Grade",
+    "portfolioSample": "Portfolio Sample",
+    "priceSession": "CHF 600 / Session",
+    "package1": {
+      "title": "Aerial Perspective",
+      "description": "4K Drone documentation of your movement through the peaks."
+    },
+    "package2": {
+      "title": "The Social Reel",
+      "description": "A professionally edited 60s narrative ready for your digital legacy."
+    },
+    "package3": {
+      "title": "High-Res Stills",
+      "description": "30+ Color-graded photographs capturing raw Swiss atmosphere."
+    },
+    "gallery": {
+      "nature": "Nature",
+      "atmosphere": "Atmosphere",
+      "movement": "Movement",
+      "portrait": "Portrait"
     }
   }
 }

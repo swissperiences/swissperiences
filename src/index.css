@@ -93,6 +93,27 @@
   h3 {
     font-family: 'Lora', Georgia, serif;
     font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  @media (max-width: 768px) {
+
+    h1,
+    h2,
+    h3 {
+      letter-spacing: 0.01em;
+      /* Slight increase for mobile readability */
+    }
+  }
+
+  /* Global interactive smoothing */
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1) !important;
   }
 }
 
@@ -116,30 +137,30 @@
 
 @layer components {
   .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+    animation: fadeIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 
   .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
+    animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 
   .animate-fade-in-delayed {
-    animation: fadeIn 0.8s ease-out 0.2s forwards;
+    animation: fadeIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.3s forwards;
     opacity: 0;
   }
 
   .animate-fade-in-up-delayed {
-    animation: fadeInUp 0.8s ease-out 0.3s forwards;
+    animation: fadeInUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.4s forwards;
     opacity: 0;
   }
 
   .animate-fade-in-up-delayed-2 {
-    animation: fadeInUp 0.8s ease-out 0.5s forwards;
+    animation: fadeInUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.6s forwards;
     opacity: 0;
   }
 
   .animate-scale-in {
-    animation: scaleIn 1.2s ease-out forwards;
+    animation: scaleIn 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
   }
 
   /* Premium grain texture overlay - Optimized for performance */
@@ -194,4 +215,22 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes breath {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: scale(1.015);
+    opacity: 1;
+  }
+}
+
+.animate-breath {
+  animation: breath 8s cubic-bezier(0.23, 1, 0.32, 1) infinite;
 }

@@ -18,7 +18,8 @@ const pillarsConfig = [
   {
     number: 'III',
     key: 'pillar3', // Cinematic Swiss Memories
-    image: '/images/villars-drone.jpg'
+    image: '/images/villars-drone.jpg',
+    link: '/cinematic-memories'
   }
 ];
 
@@ -48,12 +49,13 @@ export default function WhatWeCurate({ onJoinWaitlist }: WhatWeCurateProps) {
   };
 
   return (
-    <section id="experiences" className="relative pt-32 pb-16 bg-background border-t border-white/5 scroll-mt-20">
+    <section id="elements" className="relative min-h-[100svh] pt-32 pb-16 bg-background border-t border-white/5 scroll-mt-20 flex items-center overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
           className="text-center mb-24"
         >
           <span className="text-switz-red text-xs font-bold tracking-[0.2em] uppercase block mb-6">
@@ -71,7 +73,7 @@ export default function WhatWeCurate({ onJoinWaitlist }: WhatWeCurateProps) {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: index * 0.15 }}
                 className="group relative bg-neutral-900 p-10 md:p-8 lg:p-10 flex flex-col justify-between min-h-[500px] overflow-hidden cursor-pointer"
               >
                 {/* Background Image with Overlay */}
@@ -122,6 +124,6 @@ export default function WhatWeCurate({ onJoinWaitlist }: WhatWeCurateProps) {
           })}
         </div>
       </div>
-    </section>
+    </section >
   );
 }
