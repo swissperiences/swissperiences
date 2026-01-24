@@ -27,6 +27,9 @@ export default function AlexProposal() {
                     <p className="text-xl text-white/60 font-light max-w-2xl leading-relaxed animate-fade-in delay-200">
                         "Alex, desenhei este protocolo para desligar o ruído logo após a nossa chegada. O foco é reset mental, conteúdo cinematográfico e a realização do sonho do ski."
                     </p>
+                    <p className="text-sm text-switz-red/80 font-medium max-w-2xl mt-6 border-l-2 border-switz-red pl-4 italic">
+                        "Londres é excelente para fazer dinheiro, mas cobra caro da nossa alma. O que desenhei aqui não é turismo, é um resgate. Um santuário seguro para limpar o sistema, dormir sono profundo e recuperar a energia que a cidade drena."
+                    </p>
                 </section>
 
                 {/* Visual Journal (Gallery) */}
@@ -187,6 +190,36 @@ export default function AlexProposal() {
 
                     </div>
                 </div>
+
+                {/* About the Host */}
+                <section className="mb-32 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                    <div className="md:col-span-5 relative group">
+                        <div className="aspect-[3/4] bg-neutral-900 rounded-sm overflow-hidden">
+                            <img
+                                src="/images/caueh-vidal-spring.jpg"
+                                alt="Caueh Vidal"
+                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
+                            />
+                        </div>
+                        <div className="absolute -bottom-6 -right-6 bg-neutral-900 p-6 border border-white/5 hidden md:block">
+                            <span className="text-switz-red text-[10px] font-bold tracking-[0.2em] uppercase block mb-1">Based in</span>
+                            <span className="text-white font-serif text-xl">Geneva, CH</span>
+                        </div>
+                    </div>
+                    <div className="md:col-span-1 md:col-start-7 md:col-span-6 space-y-6">
+                        <span className="text-switz-red text-[10px] font-bold tracking-[0.3em] uppercase block flex items-center gap-3">
+                            <span className="w-8 h-px bg-switz-red"></span>
+                            Sobre o seu Host
+                        </span>
+                        <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">Caueh Vidal.</h2>
+                        <p className="text-white/60 font-light leading-relaxed">
+                            "Não sou uma agência de viagens e você não é um turista. Sou um arquiteto de experiências residente na Suíça. Minha missão é garantir que a logística seja invisível e a execução seja impecável."
+                        </p>
+                        <p className="text-white/60 font-light leading-relaxed">
+                            Eu cuido do backstage (equipamento, reservas, caminhos secretos) para que você foque apenas em esquiar e respirar.
+                        </p>
+                    </div>
+                </section>
 
                 {/* Investment Section */}
                 <section className="bg-neutral-900 border border-white/5 p-8 md:p-12 mb-24">
