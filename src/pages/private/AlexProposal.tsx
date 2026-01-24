@@ -206,6 +206,10 @@ export default function AlexProposal() {
                             Sobre o seu Host
                         </span>
                         <h2 className="text-4xl md:text-5xl font-serif text-white mb-6">Caueh Vidal.</h2>
+                        <div className="bg-switz-red/10 border border-switz-red/20 p-4 rounded-sm mb-6 inline-block">
+                            <p className="text-switz-red text-xs font-bold uppercase tracking-widest mb-1">Language Safe Zone</p>
+                            <p className="text-white/80 text-sm">"Aqui você fala Português. Eu resolvo o Francês e o Inglês por você. Zero stress."</p>
+                        </div>
                         <p className="text-white/60 font-light leading-relaxed">
                             "Não sou uma agência de viagens e você não é um turista. Sou um arquiteto de experiências residente na Suíça. Minha missão é garantir que a logística seja invisível e a execução seja impecável."
                         </p>
