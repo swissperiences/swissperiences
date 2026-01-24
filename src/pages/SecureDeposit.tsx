@@ -134,7 +134,9 @@ export default function SecureDeposit() {
 
                             <div className="flex justify-between items-center text-sm pt-2">
                                 <span className="text-white/70">Deposit Amount</span>
-                                <span className="text-xl font-light text-white">CHF 500.00</span>
+                                <span className="text-xl font-light text-white">
+                                    {tier.includes('£') || tier.toLowerCase().includes('gbp') ? '£' : 'CHF'} 500.00
+                                </span>
                             </div>
                             <div className="h-px bg-white/10 w-full"></div>
                         </div>

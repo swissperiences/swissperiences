@@ -93,18 +93,21 @@ export default async function handler(request: Request) {
         }
 
         // 1. Create Stripe Checkout Session
+        const isGBP = tier?.includes('£') || tier?.toLowerCase().includes('gbp');
+        const currency = isGBP ? 'gbp' : 'chf';
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
                 {
                     price_data: {
-                        currency: 'chf',
+                        currency: currency,
                         product_data: {
                             name: tier ? `Deposit: ${tier}` : 'Retreat Deposit - Spring 2026',
                             description: 'Refundable deposit to secure your priority spot.',
                             // images: ['https://swissperiences.ch/images/retreat-deposit.jpg'], // Ensure this image exists or remove
                         },
-                        unit_amount: 50000, // CHF 500.00
+                        unit_amount: 50000, // 500.00 in selected currency
                     },
                     quantity: 1,
                 },
