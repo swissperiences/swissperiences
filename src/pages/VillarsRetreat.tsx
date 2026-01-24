@@ -18,7 +18,7 @@ export default function VillarsRetreat() {
                 <section className="relative h-[70vh] w-full overflow-hidden">
                     <div className="absolute inset-0">
                         <img
-                            src="/images/apt-living-room-2.jpg"
+                            src="/images/villars-hero.jpg"
                             alt="Villars Retreat Living Room"
                             className="w-full h-full object-cover object-[center_30%] brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                         />
@@ -88,7 +88,7 @@ export default function VillarsRetreat() {
                     {/* Highlight Image: Fireplace */}
                     <div className="relative aspect-square md:aspect-[4/3] overflow-hidden rounded-sm group">
                         <img
-                            src="/images/apartment-fireplace.jpg"
+                            src="/images/villars-feature.jpg"
                             alt="Cozy Fireplace"
                             className="w-full h-full object-cover object-[center_35%] transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                             loading="lazy"
@@ -107,7 +107,7 @@ export default function VillarsRetreat() {
                         {/* Large Item */}
                         <div className="md:col-span-2 relative h-[300px] md:h-full overflow-hidden group">
                             <img
-                                src="/images/apt-balcony-sunset.jpg"
+                                src="/images/villars-gallery-1.jpg"
                                 alt="Balcony View"
                                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                 loading="lazy"
@@ -122,7 +122,7 @@ export default function VillarsRetreat() {
                         <div className="flex flex-col gap-1 h-[500px] md:h-full">
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
-                                    src="/images/apt-bathroom.jpg"
+                                    src="/images/villars-gallery-2.jpg"
                                     alt="Premium Bath"
                                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                     loading="lazy"
@@ -130,7 +130,7 @@ export default function VillarsRetreat() {
                             </div>
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
-                                    src="/images/apt-balcony-day.jpg"
+                                    src="/images/villars-gallery-3.jpg"
                                     alt="Day View"
                                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                     loading="lazy"
