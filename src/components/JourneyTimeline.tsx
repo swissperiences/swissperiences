@@ -44,40 +44,40 @@ const journals = [
     },
     {
         id: "ale-alex",
-        title: "The Summer Riviera",
+        title: "The Alpine Protocol",
         guests: "Ale & Alex",
-        quote: "Lakeside serenity meets alpine heights.",
-        description: "A sun-drenched exploration of the French-Swiss border, the Riviera, and the international heart of Geneva.",
+        quote: "Precision meets the peak state.",
+        description: "A high-altitude narrative following the transition from urban Geneva to the rugged summits of the Swiss Alps.",
         itinerary: [
             {
-                day: "The Capital of Peace",
-                title: "Geneva International",
-                description: "Starting at the Palais des Nations. A walk through history where the world meets, surrounded by the flags of 193 nations.",
-                image: "/images/guests/ale_alex/uploaded_image_0_1769163731115.jpg"
+                day: "Day 01 // Departure",
+                title: "Urban Origins",
+                description: "Leaving the city behind. A final moment at the Pont de la Machine.",
+                image: "/images/guests/ale_alex/1.jpg"
             },
             {
-                day: "The French Balcony",
-                title: "Mont Salève",
-                description: "Crossing slightly into France to ascend Mont Salève. The 'Balcony of Geneva' offers the most commanding view of the city and the Jet d'Eau.",
-                image: "/images/guests/ale_alex/uploaded_image_3_1769163731115.jpg"
+                day: "Day 01 // The Ascent",
+                title: "The Balcony",
+                description: "Mont Salève. Looking back at Geneva from above.",
+                image: "/images/guests/ale_alex/2.jpg"
             },
             {
-                day: "The Riviera",
-                title: "Vevey & The Fork",
-                description: "A drive along the coast to Vevey. Standing by the iconic Charlie Chaplin statue and the giant fork in the lake.",
-                image: "/images/guests/ale_alex/uploaded_image_1_1769163731115.jpg"
+                day: "Day 02 // Exploration",
+                title: "Alpine Sanctuary",
+                description: "Settling into the rhythm of the mountains.",
+                image: "/images/guests/ale_alex/3.jpg"
             },
             {
-                day: "Lakeside Leisure",
-                title: "Crystal Waters",
-                description: "Private moments on the piers of Lac Léman. The water is so clear in summer it invites you to pause and breathe.",
-                image: "/images/guests/ale_alex/uploaded_image_2_1769163731115.jpg"
+                day: "Day 02 // Atmosphere",
+                title: "Quiet Moments",
+                description: "Connection in the stillness of the peaks.",
+                image: "/images/guests/ale_alex/4.jpg"
             },
             {
-                day: "The Icon",
-                title: "Jet d'Eau",
-                description: "Returning to the center. No trip to Geneva is complete without greeting the 140-meter tall guardian of the harbor.",
-                image: "/images/guests/ale_alex/uploaded_image_4_1769163731115.jpg"
+                day: "Day 03 // The Return",
+                title: "Lasting Memories",
+                description: "Descending with a new state of mind.",
+                image: "/images/guests/ale_alex/5.jpg"
             }
         ]
     }
@@ -140,7 +140,7 @@ export default function JourneyTimeline() {
                                             <img
                                                 src={item.image}
                                                 alt={item.title}
-                                                className="w-full h-full object-cover object-center scale-[1.01] group-hover/item:scale-105 transition-all duration-1000 ease-out"
+                                                className="w-full h-full object-cover object-[center_30%] scale-[1.01] group-hover/item:scale-105 transition-all duration-1000 ease-out brightness-[0.85] contrast-[1.1] saturate-[0.9] group-hover/item:brightness-100"
                                             />
                                         </div>
                                     </div>

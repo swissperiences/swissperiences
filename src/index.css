@@ -73,6 +73,13 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+
+  @supports (padding-top: env(safe-area-inset-top)) {
+    .p-safe-top {
+      padding-top: env(safe-area-inset-top);
+    }
   }
 
   body {

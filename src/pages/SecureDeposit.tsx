@@ -7,8 +7,22 @@ import { Lock, ArrowRight, Loader2 } from "lucide-react";
 
 export default function SecureDeposit() {
     const [email, setEmail] = useState("");
+    const [intent, setIntent] = useState("");
+    const [tier, setTier] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
+
+    // Auto-fill email from URL if present (from Waitlist success flow)
+    useState(() => {
+        const params = new URLSearchParams(window.location.search);
+        const urlEmail = params.get('email');
+        const urlIntent = params.get('intent');
+        const urlTier = params.get('tier');
+
+        if (urlEmail) setEmail(urlEmail);
+        if (urlIntent) setIntent(urlIntent);
+        if (urlTier) setTier(urlTier);
+    });
 
     const handleDeposit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -18,7 +32,11 @@ export default function SecureDeposit() {
             const response = await fetch("/api/create-checkout-session", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
+                body: JSON.stringify({
+                    email,
+                    intent,
+                    tier // passing as product name context
+                }),
             });
 
             let data;
@@ -121,9 +139,14 @@ export default function SecureDeposit() {
                         </Button>
                     </form>
 
-                    <div className="mt-6 flex items-center justify-center gap-2 text-[10px] text-white/30">
-                        <Lock size={10} />
-                        <span>Encrypted Transaction via Stripe</span>
+                    <div className="mt-6 flex flex-col items-center justify-center gap-2 text-[10px] text-white/30">
+                        <div className="flex items-center gap-2">
+                            <Lock size={10} />
+                            <span>Encrypted Transaction via Stripe</span>
+                        </div>
+                        <p className="mt-2">
+                            By proceeding, you agree to our <a href="/terms" className="text-white/50 hover:text-white underline">Terms & Conditions</a>.
+                        </p>
                     </div>
                 </div>
             </motion.div>

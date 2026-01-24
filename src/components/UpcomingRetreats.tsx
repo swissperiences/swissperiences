@@ -220,7 +220,7 @@ export function UpcomingRetreats({ onJoinWaitlist }: UpcomingRetreatsProps) {
                                 <span className="text-xs text-muted-foreground uppercase tracking-wider block mb-1">Starting from</span>
                                 <div className="flex items-baseline justify-end gap-1.5">
                                     <span className="text-3xl font-light text-white">1,200</span>
-                                    <span className="text-sm text-muted-foreground">CHF</span>
+                                    <span className="text-sm text-muted-foreground">CHF / night</span>
                                 </div>
                             </div>
                             <Button

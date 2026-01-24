@@ -20,9 +20,9 @@ export default function VillarsRetreat() {
                         <img
                             src="/images/apt-living-room-2.jpg"
                             alt="Villars Retreat Living Room"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover object-[center_30%] brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                         />
-                        <div className="absolute inset-0 bg-black/40" />
+                        <div className="absolute inset-0 bg-black/30" />
                     </div>
                     <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 pt-20">
                         <motion.span
@@ -90,9 +90,10 @@ export default function VillarsRetreat() {
                         <img
                             src="/images/apartment-fireplace.jpg"
                             alt="Cozy Fireplace"
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            className="w-full h-full object-cover object-[center_35%] transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1] saturate-[0.9]"
+                            loading="lazy"
                         />
-                        <div className="absolute bottom-6 left-6 bg-black/50 backdrop-blur-md px-4 py-2 text-xs uppercase tracking-widest text-white/90">
+                        <div className="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-white/90">
                             Aprés-Ski Evenings
                         </div>
                     </div>
@@ -108,10 +109,11 @@ export default function VillarsRetreat() {
                             <img
                                 src="/images/apt-balcony-sunset.jpg"
                                 alt="Balcony View"
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
+                                loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <span className="absolute bottom-6 left-6 text-white font-serif text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            <span className="absolute bottom-6 left-6 text-white font-serif text-2xl italic opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                                 Unrivaled Sunsets
                             </span>
                         </div>
@@ -122,14 +124,16 @@ export default function VillarsRetreat() {
                                 <img
                                     src="/images/apt-bathroom.jpg"
                                     alt="Premium Bath"
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
+                                    loading="lazy"
                                 />
                             </div>
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
                                     src="/images/apt-balcony-day.jpg"
                                     alt="Day View"
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
+                                    loading="lazy"
                                 />
                             </div>
                         </div>

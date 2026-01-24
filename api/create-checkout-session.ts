@@ -24,6 +24,8 @@ export default async function handler(request: Request) {
 
         const body = await request.json();
         const email = body.email;
+        const intent = body.intent; // New
+        const tier = body.tier; // New (ProductName)
         let application_id = body.application_id;
 
         if (!email) {
@@ -54,8 +56,8 @@ export default async function handler(request: Request) {
                     price_data: {
                         currency: 'chf',
                         product_data: {
-                            name: 'Retreat Deposit - Spring 2026',
-                            description: 'Refundable deposit to secure your spot for the Spring 2026 intake.',
+                            name: tier ? `Deposit: ${tier}` : 'Retreat Deposit - Spring 2026', // Dynamic product name
+                            description: 'Refundable deposit to secure your spot.',
                             images: ['https://swissperiences.com/images/retreat-deposit.jpg'], // Placeholder image
                         },
                         unit_amount: 50000, // CHF 500.00 in cents
@@ -69,6 +71,8 @@ export default async function handler(request: Request) {
             customer_email: email,
             metadata: {
                 application_id: application_id, // Link to Supabase record
+                intent: intent || 'general',
+                product_name: tier || 'General Deposit'
             },
         });
 

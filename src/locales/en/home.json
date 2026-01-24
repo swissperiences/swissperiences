@@ -8,31 +8,31 @@
     "cta": "Request Access"
   },
   "whatWeCurate": {
-    "heading": "What We Offer",
+    "heading": "The Swissperiences Elements",
     "villarsRetreat": {
-      "title": "Villars Alpine Retreat",
-      "description": "4-bedroom mountain sanctuary near ski station with local insider guidance",
-      "audience": "Starting from CHF 4,500/week"
+      "title": "The Sanctuary",
+      "description": "4-bedroom boutique base in Villars-sur-Ollon.",
+      "audience": "Inquire for details"
     },
     "roadJourney": {
-      "title": "Swiss Alps Road Journey",
-      "description": "Curated day trips in luxury Range Rover to hidden Swiss gems",
-      "audience": "Starting from CHF 950/day"
+      "title": "Premium Logistics",
+      "description": "Private Range Rover Experience. Starting at CHF 850 (Half-Day) / CHF 1,500 (Full-Day).",
+      "audience": "Inquire for Day Pass"
     },
     "droneMemories": {
-      "title": "Cinematic Swiss Memories",
-      "description": "Professional drone videography of your Swiss adventure",
-      "audience": "Starting from CHF 800/session"
+      "title": "Cinematic Documentation",
+      "description": "Professional Drone & Content Session. CHF 600 (Includes edited social media reel).",
+      "audience": "Automated cinematic capture"
     },
     "luxuryPackage": {
       "title": "Villars Luxury Week",
-      "description": "7-night all-inclusive: accommodation, road trips & video documentation",
-      "audience": "High-ticket: CHF 8,000-12,000 for groups of 4-6"
+      "description": "The blueprint of our Signature Retreats. Available for private groups upon request.",
+      "audience": "Signature Cohort Blueprint"
     },
     "bespokeJourney": {
       "title": "Bespoke Swiss Journey",
-      "description": "Fully customized multi-day experience across Swiss regions",
-      "audience": "Ultra-premium: CHF 15,000+ for 7-10 day journeys"
+      "description": "Ultra-premium custom journeys to hidden Swiss gems.",
+      "audience": "Ultra-premium customization"
     },
     "footer": "Multilingual service (EN/PT/ES). Each experience is personally curated."
   },

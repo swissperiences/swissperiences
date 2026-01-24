@@ -44,9 +44,9 @@ export default function RoadJourney() {
                         <img
                             src="/images/range-rover-enhanced.jpg"
                             alt="Range Rover in the Alps"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover object-center brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                         />
-                        <div className="absolute inset-0 bg-black/30" />
+                        <div className="absolute inset-0 bg-black/20" />
                     </div>
                     <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 pt-20">
                         <motion.span
@@ -130,9 +130,10 @@ export default function RoadJourney() {
                 {/* Gallery / Visual Break */}
                 <section className="w-full h-[400px] md:h-[600px] overflow-hidden relative mb-24">
                     <img
-                        src="/images/range-rover-enhanced.jpg"
+                        src="/images/range-rover-villars.jpg"
                         alt="On the road"
-                        className="w-full h-full object-cover opacity-60"
+                        className="w-full h-full object-cover object-center opacity-60 brightness-[0.85] contrast-[1.1] saturate-[0.9]"
+                        loading="lazy"
                     />
                     <div className="absolute inset-0 flex items-center justify-center">
                         <p className="text-2xl md:text-4xl font-serif text-white/90 italic text-center px-4">

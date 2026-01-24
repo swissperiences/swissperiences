@@ -32,21 +32,27 @@ import { useTranslation } from 'react-i18next';
 interface WaitlistModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  selectedTier?: string;
+  selectedTier?: string; // used as productName
+  intent?: string;
 }
 
-export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Waitlist' }: WaitlistModalProps) {
-  const [intent, setIntent] = useState<string>('');
+export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Waitlist', intent: initialIntent = '' }: WaitlistModalProps) {
+  const [intent, setIntent] = useState<string>(initialIntent);
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [date, setDate] = useState<DateRange | undefined>();
   const [guests, setGuests] = useState<string>('');
-  const [honeypot, setHoneypot] = useState('');
+  const [honeypot] = useState('');
   const [newsletter] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
   const { t } = useTranslation('common');
+
+  // Sync intent when prop changes
+  useState(() => {
+    if (initialIntent) setIntent(initialIntent);
+  });
 
   const getModalTitle = () => {
     if (isSuccess) return t('forms.success');
@@ -66,8 +72,8 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
           email: email.trim(),
           first_name: firstName.trim() || null,
           newsletter_opt_in: newsletter,
-          tier: selectedTier,
-          intent,
+          tier: selectedTier, // Using selectedTier as ProductName
+          intent: intent || 'general',
           start_date: date?.from ? format(date.from, 'yyyy-MM-dd') : null,
           end_date: date?.to ? format(date.to, 'yyyy-MM-dd') : null,
           num_guests: guests || null
@@ -99,7 +105,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
     setTimeout(() => {
       setEmail('');
       setFirstName('');
-      setIntent('');
+      setIntent(initialIntent || '');
       setIsSuccess(false);
     }, 300);
   };
@@ -151,60 +157,72 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Experience Selector */}
-                  <motion.div variants={itemVariants} className="space-y-2">
-                    <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Select Experience</label>
-                    <Select value={intent} onValueChange={setIntent}>
-                      <SelectTrigger className="bg-white/[0.03] border-white/5 h-12 text-sm focus:ring-white/10 hover:bg-white/[0.05] transition-all">
-                        <SelectValue placeholder="Begin your journey..." />
-                      </SelectTrigger>
-                      <SelectContent className="bg-neutral-900 border-white/10 z-[200]">
-                        <SelectItem value="Villars Alpine Retreat">Villars Alpine Retreat</SelectItem>
-                        <SelectItem value="Swiss Alps Road Journey">Swiss Alps Road Journey</SelectItem>
-                        <SelectItem value="Bespoke Journey">Bespoke Custom Journey</SelectItem>
-                        <SelectItem value="Other">General Inquiry</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </motion.div>
-
-                  {/* Dates & Guests */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Experience Selector (Hidden if intent is preset) */}
+                  {!initialIntent && (
                     <motion.div variants={itemVariants} className="space-y-2">
-                      <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Preferred Dates</label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full justify-start text-left font-light bg-white/[0.03] border-white/5 h-12 text-sm hover:bg-white/[0.05]",
-                              !date && "text-white/30"
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
-                            {date?.from ? (
-                              date.to ? (
-                                <>{format(date.from, "MMM dd")} — {format(date.to, "MMM dd")}</>
-                              ) : (
-                                format(date.from, "MMM dd")
-                              )
-                            ) : (
-                              <span>Pick dates</span>
-                            )}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 z-[210] bg-black border-white/10 shadow-2xl" align="start">
-                          <Calendar
-                            initialFocus
-                            mode="range"
-                            selected={date}
-                            onSelect={setDate}
-                            numberOfMonths={1}
-                            fromDate={new Date()}
-                            className="bg-neutral-950 text-white"
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Select Experience</label>
+                      <Select value={intent} onValueChange={setIntent}>
+                        <SelectTrigger className="bg-white/[0.03] border-white/5 h-12 text-sm focus:ring-white/10 hover:bg-white/[0.05] transition-all">
+                          <SelectValue placeholder="Begin your journey..." />
+                        </SelectTrigger>
+                        <SelectContent className="bg-neutral-900 border-white/10 z-[200]">
+                          <SelectItem value="Villars Alpine Retreat">Villars Alpine Retreat</SelectItem>
+                          <SelectItem value="Swiss Alps Road Journey">Swiss Alps Road Journey</SelectItem>
+                          <SelectItem value="Bespoke Journey">Bespoke Custom Journey</SelectItem>
+                          <SelectItem value="Other">General Inquiry</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </motion.div>
+                  )}
+
+                  {/* Context Info */}
+                  {initialIntent && (
+                    <motion.div variants={itemVariants} className="bg-white/5 p-4 rounded-lg border border-white/10">
+                      <p className="text-xs text-switz-red uppercase tracking-widest font-bold mb-1">{selectedTier}</p>
+                      <p className="text-white/60 text-sm italic">{intent === 'day-pass' ? 'Single Day Experience' : 'Exclusive Access'}</p>
+                    </motion.div>
+                  )}
+
+                  {/* Dates & Guests - Show dates if intent is day-pass or retreat */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {(intent === 'day-pass' || intent === 'retreat' || intent === 'stay') && (
+                      <motion.div variants={itemVariants} className="space-y-2">
+                        <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Preferred Date</label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full justify-start text-left font-light bg-white/[0.03] border-white/5 h-12 text-sm hover:bg-white/[0.05]",
+                                !date && "text-white/30"
+                              )}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4 opacity-50" />
+                              {date?.from ? (
+                                date.to ? (
+                                  <>{format(date.from, "MMM dd")} — {format(date.to, "MMM dd")}</>
+                                ) : (
+                                  format(date.from, "MMM dd")
+                                )
+                              ) : (
+                                <span>Pick dates</span>
+                              )}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0 z-[210] bg-black border-white/10 shadow-2xl" align="start">
+                            <Calendar
+                              initialFocus
+                              mode="range"
+                              selected={date}
+                              onSelect={setDate}
+                              numberOfMonths={1}
+                              fromDate={new Date()}
+                              className="bg-neutral-950 text-white"
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </motion.div>
+                    )}
 
                     <motion.div variants={itemVariants} className="space-y-2">
                       <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Guests</label>
@@ -248,6 +266,18 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                     </motion.div>
                   </div>
 
+                  <motion.div variants={itemVariants} className="flex items-center space-x-2 pt-2">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      required
+                      className="w-4 h-4 border-white/20 bg-white/5 rounded-sm focus:ring-white/20 accent-[#D8B58A]"
+                    />
+                    <label htmlFor="terms" className="text-[10px] text-white/50 uppercase tracking-widest font-light cursor-pointer select-none">
+                      I agree to the <a href="/terms" target="_blank" className="underline hover:text-white transition-colors">Terms & Conditions</a>
+                    </label>
+                  </motion.div>
+
                   <motion.div variants={itemVariants} className="pt-4">
                     <Button
                       type="submit"
@@ -262,7 +292,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                       )}
                     </Button>
                     <p className="text-[9px] text-center text-white/20 mt-4 tracking-widest uppercase font-light">
-                      Response within 48h // No upfront deposit
+                      Response within 48h // Secure your priority with a refundable CHF 500 deposit
                     </p>
                   </motion.div>
                 </form>
@@ -280,12 +310,28 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                     {t('forms.successMessage')}
                   </p>
                 </div>
-                <Button
-                  onClick={handleClose}
-                  className="bg-transparent border border-white/10 text-white/40 hover:text-white hover:border-white px-10 py-6 uppercase tracking-[0.3em] text-[10px] rounded-none transition-all"
-                >
-                  {t('buttons.close')}
-                </Button>
+                <div className="flex flex-col gap-4 w-full">
+                  <Button
+                    onClick={() => {
+                      // Pass intent, tier (productName) to SecureDeposit
+                      const params = new URLSearchParams({
+                        email: email,
+                        intent: intent || 'general',
+                        tier: selectedTier
+                      });
+                      window.location.href = `/secure-deposit?${params.toString()}`;
+                    }}
+                    className="w-full bg-[#D8B58A] text-black hover:bg-[#D8B58A]/90 h-14 uppercase tracking-[0.2em] text-[10px] font-bold rounded-none transition-all"
+                  >
+                    Secure Priority (CHF 500)
+                  </Button>
+                  <Button
+                    onClick={handleClose}
+                    className="bg-transparent border border-white/10 text-white/40 hover:text-white hover:border-white w-full h-12 uppercase tracking-[0.2em] text-[10px] rounded-none transition-all"
+                  >
+                    {t('buttons.close')}
+                  </Button>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

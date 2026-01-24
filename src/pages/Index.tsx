@@ -23,9 +23,11 @@ const ComponentLoader = () => (
 const Index = () => {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
   const [waitlistTier, setWaitlistTier] = useState<string>("General Waitlist");
+  const [waitlistIntent, setWaitlistIntent] = useState<string>("");
 
-  const openWaitlist = (tier: string = "General Waitlist") => {
+  const openWaitlist = (tier: string = "General Waitlist", intent: string = "") => {
     setWaitlistTier(tier);
+    setWaitlistIntent(intent);
     setIsWaitlistOpen(true);
   };
 
@@ -84,11 +86,13 @@ const Index = () => {
         <HeroSection onJoinWaitlist={() => openWaitlist("General Waitlist")} />
 
         <Suspense fallback={<ComponentLoader />}>
+          <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier, 'retreat')} />
           <PhilosophySpacer />
-          <UpcomingRetreats onJoinWaitlist={(tier) => openWaitlist(tier)} />
+          <WhatWeCurate onJoinWaitlist={openWaitlist} />
           <Founder />
-          <JourneyTimeline />
-          <WhatWeCurate />
+          <div className="pt-32 md:pt-64"> {/* Intentional luxury breathing room before Social Proof */}
+            <JourneyTimeline />
+          </div>
         </Suspense>
       </main>
 
@@ -103,6 +107,7 @@ const Index = () => {
           open={isWaitlistOpen}
           onOpenChange={setIsWaitlistOpen}
           selectedTier={waitlistTier}
+          intent={waitlistIntent}
         />
       </Suspense>
     </div>

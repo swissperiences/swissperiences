@@ -24,15 +24,20 @@
       "description": "Videografia profissional com drone da sua aventura suíça",
       "audience": "Quem busca recordações cinematográficas da jornada"
     },
-    "luxuryPackage": {
-      "title": "Semana de Luxo em Villars",
-      "description": "7 noites all-inclusive: acomodação, passeios e documentação em vídeo",
-      "audience": "High-ticket: CHF 8,000-12,000 para grupos de 4-6"
+    "basecamp": {
+      "title": "The Basecamp",
+      "description": "Experiência autêntica compartilhada em nosso santuário.",
+      "audience": "Entrada: CHF 3.500 por pessoa"
+    },
+    "signature": {
+      "title": "The Signature Cohort",
+      "description": "Imersão de luxo all-inclusive de 7 noites com documentação em vídeo.",
+      "audience": "Mid-Market: CHF 14.500 (All-inclusive)"
     },
     "bespokeJourney": {
       "title": "Jornada Suíça Sob Medida",
-      "description": "Experiência multi-dia totalmente personalizada pelas regiões suíças",
-      "audience": "Ultra-premium: CHF 15,000+ para jornadas de 7-10 dias"
+      "description": "Experiência multi-dia totalmente personalizada pelas regiões suíças.",
+      "audience": "Elite: A partir de CHF 15.000 para jornadas de 7-10 dias"
     },
     "footer": "Atendimento multilíngue (EN/PT/ES). Cada experiência é curada pessoalmente."
   },

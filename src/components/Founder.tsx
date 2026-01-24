@@ -34,7 +34,7 @@ export const Founder = () => {
                             <img
                                 src="/images/caueh-vidal-spring.jpg"
                                 alt="Caueh Vidal"
-                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out"
+                                className="w-full h-full object-cover object-[center_25%] grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out brightness-[0.85] contrast-[1.1] saturate-[0.9] hover:brightness-100"
                             />
                             <div className="absolute bottom-6 left-6 z-20">
                                 <p className="text-white text-lg font-serif italic">Geneva, Switzerland</p>

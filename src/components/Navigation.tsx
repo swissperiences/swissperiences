@@ -13,6 +13,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
 import { Button } from '@/components/ui/button';
+import { cn } from "@/lib/utils";
 
 interface NavigationProps {
   onWaitlistClick: () => void;
@@ -78,72 +79,71 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
     <>
       <header>
         <motion.nav
-          className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center pointer-events-none"
-          initial={{
-            width: 'auto',
-            scale: 0.95,
-            opacity: 0
-          }}
-          animate={{
-            scale: 1,
-            opacity: 1
-          }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+          className="fixed top-6 inset-x-0 z-40 flex justify-center pointer-events-none p-safe-top"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Consistent Luxury Pill Background */}
+          {/* Compact Luxury Pill */}
           <motion.div
             animate={{
-              backgroundColor: scrolled ? 'rgba(0, 0, 0, 0.85)' : 'rgba(0, 0, 0, 0.65)',
-              paddingLeft: scrolled ? '24px' : '32px',
-              paddingRight: scrolled ? '24px' : '32px'
+              backgroundColor: scrolled ? 'rgba(0, 0, 0, 0.85)' : 'rgba(0, 0, 0, 0.7)',
             }}
-            className="flex items-center gap-12 py-3 px-8 rounded-full border border-white/10 backdrop-blur-2xl shadow-2xl pointer-events-auto"
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-4 md:gap-8 py-2 px-6 md:px-8 rounded-full border border-white/10 backdrop-blur-2xl shadow-2xl pointer-events-auto mx-4 min-h-[44px]"
           >
-
             {/* Logo */}
             <Link
               to="/"
-              className="font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.3em] text-sm shrink-0"
+              className="font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.25em] text-xs md:text-sm shrink-0 flex items-center h-10"
             >
               Swissperiences
             </Link>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden lg:block">
-              <ul className="flex gap-10 text-[10px] font-bold uppercase tracking-[0.25em]">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <button
-                      onClick={() => handleNavClick(link.href)}
-                      className="group relative block duration-500 transition-all text-white/30 hover:text-white whitespace-nowrap"
-                    >
-                      <span className="relative z-10">{link.label}</span>
-                      <div className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-500 group-hover:w-full" />
-                    </button>
-                  </li>
-                ))}
+            {/* Desktop Navigation Links - More Compact & Active State Support */}
+            <div className="hidden lg:block border-l border-white/10 pl-8">
+              <ul className="flex gap-6 text-[9px] font-bold uppercase tracking-[0.2em]">
+                {navLinks.map((link) => {
+                  const isActive = location.hash === link.href ||
+                    (location.pathname === link.href) ||
+                    (link.href.includes('#') && location.hash === link.href.split('#')[1]);
+                  return (
+                    <li key={link.href}>
+                      <button
+                        onClick={() => handleNavClick(link.href)}
+                        className={cn(
+                          "group relative block py-2 duration-500 transition-all whitespace-nowrap",
+                          isActive ? "text-white" : "text-white/40 hover:text-white"
+                        )}
+                      >
+                        <span className="relative z-10">{link.label}</span>
+                        <div className={cn(
+                          "absolute -bottom-1 left-0 h-px bg-white/40 transition-all duration-500",
+                          isActive ? "w-full bg-white" : "w-0 group-hover:w-full"
+                        )} />
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
             {/* Support Actions */}
-            <div className="hidden lg:flex items-center gap-8 shrink-0">
+            <div className="hidden lg:flex items-center gap-6 shrink-0 border-l border-white/10 pl-6 h-full">
               <LanguageSwitcher />
               <Button
                 onClick={onWaitlistClick}
-                className="rounded-none px-6 py-2 h-auto font-bold tracking-[0.25em] uppercase text-[9px] border border-white/10 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
+                className="rounded-full px-5 py-1.5 h-9 font-bold tracking-[0.2em] uppercase text-[9px] border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
                 variant="ghost"
               >
-                Check Availability
+                Inquire
               </Button>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - 44px Tap Target */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-white hover:bg-white/5 rounded-full transition-colors"
+              className="lg:hidden w-11 h-11 flex items-center justify-center text-white hover:bg-white/5 rounded-full transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}

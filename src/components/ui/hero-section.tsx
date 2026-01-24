@@ -44,7 +44,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             {/* Premium CTA */}
             <button
               onClick={() => {
-                const element = document.querySelector('#experiences');
+                const element = document.querySelector('#upcoming-retreats');
                 if (element) element.scrollIntoView({ behavior: 'smooth' });
               }}
               className="group relative inline-flex items-center justify-center px-8 py-3 overflow-hidden transition-all duration-300"
@@ -63,7 +63,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
             transition={{ delay: 1, duration: 1 }}
             className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 cursor-pointer"
             onClick={() => {
-              const element = document.querySelector('#experiences');
+              const element = document.querySelector('#upcoming-retreats');
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
           >
