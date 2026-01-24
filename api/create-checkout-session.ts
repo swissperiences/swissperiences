@@ -110,6 +110,7 @@ export default async function handler(request: Request) {
                 },
             ],
             mode: 'payment',
+            allow_promotion_codes: true,
             success_url: `${origin}/?payment=success&session_id={CHECKOUT_SESSION_ID}&email=${encodeURIComponent(email)}`,
             cancel_url: `${origin}/?payment=cancelled`,
             customer_email: email,
