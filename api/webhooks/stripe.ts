@@ -82,6 +82,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                     await resend.emails.send({
                         from: 'hello@swissperiences.ch',
                         to: [customerEmail],
+                        bcc: ['hello@swissperiences.ch'],
                         subject: 'Payment Confirmed: Your Swissperiences Deposit',
                         html: `
                               <!DOCTYPE html>
