@@ -36,19 +36,7 @@ export default function AlexProposal() {
                 <section className="mb-32">
                     <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 mb-8 border-b border-white/10 pb-4">Visual Journal</h3>
 
-                    {/* Main Video/Hero area */}
-                    <div className="aspect-video w-full bg-neutral-900 rounded-sm mb-4 relative overflow-hidden group cursor-pointer" onClick={() => window.open('https://videos.pexels.com/video-files/4253173/4253173-sd_960_540_25fps.mp4', '_blank')}>
-                        <video
-                            src="https://videos.pexels.com/video-files/4253173/4253173-sd_960_540_25fps.mp4"
-                            className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700"
-                            autoPlay muted loop playsInline
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform duration-500">
-                                <Play className="w-6 h-6 text-white fill-white" />
-                            </div>
-                        </div>
-                    </div>
+
 
                     {/* Grid Images */}
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -59,10 +47,16 @@ export default function AlexProposal() {
                             "/images/loft/IMG_8736.jpg",
                             "/images/loft/IMG_8759.jpg"
                         ].map((src, idx) => (
-                            <div key={idx} className={`aspect-[3/4] bg-neutral-900 rounded-sm overflow-hidden group ${idx === 0 ? 'col-span-2 md:col-span-2 row-span-2 aspect-square md:aspect-[4/3]' : ''}`}>
-                                <img src={src} alt="Villars Loft" className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700 grayscale group-hover:grayscale-0" />
+                            <div key={idx} className={`aspect-[3/4] bg-neutral-900 rounded-sm overflow-hidden group ${idx === 0 ? 'col-span-2 md:col-span-2 row-span-2 aspect-[4/3]' : ''}`}>
+                                <img src={src} alt="Villars Loft" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700 grayscale group-hover:grayscale-0" />
                             </div>
                         ))}
+                    </div>
+
+                    <div className="mt-8 text-center">
+                        <a href="/villars-retreat" target="_blank" className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-switz-red transition-colors border-b border-transparent hover:border-switz-red pb-1">
+                            Explore Full Accommodation Gallery <ArrowRight className="w-3 h-3" />
+                        </a>
                     </div>
                 </section>
 
