@@ -1,5 +1,6 @@
 
 import Stripe from 'stripe';
+import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
@@ -125,10 +126,34 @@ export default async function handler(request: Request) {
         // 2. Update Waitlist Record with Stripe Session ID
         // Note: This is best effort. Webhook is the source of truth for 'paid'.
         if (application_id) {
+            // Update Stripe Session ID and Marketing Preference
             await supabase
                 .from('waitlist')
-                .update({ stripe_session_id: session.id })
+                .update({
+                    stripe_session_id: session.id,
+                    newsletter_opt_in: !!body.marketing_opt_in
+                })
                 .eq('id', application_id);
+
+            // 3. Sync to Resend Audience (if opted-in)
+            if (body.marketing_opt_in && process.env.RESEND_AUDIENCE_ID && process.env.RESEND_API_KEY) {
+                const resend = new Resend(process.env.RESEND_API_KEY);
+
+                // Fire and forget - don't block checkout redirect
+                (async () => {
+                    try {
+                        await new Promise(resolve => setTimeout(resolve, 1000)); // Rate limit safety
+                        await resend.contacts.create({
+                            email: email,
+                            audienceId: process.env.RESEND_AUDIENCE_ID!,
+                            unsubscribed: false,
+                        });
+                        console.log(`[Checkout] Synced ${email} to Resend Audience`);
+                    } catch (err) {
+                        console.error('[Checkout] Failed to sync Resend contact:', err);
+                    }
+                })();
+            }
         }
 
         return new Response(JSON.stringify({ url: session.url }), {

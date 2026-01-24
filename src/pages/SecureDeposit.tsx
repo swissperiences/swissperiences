@@ -9,6 +9,7 @@ export default function SecureDeposit() {
     const [email, setEmail] = useState("");
     const [intent, setIntent] = useState("");
     const [tier, setTier] = useState("");
+    const [marketingOptIn, setMarketingOptIn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
 
@@ -35,7 +36,8 @@ export default function SecureDeposit() {
                 body: JSON.stringify({
                     email,
                     intent,
-                    tier // passing as product name context
+                    tier, // passing as product name context
+                    marketing_opt_in: marketingOptIn
                 }),
             });
 
@@ -116,27 +118,45 @@ export default function SecureDeposit() {
                             />
                         </div>
 
-                        <div className="pt-4 space-y-4">
-                            <div className="flex justify-between items-center text-sm">
+                        <div className="pt-2 space-y-4">
+                            <div className="flex items-start space-x-3 bg-white/5 p-3 rounded-lg border border-white/5">
+                                <input
+                                    type="checkbox"
+                                    id="marketing-deposit"
+                                    checked={marketingOptIn}
+                                    onChange={(e) => setMarketingOptIn(e.target.checked)}
+                                    className="w-4 h-4 mt-0.5 border-white/20 bg-white/5 rounded-sm focus:ring-white/20 accent-[#D8B58A]"
+                                />
+                                <label htmlFor="marketing-deposit" className="text-[10px] text-white/50 uppercase tracking-widest font-light cursor-pointer select-none leading-relaxed">
+                                    I would like to receive exclusive travel updates and mountain sanctuary discoveries from Swissperiences.
+                                </label>
+                            </div>
+
+                            <div className="flex justify-between items-center text-sm pt-2">
                                 <span className="text-white/70">Deposit Amount</span>
                                 <span className="text-xl font-light text-white">CHF 500.00</span>
                             </div>
                             <div className="h-px bg-white/10 w-full"></div>
                         </div>
 
-                        <Button
-                            type="submit"
-                            className="w-full h-14 bg-white text-black hover:bg-white/90 rounded-xl text-xs uppercase tracking-widest font-medium transition-all duration-500"
-                            disabled={isLoading}
-                        >
-                            {isLoading ? (
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            ) : (
-                                <span className="flex items-center gap-2">
-                                    Proceed to Payment <ArrowRight size={14} />
-                                </span>
-                            )}
-                        </Button>
+                        <div className="space-y-3">
+                            <Button
+                                type="submit"
+                                className="w-full h-14 bg-white text-black hover:bg-white/90 rounded-xl text-xs uppercase tracking-widest font-medium transition-all duration-500"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                ) : (
+                                    <span className="flex items-center gap-2">
+                                        Proceed to Payment <ArrowRight size={14} />
+                                    </span>
+                                )}
+                            </Button>
+                            <p className="text-[9px] text-center text-white/20 tracking-widest uppercase font-light">
+                                You can unsubscribe at any time.
+                            </p>
+                        </div>
                     </form>
 
                     <div className="mt-6 flex flex-col items-center justify-center gap-2 text-[10px] text-white/30">
