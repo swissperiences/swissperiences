@@ -116,3 +116,5 @@ const Index = () => {
 };
 
 export default Index;
+
+// Hard Reset Timestamp: 2026-01-24T01:55:00Z - Force Vercel Rebuild
