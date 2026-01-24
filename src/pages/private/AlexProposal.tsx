@@ -1,5 +1,5 @@
 
-import { ArrowRight, Check, Calendar, Lock, Users, Camera, Mountain, Train, Plus, Play } from "lucide-react";
+import { ArrowRight, Check, Calendar, Lock, Users, Camera, Mountain, Train, Plus } from "lucide-react";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
 
@@ -14,14 +14,14 @@ export default function AlexProposal() {
         <div className="bg-neutral-950 min-h-screen text-white font-sans selection:bg-switz-red selection:text-white">
             <Navigation onWaitlistClick={() => window.location.href = "mailto:caueh@swissperiences.ch?subject=Confirming Alex Proposal"} />
 
-            <main className="pt-32 pb-24 px-6 md:px-12 max-w-5xl mx-auto">
+            <main className="pt-24 pb-16 px-5 md:px-12 max-w-5xl mx-auto">
 
                 {/* Header Section */}
                 <section className="mb-24 relative">
                     <span className="text-switz-red text-[10px] font-bold tracking-[0.3em] uppercase block mb-6 animate-fade-in">
                         Proposta Privada // Ref: #001-A
                     </span>
-                    <h1 className="text-5xl md:text-7xl font-serif text-white mb-8 leading-[1.1] animate-fade-in delay-100">
+                    <h1 className="text-4xl md:text-7xl font-serif text-white mb-8 leading-[1.1] animate-fade-in delay-100">
                         The Silent Alps <br /> para <span className="italic text-white/50">{proposalDetails.clientName}</span>.
                     </h1>
                     <p className="text-xl text-white/60 font-light max-w-2xl leading-relaxed animate-fade-in delay-200">
