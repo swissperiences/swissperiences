@@ -2,37 +2,37 @@
   "hero": {
     "title": "Suíça.",
     "subtitle": "Um estado de espírito.",
-    "tagline1": "Natureza imersiva. Para quem busca menos barulho e mais sentimento.",
-    "tagline2": "Experiências suíças curadas — de momentos íntimos a jornadas imersivas.",
-    "microPhrase": "Consultas limitadas. Curado individualmente.",
+    "tagline1": "Natureza imersiva. Para quem busca menos ruído e mais sentimento.",
+    "tagline2": "Experiências suíças sob medida — de santuários privados a descobertas artesanais.",
+    "microPhrase": "Convites são limitados. Acesso concedido apenas por solicitação.",
     "cta": "Solicitar Acesso"
   },
   "whatWeCurate": {
-    "heading": "O Que Oferecemos",
+    "heading": "Os Elementos Swissperiences",
     "villarsRetreat": {
-      "title": "Villars Alpine Retreat",
-      "description": "Santuário de 4 quartos próximo à estação de esqui com guia local",
-      "audience": "A partir de CHF 4.500/semana"
+      "title": "O Santuário",
+      "description": "Base boutique de 4 quartos em Villars-sur-Ollon.",
+      "audience": "Consulte detalhes"
     },
     "roadJourney": {
-      "title": "Jornada nos Alpes Suíços",
-      "description": "Passeios curados em Range Rover de luxo para joias escondidas da Suíça",
-      "audience": "A partir de CHF 950/dia"
+      "title": "Logística Premium",
+      "description": "Experiência Privada Range Rover. A partir de CHF 850 (Meio-Dia) / CHF 1.500 (Dia Inteiro).",
+      "audience": "Solicitar Day Pass"
     },
     "droneMemories": {
-      "title": "Memórias Suíças Cinemáticas",
-      "description": "Videografia profissional com drone da sua aventura suíça",
-      "audience": "A partir de CHF 800/sessão"
+      "title": "Documentação Cinematográfica",
+      "description": "Sessão Profissional de Drone e Conteúdo. CHF 600 (Inclui reel editado).",
+      "audience": "Captura cinematográfica automatizada"
     },
     "luxuryPackage": {
-      "title": "Semana de Luxo em Villars",
-      "description": "7 noites all-inclusive: acomodação, passeios e documentação em vídeo",
-      "audience": "High-ticket: CHF 8,000-12,000 para grupos de 4-6"
+      "title": "Villars Luxury Week",
+      "description": "O modelo dos nossos Retiros Signature. Disponível para grupos privados sob consulta.",
+      "audience": "Modelo Signature Cohort"
     },
     "bespokeJourney": {
       "title": "Jornada Suíça Sob Medida",
-      "description": "Experiência multi-dia totalmente personalizada pelas regiões suíças",
-      "audience": "Ultra-premium: CHF 15,000+ para jornadas de 7-10 dias"
+      "description": "Jornadas personalizadas ultra-premium para joias suíças escondidas.",
+      "audience": "Personalização Ultra-Premium"
     },
     "footer": "Atendimento multilíngue (EN/PT/ES). Cada experiência é curada pessoalmente."
   },
