@@ -99,10 +99,12 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
           {/* Compact Luxury Pill */}
           <motion.div
             animate={{
-              backgroundColor: scrolled ? 'rgba(0, 0, 0, 0.85)' : 'rgba(0, 0, 0, 0.7)',
+              backgroundColor: scrolled ? 'rgba(20, 20, 20, 0.4)' : 'rgba(20, 20, 20, 0.2)',
+              borderColor: scrolled ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
+              backdropFilter: scrolled ? 'blur(16px)' : 'blur(8px)',
             }}
             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            className="flex items-center gap-4 md:gap-8 py-2 px-6 md:px-8 rounded-full border border-white/10 backdrop-blur-2xl shadow-2xl pointer-events-auto mx-4 min-h-[44px]"
+            className="flex items-center gap-4 md:gap-8 py-2 px-6 md:px-8 rounded-full border shadow-[0_8px_32px_rgba(0,0,0,0.12)] pointer-events-auto mx-4 min-h-[44px]"
           >
             {/* Logo */}
             <Link

@@ -3,52 +3,7 @@ import { useScroll } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { cn } from "@/lib/utils";
-
-const journals = [
-    {
-        id: "wagner",
-        title: "The Winter Ascent",
-        guests: "Wagner, Andreia & Helena",
-        quote: "One weekend. A lifetime of memories.",
-        description: "A seamless 48-hour condensed Grand Tour. From Geneva's urban luxury to the deep heart of the Bernese Oberland.",
-        itinerary: [
-            {
-                day: "Saturday Morning",
-                title: "From City to Vines",
-                description: "Departing Geneva, we drove along Lac Léman to the Lavaux UNESCO Vineyards. A private drive through the hanging terraces with Andreia, Helena, and Wagner soaking in the lake views.",
-                image: "/images/guests/wagner/1.jpeg",
-                position: "object-top"
-            },
-            {
-                day: "Saturday Afternoon",
-                title: "The Bernese Oberland",
-                description: "Climbing towards Interlaken and Grindelwald. We explored the valley floor and ascended to the viewpoints, surrounded by the Eiger, Mönch, and Jungfrau.",
-                image: "/images/guests/wagner/2.jpeg"
-            }
-        ]
-    },
-    {
-        id: "ale-alex",
-        title: "The Alpine Protocol",
-        guests: "Ale & Alex",
-        quote: "Precision meets the peak state.",
-        description: "A high-altitude narrative following the transition from urban Geneva to the rugged summits of the Swiss Alps.",
-        itinerary: [
-            {
-                day: "Day 01 // Departure",
-                title: "Urban Origins",
-                description: "Leaving the city behind. A final moment at the Pont de la Machine.",
-                image: "/images/guests/ale_alex/1.jpg"
-            },
-            {
-                day: "Day 01 // The Ascent",
-                title: "The Balcony",
-                description: "Mont Salève. Looking back at Geneva from above.",
-                image: "/images/guests/ale_alex/2.jpg"
-            }
-        ]
-    }
-];
+import { journals } from "@/data/journals";
 
 export default function JourneyTimeline() {
     const { t, i18n } = useTranslation('home');
@@ -82,20 +37,31 @@ export default function JourneyTimeline() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
                     {journals.map((journal) => (
-                        <div key={journal.id} className="relative">
+                        <div key={journal.id} className="relative flex flex-col h-full">
 
                             {/* Journal Header */}
                             <div className="mb-12 text-center lg:text-left">
                                 <h3 className="text-2xl font-serif text-white mb-2">{journal.guests}</h3>
                                 <p className="text-switz-red text-sm uppercase tracking-widest mb-4">{journal.title}</p>
-                                <p className="text-white/60 font-light italic text-sm border-l border-white/20 pl-4">
+                                <p className="text-white/60 font-light italic text-sm border-l border-white/20 pl-4 mb-6">
                                     "{journal.quote}"
                                 </p>
+
+                                {/* New Impact Section for Social Proof */}
+                                <div className="bg-white/5 p-6 rounded-sm border border-white/5 backdrop-blur-sm relative group cursor-pointer hover:bg-white/10 transition-colors" onClick={() => navigate(`/${i18n.language}/journals/${journal.slug}`)}>
+                                    <span className="absolute -top-3 left-4 bg-black px-2 text-[9px] text-switz-red uppercase tracking-[0.2em]">The Impact</span>
+                                    <p className="text-white/80 font-serif text-lg leading-relaxed line-clamp-4">
+                                        "{journal.content[0]}"
+                                    </p>
+                                    <p className="mt-4 text-xs text-white/40 uppercase tracking-widest group-hover:text-switz-red transition-colors flex items-center gap-2">
+                                        Read Story <div className="w-8 h-px bg-white/20 group-hover:bg-switz-red transition-colors" />
+                                    </p>
+                                </div>
                             </div>
 
                             {/* Mini Timeline */}
-                            <div className="space-y-12 border-l border-white/5 pl-8 ml-4 relative">
-                                {journal.itinerary.map((item, index) => (
+                            <div className="space-y-12 border-l border-white/5 pl-8 ml-4 relative flex-grow">
+                                {journal.itinerary.slice(0, 2).map((item, index) => (
                                     <div key={index} className="relative group/item">
                                         {/* Dot */}
                                         <div className="absolute -left-[37.5px] top-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover/item:bg-switz-red transition-colors duration-300" />

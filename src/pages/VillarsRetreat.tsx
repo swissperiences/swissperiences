@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState, Suspense, lazy } from "react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
 
 const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
 
@@ -11,6 +12,13 @@ export default function VillarsRetreat() {
 
     return (
         <div className="bg-neutral-950 min-h-screen text-white pb-24">
+            <SEO
+                title="Villars Alpine Retreat | Private Designer Loft"
+                description="Stay at a private designer loft in Villars-sur-Ollon. Your curated mountain sanctuary with fireplace, sunset views, and alpine soul. Minutes from ski pistes."
+                keywords="villars sur ollon accommodation, swiss alpine loft, luxury chalet villars, private retreat switzerland, designer mountain home"
+                canonical="https://swissperiences.ch/villars-retreat"
+                ogImage="https://www.swissperiences.ch/images/villars-hero.jpg"
+            />
             <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
 
             <main>

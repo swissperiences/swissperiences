@@ -1,10 +1,16 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { motion } from "framer-motion";
 
 export default function Terms() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Terms & Conditions | Swissperiences"
+        description="Swissperiences Terms and Conditions. Information regarding deposits, cancellations, weather policies, and governing law."
+        canonical="https://swissperiences.ch/terms"
+      />
       <Navigation onWaitlistClick={() => { }} />
 
       <main className="pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto">

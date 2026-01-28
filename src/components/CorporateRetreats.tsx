@@ -91,7 +91,7 @@ export default function CorporateRetreats() {
 
       // Send Email Notification (Vercel Function)
       console.log('[Corporate Form] Sending email notification...');
-      const emailResponse = await fetch('http://localhost:3001/api/send-inquiry-email', {
+      const emailResponse = await fetch('/api/send-inquiry-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

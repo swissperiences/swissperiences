@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 
 // Load environment variables from .env file (for local development)
 dotenv.config();
-// import { checkRateLimit } from './lib/rate-limit.js';
+import { checkRateLimit } from './lib/rate-limit.js';
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
@@ -32,7 +32,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ============================================================
     // CORS HEADERS - Allow requests from frontend
     // ============================================================
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -44,6 +44,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    // --- RATE LIMIT CHECK ---
+    const clientIp = req.headers['x-forwarded-for'] as string || 'anonymous';
+    const { success, error: rateLimitError } = await checkRateLimit(clientIp, 'corporate');
+
+    if (!success) {
+        console.warn(`[API] 🛑 Rate limit exceeded for IP: ${clientIp}`);
+        return res.status(429).json({ error: rateLimitError });
     }
 
     const { companyName, contactName, email, teamSize = "", message = "", newsletter_opt_in = true } = req.body;

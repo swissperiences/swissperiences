@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { checkRateLimit } from './lib/rate-limit.js';
 
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL!,
@@ -43,6 +44,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    // --- RATE LIMIT CHECK ---
+    const clientIp = req.headers['x-forwarded-for'] as string || 'anonymous';
+    const { success, error: rateLimitError } = await checkRateLimit(clientIp, 'waitlist');
+
+    if (!success) {
+        console.warn(`[API] 🛑 Rate limit exceeded for IP: ${clientIp}`);
+        return res.status(429).json({ error: rateLimitError });
     }
 
     const {
@@ -254,7 +264,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
 
         if (adminError) {
-            console.error('[API] Resend admin error:', adminError);
+            console.error('[API] ❌ ADMIN EMAIL ERROR:', adminError);
+            // CRITICAL: Throw error to trigger 500 response so frontend knows it failed
+            // This prevents "silent failures" where user thinks it worked but we got nothing.
+            throw new Error(`Failed to send admin notification: ${adminError.message}`);
+        } else {
+            console.log('[API] ✅ Admin notification sent successfully');
         }
 
         // 3. Sync to Resend Audiences (Automation)
@@ -274,7 +289,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         return res.status(200).json({
             success: true,
-            userMessageId: userData?.id
+            userMessageId: userData?.id,
+            timestamp: new Date().toISOString()
         });
 
     } catch (error: unknown) {

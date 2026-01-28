@@ -22,11 +22,13 @@ export default function ToDoPage() {
 
                     {/* Priority 1: Assets */}
                     <section className="space-y-6">
-                        <h2 className="text-2xl font-serif border-l-2 border-switz-red pl-4">1. Gather Assets</h2>
+                        <h2 className="text-2xl font-serif border-l-2 border-switz-red pl-4">1. Gather Assets (Summer Crossing)</h2>
                         <div className="bg-white/5 p-6 rounded-sm border border-white/10 space-y-4">
-                            <TaskItem status="done" text="Upload Range Rover photos" />
-                            <TaskItem status="done" text="Select best 5 apartment photos" />
-                            <TaskItem status="pending" text="Edit 30s drone showreel" />
+                            <TaskItem status="pending" text="Cover: High Alpine Lake (Horizontal)" />
+                            <TaskItem status="pending" text="Day 1: Lavaux Vineyards (Sunny)" />
+                            <TaskItem status="pending" text="Day 1: Sunset over peaks (Gold hour)" />
+                            <TaskItem status="pending" text="Day 2: Lake Brienz boat (Turquoise water)" />
+                            <TaskItem status="pending" text="Day 3: Giessbach Grand Hotel (Historic)" />
                         </div>
                     </section>
 

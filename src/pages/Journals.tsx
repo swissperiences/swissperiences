@@ -5,93 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { cn } from "@/lib/utils";
-
-const journals = [
-    {
-        id: "wagner",
-        title: "The Winter Ascent",
-        guests: "Wagner, Andreia & Helena",
-        quote: "One weekend. A lifetime of memories.",
-        description: "A seamless 48-hour condensed Grand Tour. From Geneva's urban luxury to the deep heart of the Bernese Oberland.",
-        itinerary: [
-            {
-                day: "Saturday Morning",
-                title: "From City to Vines",
-                description: "Departing Geneva, we drove along Lac Léman to the Lavaux UNESCO Vineyards. A private drive through the hanging terraces with Andreia, Helena, and Wagner soaking in the lake views.",
-                image: "/images/guests/wagner/1.jpeg",
-                position: "object-top"
-            },
-            {
-                day: "Saturday Afternoon",
-                title: "The Bernese Oberland",
-                description: "Climbing towards Interlaken and Grindelwald. We explored the valley floor and ascended to the viewpoints, surrounded by the Eiger, Mönch, and Jungfrau.",
-                image: "/images/guests/wagner/2.jpeg"
-            },
-            {
-                day: "The Overnight",
-                title: "Sleeping in the Shadow of Giants",
-                description: "A cozy evening in Grindelwald. Traditional fondue, mountain air, and the silence of the Alps after the day trippers have left.",
-                image: "/images/guests/wagner/3.jpeg"
-            },
-            {
-                day: "Sunday Morning",
-                title: "Valley of Waterfalls",
-                description: "Lauterbrunnen. Walking between the 72 waterfalls with the Swissperiences founder, feeling the spray of the Staubbach, and exploring the cliffs that inspired Tolkien's Rivendell.",
-                image: "/images/guests/wagner/4.jpeg"
-            },
-            {
-                day: "Sunday Early Afternoon",
-                title: "The Blue Jewel",
-                description: "A stop at Blausee Lake. Crystal clear trout waters and ancient pine forests before the scenic drive back descending to Geneva.",
-                image: "/images/guests/wagner/5.jpeg"
-            }
-        ]
-    },
-    {
-        id: "ale-alex",
-        title: "The Alpine Protocol",
-        guests: "Ale & Alex",
-        quote: "Precision meets the peak state.",
-        description: "A high-altitude narrative following the transition from urban Geneva to the rugged summits of the Swiss Alps, balancing mechanical power with human connection.",
-        itinerary: [
-            {
-                day: "Day 01 // Departure",
-                title: "Urban Origins",
-                description: "Leaving the city behind. A final moment at the Pont de la Machine in Geneva before setting our compass towards the mountains.",
-                image: "/images/guests/ale_alex/1.jpg",
-                position: "object-[center_30%]"
-            },
-            {
-                day: "Day 01 // The Ascent",
-                title: "The Balcony",
-                description: "Mont Salève. Crossing the border to look back at the city from above. A moment on the 'Balcony of Geneva' before turning definitively towards the high Alps.",
-                image: "/images/guests/ale_alex/2.jpg",
-                position: "object-top"
-            },
-            {
-                day: "Day 02 // Exploration",
-                title: "Alpine Sanctuary",
-                description: "Settling into the rhythm of the mountains. Exploring the ridges and finding perspective high above the cloud line.",
-                image: "/images/guests/ale_alex/3.jpg",
-                position: "object-[center_20%]"
-            },
-            {
-                day: "Day 02 // Atmosphere",
-                title: "Quiet Moments",
-                description: "Connection in the stillness. The luxury of time spent together, surrounded by the silence of the peaks.",
-                image: "/images/guests/ale_alex/4.jpg",
-                position: "object-center"
-            },
-            {
-                day: "Day 03 // The Return",
-                title: "Lasting Memories",
-                description: "Descending with a new state of mind. The journey ends, but the feeling of the Alps remains.",
-                image: "/images/guests/ale_alex/5.jpg",
-                position: "object-[center_10%]"
-            }
-        ]
-    }
-];
+import { journals } from "@/data/journals";
 
 export default function Journals() {
     const navigate = useNavigate();
@@ -156,6 +70,13 @@ export default function Journals() {
                                             <p className="text-white/50 font-light italic text-sm leading-relaxed mb-8">
                                                 "{journal.description}"
                                             </p>
+
+                                            <button
+                                                onClick={() => navigate(`/journals/${journal.slug}`)}
+                                                className="text-white text-xs uppercase tracking-[0.2em] border-b border-white/20 pb-1 hover:text-switz-red hover:border-switz-red transition-all"
+                                            >
+                                                Read Full Journal
+                                            </button>
                                         </div>
                                     </div>
 
@@ -168,7 +89,8 @@ export default function Journals() {
                                                 whileInView={{ opacity: 1, y: 0 }}
                                                 viewport={{ once: true, margin: "-10%" }}
                                                 transition={{ duration: 0.8 }}
-                                                className="group"
+                                                className="group cursor-pointer"
+                                                onClick={() => navigate(`/journals/${journal.slug}`)}
                                             >
                                                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm mb-8 bg-neutral-900 shadow-2xl grain-overlay">
                                                     <img

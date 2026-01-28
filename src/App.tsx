@@ -23,7 +23,12 @@ const Journals = lazy(() => import("./pages/Journals"));
 const Success = lazy(() => import("./pages/Success"));
 const AdminGallery = lazy(() => import("./pages/AdminGallery"));
 const CinematicMemories = lazy(() => import("./pages/CinematicMemories"));
+const JournalPost = lazy(() => import("./pages/JournalPost"));
 const AlexProposal = lazy(() => import("./pages/private/AlexProposal"));
+const RequestAccess = lazy(() => import("./pages/RequestAccess"));
+const ActivateMembership = lazy(() => import("./pages/ActivateMembership"));
+const ActivateMembershipCallback = lazy(() => import("./pages/ActivateMembershipCallback"));
+const Members = lazy(() => import("./pages/Members"));
 
 const queryClient = new QueryClient();
 
@@ -66,6 +71,7 @@ const App = () => (
                 <Route path="/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
                 <Route path="/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
                 <Route path="/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
+                <Route path="/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
                 <Route path="/success" element={<LanguageWrapper><Success /></LanguageWrapper>} />
                 <Route path="/" element={<LanguageWrapper><Index /></LanguageWrapper>} />
                 <Route path="/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
@@ -73,7 +79,12 @@ const App = () => (
                 <Route path="/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/private/alex-proposal" element={<AlexProposal />} />
-                <Route path="/admin-gallery" element={<AdminGallery />} />
+                <Route path="/admin/gallery" element={<AdminGallery />} />
+                <Route path="/request-access" element={<RequestAccess />} />
+                <Route path="/apply" element={<RequestAccess />} />
+                <Route path="/activate-membership" element={<ActivateMembership />} />
+                <Route path="/activate-membership/callback" element={<ActivateMembershipCallback />} />
+                <Route path="/members" element={<Members />} />
 
                 {/* Standardized language prefixed routes */}
                 <Route path="/:lang" element={<LanguageWrapper><Index /></LanguageWrapper>} />
@@ -83,6 +94,7 @@ const App = () => (
                 <Route path="/:lang/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
                 <Route path="/:lang/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
                 <Route path="/:lang/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
+                <Route path="/:lang/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
                 <Route path="/:lang/success" element={<LanguageWrapper><Success /></LanguageWrapper>} />
                 <Route path="/:lang/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
