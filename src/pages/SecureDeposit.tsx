@@ -30,33 +30,22 @@ export default function SecureDeposit() {
         setIsLoading(true);
 
         try {
-            const response = await fetch("/api/create-checkout-session", {
+            const response = await fetch("https://rhoxismvcalqppbnndew.supabase.co/functions/v1/create-checkout", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    // Authorization header might be needed if you enable Row Level Security or function-level auth
+                    "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`
+                },
                 body: JSON.stringify({
                     email,
                     intent,
-                    tier, // passing as product name context
+                    tier,
                     marketing_opt_in: marketingOptIn
                 }),
             });
 
-            let data;
-            try {
-                const text = await response.text();
-                data = JSON.parse(text);
-            } catch {
-                if (import.meta.env.DEV) {
-                    toast({
-                        title: "Dev Mode: Checkout Simulation",
-                        description: "API unreachable on localhost. Redirecting...",
-                        duration: 3000,
-                    });
-                    setTimeout(() => { window.location.href = "/?payment=success"; }, 1000);
-                    return;
-                }
-                throw new Error("Invalid server response");
-            }
+            const data = await response.json();
 
             if (!response.ok) {
                 throw new Error(data.error || "Failed to initiate payment");
@@ -64,6 +53,8 @@ export default function SecureDeposit() {
 
             if (data.url) {
                 window.location.href = data.url;
+            } else {
+                throw new Error("No checkout URL returned from server.");
             }
         } catch (error: unknown) {
             const err = error as Error;

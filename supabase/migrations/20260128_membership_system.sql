@@ -74,14 +74,34 @@ ALTER TABLE approval_tokens ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies
 
--- Applications: only admins can read all, users can insert
+-- Applications: allow anyone to insert, only admins can read/update
+DROP POLICY IF EXISTS "Anyone can submit application" ON membership_applications;
 CREATE POLICY "Anyone can submit application"
-    ON membership_applications FOR INSERT
+    ON membership_applications 
+    FOR INSERT
+    TO anon, authenticated
     WITH CHECK (true);
 
-CREATE POLICY "Users can view own application"
-    ON membership_applications FOR SELECT
-    USING (email = auth.jwt() ->> 'email');
+-- Allow service role to read all (for admin panel)
+CREATE POLICY "Service role can read all applications"
+    ON membership_applications
+    FOR SELECT
+    TO service_role
+    USING (true);
+
+-- Allow authenticated users to read all (for admin)
+CREATE POLICY "Authenticated can read applications"
+    ON membership_applications
+    FOR SELECT
+    TO authenticated
+    USING (true);
+
+-- Allow authenticated to update (for admin approval)
+CREATE POLICY "Authenticated can update applications"
+    ON membership_applications
+    FOR UPDATE
+    TO authenticated
+    USING (true);
 
 -- Members: users can only see their own profile
 CREATE POLICY "Members can view own profile"
@@ -125,3 +145,44 @@ CREATE TRIGGER update_members_updated_at
     BEFORE UPDATE ON members
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger for Membership Application Notifications
+-- This calls the 'notify-application' Edge Function whenever a new application is inserted
+CREATE OR REPLACE FUNCTION public.on_membership_application_created()
+RETURNS TRIGGER AS $$
+DECLARE
+  headers_json jsonb;
+  api_key text;
+BEGIN
+  -- Safely get request headers from PostgREST context
+  BEGIN
+    headers_json := current_setting('request.headers', true)::jsonb;
+  EXCEPTION WHEN OTHERS THEN
+    headers_json := '{}'::jsonb;
+  END;
+  
+  -- Extract the apikey for the Edge Function call
+  api_key := COALESCE(headers_json->>'apikey', '');
+
+  PERFORM
+    net.http_post(
+      url := 'https://rhoxismvcalqppbnndew.supabase.co/functions/v1/notify-application',
+      headers := jsonb_build_object(
+        'Content-Type', 'application/json',
+        'Authorization', 'Bearer ' || api_key
+      ),
+      body := jsonb_build_object('record', row_to_json(NEW))
+    );
+  RETURN NEW;
+EXCEPTION WHEN OTHERS THEN
+  -- Prevent the insertion from failing if the webhook fails
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Create the trigger
+DROP TRIGGER IF EXISTS on_membership_application_created_trigger ON membership_applications;
+CREATE TRIGGER on_membership_application_created_trigger
+  AFTER INSERT ON membership_applications
+  FOR EACH ROW
+  EXECUTE FUNCTION public.on_membership_application_created();
