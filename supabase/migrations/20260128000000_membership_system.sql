@@ -83,6 +83,7 @@ CREATE POLICY "Anyone can submit application"
     WITH CHECK (true);
 
 -- Allow service role to read all (for admin panel)
+DROP POLICY IF EXISTS "Service role can read all applications" ON membership_applications;
 CREATE POLICY "Service role can read all applications"
     ON membership_applications
     FOR SELECT
@@ -90,6 +91,7 @@ CREATE POLICY "Service role can read all applications"
     USING (true);
 
 -- Allow authenticated users to read all (for admin)
+DROP POLICY IF EXISTS "Authenticated can read applications" ON membership_applications;
 CREATE POLICY "Authenticated can read applications"
     ON membership_applications
     FOR SELECT
@@ -97,6 +99,7 @@ CREATE POLICY "Authenticated can read applications"
     USING (true);
 
 -- Allow authenticated to update (for admin approval)
+DROP POLICY IF EXISTS "Authenticated can update applications" ON membership_applications;
 CREATE POLICY "Authenticated can update applications"
     ON membership_applications
     FOR UPDATE
@@ -104,15 +107,18 @@ CREATE POLICY "Authenticated can update applications"
     USING (true);
 
 -- Members: users can only see their own profile
+DROP POLICY IF EXISTS "Members can view own profile" ON members;
 CREATE POLICY "Members can view own profile"
     ON members FOR SELECT
     USING (auth_user_id = auth.uid());
 
+DROP POLICY IF EXISTS "Members can update own profile" ON members;
 CREATE POLICY "Members can update own profile"
     ON members FOR UPDATE
     USING (auth_user_id = auth.uid());
 
 -- Tokens: only accessible via direct query (service role)
+DROP POLICY IF EXISTS "Tokens are private" ON approval_tokens;
 CREATE POLICY "Tokens are private"
     ON approval_tokens FOR SELECT
     USING (false);
