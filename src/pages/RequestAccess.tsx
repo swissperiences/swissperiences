@@ -43,9 +43,10 @@ const RequestAccess = () => {
             setIsSubmitted(true);
         } catch (error: any) {
             console.error('Error submitting application:', error);
-            if (error.code === '23505') {
+            if (error.code === '23505' || error.message?.includes('duplicate') || error.details?.includes('already exists')) {
                 toast.error("This email has already applied. We'll be in touch soon.");
             } else {
+                console.error('Submission error details:', error);
                 toast.error("Something went wrong. Please try again.");
             }
         } finally {
