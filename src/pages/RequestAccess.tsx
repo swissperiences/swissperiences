@@ -181,16 +181,7 @@ const RequestAccess = () => {
 
                         {/* Social Auth Section */}
                         <div className="space-y-4">
-                            <button
-                                onClick={() => handleSocialLogin('apple')}
-                                disabled={isSubmitting}
-                                className="w-full bg-white text-black py-4 rounded-none flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-neutral-200 transition-all disabled:opacity-50"
-                            >
-                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M17.05 20.28c-.98.95-2.05 1.61-3.22 1.61-1.14 0-1.55-.67-2.91-.67-1.34 0-1.83.65-2.91.67-1.11.02-2.12-.62-3.15-1.61C2.74 18.2 1.5 14.39 1.5 10.74c0-3.64 1.83-5.59 3.59-5.59 1.13 0 2.02.61 2.8 1.11.8.52 1.48 1.13 2.06 1.13.48 0 1.18-.61 2.08-1.13.9-.52 2.05-1.11 3.25-1.11 1.57 0 3.01.81 3.86 2.06-3.13 1.57-2.62 5.51.49 6.81-.88 2.21-1.99 4.31-3.08 6.27zM12.03 7.25c-.07-2.12 1.48-4.04 3.48-5.25-.13 2.4-1.85 4.39-3.48 5.25z" />
-                                </svg>
-                                Continue with Apple
-                            </button>
+
 
                             <button
                                 onClick={() => handleSocialLogin('google')}
