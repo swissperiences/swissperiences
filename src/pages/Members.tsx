@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import { LogOut, MapPin, Calendar, Mail } from "lucide-react";
+import { BookingCalendar } from "@/components/BookingCalendar";
 
 interface Member {
     id: string;
@@ -20,6 +21,10 @@ const Members = () => {
     const navigate = useNavigate();
     const [member, setMember] = useState<Member | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [bookingState, setBookingState] = useState<{ isOpen: boolean; sanctuary: string }>({
+        isOpen: false,
+        sanctuary: ""
+    });
 
     useEffect(() => {
         checkAuth();
@@ -132,8 +137,8 @@ const Members = () => {
                             </div>
                             <div className="text-right">
                                 <span className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-full ${member.membership_status === 'active'
-                                        ? 'bg-emerald-500/20 text-emerald-400'
-                                        : 'bg-white/10 text-white/40'
+                                    ? 'bg-emerald-500/20 text-emerald-400'
+                                    : 'bg-white/10 text-white/40'
                                     }`}>
                                     {member.membership_status}
                                 </span>
@@ -178,7 +183,10 @@ const Members = () => {
                                 <p className="text-white/60 text-sm mb-4">Villars-sur-Ollon, Switzerland</p>
                                 <div className="flex items-center justify-between">
                                     <span className="text-white/40 text-sm">From CHF 1,200/night</span>
-                                    <button className="text-switz-red text-xs uppercase tracking-widest hover:text-white transition-colors">
+                                    <button
+                                        onClick={() => setBookingState({ isOpen: true, sanctuary: "The Alpine Sanctuary" })}
+                                        className="text-switz-red text-xs uppercase tracking-widest hover:text-white transition-colors"
+                                    >
                                         View Dates →
                                     </button>
                                 </div>
@@ -258,6 +266,12 @@ const Members = () => {
                     </div>
                 </div>
             </footer>
+
+            <BookingCalendar
+                sanctuaryName={bookingState.sanctuary}
+                isOpen={bookingState.isOpen}
+                onClose={() => setBookingState({ ...bookingState, isOpen: false })}
+            />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SEO from "@/components/SEO";
+import { Founder } from "@/components/Founder";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -78,9 +79,8 @@ const Index = () => {
 
           {/* The Statement */}
           <div
-            className={`text-center max-w-4xl transition-all duration-[2000ms] ease-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
+            className={`text-center max-w-4xl transition-all duration-[2000ms] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
           >
             {/* Main Headline */}
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8">
@@ -102,9 +102,8 @@ const Index = () => {
 
           {/* CTA */}
           <div
-            className={`mt-16 transition-all duration-[2000ms] delay-500 ease-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
+            className={`mt-16 transition-all duration-[2000ms] delay-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
           >
             <button
               onClick={() => navigate('/request-access')}
@@ -119,9 +118,8 @@ const Index = () => {
 
           {/* Scroll Indicator */}
           <div
-            className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-[2000ms] delay-1000 ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-[2000ms] delay-1000 ${isVisible ? 'opacity-100' : 'opacity-0'
+              }`}
           >
             <div className="flex flex-col items-center gap-3">
               <span className="text-[9px] uppercase tracking-[0.3em] text-white/30">Scroll</span>
@@ -158,6 +156,9 @@ const Index = () => {
 
           </div>
         </section>
+
+        {/* The Host - Founder Section */}
+        <Founder />
 
         {/* Third Section - For Who */}
         <section className="min-h-screen flex flex-col justify-center px-8 py-24 bg-[#0a0a0a]">

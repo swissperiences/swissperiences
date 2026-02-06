@@ -113,6 +113,56 @@ export type Database = {
         }
         Relationships: []
       }
+      members: {
+        Row: {
+          id: string
+          auth_user_id: string
+          full_name: string
+          email: string
+          avatar_url: string | null
+          city: string | null
+          country: string | null
+          membership_tier: string
+          membership_status: string
+          joined_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          auth_user_id: string
+          full_name: string
+          email: string
+          avatar_url?: string | null
+          city?: string | null
+          country?: string | null
+          membership_tier?: string
+          membership_status?: string
+          joined_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          auth_user_id?: string
+          full_name?: string
+          email?: string
+          avatar_url?: string | null
+          city?: string | null
+          country?: string | null
+          membership_tier?: string
+          membership_status?: string
+          joined_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "members_auth_user_id_fkey"
+            columns: ["auth_user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

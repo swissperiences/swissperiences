@@ -29,6 +29,9 @@ const RequestAccess = lazy(() => import("./pages/RequestAccess"));
 const ActivateMembership = lazy(() => import("./pages/ActivateMembership"));
 const ActivateMembershipCallback = lazy(() => import("./pages/ActivateMembershipCallback"));
 const Members = lazy(() => import("./pages/Members"));
+const Admin = lazy(() => import("./pages/Admin"));
+const PendingApproval = lazy(() => import("./pages/PendingApproval"));
+const AuthGuard = lazy(() => import("./components/AuthGuard"));
 
 const queryClient = new QueryClient();
 
@@ -79,12 +82,14 @@ const App = () => (
                 <Route path="/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/private/alex-proposal" element={<AlexProposal />} />
-                <Route path="/admin/gallery" element={<AdminGallery />} />
+                <Route path="/admin" element={<AuthGuard requireAdmin><Admin /></AuthGuard>} />
+                <Route path="/admin/gallery" element={<AuthGuard requireAdmin><AdminGallery /></AuthGuard>} />
                 <Route path="/request-access" element={<RequestAccess />} />
                 <Route path="/apply" element={<RequestAccess />} />
+                <Route path="/pending-approval" element={<PendingApproval />} />
                 <Route path="/activate-membership" element={<ActivateMembership />} />
                 <Route path="/activate-membership/callback" element={<ActivateMembershipCallback />} />
-                <Route path="/members" element={<Members />} />
+                <Route path="/members" element={<AuthGuard><Members /></AuthGuard>} />
 
                 {/* Standardized language prefixed routes */}
                 <Route path="/:lang" element={<LanguageWrapper><Index /></LanguageWrapper>} />
