@@ -24,10 +24,11 @@ const RequestAccess = () => {
     const handleSocialLogin = async (provider: 'google' | 'apple') => {
         setIsSubmitting(true);
         try {
-            // Use production domain (swissperiences.ch) for redirect
-            const redirectUrl = window.location.hostname === 'localhost'
-                ? 'https://swissperiences.ch/members'
-                : `${window.location.origin}/members`;
+            // HARDCODED PRODUCTION URL - DO NOT CHANGE
+            // This ensures we NEVER redirect to localhost, regardless of environment
+            const redirectUrl = 'https://swissperiences.ch/members';
+
+            console.log('Initiating OAuth with redirect:', redirectUrl);
 
             const { error } = await supabase.auth.signInWithOAuth({
                 provider,
