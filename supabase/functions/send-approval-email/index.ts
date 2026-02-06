@@ -74,7 +74,7 @@ serve(async (req) => {
 
   <p>You now have full access to our collection and booking calendar.</p>
 
-  <a href="https://swissperiences.ch/members" class="button">Enter The Sanctuary</a>
+  <a href="https://swissperiences.ch/login" class="button">Enter The Sanctuary</a>
 
   <p style="margin-top: 40px;">See you in the mountains.</p>
 

@@ -35,7 +35,7 @@ const Members = () => {
             const { data: { user } } = await supabase.auth.getUser();
 
             if (!user) {
-                navigate('/request-access');
+                navigate('/login');
                 return;
             }
 
@@ -43,7 +43,7 @@ const Members = () => {
             const { data: memberData, error } = await supabase.rpc('get_member_profile');
 
             if (error || !memberData) {
-                navigate('/request-access');
+                navigate('/login');
                 return;
             }
 
@@ -61,7 +61,7 @@ const Members = () => {
             });
         } catch (error) {
             console.error('Error checking auth:', error);
-            navigate('/request-access');
+            navigate('/login');
         } finally {
             setIsLoading(false);
         }

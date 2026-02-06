@@ -25,8 +25,8 @@ const RequestAccess = () => {
         setIsSubmitting(true);
         try {
             // HARDCODED PRODUCTION URL - DO NOT CHANGE
-            // This ensures we NEVER redirect to localhost, regardless of environment
-            const redirectUrl = 'https://swissperiences.ch/members';
+            // Redirects to auth callback with apply flow (creates application from Google profile)
+            const redirectUrl = 'https://swissperiences.ch/auth/callback?flow=apply';
 
             console.log('Initiating OAuth with redirect:', redirectUrl);
 

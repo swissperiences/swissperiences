@@ -26,8 +26,8 @@ const CinematicMemories = lazy(() => import("./pages/CinematicMemories"));
 const JournalPost = lazy(() => import("./pages/JournalPost"));
 const AlexProposal = lazy(() => import("./pages/private/AlexProposal"));
 const RequestAccess = lazy(() => import("./pages/RequestAccess"));
-const ActivateMembership = lazy(() => import("./pages/ActivateMembership"));
-const ActivateMembershipCallback = lazy(() => import("./pages/ActivateMembershipCallback"));
+const Login = lazy(() => import("./pages/Login"));
+const AuthCallback = lazy(() => import("./pages/AuthCallback"));
 const Members = lazy(() => import("./pages/Members"));
 const Admin = lazy(() => import("./pages/Admin"));
 const PendingApproval = lazy(() => import("./pages/PendingApproval"));
@@ -86,9 +86,9 @@ const App = () => (
                 <Route path="/admin/gallery" element={<AuthGuard requireAdmin><AdminGallery /></AuthGuard>} />
                 <Route path="/request-access" element={<RequestAccess />} />
                 <Route path="/apply" element={<RequestAccess />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/pending-approval" element={<PendingApproval />} />
-                <Route path="/activate-membership" element={<ActivateMembership />} />
-                <Route path="/activate-membership/callback" element={<ActivateMembershipCallback />} />
                 <Route path="/members" element={<AuthGuard><Members /></AuthGuard>} />
 
                 {/* Standardized language prefixed routes */}

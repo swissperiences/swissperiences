@@ -19,8 +19,8 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                 const { data: { user }, error: userError } = await supabase.auth.getUser();
 
                 if (userError || !user) {
-                    console.log("❌ [AuthGuard] No valid session. Redirecting to /request-access");
-                    navigate("/request-access", { state: { from: location } });
+                    console.log("❌ [AuthGuard] No valid session. Redirecting to /login");
+                    navigate("/login", { state: { from: location } });
                     return;
                 }
 
