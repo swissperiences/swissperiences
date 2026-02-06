@@ -15,21 +15,21 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                console.log("🔒 [AuthGuard] Checking session...");
-                const { data: { session } } = await supabase.auth.getSession();
+                console.log("🔒 [AuthGuard] Checking auth...");
+                const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-                if (!session) {
-                    console.log("❌ [AuthGuard] No session found. Redirecting to /request-access");
+                if (userError || !user) {
+                    console.log("❌ [AuthGuard] No valid session. Redirecting to /request-access");
                     navigate("/request-access", { state: { from: location } });
                     return;
                 }
 
-                console.log("✅ [AuthGuard] Session found for:", session.user.email);
+                console.log("✅ [AuthGuard] Authenticated user:", user.email);
 
                 // Check Admin access
                 if (requireAdmin) {
                     const adminEmails = ['cv@lux-sanctuary.com', 'admin@swissperiences.com', 'cauehvidal@gmail.com'];
-                    if (!adminEmails.includes(session.user.email || "")) {
+                    if (!adminEmails.includes(user.email || "")) {
                         console.warn("⛔ [AuthGuard] Admin required but email not in allowlist.");
                         navigate("/en");
                         return;

@@ -57,9 +57,18 @@ const PendingApproval = () => {
                     </div>
                 </div>
 
-                <div className="mt-16 text-white/20 text-[9px] uppercase tracking-[0.4em] flex items-center justify-center gap-2">
+                <div className="mt-12">
+                    <a
+                        href="/"
+                        className="text-white/30 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
+                    >
+                        &larr; Back to Homepage
+                    </a>
+                </div>
+
+                <div className="mt-8 text-white/20 text-[9px] uppercase tracking-[0.4em] flex items-center justify-center gap-2">
                     <Mail className="w-3 h-3" />
-                    contact@swissperiences.com
+                    hello@swissperiences.ch
                 </div>
             </div>
         </div>

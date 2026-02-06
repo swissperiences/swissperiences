@@ -28,16 +28,14 @@ const Admin = () => {
     const fetchApplications = async () => {
         setIsLoading(true);
         try {
-            const { data, error } = await supabase
-                .from('membership_applications')
-                .select('*')
-                .order('created_at', { ascending: false });
+            // Use admin RPC (server-side auth check)
+            const { data, error } = await supabase.rpc('admin_get_applications');
 
             if (error) throw error;
-            setApplications(data || []);
+            setApplications((data as Application[]) || []);
         } catch (error: any) {
             console.error('Error fetching applications:', error.message);
-            toast.error("Failed to load applications");
+            toast.error("Failed to load applications. Are you an admin?");
         } finally {
             setIsLoading(false);
         }
@@ -45,54 +43,39 @@ const Admin = () => {
 
     const handleStatusUpdate = async (id: string, newStatus: 'approved' | 'rejected', app: Application) => {
         try {
-            // 1. Update Application Status
-            const { error: updateError } = await supabase
-                .from('membership_applications')
-                .update({ status: newStatus, reviewed_at: new Date().toISOString() })
-                .eq('id', id);
+            // Use admin RPC (server-side auth check + proper member creation)
+            const { data, error } = await supabase.rpc('admin_update_application_status', {
+                p_application_id: id,
+                p_new_status: newStatus
+            });
 
-            if (updateError) throw updateError;
+            if (error) throw error;
 
-            // 2. If approved, create a Member record
+            const result = data as { status: string; member_created?: boolean; email: string; full_name: string };
+
             if (newStatus === 'approved') {
-                // We attempt to create the member. 
-                // Note: Realistically, we need the auth_user_id here.
-                // For this demo, we'll try to insert and assume the user is already in auth.users
-                // If it fails due to FKEY, it's because the lead hasn't logged in yet (manual application)
-                const { error: memberError } = await supabase
-                    .from('members')
-                    .insert({
-                        email: app.email,
-                        full_name: app.full_name,
-                        city: app.city,
-                        country: app.country,
-                        membership_tier: 'member',
-                        membership_status: 'active',
-                        auth_user_id: id // Reusing the application ID if it's a social lead, or this might fail
+                // Always send approval email, regardless of member creation
+                try {
+                    console.log('Sending approval email to:', app.email);
+                    const { error: emailError } = await supabase.functions.invoke('send-approval-email', {
+                        body: { email: app.email, fullName: app.full_name }
                     });
 
-                if (memberError) {
-                    console.warn('Member record not created automatically:', memberError.message);
-                    toast.info("Application approved. Lead needs to sign in to complete profile.");
-                } else {
-                    toast.success("Member access granted automatically.");
-
-                    // 3. Send Approval Email
-                    try {
-                        console.log('Sending approval email to:', app.email);
-                        const { error: emailError } = await supabase.functions.invoke('send-approval-email', {
-                            body: { email: app.email, fullName: app.full_name }
-                        });
-
-                        if (emailError) {
-                            console.error('Failed to send email:', emailError);
-                            toast.error("Approved, but failed to send email.");
-                        } else {
-                            toast.success("Approval email sent.");
-                        }
-                    } catch (err) {
-                        console.error('Error invoking email function:', err);
+                    if (emailError) {
+                        console.error('Failed to send email:', emailError);
+                        toast.error("Approved, but failed to send email notification.");
+                    } else {
+                        toast.success("Approval email sent.");
                     }
+                } catch (err) {
+                    console.error('Error invoking email function:', err);
+                    toast.error("Approved, but email notification failed.");
+                }
+
+                if (result.member_created) {
+                    toast.success("Member access granted automatically.");
+                } else {
+                    toast.info("Application approved. Member will be created on first login.");
                 }
             } else {
                 toast.success(`Application ${newStatus}`);
@@ -121,23 +104,6 @@ const Admin = () => {
                     </div>
                 </div>
                 <div className="flex gap-6">
-                    <button
-                        onClick={async () => {
-                            const { error } = await supabase.from('membership_applications').insert({
-                                full_name: "Test Member",
-                                email: `test-${Math.floor(Math.random() * 1000)}@example.com`,
-                                status: 'pending',
-                                referral_source: 'automation-test'
-                            });
-                            if (!error) {
-                                toast.success("Test lead created");
-                                fetchApplications();
-                            }
-                        }}
-                        className="text-xs uppercase tracking-widest text-switz-red hover:text-white transition-colors"
-                    >
-                        Create Test Lead
-                    </button>
                     <a href="/" className="text-xs uppercase tracking-widest text-white/40 hover:text-white transition-colors">Site View</a>
                 </div>
             </nav>
