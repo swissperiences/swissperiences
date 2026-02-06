@@ -2,7 +2,6 @@
 // Triggered when an application is approved
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -10,7 +9,6 @@ const corsHeaders = {
 }
 
 interface ApprovalRequest {
-  applicationId: string;
   email: string;
   fullName: string;
 }
@@ -22,49 +20,30 @@ serve(async (req) => {
   }
 
   try {
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-    )
+    const { email, fullName }: ApprovalRequest = await req.json()
 
-    const { applicationId, email, fullName }: ApprovalRequest = await req.json()
-
-    // Generate a unique token
-    const token = crypto.randomUUID()
-    const expiresAt = new Date()
-    expiresAt.setDate(expiresAt.getDate() + 7) // 7 days expiry
-
-    // Store the token
-    const { error: tokenError } = await supabaseClient
-      .from('approval_tokens')
-      .insert({
-        application_id: applicationId,
-        token: token,
-        expires_at: expiresAt.toISOString()
-      })
-
-    if (tokenError) {
-      throw new Error(`Failed to create token: ${tokenError.message}`)
-    }
-
-    // Build the activation URL
-    const activationUrl = `https://swissperiences.ch/activate-membership?token=${token}`
-
-    // Send email via Resend (or your preferred provider)
+    // Send email via Resend
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
 
-    if (RESEND_API_KEY) {
-      const emailResponse = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${RESEND_API_KEY}`,
-        },
-        body: JSON.stringify({
-          from: 'Swissperiences <hello@swissperiences.ch>',
-          to: [email],
-          subject: 'Welcome to Swissperiences',
-          html: `
+    if (!RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is missing')
+      return new Response(
+        JSON.stringify({ error: 'RESEND_API_KEY is not set' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    const emailResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: 'Swissperiences <hello@swissperiences.ch>',
+        to: [email],
+        subject: 'Welcome to Swissperiences',
+        html: `
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,48 +70,38 @@ serve(async (req) => {
 
   <p>Your application has been approved.</p>
 
-  <p>Welcome to Swissperiences—a private network of curated alpine sanctuaries for those seeking silence in a noisy world.</p>
+  <p>Welcome to Swissperiences—a private network of curated alpine sanctuaries.</p>
 
-  <p>You now have access to our full collection, availability calendar, and member-only experiences.</p>
+  <p>You now have full access to our collection and booking calendar.</p>
 
-  <p>Create your account to continue:</p>
-
-  <a href="${activationUrl}" class="button">Activate Your Membership</a>
-
-  <p>This link expires in 7 days.</p>
+  <a href="https://swissperiences.ch/members" class="button">Enter The Sanctuary</a>
 
   <p style="margin-top: 40px;">See you in the mountains.</p>
 
-  <p><em>— Caueh</em><br>
-  <span style="font-size: 12px; color: #999;">Founder, Swissperiences</span></p>
-
   <div class="footer">
-    <p>Swissperiences · Geneva, Switzerland</p>
-    <p>This email was sent to ${email} because you applied for membership.</p>
+    <p>Swissperiences · Geneva, Switzerland · <a href="https://swissperiences.ch" style="color: #999;">swissperiences.ch</a></p>
   </div>
 </body>
 </html>
           `,
-        }),
-      })
+      }),
+    })
 
-      if (!emailResponse.ok) {
-        const errorData = await emailResponse.text()
-        console.error('Resend error:', errorData)
-        // Don't throw - token is created, email failure shouldn't break the flow
-      }
+    if (!emailResponse.ok) {
+      const errorData = await emailResponse.text()
+      console.error('Resend error:', errorData)
+      return new Response(
+        JSON.stringify({ error: `Resend failed: ${errorData}` }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
     }
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        message: 'Approval email sent',
-        activationUrl // Return for testing purposes
-      }),
+      JSON.stringify({ success: true, message: 'Approval email sent' }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error:', error)
     return new Response(
       JSON.stringify({ error: error.message }),

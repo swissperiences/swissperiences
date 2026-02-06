@@ -76,6 +76,23 @@ const Admin = () => {
                     toast.info("Application approved. Lead needs to sign in to complete profile.");
                 } else {
                     toast.success("Member access granted automatically.");
+
+                    // 3. Send Approval Email
+                    try {
+                        console.log('Sending approval email to:', app.email);
+                        const { error: emailError } = await supabase.functions.invoke('send-approval-email', {
+                            body: { email: app.email, fullName: app.full_name }
+                        });
+
+                        if (emailError) {
+                            console.error('Failed to send email:', emailError);
+                            toast.error("Approved, but failed to send email.");
+                        } else {
+                            toast.success("Approval email sent.");
+                        }
+                    } catch (err) {
+                        console.error('Error invoking email function:', err);
+                    }
                 }
             } else {
                 toast.success(`Application ${newStatus}`);
