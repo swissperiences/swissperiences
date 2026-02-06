@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
@@ -6,8 +6,7 @@ import { LogOut, MapPin, Calendar, Mail } from "lucide-react";
 import { BookingCalendar } from "@/components/BookingCalendar";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
-const WaitlistModal = lazy(() => import("@/components/WaitlistModal"));
+import { WaitlistModal } from "@/components/WaitlistModal";
 
 interface Member {
     id: string;
