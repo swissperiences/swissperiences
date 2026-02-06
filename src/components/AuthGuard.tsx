@@ -29,35 +29,34 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                         navigate("/en"); // Not an admin
                         return;
                     }
-                }
-
-                // Check membership status for /members
-                if (!requireAdmin && location.pathname.includes('/members')) {
-                    const { data: application, error } = await supabase
-                        .from('membership_applications')
-                        .select('status')
+                } else {
+                    // Check Member access - Query DB directly to avoid stale session issues
+                    // We check if a member record exists and is active for this email
+                    const { data: memberData, error } = await supabase
+                        .from('members')
+                        .select('membership_status')
                         .eq('email', session.user.email)
-                        .single();
+                        .maybeSingle();
 
-                    if (error || !application) {
-                        // If no application found but logged in, maybe they are a manually added member
-                        const { data: member } = await supabase
-                            .from('members')
-                            .select('membership_status')
+                    // If no member record, or status is not active, check applications
+                    if (!memberData || memberData.membership_status !== 'active') {
+                        // Check if they have a pending application
+                        const { data: application } = await supabase
+                            .from('membership_applications')
+                            .select('status')
                             .eq('email', session.user.email)
-                            .single();
+                            .maybeSingle();
 
-                        if (!member) {
+                        if (application?.status === 'pending') {
+                            navigate("/pending-approval");
+                            return;
+                        } else {
+                            // No application or rejected or unknown state
                             navigate("/request-access");
                             return;
                         }
-                    } else if (application.status === 'pending') {
-                        navigate("/pending-approval");
-                        return;
-                    } else if (application.status === 'rejected') {
-                        navigate("/request-access"); // Or a rejected page
-                        return;
                     }
+                    // If memberData exists and is active, they are good to go!
                 }
 
                 setIsLoading(false);
