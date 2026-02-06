@@ -153,3 +153,47 @@ CREATE POLICY "Members can update own profile"
     FOR UPDATE
     TO authenticated
     USING (auth_user_id = auth.uid());
+
+-- ============================================================
+-- 3. RPC Function: get_member_profile
+-- Called from Members.tsx to fetch the full member profile.
+-- Uses SECURITY DEFINER to bypass RLS (safe: only returns own data).
+-- ============================================================
+CREATE OR REPLACE FUNCTION public.get_member_profile()
+RETURNS jsonb
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+    v_user_id uuid;
+    v_user_email text;
+    v_member jsonb;
+BEGIN
+    v_user_id := auth.uid();
+    v_user_email := (SELECT email FROM auth.users WHERE id = v_user_id);
+
+    IF v_user_id IS NULL THEN
+        RETURN NULL;
+    END IF;
+
+    SELECT jsonb_build_object(
+        'id', m.id,
+        'full_name', m.full_name,
+        'email', m.email,
+        'avatar_url', m.avatar_url,
+        'city', m.city,
+        'country', m.country,
+        'membership_tier', m.membership_tier,
+        'membership_status', m.membership_status,
+        'joined_at', m.joined_at
+    ) INTO v_member
+    FROM members m
+    WHERE m.auth_user_id = v_user_id OR m.email = v_user_email
+    LIMIT 1;
+
+    RETURN v_member;
+END;
+$$;
+
+GRANT EXECUTE ON FUNCTION public.get_member_profile() TO authenticated;

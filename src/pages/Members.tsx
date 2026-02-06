@@ -39,28 +39,26 @@ const Members = () => {
                 return;
             }
 
-            // Use RPC to ensure member exists and auth_user_id is linked
-            const { data: rpcResult } = await supabase.rpc('get_or_create_member');
-            const result = rpcResult as { status: string; member?: any } | null;
-
-            if (!result || (result.status !== 'found' && result.status !== 'created')) {
-                navigate('/request-access');
-                return;
-            }
-
-            // Now fetch full member data (auth_user_id is guaranteed to be linked)
-            const { data: memberData, error } = await supabase
-                .from('members')
-                .select('*')
-                .eq('auth_user_id', user.id)
-                .single();
+            // Get full member profile via RPC (bypasses RLS)
+            const { data: memberData, error } = await supabase.rpc('get_member_profile');
 
             if (error || !memberData) {
                 navigate('/request-access');
                 return;
             }
 
-            setMember(memberData);
+            const m = memberData as Record<string, any>;
+            setMember({
+                id: m.id || '',
+                full_name: m.full_name || '',
+                email: m.email || user.email || '',
+                avatar_url: m.avatar_url || user.user_metadata?.avatar_url || null,
+                city: m.city || '',
+                country: m.country || '',
+                membership_tier: m.membership_tier || 'founding',
+                membership_status: m.membership_status || 'active',
+                joined_at: m.joined_at || new Date().toISOString(),
+            });
         } catch (error) {
             console.error('Error checking auth:', error);
             navigate('/request-access');
