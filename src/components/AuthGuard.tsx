@@ -20,10 +20,6 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
 
                 if (!session) {
                     console.log("❌ [AuthGuard] No session found. Redirecting to /request-access");
-                    // Only redirect if we are not already there to avoid loop (though /request-access is public usually)
-                    // But AuthGuard wraps protected routes. 
-                    // If we are WRAPPING /request-access with AuthGuard, that's a bug.
-                    // Assuming AuthGuard is only for protected routes:
                     navigate("/request-access", { state: { from: location } });
                     return;
                 }
@@ -39,86 +35,51 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                         return;
                     }
                 } else {
-                    // Check Member access - query by auth_user_id first, fallback to email
-                    // RLS policy allows SELECT by auth_user_id OR email match
-                    console.log("🔍 [AuthGuard] Verifying membership status in DB...");
-                    const { data: memberData, error } = await supabase
-                        .from('members')
-                        .select('membership_status, auth_user_id')
-                        .or(`auth_user_id.eq.${session.user.id},email.eq.${session.user.email}`)
-                        .maybeSingle();
+                    // Check Member access via RPC function (bypasses RLS issues)
+                    console.log("🔍 [AuthGuard] Calling get_or_create_member RPC...");
+                    const { data, error } = await supabase.rpc('get_or_create_member');
 
-                    if (error) console.error("⚠️ [AuthGuard] DB Error:", error);
-                    console.log("📊 [AuthGuard] Member Data:", memberData);
-
-                    // If member exists but auth_user_id is not linked, link it now
-                    if (memberData && !memberData.auth_user_id) {
-                        console.log("🔗 [AuthGuard] Linking auth_user_id to existing member record...");
-                        await supabase
-                            .from('members')
-                            .update({ auth_user_id: session.user.id })
-                            .eq('email', session.user.email);
+                    if (error) {
+                        console.error("⚠️ [AuthGuard] RPC Error:", error);
+                        navigate("/request-access");
+                        return;
                     }
 
-                    if (!memberData || memberData.membership_status !== 'active') {
-                        console.log("⚠️ [AuthGuard] Not active. Checking application status...");
-                        const { data: application } = await supabase
-                            .from('membership_applications')
-                            .select('*')
-                            .eq('email', session.user.email)
-                            .maybeSingle();
+                    console.log("📊 [AuthGuard] RPC Result:", data);
 
-                        console.log("📄 [AuthGuard] Application Data:", application);
+                    const result = data as { status: string; member?: { membership_status: string } };
 
-                        if (application?.status === 'approved') {
-                            console.log("🚑 [AuthGuard] Auto-healing: Application approved but member missing. Creating member...");
-                            const { error: createError } = await supabase
-                                .from('members')
-                                .insert({
-                                    email: application.email,
-                                    full_name: application.full_name,
-                                    city: application.city,
-                                    country: application.country,
-                                    membership_tier: 'founding',
-                                    membership_status: 'active',
-                                    auth_user_id: session.user.id
-                                });
-
-                            if (!createError) {
-                                console.log("✅ [AuthGuard] Member created! Refreshing...");
-                                navigate(0);
+                    switch (result.status) {
+                        case 'found':
+                        case 'created':
+                            if (result.member?.membership_status === 'active') {
+                                console.log("🔓 [AuthGuard] Access granted!");
+                                setIsLoading(false);
                                 return;
-                            } else {
-                                console.error("❌ [AuthGuard] Failed to auto-heal:", createError);
-                                // If insert failed due to duplicate email, try updating auth_user_id
-                                if (createError.code === '23505') {
-                                    console.log("🔄 [AuthGuard] Duplicate found. Updating existing record with auth_user_id...");
-                                    const { error: updateError } = await supabase
-                                        .from('members')
-                                        .update({ auth_user_id: session.user.id })
-                                        .eq('email', session.user.email);
-                                    if (!updateError) {
-                                        console.log("✅ [AuthGuard] Updated auth_user_id! Refreshing...");
-                                        navigate(0);
-                                        return;
-                                    } else {
-                                        console.error("❌ [AuthGuard] Failed to update auth_user_id:", updateError);
-                                    }
-                                }
                             }
-                        }
-
-                        if (application?.status === 'pending') {
-                            navigate("/pending-approval");
-                            return;
-                        } else {
+                            console.log("⚠️ [AuthGuard] Member exists but not active:", result.member?.membership_status);
                             navigate("/request-access");
                             return;
-                        }
+
+                        case 'pending':
+                            console.log("⏳ [AuthGuard] Application pending.");
+                            navigate("/pending-approval");
+                            return;
+
+                        case 'no_application':
+                            console.log("📝 [AuthGuard] No application found.");
+                            navigate("/request-access");
+                            return;
+
+                        default:
+                            console.log("❓ [AuthGuard] Unexpected status:", result.status);
+                            navigate("/request-access");
+                            return;
                     }
                 }
 
-                console.log("🔓 [AuthGuard] Access granted!");
+                // Admin path reaches here
+                console.log("🔓 [AuthGuard] Admin access granted!");
                 setIsLoading(false);
             } catch (error) {
                 console.error("Auth check failed:", error);
