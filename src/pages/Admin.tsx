@@ -104,6 +104,23 @@ const Admin = () => {
                     </div>
                 </div>
                 <div className="flex gap-6">
+                    <button
+                        onClick={async () => {
+                            const { error } = await supabase.from('membership_applications').insert({
+                                full_name: "Test Member",
+                                email: `test-${Math.floor(Math.random() * 1000)}@example.com`,
+                                status: 'pending',
+                                referral_source: 'automation-test'
+                            });
+                            if (!error) {
+                                toast.success("Test lead created");
+                                fetchApplications();
+                            }
+                        }}
+                        className="text-xs uppercase tracking-widest text-switz-red hover:text-white transition-colors"
+                    >
+                        Create Test Lead
+                    </button>
                     <a href="/" className="text-xs uppercase tracking-widest text-white/40 hover:text-white transition-colors">Site View</a>
                 </div>
             </nav>
