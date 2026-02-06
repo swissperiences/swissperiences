@@ -15,50 +15,62 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
+                console.log("🔒 [AuthGuard] Checking session...");
                 const { data: { session } } = await supabase.auth.getSession();
 
                 if (!session) {
+                    console.log("❌ [AuthGuard] No session found. Redirecting to /request-access");
+                    // Only redirect if we are not already there to avoid loop (though /request-access is public usually)
+                    // But AuthGuard wraps protected routes. 
+                    // If we are WRAPPING /request-access with AuthGuard, that's a bug.
+                    // Assuming AuthGuard is only for protected routes:
                     navigate("/request-access", { state: { from: location } });
                     return;
                 }
 
+                console.log("✅ [AuthGuard] Session found for:", session.user.email);
+
                 // Check Admin access
                 if (requireAdmin) {
-                    const adminEmails = ['cv@lux-sanctuary.com', 'admin@swissperiences.com', 'cauehvidal@gmail.com']; // Authorized admins
+                    const adminEmails = ['cv@lux-sanctuary.com', 'admin@swissperiences.com', 'cauehvidal@gmail.com'];
                     if (!adminEmails.includes(session.user.email || "")) {
-                        navigate("/en"); // Not an admin
+                        console.warn("⛔ [AuthGuard] Admin required but email not in allowlist.");
+                        navigate("/en");
                         return;
                     }
                 } else {
-                    // Check Member access - Query DB directly to avoid stale session issues
-                    // We check if a member record exists and is active for this email
+                    // Check Member access
+                    console.log("🔍 [AuthGuard] Verifying membership status in DB...");
                     const { data: memberData, error } = await supabase
                         .from('members')
                         .select('membership_status')
                         .eq('email', session.user.email)
                         .maybeSingle();
 
-                    // If no member record, or status is not active, check applications
+                    if (error) console.error("⚠️ [AuthGuard] DB Error:", error);
+                    console.log("📊 [AuthGuard] Member Data:", memberData);
+
                     if (!memberData || memberData.membership_status !== 'active') {
-                        // Check if they have a pending application
+                        console.log("⚠️ [AuthGuard] Not active. Checking application status...");
                         const { data: application } = await supabase
                             .from('membership_applications')
                             .select('status')
                             .eq('email', session.user.email)
                             .maybeSingle();
 
+                        console.log("📄 [AuthGuard] Application Data:", application);
+
                         if (application?.status === 'pending') {
                             navigate("/pending-approval");
                             return;
                         } else {
-                            // No application or rejected or unknown state
                             navigate("/request-access");
                             return;
                         }
                     }
-                    // If memberData exists and is active, they are good to go!
                 }
 
+                console.log("🔓 [AuthGuard] Access granted!");
                 setIsLoading(false);
             } catch (error) {
                 console.error("Auth check failed:", error);
