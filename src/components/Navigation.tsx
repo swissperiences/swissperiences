@@ -65,19 +65,27 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
       location.pathname === "/pt" ||
       location.pathname === `/${i18n.language}`;
 
-    // Handle hash navigation from other pages (like /journals or /ideas)
+    // Handle hash navigation from other pages (like /members, /journals, /ideas)
     if (!isHomePage) {
-      // Navigate to homepage first, then scroll
-      navigate(location.pathname.startsWith('/pt') ? '/pt' : '/en');
+      // Determine the correct homepage path
+      const homePath = location.pathname.startsWith('/pt') ? '/pt' :
+                       location.pathname.startsWith('/en') ? '/en' : '/';
 
-      // Wait for navigation and mount
-      setTimeout(() => {
-        const id = href.startsWith('#') ? href.substring(1) : href;
+      // Navigate to homepage first, then scroll after page loads
+      navigate(homePath);
+
+      // Use a longer timeout to account for lazy loading of Index page
+      const id = href.startsWith('#') ? href.substring(1) : href;
+      const scrollToSection = (attempts = 0) => {
         const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
+        } else if (attempts < 10) {
+          // Retry every 200ms for up to 2 seconds (lazy load can be slow)
+          setTimeout(() => scrollToSection(attempts + 1), 200);
         }
-      }, 300); // Increased delay to ensure page mount
+      };
+      setTimeout(() => scrollToSection(), 300);
       return;
     }
 
