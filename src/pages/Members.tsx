@@ -39,7 +39,16 @@ const Members = () => {
                 return;
             }
 
-            // Get member data
+            // Use RPC to ensure member exists and auth_user_id is linked
+            const { data: rpcResult } = await supabase.rpc('get_or_create_member');
+            const result = rpcResult as { status: string; member?: any } | null;
+
+            if (!result || (result.status !== 'found' && result.status !== 'created')) {
+                navigate('/request-access');
+                return;
+            }
+
+            // Now fetch full member data (auth_user_id is guaranteed to be linked)
             const { data: memberData, error } = await supabase
                 .from('members')
                 .select('*')
@@ -47,7 +56,6 @@ const Members = () => {
                 .single();
 
             if (error || !memberData) {
-                // User is authenticated but not a member
                 navigate('/request-access');
                 return;
             }
