@@ -39,22 +39,32 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                         return;
                     }
                 } else {
-                    // Check Member access
+                    // Check Member access - query by auth_user_id first, fallback to email
+                    // RLS policy allows SELECT by auth_user_id OR email match
                     console.log("🔍 [AuthGuard] Verifying membership status in DB...");
                     const { data: memberData, error } = await supabase
                         .from('members')
-                        .select('membership_status')
-                        .eq('email', session.user.email)
+                        .select('membership_status, auth_user_id')
+                        .or(`auth_user_id.eq.${session.user.id},email.eq.${session.user.email}`)
                         .maybeSingle();
 
                     if (error) console.error("⚠️ [AuthGuard] DB Error:", error);
                     console.log("📊 [AuthGuard] Member Data:", memberData);
 
+                    // If member exists but auth_user_id is not linked, link it now
+                    if (memberData && !memberData.auth_user_id) {
+                        console.log("🔗 [AuthGuard] Linking auth_user_id to existing member record...");
+                        await supabase
+                            .from('members')
+                            .update({ auth_user_id: session.user.id })
+                            .eq('email', session.user.email);
+                    }
+
                     if (!memberData || memberData.membership_status !== 'active') {
                         console.log("⚠️ [AuthGuard] Not active. Checking application status...");
                         const { data: application } = await supabase
                             .from('membership_applications')
-                            .select('*') // Need all fields to create member
+                            .select('*')
                             .eq('email', session.user.email)
                             .maybeSingle();
 
@@ -62,7 +72,6 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
 
                         if (application?.status === 'approved') {
                             console.log("🚑 [AuthGuard] Auto-healing: Application approved but member missing. Creating member...");
-                            // Auto-heal: Create member record
                             const { error: createError } = await supabase
                                 .from('members')
                                 .insert({
@@ -70,17 +79,32 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                                     full_name: application.full_name,
                                     city: application.city,
                                     country: application.country,
-                                    membership_tier: 'member',
+                                    membership_tier: 'founding',
                                     membership_status: 'active',
                                     auth_user_id: session.user.id
                                 });
 
                             if (!createError) {
                                 console.log("✅ [AuthGuard] Member created! Refreshing...");
-                                navigate(0); // Refresh page to re-run check
+                                navigate(0);
                                 return;
                             } else {
                                 console.error("❌ [AuthGuard] Failed to auto-heal:", createError);
+                                // If insert failed due to duplicate email, try updating auth_user_id
+                                if (createError.code === '23505') {
+                                    console.log("🔄 [AuthGuard] Duplicate found. Updating existing record with auth_user_id...");
+                                    const { error: updateError } = await supabase
+                                        .from('members')
+                                        .update({ auth_user_id: session.user.id })
+                                        .eq('email', session.user.email);
+                                    if (!updateError) {
+                                        console.log("✅ [AuthGuard] Updated auth_user_id! Refreshing...");
+                                        navigate(0);
+                                        return;
+                                    } else {
+                                        console.error("❌ [AuthGuard] Failed to update auth_user_id:", updateError);
+                                    }
+                                }
                             }
                         }
 
