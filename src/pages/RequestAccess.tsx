@@ -346,6 +346,16 @@ const RequestAccess = () => {
                                 </p>
                             </div>
                         </form>
+
+                        <div className="text-center pt-4">
+                            <p className="text-white/30 text-xs mb-2">Already a member?</p>
+                            <a
+                                href="/login"
+                                className="text-white/50 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
+                            >
+                                Sign in →
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

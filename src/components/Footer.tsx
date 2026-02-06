@@ -37,6 +37,7 @@ export default function Footer() {
               <Link to="/journals" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Journals</Link>
               <Link to="/#upcoming-retreats" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Retreats</Link>
               <Link to="/for-teams" className="text-xs hover:text-white transition-colors uppercase tracking-wide">For Teams</Link>
+              <Link to="/login" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Members</Link>
             </div>
           </div>
 
