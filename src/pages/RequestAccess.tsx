@@ -24,9 +24,9 @@ const RequestAccess = () => {
     const handleSocialLogin = async (provider: 'google' | 'apple') => {
         setIsSubmitting(true);
         try {
-            // Use production URL for redirect to avoid localhost issues
+            // Use production domain (swissperiences.ch) for redirect
             const redirectUrl = window.location.hostname === 'localhost'
-                ? 'https://swissperiences.vercel.app/members'
+                ? 'https://swissperiences.ch/members'
                 : `${window.location.origin}/members`;
 
             const { error } = await supabase.auth.signInWithOAuth({
