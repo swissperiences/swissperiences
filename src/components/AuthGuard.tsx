@@ -24,9 +24,7 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
 
                 // Check Admin access
                 if (requireAdmin) {
-                    // Simple admin check: specific email or flag in a profile table
-                    // For now, let's allow it for testing or check a specific email if provided
-                    const adminEmails = ['cv@lux-sanctuary.com', 'admin@swissperiences.com']; // Example
+                    const adminEmails = ['cv@lux-sanctuary.com', 'admin@swissperiences.com', 'cauehvidal@gmail.com']; // Authorized admins
                     if (!adminEmails.includes(session.user.email || "")) {
                         navigate("/en"); // Not an admin
                         return;
