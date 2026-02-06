@@ -54,11 +54,35 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                         console.log("⚠️ [AuthGuard] Not active. Checking application status...");
                         const { data: application } = await supabase
                             .from('membership_applications')
-                            .select('status')
+                            .select('*') // Need all fields to create member
                             .eq('email', session.user.email)
                             .maybeSingle();
 
                         console.log("📄 [AuthGuard] Application Data:", application);
+
+                        if (application?.status === 'approved') {
+                            console.log("🚑 [AuthGuard] Auto-healing: Application approved but member missing. Creating member...");
+                            // Auto-heal: Create member record
+                            const { error: createError } = await supabase
+                                .from('members')
+                                .insert({
+                                    email: application.email,
+                                    full_name: application.full_name,
+                                    city: application.city,
+                                    country: application.country,
+                                    membership_tier: 'member',
+                                    membership_status: 'active',
+                                    auth_user_id: session.user.id
+                                });
+
+                            if (!createError) {
+                                console.log("✅ [AuthGuard] Member created! Refreshing...");
+                                navigate(0); // Refresh page to re-run check
+                                return;
+                            } else {
+                                console.error("❌ [AuthGuard] Failed to auto-heal:", createError);
+                            }
+                        }
 
                         if (application?.status === 'pending') {
                             navigate("/pending-approval");
