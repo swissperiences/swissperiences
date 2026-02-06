@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/i18n/LanguageSwitcher';
 import { Button } from '@/components/ui/button';
 import { cn } from "@/lib/utils";
+import { useAuth } from '@/hooks/use-auth';
 
 interface NavigationProps {
   onWaitlistClick: () => void;
@@ -32,6 +33,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { t, i18n } = useTranslation('common');
+  const { isLoggedIn } = useAuth();
 
   // Generate nav links with translations
   const navLinks = navLinksConfig.map(item => ({
@@ -145,13 +147,23 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             {/* Support Actions */}
             <div className="hidden lg:flex items-center gap-6 shrink-0 border-l border-white/10 pl-6 h-full">
               <LanguageSwitcher />
-              <Button
-                onClick={onWaitlistClick}
-                className="rounded-full px-5 py-1.5 h-9 font-bold tracking-[0.2em] uppercase text-[9px] border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
-                variant="ghost"
-              >
-                Inquire
-              </Button>
+              {isLoggedIn ? (
+                <Button
+                  onClick={() => navigate('/members')}
+                  className="rounded-full px-5 py-1.5 h-9 font-bold tracking-[0.2em] uppercase text-[9px] border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
+                  variant="ghost"
+                >
+                  My Account
+                </Button>
+              ) : (
+                <Button
+                  onClick={onWaitlistClick}
+                  className="rounded-full px-5 py-1.5 h-9 font-bold tracking-[0.2em] uppercase text-[9px] border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
+                  variant="ghost"
+                >
+                  Inquire
+                </Button>
+              )}
             </div>
 
             {/* Mobile Menu Button - 44px Tap Target */}
@@ -196,16 +208,29 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               </div>
 
               {/* Mobile: CTA Button with Glassmorphism */}
-              <Button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onWaitlistClick();
-                }}
-                className="rounded-full w-full mt-7 font-light tracking-widest bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all"
-                variant="ghost"
-              >
-                Check Availability
-              </Button>
+              {isLoggedIn ? (
+                <Button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    navigate('/members');
+                  }}
+                  className="rounded-full w-full mt-7 font-light tracking-widest bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all"
+                  variant="ghost"
+                >
+                  My Account
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onWaitlistClick();
+                  }}
+                  className="rounded-full w-full mt-7 font-light tracking-widest bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all"
+                  variant="ghost"
+                >
+                  Check Availability
+                </Button>
+              )}
             </div>
           </motion.div>
         )}

@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import NewsletterForm from './NewsletterForm';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function Footer() {
   const { t } = useTranslation('common');
+  const { isLoggedIn } = useAuth();
 
   return (
     <footer className="relative border-t border-white/5 bg-black py-24 flex items-center justify-center">
@@ -37,7 +39,9 @@ export default function Footer() {
               <Link to="/journals" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Journals</Link>
               <Link to="/#upcoming-retreats" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Retreats</Link>
               <Link to="/for-teams" className="text-xs hover:text-white transition-colors uppercase tracking-wide">For Teams</Link>
-              <Link to="/login" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Members</Link>
+              <Link to={isLoggedIn ? "/members" : "/login"} className="text-xs hover:text-white transition-colors uppercase tracking-wide">
+                {isLoggedIn ? "My Account" : "Members"}
+              </Link>
             </div>
           </div>
 
