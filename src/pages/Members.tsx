@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import { LogOut, MapPin, Calendar, Mail } from "lucide-react";
 import { BookingCalendar } from "@/components/BookingCalendar";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+
+const WaitlistModal = lazy(() => import("@/components/WaitlistModal"));
 
 interface Member {
     id: string;
@@ -21,6 +25,7 @@ const Members = () => {
     const navigate = useNavigate();
     const [member, setMember] = useState<Member | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
     const [bookingState, setBookingState] = useState<{ isOpen: boolean; sanctuary: string }>({
         isOpen: false,
         sanctuary: ""
@@ -86,35 +91,42 @@ const Members = () => {
         <div className="min-h-screen bg-black">
             <SEO title="Member Area | Swissperiences" />
 
-            {/* Header */}
-            <header className="border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <a href="/" className="text-white font-serif text-xl">Swissperiences</a>
-                    <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-3">
-                            {member.avatar_url ? (
-                                <img
-                                    src={member.avatar_url}
-                                    alt={member.full_name}
-                                    className="w-8 h-8 rounded-full"
-                                />
-                            ) : (
-                                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-sm">
-                                    {member.full_name.charAt(0)}
-                                </div>
-                            )}
-                            <span className="text-white/80 text-sm">{member.full_name}</span>
-                        </div>
-                        <button
-                            onClick={handleSignOut}
-                            className="text-white/40 hover:text-white transition-colors"
-                            title="Sign Out"
-                        >
-                            <LogOut size={18} />
-                        </button>
+            {/* Site Navigation */}
+            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+
+            {/* Member bar — below the floating nav */}
+            <div className="pt-24 border-b border-white/5">
+                <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        {member.avatar_url ? (
+                            <img
+                                src={member.avatar_url}
+                                alt={member.full_name}
+                                className="w-7 h-7 rounded-full"
+                            />
+                        ) : (
+                            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-xs">
+                                {member.full_name.charAt(0)}
+                            </div>
+                        )}
+                        <span className="text-white/60 text-xs uppercase tracking-widest">{member.full_name}</span>
+                        <span className={`text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full ml-2 ${member.membership_status === 'active'
+                            ? 'bg-emerald-500/20 text-emerald-400'
+                            : 'bg-white/10 text-white/40'
+                            }`}>
+                            {member.membership_tier} Member
+                        </span>
                     </div>
+                    <button
+                        onClick={handleSignOut}
+                        className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest"
+                        title="Sign Out"
+                    >
+                        <LogOut size={14} />
+                        <span className="hidden sm:inline">Sign Out</span>
+                    </button>
                 </div>
-            </header>
+            </div>
 
             {/* Main Content */}
             <main className="max-w-7xl mx-auto px-6 py-16">
@@ -262,21 +274,18 @@ const Members = () => {
                 </div>
             </main>
 
-            {/* Footer */}
-            <footer className="border-t border-white/5 py-8">
-                <div className="max-w-7xl mx-auto px-6 flex items-center justify-between text-white/30 text-xs">
-                    <span>© 2026 Swissperiences</span>
-                    <div className="flex gap-6">
-                        <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
-                        <a href="/terms" className="hover:text-white transition-colors">Terms</a>
-                    </div>
-                </div>
-            </footer>
+            {/* Site Footer */}
+            <Footer />
 
             <BookingCalendar
                 sanctuaryName={bookingState.sanctuary}
                 isOpen={bookingState.isOpen}
                 onClose={() => setBookingState({ ...bookingState, isOpen: false })}
+            />
+
+            <WaitlistModal
+                open={isWaitlistOpen}
+                onOpenChange={setIsWaitlistOpen}
             />
         </div>
     );
