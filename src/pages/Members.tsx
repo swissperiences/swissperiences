@@ -95,30 +95,30 @@ const Members = () => {
 
             {/* Member bar — below the floating nav */}
             <div className="pt-24 border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                         {member.avatar_url ? (
                             <img
                                 src={member.avatar_url}
                                 alt={member.full_name}
-                                className="w-7 h-7 rounded-full"
+                                className="w-7 h-7 rounded-full shrink-0"
                             />
                         ) : (
-                            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-xs">
+                            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-xs shrink-0">
                                 {member.full_name.charAt(0)}
                             </div>
                         )}
-                        <span className="text-white/60 text-xs uppercase tracking-widest">{member.full_name}</span>
-                        <span className={`text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full ml-2 ${member.membership_status === 'active'
+                        <span className="text-white/60 text-xs uppercase tracking-widest truncate">{member.full_name}</span>
+                        <span className={`text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full shrink-0 hidden sm:inline ${member.membership_status === 'active'
                             ? 'bg-emerald-500/20 text-emerald-400'
                             : 'bg-white/10 text-white/40'
                             }`}>
-                            {member.membership_tier} Member
+                            {member.membership_tier}
                         </span>
                     </div>
                     <button
                         onClick={handleSignOut}
-                        className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest"
+                        className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest shrink-0"
                         title="Sign Out"
                     >
                         <LogOut size={14} />
@@ -128,7 +128,7 @@ const Members = () => {
             </div>
 
             {/* Main Content */}
-            <main className="max-w-7xl mx-auto px-6 py-16">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
                 {/* Welcome Section */}
                 <div className="mb-16">
                     <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
@@ -144,7 +144,7 @@ const Members = () => {
 
                 {/* Membership Card */}
                 <div className="mb-16">
-                    <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-sm p-8 max-w-md">
+                    <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-sm p-5 sm:p-8 max-w-md">
                         <div className="flex items-start justify-between mb-8">
                             <div>
                                 <span className="text-[10px] uppercase tracking-widest text-white/40 block mb-1">
@@ -163,9 +163,9 @@ const Members = () => {
                         </div>
 
                         <div className="space-y-3 text-sm">
-                            <div className="flex items-center gap-3 text-white/60">
-                                <Mail size={14} />
-                                <span>{member.email}</span>
+                            <div className="flex items-center gap-3 text-white/60 min-w-0">
+                                <Mail size={14} className="shrink-0" />
+                                <span className="truncate">{member.email}</span>
                             </div>
                             {(member.city || member.country) && (
                                 <div className="flex items-center gap-3 text-white/60">
@@ -198,7 +198,7 @@ const Members = () => {
                                 <span className="text-switz-red text-[10px] uppercase tracking-widest">Available</span>
                                 <h3 className="text-xl font-serif text-white mt-2 mb-2">The Alpine Sanctuary</h3>
                                 <p className="text-white/60 text-sm mb-4">Villars-sur-Ollon, Switzerland</p>
-                                <div className="flex items-center justify-between">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                     <span className="text-white/40 text-sm">From CHF 1,200/night</span>
                                     <button
                                         onClick={() => setBookingState({ isOpen: true, sanctuary: "The Alpine Sanctuary" })}
@@ -239,7 +239,7 @@ const Members = () => {
                 {/* Experiences */}
                 <div className="mb-16">
                     <h2 className="text-2xl font-serif text-white mb-8">Experiences</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {[
                             { name: 'Road Journey', price: 'From CHF 850', desc: 'Private Range Rover tours' },
                             { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Professional documentation' },
@@ -264,9 +264,9 @@ const Members = () => {
                         </p>
                         <a
                             href="mailto:hello@swissperiences.ch?subject=Booking Inquiry"
-                            className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-white/90 transition-colors"
+                            className="inline-flex items-center justify-center gap-3 bg-white text-black px-6 sm:px-8 py-4 text-xs sm:text-sm uppercase tracking-widest font-medium hover:bg-white/90 transition-colors w-full sm:w-auto text-center"
                         >
-                            <Mail size={16} />
+                            <Mail size={16} className="shrink-0" />
                             Inquire About Availability
                         </a>
                     </div>
