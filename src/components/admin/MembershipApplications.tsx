@@ -80,16 +80,15 @@ export function MembershipApplications() {
         );
 
         try {
-            const { error } = await supabase
-                .from('membership_applications')
-                .update({
-                    status: newStatus,
-                    reviewed_at: new Date().toISOString(),
-                    reviewed_by: (await supabase.auth.getUser()).data.user?.email || 'admin'
-                })
-                .eq('id', id);
+            // Use admin RPC with server-side auth check
+            const { data, error } = await supabase.rpc('admin_update_application_status', {
+                p_application_id: id,
+                p_new_status: newStatus
+            });
 
             if (error) throw error;
+
+            const result = data as { status: string; member_created?: boolean; email: string; full_name: string };
 
             toast.success(`Application ${newStatus}`);
 
@@ -98,6 +97,12 @@ export function MembershipApplications() {
                 const app = applications.find(a => a.id === id);
                 if (app) {
                     sendApprovalEmail(app);
+                }
+
+                if (result?.member_created) {
+                    toast.success("Member access granted automatically.");
+                } else {
+                    toast.info("Member will be created on first login.");
                 }
             }
         } catch (error) {

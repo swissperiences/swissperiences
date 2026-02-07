@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Lightbulb, Rocket, Target, TriangleAlert } from "lucide-react";
+import { ArrowLeft, ExternalLink, Lightbulb, Rocket, Target } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { calculateGuestPrice, formatCurrency } from "@/lib/revenue-engine";
@@ -77,24 +77,10 @@ export default function AdminGallery() {
     const [inventory, setInventory] = useState<InventoryItem[]>([]);
     const [partners, setPartners] = useState<PartnerItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [configError, setConfigError] = useState<string | null>(null);
     const { toast } = useToast();
 
-    // Initialize Supabase client safely
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-    const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
-
     useEffect(() => {
-        if (!supabaseUrl || !supabaseKey) {
-            console.error("Supabase config missing");
-            setConfigError("Missing Supabase Environment Variables");
-            setIsLoading(false);
-            return;
-        }
-
         const fetchAllData = async () => {
-            if (!supabase) return;
             try {
                 // Fetch Corporate Leads
                 const { data: leadData } = await supabase
@@ -146,10 +132,9 @@ export default function AdminGallery() {
         };
 
         fetchAllData();
-    }, [supabaseUrl, supabaseKey]);
+    }, []);
 
     const toggleTask = async (taskId: string, currentStatus: string) => {
-        if (!supabase) return;
         const newStatus = currentStatus === 'done' ? 'pending' : 'done';
 
         // Optimistic UI update
@@ -180,7 +165,6 @@ export default function AdminGallery() {
     };
 
     const updateInventoryItem = async (id: string, updates: Partial<InventoryItem>) => {
-        if (!supabase) return;
         setInventory(prev => prev.map(item => item.id === id ? { ...item, ...updates } : item));
         try {
             const { error } = await supabase.from('admin_inventory').update(updates).eq('id', id);
@@ -193,7 +177,6 @@ export default function AdminGallery() {
     };
 
     const updatePartnerItem = async (id: string, updates: Partial<PartnerItem>) => {
-        if (!supabase) return;
         setPartners(prev => prev.map(item => item.id === id ? { ...item, ...updates } : item));
         try {
             const { error } = await supabase.from('admin_partners').update(updates).eq('id', id);
@@ -229,18 +212,8 @@ export default function AdminGallery() {
             </header>
 
             <main className="max-w-7xl mx-auto">
-                {configError && (
-                    <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-6 rounded-sm mb-8 flex items-center gap-4 animate-pulse">
-                        <TriangleAlert className="w-6 h-6" />
-                        <div>
-                            <h3 className="font-bold uppercase tracking-widest text-xs">System Alert</h3>
-                            <p className="text-sm">{configError}. Check your .env setup.</p>
-                        </div>
-                    </div>
-                )}
-
                 {/* === STATS SUMMARY === */}
-                {!isLoading && !configError && (
+                {!isLoading && (
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                         <Card className="bg-white/5 border-white/5 text-white">
                             <CardContent className="pt-6">
@@ -326,7 +299,6 @@ export default function AdminGallery() {
                                                             setLeads(leads.map(l => l.id === lead.id ? { ...l, status: newStatus } : l));
 
                                                             // DB update
-                                                            const supabase = createClient(supabaseUrl!, supabaseKey!);
                                                             const { error } = await supabase
                                                                 .from('corporate_inquiries')
                                                                 .update({ status: newStatus })
@@ -334,7 +306,7 @@ export default function AdminGallery() {
 
                                                             if (error) {
                                                                 console.error("Failed to update status:", error);
-                                                                alert("Update failed. Check DB policies.");
+                                                                toast({ title: "Update Failed", description: "Could not update lead status.", variant: "destructive" });
                                                             }
                                                         }}
                                                         className="bg-black/40 border border-white/10 text-[9px] uppercase tracking-widest rounded-full px-2 py-1 text-switz-red cursor-pointer focus:outline-none focus:border-switz-red"
@@ -442,6 +414,9 @@ export default function AdminGallery() {
                                                     <TableCell>
                                                         <input
                                                             type="number"
+                                                            min="0"
+                                                            max="99999"
+                                                            step="10"
                                                             value={item.nightly_rate_base || 0}
                                                             onChange={(e) => updateInventoryItem(item.id, { nightly_rate_base: Number(e.target.value) })}
                                                             className="bg-black/40 border border-white/10 text-xs font-mono text-white/80 w-20 px-2 py-1 rounded focus:border-switz-red outline-none"
@@ -450,6 +425,9 @@ export default function AdminGallery() {
                                                     <TableCell className="text-right">
                                                         <input
                                                             type="number"
+                                                            min="0"
+                                                            max="100"
+                                                            step="1"
                                                             value={item.management_fee_rate}
                                                             onChange={(e) => updateInventoryItem(item.id, { management_fee_rate: Number(e.target.value) })}
                                                             className="bg-black/40 border border-white/10 text-xs font-mono text-white/80 w-16 px-2 py-1 rounded focus:border-switz-red outline-none text-right"
@@ -515,6 +493,9 @@ export default function AdminGallery() {
                                                     <TableCell className="text-right">
                                                         <input
                                                             type="number"
+                                                            min="0"
+                                                            max="100"
+                                                            step="1"
                                                             value={partner.commission_rate}
                                                             onChange={(e) => updatePartnerItem(partner.id, { commission_rate: Number(e.target.value) })}
                                                             className="bg-black/40 border border-white/10 text-xs font-mono text-white/80 w-16 px-2 py-1 rounded focus:border-switz-red outline-none text-right"
