@@ -9,7 +9,8 @@ const Login = () => {
     const handleGoogleLogin = async () => {
         setIsLoading(true);
         try {
-            const redirectUrl = 'https://swissperiences.ch/auth/callback?flow=login';
+            const siteUrl = import.meta.env.VITE_SITE_URL || 'https://swissperiences.ch';
+            const redirectUrl = `${siteUrl}/auth/callback?flow=login`;
 
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',

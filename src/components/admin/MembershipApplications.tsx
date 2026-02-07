@@ -85,7 +85,7 @@ export function MembershipApplications() {
                 .update({
                     status: newStatus,
                     reviewed_at: new Date().toISOString(),
-                    reviewed_by: 'admin' // TODO: Use actual admin user
+                    reviewed_by: (await supabase.auth.getUser()).data.user?.email || 'admin'
                 })
                 .eq('id', id);
 

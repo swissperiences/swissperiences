@@ -86,7 +86,6 @@ export default function AdminGallery() {
     const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
     useEffect(() => {
-        console.log("AdminGallery: Mount");
         if (!supabaseUrl || !supabaseKey) {
             console.error("Supabase config missing");
             setConfigError("Missing Supabase Environment Variables");

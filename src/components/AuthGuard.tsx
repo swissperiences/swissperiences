@@ -15,16 +15,12 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                console.log("🔒 [AuthGuard] Checking auth...");
                 const { data: { user }, error: userError } = await supabase.auth.getUser();
 
                 if (userError || !user) {
-                    console.log("❌ [AuthGuard] No valid session. Redirecting to /login");
                     navigate("/login", { state: { from: location } });
                     return;
                 }
-
-                console.log("✅ [AuthGuard] Authenticated user:", user.email);
 
                 // Check Admin access
                 if (requireAdmin) {
@@ -36,7 +32,6 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                     }
                 } else {
                     // Check Member access via RPC function (bypasses RLS issues)
-                    console.log("🔍 [AuthGuard] Calling get_or_create_member RPC...");
                     const { data, error } = await supabase.rpc('get_or_create_member');
 
                     if (error) {
@@ -45,41 +40,33 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                         return;
                     }
 
-                    console.log("📊 [AuthGuard] RPC Result:", data);
-
                     const result = data as { status: string; member?: { membership_status: string } };
 
                     switch (result.status) {
                         case 'found':
                         case 'created':
                             if (result.member?.membership_status === 'active') {
-                                console.log("🔓 [AuthGuard] Access granted!");
                                 setIsLoading(false);
                                 return;
                             }
-                            console.log("⚠️ [AuthGuard] Member exists but not active:", result.member?.membership_status);
                             navigate("/request-access");
                             return;
 
                         case 'pending':
-                            console.log("⏳ [AuthGuard] Application pending.");
                             navigate("/pending-approval");
                             return;
 
                         case 'no_application':
-                            console.log("📝 [AuthGuard] No application found.");
                             navigate("/request-access");
                             return;
 
                         default:
-                            console.log("❓ [AuthGuard] Unexpected status:", result.status);
                             navigate("/request-access");
                             return;
                     }
                 }
 
                 // Admin path reaches here
-                console.log("🔓 [AuthGuard] Admin access granted!");
                 setIsLoading(false);
             } catch (error) {
                 console.error("Auth check failed:", error);

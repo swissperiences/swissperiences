@@ -56,7 +56,6 @@ const Admin = () => {
             if (newStatus === 'approved') {
                 // Always send approval email, regardless of member creation
                 try {
-                    console.log('Sending approval email to:', app.email);
                     const { error: emailError } = await supabase.functions.invoke('send-approval-email', {
                         body: { email: app.email, fullName: app.full_name }
                     });

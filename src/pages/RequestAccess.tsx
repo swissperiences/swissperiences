@@ -24,11 +24,8 @@ const RequestAccess = () => {
     const handleSocialLogin = async (provider: 'google' | 'apple') => {
         setIsSubmitting(true);
         try {
-            // HARDCODED PRODUCTION URL - DO NOT CHANGE
-            // Redirects to auth callback with apply flow (creates application from Google profile)
-            const redirectUrl = 'https://swissperiences.ch/auth/callback?flow=apply';
-
-            console.log('Initiating OAuth with redirect:', redirectUrl);
+            const siteUrl = import.meta.env.VITE_SITE_URL || 'https://swissperiences.ch';
+            const redirectUrl = `${siteUrl}/auth/callback?flow=apply`;
 
             const { error } = await supabase.auth.signInWithOAuth({
                 provider,

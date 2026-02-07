@@ -15,7 +15,6 @@ const AuthCallback = () => {
     const handleCallback = async () => {
         try {
             const flow = searchParams.get("flow") || "login";
-            console.log("🔄 [AuthCallback] Processing callback, flow:", flow);
 
             // Wait for Supabase to process the OAuth callback
             const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -26,14 +25,10 @@ const AuthCallback = () => {
                 return;
             }
 
-            console.log("✅ [AuthCallback] User authenticated:", user.email);
-
             if (flow === "apply") {
                 // Application flow: create membership application from Google profile
                 const fullName = user.user_metadata?.full_name || user.user_metadata?.name || "";
                 const email = user.email || "";
-
-                console.log("📝 [AuthCallback] Creating application for:", email);
 
                 const { error: insertError } = await supabase
                     .from("membership_applications")
@@ -51,14 +46,12 @@ const AuthCallback = () => {
                         insertError.message?.includes("duplicate") ||
                         insertError.details?.includes("already exists")
                     ) {
-                        console.log("⚠️ [AuthCallback] Application already exists for:", email);
                         // Check if they're already approved
                         const { data: rpcData } = await supabase.rpc("get_or_create_member");
                         const result = rpcData as { status: string; member?: { membership_status: string } } | null;
 
                         if (result?.status === "found" || result?.status === "created") {
                             if (result?.member?.membership_status === "active") {
-                                console.log("🔓 [AuthCallback] Already an active member, redirecting to /members");
                                 navigate("/members", { replace: true });
                                 return;
                             }
@@ -76,12 +69,10 @@ const AuthCallback = () => {
                     return;
                 }
 
-                console.log("✅ [AuthCallback] Application created, redirecting to /pending-approval");
                 navigate("/pending-approval", { replace: true });
 
             } else {
                 // Login flow: go straight to members (AuthGuard handles the rest)
-                console.log("🔑 [AuthCallback] Login flow, redirecting to /members");
                 navigate("/members", { replace: true });
             }
 

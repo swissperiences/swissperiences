@@ -90,7 +90,6 @@ export default function CorporateRetreats() {
       if (error) throw error;
 
       // Send Email Notification (Vercel Function)
-      console.log('[Corporate Form] Sending email notification...');
       const emailResponse = await fetch('/api/send-inquiry-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -109,8 +108,6 @@ export default function CorporateRetreats() {
         console.error('[Corporate Form] Email API error:', errorData);
         throw new Error(`Email sending failed: ${errorData.error || 'Unknown error'}`);
       }
-
-      console.log('[Corporate Form] Email sent successfully!');
 
       toast({
         title: "Request received",
