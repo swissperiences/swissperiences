@@ -35,9 +35,11 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <h4 className="text-xs text-white uppercase tracking-[0.2em] mb-8 font-bold text-switz-red">Explore</h4>
             <div className="flex flex-col gap-4 text-white/40">
-              <Link to="/" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Home</Link>
+              <Link to="/sanctuaries" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Sanctuaries</Link>
+              <Link to="/experiences" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Experiences</Link>
               <Link to="/journals" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Journals</Link>
-              <Link to="/#upcoming-retreats" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Retreats</Link>
+              <Link to="/about" className="text-xs hover:text-white transition-colors uppercase tracking-wide">About</Link>
+              <Link to="/contact" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Contact</Link>
               <Link to="/for-teams" className="text-xs hover:text-white transition-colors uppercase tracking-wide">For Teams</Link>
               <Link to={isLoggedIn ? "/members" : "/login"} className="text-xs hover:text-white transition-colors uppercase tracking-wide">
                 {isLoggedIn ? "My Account" : "Members"}

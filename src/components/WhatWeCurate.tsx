@@ -7,19 +7,19 @@ const pillarsConfig = [
     number: 'I',
     key: 'pillar1', // The Alpine Sanctuary
     image: '/images/villars-feature.jpg',
-    link: '/villars-retreat'
+    link: '/sanctuaries/villars'
   },
   {
     number: 'II',
     key: 'pillar2', // Swiss Alps Road Journey
     image: '/images/range-rover-enhanced.jpg',
-    link: '/road-journey'
+    link: '/experiences/road-journey'
   },
   {
     number: 'III',
     key: 'pillar3', // Cinematic Swiss Memories
     image: '/images/villars-drone.jpg',
-    link: '/cinematic-memories'
+    link: '/experiences/cinematic-memories'
   }
 ];
 

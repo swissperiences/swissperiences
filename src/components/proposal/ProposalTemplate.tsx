@@ -151,7 +151,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                     <section className="mb-32">
                         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 mb-12 border-b border-white/10 pb-4 flex justify-between items-center group">
                             <span>The Residence (The Villars Loft)</span>
-                            <a href="/villars-retreat" target="_blank" className="text-[10px] uppercase tracking-widest text-switz-red hover:text-white transition-colors flex items-center gap-2">
+                            <a href="/sanctuaries/villars" target="_blank" className="text-[10px] uppercase tracking-widest text-switz-red hover:text-white transition-colors flex items-center gap-2">
                                 Explore Full Residence <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                             </a>
                         </h3>
@@ -195,7 +195,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                 <span className="text-switz-red text-[9px] font-bold uppercase tracking-widest block mb-2">High Speed WiFi</span>
                                 <p className="text-[11px] text-white/50 leading-relaxed font-light">Conexão estável para qualquer necessidade remota.</p>
                             </div>
-                            <a href="/villars-retreat" target="_blank" className="bg-switz-red/10 border border-switz-red/30 p-6 rounded-sm flex flex-col items-center justify-center group cursor-pointer transition-all hover:bg-switz-red/20">
+                            <a href="/sanctuaries/villars" target="_blank" className="bg-switz-red/10 border border-switz-red/30 p-6 rounded-sm flex flex-col items-center justify-center group cursor-pointer transition-all hover:bg-switz-red/20">
                                 <span className="text-[10px] uppercase tracking-[0.2em] text-switz-red font-bold">Resort Residence</span>
                                 <span className="text-[9px] uppercase tracking-widest text-white/40 group-hover:text-white transition-colors mt-1 flex items-center gap-2">View Full Specs <ArrowRight className="w-2 h-2" /></span>
                             </a>

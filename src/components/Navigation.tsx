@@ -21,10 +21,10 @@ interface NavigationProps {
 }
 
 const navLinksConfig = [
-  { key: "experiences", href: "#elements" },
-  { key: "journals", href: "#journals" },
-  { key: "host", href: "#founder" },
-  { key: "calendar", href: "#calendar" },
+  { key: "sanctuaries", href: "/sanctuaries" },
+  { key: "experiences", href: "/experiences" },
+  { key: "journals", href: "/journals" },
+  { key: "about", href: "/about" },
 ];
 
 export default function Navigation({ onWaitlistClick }: NavigationProps) {
@@ -35,10 +35,10 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
   const { t, i18n } = useTranslation('common');
   const { isLoggedIn } = useAuth();
 
-  // Generate nav links with translations
+  // Generate nav links with translations — all are now path-based
   const navLinks = navLinksConfig.map(item => ({
-    label: t(`nav.${item.key}`),
-    href: item.href.startsWith('/') ? `/${i18n.language}${item.href}` : item.href,
+    label: t(`nav.${item.key}`, item.key.charAt(0).toUpperCase() + item.key.slice(1)),
+    href: item.href,
   }));
 
   useEffect(() => {
@@ -51,50 +51,8 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-
-    // Handle path navigation (non-hash links)
-    if (href.startsWith("/") && !href.includes("#")) {
-      navigate(href);
-      window.scrollTo(0, 0);
-      return;
-    }
-
-    // Determine if we are on the base "Index" page regardless of language prefix
-    const isHomePage = location.pathname === "/" ||
-      location.pathname === "/en" ||
-      location.pathname === "/pt" ||
-      location.pathname === `/${i18n.language}`;
-
-    // Handle hash navigation from other pages (like /members, /journals, /ideas)
-    if (!isHomePage) {
-      // Determine the correct homepage path
-      const homePath = location.pathname.startsWith('/pt') ? '/pt' :
-                       location.pathname.startsWith('/en') ? '/en' : '/';
-
-      // Navigate to homepage first, then scroll after page loads
-      navigate(homePath);
-
-      // Use a longer timeout to account for lazy loading of Index page
-      const id = href.startsWith('#') ? href.substring(1) : href;
-      const scrollToSection = (attempts = 0) => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        } else if (attempts < 10) {
-          // Retry every 200ms for up to 2 seconds (lazy load can be slow)
-          setTimeout(() => scrollToSection(attempts + 1), 200);
-        }
-      };
-      setTimeout(() => scrollToSection(), 300);
-      return;
-    }
-
-    // Handle hash navigation on the home page itself
-    const id = href.startsWith('#') ? href.substring(1) : href;
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    navigate(href);
+    window.scrollTo(0, 0);
   };
 
   return (

@@ -34,6 +34,14 @@ const PendingApproval = lazy(() => import("./pages/PendingApproval"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AuthGuard = lazy(() => import("./components/AuthGuard"));
 
+// New pages
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Sanctuaries = lazy(() => import("./pages/Sanctuaries"));
+const Experiences = lazy(() => import("./pages/Experiences"));
+const PrivateChef = lazy(() => import("./pages/PrivateChef"));
+const GuidedHikes = lazy(() => import("./pages/GuidedHikes"));
+
 const queryClient = new QueryClient();
 
 // Loading fallback component
@@ -71,11 +79,30 @@ const App = () => (
                 {/* Direct routes without language prefix */}
                 <Route path="/ideas" element={<LanguageWrapper><Ideas /></LanguageWrapper>} />
                 <Route path="/todo" element={<LanguageWrapper><ToDo /></LanguageWrapper>} />
+
+                {/* Sanctuaries */}
+                <Route path="/sanctuaries" element={<LanguageWrapper><Sanctuaries /></LanguageWrapper>} />
+                <Route path="/sanctuaries/villars" element={<LanguageWrapper><VillarsRetreat /></LanguageWrapper>} />
+                {/* Legacy redirect support */}
                 <Route path="/villars-retreat" element={<LanguageWrapper><VillarsRetreat /></LanguageWrapper>} />
+
+                {/* Experiences */}
+                <Route path="/experiences" element={<LanguageWrapper><Experiences /></LanguageWrapper>} />
+                <Route path="/experiences/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
+                <Route path="/experiences/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
+                <Route path="/experiences/private-chef" element={<LanguageWrapper><PrivateChef /></LanguageWrapper>} />
+                <Route path="/experiences/guided-hikes" element={<LanguageWrapper><GuidedHikes /></LanguageWrapper>} />
+                {/* Legacy redirect support */}
                 <Route path="/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
                 <Route path="/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
+
+                {/* Content */}
                 <Route path="/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
                 <Route path="/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
+                <Route path="/about" element={<LanguageWrapper><About /></LanguageWrapper>} />
+                <Route path="/contact" element={<LanguageWrapper><Contact /></LanguageWrapper>} />
+
+                {/* Utility */}
                 <Route path="/success" element={<LanguageWrapper><Success /></LanguageWrapper>} />
                 <Route path="/" element={<LanguageWrapper><Index /></LanguageWrapper>} />
                 <Route path="/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
@@ -96,11 +123,17 @@ const App = () => (
                 <Route path="/:lang" element={<LanguageWrapper><Index /></LanguageWrapper>} />
                 <Route path="/:lang/ideas" element={<LanguageWrapper><Ideas /></LanguageWrapper>} />
                 <Route path="/:lang/todo" element={<LanguageWrapper><ToDo /></LanguageWrapper>} />
-                <Route path="/:lang/villars-retreat" element={<LanguageWrapper><VillarsRetreat /></LanguageWrapper>} />
-                <Route path="/:lang/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
-                <Route path="/:lang/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
+                <Route path="/:lang/sanctuaries" element={<LanguageWrapper><Sanctuaries /></LanguageWrapper>} />
+                <Route path="/:lang/sanctuaries/villars" element={<LanguageWrapper><VillarsRetreat /></LanguageWrapper>} />
+                <Route path="/:lang/experiences" element={<LanguageWrapper><Experiences /></LanguageWrapper>} />
+                <Route path="/:lang/experiences/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
+                <Route path="/:lang/experiences/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
+                <Route path="/:lang/experiences/private-chef" element={<LanguageWrapper><PrivateChef /></LanguageWrapper>} />
+                <Route path="/:lang/experiences/guided-hikes" element={<LanguageWrapper><GuidedHikes /></LanguageWrapper>} />
                 <Route path="/:lang/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
                 <Route path="/:lang/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
+                <Route path="/:lang/about" element={<LanguageWrapper><About /></LanguageWrapper>} />
+                <Route path="/:lang/contact" element={<LanguageWrapper><Contact /></LanguageWrapper>} />
                 <Route path="/:lang/success" element={<LanguageWrapper><Success /></LanguageWrapper>} />
                 <Route path="/:lang/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />

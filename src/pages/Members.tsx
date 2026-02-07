@@ -186,7 +186,7 @@ const Members = () => {
                     <h2 className="text-2xl font-serif text-white mb-8">The Sanctuaries</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Villars */}
-                        <Link to="/villars-retreat" className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/10 hover:border-white/20 transition-colors block">
+                        <Link to="/sanctuaries/villars" className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/10 hover:border-white/20 transition-colors block">
                             <div className="aspect-[4/3] overflow-hidden">
                                 <img
                                     src="/images/villars-hero.jpg"
@@ -241,10 +241,10 @@ const Members = () => {
                     <h2 className="text-2xl font-serif text-white mb-8">Experiences</h2>
                     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {[
-                            { name: 'Road Journey', price: 'From CHF 850', desc: 'Private Range Rover tours', href: '/road-journey' },
-                            { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Professional documentation', href: '/cinematic-memories' },
-                            { name: 'Private Chef', price: 'From CHF 400', desc: 'In-chalet dining', href: null },
-                            { name: 'Guided Hikes', price: 'From CHF 300', desc: 'Expert mountain guides', href: null },
+                            { name: 'Road Journey', price: 'From CHF 850', desc: 'Private Range Rover tours', href: '/experiences/road-journey' },
+                            { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Professional documentation', href: '/experiences/cinematic-memories' },
+                            { name: 'Private Chef', price: 'From CHF 400', desc: 'In-chalet dining', href: '/experiences/private-chef' },
+                            { name: 'Guided Hikes', price: 'From CHF 300', desc: 'Expert mountain guides', href: '/experiences/guided-hikes' },
                         ].map((exp) => {
                             const CardContent = (
                                 <>
