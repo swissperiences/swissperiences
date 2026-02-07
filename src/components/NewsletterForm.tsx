@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Loader2, Check } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function NewsletterForm() {
-    const { t, i18n } = useTranslation('common');
+    const { t } = useTranslation('common');
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -16,21 +17,19 @@ export default function NewsletterForm() {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/send-waitlist-email`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email,
-                    tier: 'Newsletter',
-                    language: i18n.language,
-                    newsletter_opt_in: true,
-                    intent: 'newsletter_signup'
-                }),
-            });
+            const { error } = await supabase
+                .from('waitlist')
+                .insert({ email, newsletter_opt_in: true });
 
-            if (!response.ok) throw new Error('Failed to subscribe');
+            if (error) {
+                // Duplicate email = already subscribed, treat as success
+                if (error.code === '23505') {
+                    setIsSuccess(true);
+                    toast.success(t('newsletter.already', { defaultValue: 'You\'re already on the list.' }));
+                    return;
+                }
+                throw error;
+            }
 
             setIsSuccess(true);
             toast.success(t('newsletter.success', { defaultValue: 'Welcome to the inner circle.' }));
