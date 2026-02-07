@@ -31,6 +31,7 @@ const AuthCallback = lazy(() => import("./pages/AuthCallback"));
 const Members = lazy(() => import("./pages/Members"));
 const Admin = lazy(() => import("./pages/Admin"));
 const PendingApproval = lazy(() => import("./pages/PendingApproval"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 const AuthGuard = lazy(() => import("./components/AuthGuard"));
 
 const queryClient = new QueryClient();
@@ -105,6 +106,9 @@ const App = () => (
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/:lang/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
+
+                {/* 404 catch-all */}
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </BrowserRouter>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import { LogOut, MapPin, Calendar, Mail } from "lucide-react";
@@ -186,7 +186,7 @@ const Members = () => {
                     <h2 className="text-2xl font-serif text-white mb-8">The Sanctuaries</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Villars */}
-                        <div className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/10 hover:border-white/20 transition-colors">
+                        <Link to="/villars-retreat" className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/10 hover:border-white/20 transition-colors block">
                             <div className="aspect-[4/3] overflow-hidden">
                                 <img
                                     src="/images/villars-hero.jpg"
@@ -201,14 +201,14 @@ const Members = () => {
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                     <span className="text-white/40 text-sm">From CHF 1,200/night</span>
                                     <button
-                                        onClick={() => setBookingState({ isOpen: true, sanctuary: "The Alpine Sanctuary" })}
+                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setBookingState({ isOpen: true, sanctuary: "The Alpine Sanctuary" }); }}
                                         className="text-switz-red text-xs uppercase tracking-widest hover:text-white transition-colors"
                                     >
                                         View Dates →
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
 
                         {/* Norway - Coming Soon */}
                         <div className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/5 opacity-60">
@@ -241,17 +241,31 @@ const Members = () => {
                     <h2 className="text-2xl font-serif text-white mb-8">Experiences</h2>
                     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {[
-                            { name: 'Road Journey', price: 'From CHF 850', desc: 'Private Range Rover tours' },
-                            { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Professional documentation' },
-                            { name: 'Private Chef', price: 'From CHF 400', desc: 'In-chalet dining' },
-                            { name: 'Guided Hikes', price: 'From CHF 300', desc: 'Expert mountain guides' },
-                        ].map((exp) => (
-                            <div key={exp.name} className="bg-white/5 border border-white/10 p-6 rounded-sm hover:border-white/20 transition-colors">
-                                <h4 className="text-white font-serif mb-2">{exp.name}</h4>
-                                <p className="text-white/40 text-xs mb-4">{exp.desc}</p>
-                                <span className="text-switz-red text-sm">{exp.price}</span>
-                            </div>
-                        ))}
+                            { name: 'Road Journey', price: 'From CHF 850', desc: 'Private Range Rover tours', href: '/road-journey' },
+                            { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Professional documentation', href: '/cinematic-memories' },
+                            { name: 'Private Chef', price: 'From CHF 400', desc: 'In-chalet dining', href: null },
+                            { name: 'Guided Hikes', price: 'From CHF 300', desc: 'Expert mountain guides', href: null },
+                        ].map((exp) => {
+                            const CardContent = (
+                                <>
+                                    <h4 className="text-white font-serif mb-2">{exp.name}</h4>
+                                    <p className="text-white/40 text-xs mb-4">{exp.desc}</p>
+                                    <span className="text-switz-red text-sm">{exp.price}</span>
+                                    {exp.href && (
+                                        <span className="block text-white/30 text-[10px] uppercase tracking-widest mt-3">View details →</span>
+                                    )}
+                                </>
+                            );
+                            return exp.href ? (
+                                <Link key={exp.name} to={exp.href} className="bg-white/5 border border-white/10 p-4 sm:p-6 rounded-sm hover:border-white/20 transition-colors block">
+                                    {CardContent}
+                                </Link>
+                            ) : (
+                                <div key={exp.name} className="bg-white/5 border border-white/10 p-4 sm:p-6 rounded-sm">
+                                    {CardContent}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
 
