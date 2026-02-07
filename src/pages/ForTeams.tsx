@@ -1,11 +1,9 @@
 import Navigation from "@/components/Navigation";
 import CorporateRetreats from "@/components/CorporateRetreats";
 import Footer from "@/components/Footer";
-import { WaitlistModal } from "@/components/WaitlistModal";
 import TeamsVideoBackground from "@/components/TeamsVideoBackground";
 import { CorporateInquiryForm } from "@/components/CorporateInquiryForm";
 import SEO from "@/components/SEO";
-import { useState } from "react";
 import {
     Accordion,
     AccordionContent,
@@ -14,8 +12,6 @@ import {
 } from "@/components/ui/accordion";
 
 const ForTeams = () => {
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "Service",
@@ -43,7 +39,7 @@ const ForTeams = () => {
 
             {/* All content with relative positioning */}
             <div className="relative z-10">
-                <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+                <Navigation />
                 <main className="pt-20">
                     <CorporateRetreats />
 
@@ -140,10 +136,6 @@ const ForTeams = () => {
                 <Footer />
             </div>
 
-            <WaitlistModal
-                open={isWaitlistOpen}
-                onOpenChange={setIsWaitlistOpen}
-            />
         </div>
     );
 };

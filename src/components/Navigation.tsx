@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from '@/hooks/use-auth';
 
 interface NavigationProps {
-  onWaitlistClick: () => void;
+  onWaitlistClick?: () => void; // deprecated — kept for backward compat, no longer used
 }
 
 const navLinksConfig = [
@@ -123,11 +123,11 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                 </Button>
               ) : (
                 <Button
-                  onClick={onWaitlistClick}
+                  onClick={() => navigate('/login')}
                   className="rounded-full px-5 py-1.5 h-9 font-bold tracking-[0.2em] uppercase text-[9px] border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
                   variant="ghost"
                 >
-                  Inquire
+                  Sign In
                 </Button>
               )}
             </div>
@@ -189,12 +189,12 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                 <Button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
-                    onWaitlistClick();
+                    navigate('/login');
                   }}
                   className="rounded-full w-full mt-7 font-light tracking-widest bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all"
                   variant="ghost"
                 >
-                  Check Availability
+                  Sign In
                 </Button>
               )}
             </div>

@@ -3,6 +3,16 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 
+/**
+ * Unified Auth Callback
+ *
+ * After Google OAuth, this page checks membership status and routes:
+ *   - Active member  → /members
+ *   - Pending application → /pending-approval
+ *   - No application → /request-access (user is signed in, can apply with context)
+ *
+ * Legacy ?flow=apply support: if explicitly applying, create application first.
+ */
 const AuthCallback = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -14,7 +24,7 @@ const AuthCallback = () => {
 
     const handleCallback = async () => {
         try {
-            const flow = searchParams.get("flow") || "login";
+            const flow = searchParams.get("flow");
 
             // Wait for Supabase to process the OAuth callback
             const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -25,8 +35,8 @@ const AuthCallback = () => {
                 return;
             }
 
+            // If explicit apply flow, create application first
             if (flow === "apply") {
-                // Application flow: create membership application from Google profile
                 const fullName = user.user_metadata?.full_name || user.user_metadata?.name || "";
                 const email = user.email || "";
 
@@ -40,40 +50,59 @@ const AuthCallback = () => {
                     });
 
                 if (insertError) {
-                    // Duplicate application = already applied
+                    // Duplicate = already applied, continue to status check below
                     if (
-                        insertError.code === "23505" ||
-                        insertError.message?.includes("duplicate") ||
-                        insertError.details?.includes("already exists")
+                        insertError.code !== "23505" &&
+                        !insertError.message?.includes("duplicate") &&
+                        !insertError.details?.includes("already exists")
                     ) {
-                        // Check if they're already approved
-                        const { data: rpcData } = await supabase.rpc("get_or_create_member");
-                        const result = rpcData as { status: string; member?: { membership_status: string } } | null;
-
-                        if (result?.status === "found" || result?.status === "created") {
-                            if (result?.member?.membership_status === "active") {
-                                navigate("/members", { replace: true });
-                                return;
-                            }
-                        }
-                        if (result?.status === "pending") {
-                            navigate("/pending-approval", { replace: true });
-                            return;
-                        }
-                        // Default: already applied, go to pending
-                        navigate("/pending-approval", { replace: true });
+                        console.error("❌ [AuthCallback] Insert error:", insertError);
+                        setError("Something went wrong creating your application. Please try again.");
                         return;
                     }
-                    console.error("❌ [AuthCallback] Insert error:", insertError);
-                    setError("Something went wrong creating your application. Please try again.");
-                    return;
                 }
+            }
 
-                navigate("/pending-approval", { replace: true });
+            // Unified routing: check actual membership status
+            const { data, error: rpcError } = await supabase.rpc("get_or_create_member");
 
-            } else {
-                // Login flow: go straight to members (AuthGuard handles the rest)
+            if (rpcError) {
+                console.error("❌ [AuthCallback] RPC error:", rpcError);
+                // Fallback: if RPC fails, at least try to go to members (AuthGuard will handle)
                 navigate("/members", { replace: true });
+                return;
+            }
+
+            const result = data as { status: string; member?: { membership_status: string } } | null;
+
+            if (!result) {
+                navigate("/request-access", { replace: true });
+                return;
+            }
+
+            switch (result.status) {
+                case "found":
+                case "created":
+                    if (result.member?.membership_status === "active") {
+                        navigate("/members", { replace: true });
+                        return;
+                    }
+                    // Has member record but not active — shouldn't happen often
+                    navigate("/pending-approval", { replace: true });
+                    return;
+
+                case "pending":
+                    navigate("/pending-approval", { replace: true });
+                    return;
+
+                case "no_application":
+                    // Signed in but never applied → send to request-access with context
+                    navigate("/request-access", { replace: true });
+                    return;
+
+                default:
+                    navigate("/request-access", { replace: true });
+                    return;
             }
 
         } catch (err: any) {
@@ -91,16 +120,16 @@ const AuthCallback = () => {
                     <p className="text-white/60 font-light mb-8">{error}</p>
                     <div className="flex gap-4 justify-center">
                         <a
-                            href="/request-access"
-                            className="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
-                        >
-                            Apply
-                        </a>
-                        <a
                             href="/login"
                             className="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
                         >
-                            Login
+                            Try Again
+                        </a>
+                        <a
+                            href="/"
+                            className="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
+                        >
+                            Home
                         </a>
                     </div>
                 </div>

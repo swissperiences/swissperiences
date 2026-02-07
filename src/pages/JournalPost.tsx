@@ -37,7 +37,7 @@ export default function JournalPost() {
                 description={journal.description}
                 ogImage={journal.coverImage}
             />
-            <Navigation onWaitlistClick={() => navigate("/#upcoming-retreats")} />
+            <Navigation />
 
             <article className="pt-32 pb-24">
                 {/* HERO */}

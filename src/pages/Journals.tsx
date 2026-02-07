@@ -16,7 +16,7 @@ export default function Journals() {
                 title="Guest Journals | Swissperiences"
                 description="Real stories from real travelers. Explore our archive of curated Swiss journeys."
             />
-            <Navigation onWaitlistClick={() => navigate("/#upcoming-retreats")} />
+            <Navigation />
 
             <main className="pt-32 pb-24">
                 <div className="max-w-7xl mx-auto px-6">

@@ -11,7 +11,7 @@ export default function Terms() {
         description="Swissperiences Terms and Conditions. Information regarding deposits, cancellations, weather policies, and governing law."
         canonical="https://swissperiences.ch/terms"
       />
-      <Navigation onWaitlistClick={() => { }} />
+      <Navigation />
 
       <main className="pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto">
         <motion.div

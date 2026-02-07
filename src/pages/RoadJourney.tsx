@@ -1,21 +1,10 @@
 import { motion } from "framer-motion";
-import { useState, Suspense, lazy } from "react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { MapPin, Clock, Users, ArrowRight } from "lucide-react";
 
-const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
-
 export default function RoadJourney() {
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-    const [waitlistTier, setWaitlistTier] = useState<string>("Swiss Alps Road Journey");
-
-    const openWaitlist = () => {
-        setWaitlistTier("Swiss Alps Road Journey");
-        setIsWaitlistOpen(true);
-    };
-
     const routes = [
         {
             title: "Lavaux: The Grand Cru Drive",
@@ -43,7 +32,7 @@ export default function RoadJourney() {
                 canonical="https://swissperiences.ch/experiences/road-journey"
                 ogImage="https://www.swissperiences.ch/images/range-rover-enhanced.jpg"
             />
-            <Navigation onWaitlistClick={openWaitlist} />
+            <Navigation />
 
             <main>
                 {/* Hero Section */}
@@ -125,13 +114,13 @@ export default function RoadJourney() {
                                 </div>
                             ))}
                         </div>
-                        <button
-                            onClick={openWaitlist}
+                        <a
+                            href="/request-access"
                             className="w-full mt-8 flex items-center justify-between bg-white text-black px-6 py-4 uppercase tracking-widest text-xs hover:bg-switz-red hover:text-white transition-colors duration-300"
                         >
                             <span>Plan Your Route</span>
                             <ArrowRight size={16} />
-                        </button>
+                        </a>
                     </div>
                 </section>
 
@@ -152,14 +141,6 @@ export default function RoadJourney() {
             </main>
 
             <Footer />
-
-            <Suspense fallback={null}>
-                <WaitlistModal
-                    open={isWaitlistOpen}
-                    onOpenChange={setIsWaitlistOpen}
-                    selectedTier={waitlistTier}
-                />
-            </Suspense>
 
         </div>
     );

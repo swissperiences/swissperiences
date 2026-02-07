@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState, Suspense, lazy } from "react";
 import { useTranslation } from 'react-i18next';
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
@@ -7,11 +6,8 @@ import SEO from "../components/SEO";
 import { Play, Camera, Wind, Disc } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
-
 export default function CinematicMemories() {
     const { t } = useTranslation('home');
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
     const packages = [
         {
@@ -47,7 +43,7 @@ export default function CinematicMemories() {
                 canonical="https://swissperiences.ch/experiences/cinematic-memories"
                 ogImage="https://www.swissperiences.ch/images/villars-drone.jpg"
             />
-            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+            <Navigation />
 
             <main>
                 {/* Hero Section */}
@@ -201,25 +197,18 @@ export default function CinematicMemories() {
                     <div className="max-w-2xl mx-auto space-y-12">
                         <span className="text-switz-red text-[10px] uppercase tracking-[0.4em] font-bold">{t('cinematic.priceSession')}</span>
                         <h2 className="text-4xl md:text-5xl font-serif">{t('cinematic.footerTitle')}</h2>
-                        <button
-                            onClick={() => setIsWaitlistOpen(true)}
-                            className="bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                        <a
+                            href="/request-access"
+                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
                             {t('cinematic.cta')}
-                        </button>
+                        </a>
                     </div>
                 </section>
             </main>
 
             <Footer />
 
-            <Suspense fallback={null}>
-                <WaitlistModal
-                    open={isWaitlistOpen}
-                    onOpenChange={setIsWaitlistOpen}
-                    selectedTier="Cinematic Swiss Memories"
-                />
-            </Suspense>
         </div>
     );
 }

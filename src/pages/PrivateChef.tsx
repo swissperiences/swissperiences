@@ -1,16 +1,11 @@
 import { motion } from "framer-motion";
-import { useState, Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { Clock, Users, Utensils, ArrowRight } from "lucide-react";
 
-const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
-
 export default function PrivateChef() {
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
     const menus = [
         {
             title: "Alpine Aperitivo",
@@ -40,7 +35,7 @@ export default function PrivateChef() {
                 keywords="private chef switzerland, in-chalet dining, swiss alps dining, luxury catering villars, fondue experience, alpine fine dining"
                 canonical="https://swissperiences.ch/experiences/private-chef"
             />
-            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+            <Navigation />
 
             <main>
                 {/* Hero */}
@@ -125,13 +120,13 @@ export default function PrivateChef() {
                                 </div>
                             ))}
                         </div>
-                        <button
-                            onClick={() => setIsWaitlistOpen(true)}
+                        <a
+                            href="/request-access"
                             className="w-full mt-8 flex items-center justify-between bg-white text-black px-6 py-4 uppercase tracking-widest text-xs hover:bg-switz-red hover:text-white transition-colors duration-300"
                         >
                             <span>Book Your Chef</span>
                             <ArrowRight size={16} />
-                        </button>
+                        </a>
                     </div>
                 </section>
 
@@ -163,13 +158,6 @@ export default function PrivateChef() {
 
             <Footer />
 
-            <Suspense fallback={null}>
-                <WaitlistModal
-                    open={isWaitlistOpen}
-                    onOpenChange={setIsWaitlistOpen}
-                    selectedTier="Private Chef Experience"
-                />
-            </Suspense>
         </div>
     );
 }

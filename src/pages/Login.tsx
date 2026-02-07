@@ -1,16 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
 
+/**
+ * Unified Sign In page
+ *
+ * Single entry point for all auth:
+ * - Existing members sign in → AuthCallback routes to /members
+ * - Pending applicants → AuthCallback routes to /pending-approval
+ * - New users → AuthCallback routes to /request-access (signed in, can apply)
+ *
+ * If user is already signed in, redirect immediately.
+ */
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+
+    // If already signed in, go straight to callback logic
+    useEffect(() => {
+        const checkExistingSession = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                // Already signed in — check status and route
+                const { data } = await supabase.rpc("get_or_create_member");
+                const result = data as { status: string; member?: { membership_status: string } } | null;
+
+                if (result?.status === "found" || result?.status === "created") {
+                    if (result?.member?.membership_status === "active") {
+                        navigate("/members", { replace: true });
+                        return;
+                    }
+                }
+                if (result?.status === "pending") {
+                    navigate("/pending-approval", { replace: true });
+                    return;
+                }
+                if (result?.status === "no_application") {
+                    navigate("/request-access", { replace: true });
+                    return;
+                }
+            }
+        };
+        checkExistingSession();
+    }, [navigate]);
 
     const handleGoogleLogin = async () => {
         setIsLoading(true);
         try {
             const siteUrl = import.meta.env.VITE_SITE_URL || 'https://swissperiences.ch';
-            const redirectUrl = `${siteUrl}/auth/callback?flow=login`;
+            const redirectUrl = `${siteUrl}/auth/callback`;
 
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
@@ -29,23 +69,23 @@ const Login = () => {
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6">
             <SEO
-                title="Member Login | Swissperiences"
-                description="Sign in to access your Swissperiences member area."
+                title="Sign In | Swissperiences"
+                description="Sign in to access your Swissperiences membership or apply for access."
             />
 
             <div className="max-w-sm w-full text-center">
                 <div className="w-16 h-px bg-white/20 mx-auto mb-12" />
 
                 <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-6">
-                    Member Access
+                    Swissperiences
                 </span>
 
                 <h1 className="text-3xl md:text-4xl font-serif text-white mb-4">
-                    Welcome back.
+                    Welcome.
                 </h1>
 
                 <p className="text-white/60 font-light leading-relaxed mb-12">
-                    Sign in to access your sanctuaries and exclusive experiences.
+                    Sign in to access your member area or begin your application.
                 </p>
 
                 <button
@@ -61,18 +101,6 @@ const Login = () => {
                     </svg>
                     {isLoading ? "Connecting..." : "Continue with Google"}
                 </button>
-
-                <div className="w-16 h-px bg-white/20 mx-auto my-12" />
-
-                <p className="text-white/40 text-sm mb-4">
-                    Not a member yet?
-                </p>
-                <a
-                    href="/request-access"
-                    className="text-white/60 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
-                >
-                    Request Access →
-                </a>
 
                 <div className="mt-16">
                     <a

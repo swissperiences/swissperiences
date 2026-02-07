@@ -1,16 +1,11 @@
 import { motion } from "framer-motion";
-import { useState, Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { Clock, Users, Mountain, ArrowRight } from "lucide-react";
 
-const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
-
 export default function GuidedHikes() {
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
     const trails = [
         {
             title: "The Panoramic Circuit",
@@ -40,7 +35,7 @@ export default function GuidedHikes() {
                 keywords="guided hikes switzerland, swiss alps hiking, mountain guide villars, alpine trekking, glacier 3000 hike, swiss mountain experience"
                 canonical="https://swissperiences.ch/experiences/guided-hikes"
             />
-            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+            <Navigation />
 
             <main>
                 {/* Hero */}
@@ -125,13 +120,13 @@ export default function GuidedHikes() {
                                 </div>
                             ))}
                         </div>
-                        <button
-                            onClick={() => setIsWaitlistOpen(true)}
+                        <a
+                            href="/request-access"
                             className="w-full mt-8 flex items-center justify-between bg-white text-black px-6 py-4 uppercase tracking-widest text-xs hover:bg-switz-red hover:text-white transition-colors duration-300"
                         >
                             <span>Book Your Guide</span>
                             <ArrowRight size={16} />
-                        </button>
+                        </a>
                     </div>
                 </section>
 
@@ -163,13 +158,6 @@ export default function GuidedHikes() {
 
             <Footer />
 
-            <Suspense fallback={null}>
-                <WaitlistModal
-                    open={isWaitlistOpen}
-                    onOpenChange={setIsWaitlistOpen}
-                    selectedTier="Guided Alpine Hike"
-                />
-            </Suspense>
         </div>
     );
 }

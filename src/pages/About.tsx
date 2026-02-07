@@ -1,15 +1,10 @@
 import { motion } from "framer-motion";
-import { useState, Suspense, lazy } from "react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { Founder } from "../components/Founder";
 
-const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
-
 export default function About() {
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "AboutPage",
@@ -36,7 +31,7 @@ export default function About() {
                 canonical="https://swissperiences.ch/about"
                 structuredData={structuredData}
             />
-            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+            <Navigation />
 
             <main>
                 {/* Hero Section */}
@@ -198,9 +193,6 @@ export default function About() {
 
             <Footer />
 
-            <Suspense fallback={null}>
-                <WaitlistModal open={isWaitlistOpen} onOpenChange={setIsWaitlistOpen} />
-            </Suspense>
         </div>
     );
 }

@@ -1,15 +1,9 @@
 import { motion } from "framer-motion";
-import { useState, Suspense, lazy } from "react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 
-const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
-
 export default function VillarsRetreat() {
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
-
     return (
         <div className="bg-neutral-950 min-h-screen text-white pb-24">
             <SEO
@@ -19,7 +13,7 @@ export default function VillarsRetreat() {
                 canonical="https://swissperiences.ch/sanctuaries/villars"
                 ogImage="https://www.swissperiences.ch/images/villars-hero.jpg"
             />
-            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+            <Navigation />
 
             <main>
                 {/* Hero Section */}
@@ -221,28 +215,20 @@ export default function VillarsRetreat() {
 
                     {/* CTA Section - Fixed Alignment */}
                     <div className="mt-16 md:mt-24">
-                        <button
-                            onClick={() => setIsWaitlistOpen(true)}
-                            className="bg-white text-black px-12 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 group relative overflow-hidden"
+                        <a
+                            href="/request-access"
+                            className="inline-block bg-white text-black px-12 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 group relative overflow-hidden"
                         >
                             <span className="relative z-10 flex items-center gap-2">
                                 Check Availability
                                 <div className="w-0 group-hover:w-4 h-px bg-white transition-all duration-500" />
                             </span>
-                        </button>
+                        </a>
                     </div>
                 </section>
             </main>
 
             <Footer />
-
-            <Suspense fallback={null}>
-                <WaitlistModal
-                    open={isWaitlistOpen}
-                    onOpenChange={setIsWaitlistOpen}
-                    selectedTier="Villars Alpine Retreat"
-                />
-            </Suspense>
 
         </div>
     );

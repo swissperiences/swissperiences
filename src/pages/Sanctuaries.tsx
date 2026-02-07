@@ -1,16 +1,11 @@
 import { motion } from "framer-motion";
-import { useState, Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { ArrowRight } from "lucide-react";
 
-const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
-
 export default function Sanctuaries() {
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -38,7 +33,7 @@ export default function Sanctuaries() {
                 canonical="https://swissperiences.ch/sanctuaries"
                 structuredData={structuredData}
             />
-            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+            <Navigation />
 
             <main>
                 {/* Hero Section */}
@@ -199,9 +194,6 @@ export default function Sanctuaries() {
 
             <Footer />
 
-            <Suspense fallback={null}>
-                <WaitlistModal open={isWaitlistOpen} onOpenChange={setIsWaitlistOpen} />
-            </Suspense>
         </div>
     );
 }

@@ -1,15 +1,10 @@
 import { motion } from "framer-motion";
-import { useState, Suspense, lazy } from "react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { Mail, MapPin, MessageCircle } from "lucide-react";
 
-const WaitlistModal = lazy(() => import("../components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
-
 export default function Contact() {
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "ContactPage",
@@ -34,7 +29,7 @@ export default function Contact() {
                 canonical="https://swissperiences.ch/contact"
                 structuredData={structuredData}
             />
-            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+            <Navigation />
 
             <main>
                 {/* Hero */}
@@ -162,9 +157,6 @@ export default function Contact() {
 
             <Footer />
 
-            <Suspense fallback={null}>
-                <WaitlistModal open={isWaitlistOpen} onOpenChange={setIsWaitlistOpen} />
-            </Suspense>
         </div>
     );
 }

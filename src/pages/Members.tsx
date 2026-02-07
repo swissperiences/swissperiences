@@ -6,7 +6,6 @@ import { LogOut, MapPin, Calendar, Mail } from "lucide-react";
 import { BookingCalendar } from "@/components/BookingCalendar";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { WaitlistModal } from "@/components/WaitlistModal";
 
 interface Member {
     id: string;
@@ -24,7 +23,6 @@ const Members = () => {
     const navigate = useNavigate();
     const [member, setMember] = useState<Member | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
     const [bookingState, setBookingState] = useState<{ isOpen: boolean; sanctuary: string }>({
         isOpen: false,
         sanctuary: ""
@@ -91,7 +89,7 @@ const Members = () => {
             <SEO title="Member Area | Swissperiences" />
 
             {/* Site Navigation */}
-            <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
+            <Navigation />
 
             {/* Member bar — below the floating nav */}
             <div className="pt-24 border-b border-white/5">
@@ -296,10 +294,6 @@ const Members = () => {
                 onClose={() => setBookingState({ ...bookingState, isOpen: false })}
             />
 
-            <WaitlistModal
-                open={isWaitlistOpen}
-                onOpenChange={setIsWaitlistOpen}
-            />
         </div>
     );
 };
