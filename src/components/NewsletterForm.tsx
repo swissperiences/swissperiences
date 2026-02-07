@@ -17,22 +17,18 @@ export default function NewsletterForm() {
         setIsLoading(true);
 
         try {
-            const { error } = await supabase
-                .from('waitlist')
-                .insert({ email, newsletter_opt_in: true });
+            const { data, error } = await supabase.functions.invoke('newsletter-signup', {
+                body: { email },
+            });
 
-            if (error) {
-                // Duplicate email = already subscribed, treat as success
-                if (error.code === '23505') {
-                    setIsSuccess(true);
-                    toast.success(t('newsletter.already', { defaultValue: 'You\'re already on the list.' }));
-                    return;
-                }
-                throw error;
-            }
+            if (error) throw error;
 
             setIsSuccess(true);
-            toast.success(t('newsletter.success', { defaultValue: 'Welcome to the inner circle.' }));
+            if (data?.already_subscribed) {
+                toast.success(t('newsletter.already', { defaultValue: "You're already on the list." }));
+            } else {
+                toast.success(t('newsletter.success', { defaultValue: 'Welcome to the inner circle.' }));
+            }
             setEmail('');
 
         } catch (error) {
