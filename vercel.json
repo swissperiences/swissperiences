@@ -51,6 +51,23 @@
             ]
         }
     ],
+    "redirects": [
+        {
+            "source": "/villars-retreat",
+            "destination": "/sanctuaries/villars",
+            "permanent": true
+        },
+        {
+            "source": "/road-journey",
+            "destination": "/experiences/road-journey",
+            "permanent": true
+        },
+        {
+            "source": "/cinematic-memories",
+            "destination": "/experiences/cinematic-memories",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
             "source": "/((?!api/|_vercel/|.*\\..*).*)",

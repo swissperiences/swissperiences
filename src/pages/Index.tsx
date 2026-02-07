@@ -1,12 +1,17 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useEffect, useState, Suspense, lazy } from "react";
 import SEO from "@/components/SEO";
 import { Founder } from "@/components/Founder";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+
+const WaitlistModal = lazy(() => import("@/components/WaitlistModal").then(m => ({ default: m.WaitlistModal })));
 
 const Index = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
   useEffect(() => {
     // Fade in on mount
@@ -62,17 +67,8 @@ const Index = () => {
       {/* Main Content */}
       <main className="relative z-10 min-h-screen flex flex-col">
 
-        {/* Navigation - Minimal */}
-        <nav className="fixed top-0 left-0 right-0 z-50 px-8 py-6">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-white/60">
-              Swissperiences
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">
-              Geneva, CH
-            </span>
-          </div>
-        </nav>
+        {/* Site-wide Navigation */}
+        <Navigation onWaitlistClick={() => setIsWaitlistOpen(true)} />
 
         {/* Hero Section - Full Height */}
         <section className="min-h-screen flex flex-col justify-center items-center px-8 relative">
@@ -231,13 +227,13 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-8 mb-16">
 
               {/* Villars */}
-              <div className="text-left p-6 border border-white/10 hover:border-white/20 transition-colors">
+              <Link to="/sanctuaries/villars" className="text-left p-6 border border-white/10 hover:border-white/20 transition-colors block">
                 <span className="text-[9px] uppercase tracking-[0.3em] text-emerald-400/60 mb-2 block">
                   Active
                 </span>
                 <h3 className="font-serif text-xl text-white/80 mb-2">Villars</h3>
                 <p className="text-white/40 text-sm">Swiss Alps</p>
-              </div>
+              </Link>
 
               {/* Verbier */}
               <div className="text-left p-6 border border-white/5 opacity-50">
@@ -294,47 +290,14 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Footer - Minimal */}
-        <footer className="py-12 px-8 border-t border-white/5">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-
-            <div className="flex items-center gap-8">
-              <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">
-                Swissperiences
-              </span>
-              <span className="text-white/10">|</span>
-              <span className="text-[10px] text-white/20">
-                Geneva, Switzerland
-              </span>
-            </div>
-
-            <div className="flex items-center gap-8">
-              <a
-                href="https://instagram.com/swissperiences"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[10px] uppercase tracking-[0.2em] text-white/30 hover:text-white/60 transition-colors"
-              >
-                Instagram
-              </a>
-              <a
-                href="https://linkedin.com/company/swissperiences"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[10px] uppercase tracking-[0.2em] text-white/30 hover:text-white/60 transition-colors"
-              >
-                LinkedIn
-              </a>
-            </div>
-
-            <span className="text-[10px] text-white/20">
-              &copy; {new Date().getFullYear()}
-            </span>
-
-          </div>
-        </footer>
+        {/* Site Footer */}
+        <Footer />
 
       </main>
+
+      <Suspense fallback={null}>
+        <WaitlistModal open={isWaitlistOpen} onOpenChange={setIsWaitlistOpen} />
+      </Suspense>
     </div>
   );
 };

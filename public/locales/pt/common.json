@@ -1,7 +1,9 @@
 {
   "nav": {
+    "sanctuaries": "Santuários",
     "experiences": "Experiências",
     "journals": "Diários",
+    "about": "Sobre",
     "host": "O Anfitrião",
     "calendar": "Calendário",
     "requestAccess": "Solicitar Acesso"

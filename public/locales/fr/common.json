@@ -1,6 +1,9 @@
 {
   "nav": {
+    "sanctuaries": "Sanctuaires",
     "experiences": "Expériences",
+    "journals": "Journaux",
+    "about": "À Propos",
     "howItWorks": "Comment Ça Marche",
     "forTeams": "Pour Équipes",
     "requestAccess": "Demander l'Accès"

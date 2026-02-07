@@ -3,60 +3,168 @@
   <!-- EN (Default) -->
   <url>
     <loc>https://www.swissperiences.ch/en</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.swissperiences.ch/en/journals</loc>
-    <lastmod>2026-01-23</lastmod>
+    <loc>https://www.swissperiences.ch/en/sanctuaries</loc>
+    <lastmod>2026-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.swissperiences.ch/en/sanctuaries/villars</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/en/experiences</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/en/experiences/road-journey</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/en/experiences/cinematic-memories</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/en/experiences/private-chef</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/en/experiences/guided-hikes</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/en/journals</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/en/about</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/en/contact</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.swissperiences.ch/en/for-teams</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.swissperiences.ch/en/privacy</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.swissperiences.ch/en/terms</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <priority>0.3</priority>
   </url>
 
   <!-- PT -->
   <url>
     <loc>https://www.swissperiences.ch/pt</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.swissperiences.ch/pt/journals</loc>
-    <lastmod>2026-01-23</lastmod>
+    <loc>https://www.swissperiences.ch/pt/sanctuaries</loc>
+    <lastmod>2026-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.swissperiences.ch/pt/sanctuaries/villars</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/pt/experiences</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/pt/experiences/road-journey</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/pt/experiences/cinematic-memories</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/pt/experiences/private-chef</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/pt/experiences/guided-hikes</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/pt/journals</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/pt/about</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.swissperiences.ch/pt/contact</loc>
+    <lastmod>2026-02-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.swissperiences.ch/pt/for-teams</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.swissperiences.ch/pt/privacy</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.swissperiences.ch/pt/terms</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-07</lastmod>
     <priority>0.3</priority>
   </url>
 </urlset>
