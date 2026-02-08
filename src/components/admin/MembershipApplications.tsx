@@ -221,7 +221,7 @@ export function MembershipApplications() {
                                                 </TableCell>
                                                 <TableCell className="text-right">
                                                     <div className="flex items-center justify-end gap-2">
-                                                        {app.status === 'pending' && (
+                                                        {(app.status === 'pending' || app.status === 'waitlist') && (
                                                             <>
                                                                 <button
                                                                     onClick={(e) => {
@@ -234,16 +234,18 @@ export function MembershipApplications() {
                                                                 >
                                                                     {sendingEmail === app.id ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
                                                                 </button>
-                                                                <button
-                                                                    onClick={(e) => {
-                                                                        e.stopPropagation();
-                                                                        updateStatus(app.id, 'waitlist');
-                                                                    }}
-                                                                    className="p-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 rounded transition-colors"
-                                                                    title="Waitlist"
-                                                                >
-                                                                    <Clock size={14} />
-                                                                </button>
+                                                                {app.status === 'pending' && (
+                                                                    <button
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            updateStatus(app.id, 'waitlist');
+                                                                        }}
+                                                                        className="p-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 rounded transition-colors"
+                                                                        title="Waitlist"
+                                                                    >
+                                                                        <Clock size={14} />
+                                                                    </button>
+                                                                )}
                                                                 <button
                                                                     onClick={(e) => {
                                                                         e.stopPropagation();
@@ -360,7 +362,7 @@ export function MembershipApplications() {
                                     </div>
 
                                     {/* Quick Actions */}
-                                    {selectedApp.status === 'pending' && (
+                                    {(selectedApp.status === 'pending' || selectedApp.status === 'waitlist') && (
                                         <div className="pt-4 space-y-2">
                                             <button
                                                 onClick={() => updateStatus(selectedApp.id, 'approved')}
@@ -376,13 +378,15 @@ export function MembershipApplications() {
                                                     'Approve & Send Welcome Email'
                                                 )}
                                             </button>
-                                            <div className="grid grid-cols-2 gap-2">
-                                                <button
-                                                    onClick={() => updateStatus(selectedApp.id, 'waitlist')}
-                                                    className="bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-400 py-2 text-xs uppercase tracking-widest transition-colors"
-                                                >
-                                                    Waitlist
-                                                </button>
+                                            <div className={`grid gap-2 ${selectedApp.status === 'pending' ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                                                {selectedApp.status === 'pending' && (
+                                                    <button
+                                                        onClick={() => updateStatus(selectedApp.id, 'waitlist')}
+                                                        className="bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-400 py-2 text-xs uppercase tracking-widest transition-colors"
+                                                    >
+                                                        Waitlist
+                                                    </button>
+                                                )}
                                                 <button
                                                     onClick={() => updateStatus(selectedApp.id, 'rejected')}
                                                     className="bg-red-500/20 hover:bg-red-500/30 text-red-400 py-2 text-xs uppercase tracking-widest transition-colors"
