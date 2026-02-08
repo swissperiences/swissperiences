@@ -3,9 +3,10 @@ import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { DateRange } from "react-day-picker";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 import { toast } from "sonner";
 import { Calendar as CalendarIcon, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface BookingCalendarProps {
     sanctuaryName: string;
@@ -25,13 +26,37 @@ export function BookingCalendar({ sanctuaryName, isOpen, onClose }: BookingCalen
 
         setIsSubmitting(true);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                toast.error("Please sign in to request availability.");
+                return;
+            }
 
-        setIsSubmitting(false);
-        toast.success("Booking inquiry sent! The Host will contact you shortly.");
-        onClose();
+            const { error } = await supabase.functions.invoke('booking-inquiry', {
+                body: {
+                    sanctuary: sanctuaryName,
+                    dateFrom: date.from.toISOString(),
+                    dateTo: date.to.toISOString(),
+                    memberName: user.user_metadata?.full_name || user.email?.split('@')[0] || 'Member',
+                    memberEmail: user.email,
+                },
+            });
+
+            if (error) throw error;
+
+            toast.success("Inquiry sent! The Host will confirm availability within 24 hours.");
+            setDate(undefined);
+            onClose();
+        } catch (error) {
+            console.error('Booking inquiry error:', error);
+            toast.error("Something went wrong. Please try again or email hello@swissperiences.ch.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
+    const tomorrow = addDays(new Date(), 1);
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
@@ -42,7 +67,7 @@ export function BookingCalendar({ sanctuaryName, isOpen, onClose }: BookingCalen
                         Request Dates
                     </DialogTitle>
                     <DialogDescription className="text-white/40">
-                        Select your preferred journey dates for {sanctuaryName}.
+                        Select your preferred dates for {sanctuaryName}. Minimum 2 nights.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -50,10 +75,11 @@ export function BookingCalendar({ sanctuaryName, isOpen, onClose }: BookingCalen
                     <Calendar
                         initialFocus
                         mode="range"
-                        defaultMonth={date?.from}
+                        defaultMonth={tomorrow}
                         selected={date}
                         onSelect={setDate}
                         numberOfMonths={1}
+                        disabled={{ before: tomorrow }}
                         className="rounded-md border border-white/5 bg-white/5 mx-auto"
                         classNames={{
                             day_selected: "bg-switz-red text-white hover:bg-switz-red/80",
@@ -70,6 +96,11 @@ export function BookingCalendar({ sanctuaryName, isOpen, onClose }: BookingCalen
                                 {format(date.from, "LLL dd, y")}
                                 {date.to && <> &mdash; {format(date.to, "LLL dd, y")}</>}
                             </p>
+                            {date.to && (
+                                <p className="text-white/30 text-xs mt-1">
+                                    {Math.ceil((date.to.getTime() - date.from.getTime()) / (1000 * 60 * 60 * 24))} nights
+                                </p>
+                            )}
                         </div>
                     )}
                 </div>
@@ -90,7 +121,7 @@ export function BookingCalendar({ sanctuaryName, isOpen, onClose }: BookingCalen
                         {isSubmitting ? (
                             <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Processing...
+                                Sending...
                             </>
                         ) : (
                             "Request Availability"

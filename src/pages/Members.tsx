@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
-import { LogOut, MapPin, Calendar, Mail } from "lucide-react";
+import { LogOut, MapPin, Calendar, Mail, MessageCircle } from "lucide-react";
 import { BookingCalendar } from "@/components/BookingCalendar";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -133,7 +133,7 @@ const Members = () => {
                         Member Area
                     </span>
                     <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">
-                        Welcome back, {member.full_name.split(' ')[0]}.
+                        {new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 18 ? 'Good afternoon' : 'Good evening'}, {member.full_name.split(' ')[0]}.
                     </h1>
                     <p className="text-white/60 font-light max-w-xl">
                         Access our collection of curated alpine sanctuaries and exclusive experiences.
@@ -188,18 +188,18 @@ const Members = () => {
                             <div className="aspect-[4/3] overflow-hidden">
                                 <img
                                     src="/images/villars-hero.jpg"
-                                    alt="The Alpine Sanctuary"
+                                    alt="The Villars Loft"
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 />
                             </div>
                             <div className="p-6">
                                 <span className="text-switz-red text-[10px] uppercase tracking-widest">Available</span>
-                                <h3 className="text-xl font-serif text-white mt-2 mb-2">The Alpine Sanctuary</h3>
+                                <h3 className="text-xl font-serif text-white mt-2 mb-2">The Villars Loft</h3>
                                 <p className="text-white/60 text-sm mb-4">Villars-sur-Ollon, Switzerland</p>
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                     <span className="text-white/40 text-sm">From CHF 1,200/night</span>
                                     <button
-                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setBookingState({ isOpen: true, sanctuary: "The Alpine Sanctuary" }); }}
+                                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setBookingState({ isOpen: true, sanctuary: "The Villars Loft" }); }}
                                         className="text-switz-red text-xs uppercase tracking-widest hover:text-white transition-colors"
                                     >
                                         View Dates →
@@ -274,13 +274,24 @@ const Members = () => {
                         <p className="text-white/60 font-light mb-8">
                             Contact us directly to arrange your next escape. We'll handle every detail.
                         </p>
-                        <a
-                            href="mailto:hello@swissperiences.ch?subject=Booking Inquiry"
-                            className="inline-flex items-center justify-center gap-3 bg-white text-black px-6 sm:px-8 py-4 text-xs sm:text-sm uppercase tracking-widest font-medium hover:bg-white/90 transition-colors w-full sm:w-auto text-center"
-                        >
-                            <Mail size={16} className="shrink-0" />
-                            Inquire About Availability
-                        </a>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <a
+                                href="https://wa.me/41787002202?text=Hi%2C%20I'd%20like%20to%20inquire%20about%20availability."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-3 bg-white text-black px-6 sm:px-8 py-4 text-xs sm:text-sm uppercase tracking-widest font-medium hover:bg-white/90 transition-colors w-full sm:w-auto text-center"
+                            >
+                                <MessageCircle size={16} className="shrink-0" />
+                                WhatsApp
+                            </a>
+                            <a
+                                href="mailto:hello@swissperiences.ch?subject=Booking Inquiry"
+                                className="inline-flex items-center justify-center gap-3 border border-white/20 text-white px-6 sm:px-8 py-4 text-xs sm:text-sm uppercase tracking-widest font-medium hover:bg-white/10 transition-colors w-full sm:w-auto text-center"
+                            >
+                                <Mail size={16} className="shrink-0" />
+                                Email
+                            </a>
+                        </div>
                     </div>
                 </div>
             </main>
