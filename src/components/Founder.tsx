@@ -15,7 +15,7 @@ export const Founder = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
                             <img
                                 src="/images/caueh-vidal-spring.jpg"
-                                alt="Caueh Vidal"
+                                alt="The Host — Swissperiences"
                                 className="w-full h-full object-cover object-[center_25%] grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out brightness-[0.85] contrast-[1.1] saturate-[0.9] hover:brightness-100"
                             />
 

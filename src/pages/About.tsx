@@ -13,9 +13,9 @@ export default function About() {
             "name": "Swissperiences",
             "founder": {
                 "@type": "Person",
-                "name": "Caueh Vidal",
+                "name": "The Host",
                 "jobTitle": "Founder",
-                "address": { "@type": "PostalAddress", "addressLocality": "Geneva", "addressCountry": "CH" }
+                "address": { "@type": "PostalAddress", "addressCountry": "CH" }
             },
             "description": "A private network of curated alpine sanctuaries for those seeking silence in a noisy world.",
             "url": "https://swissperiences.ch"
@@ -27,7 +27,7 @@ export default function About() {
             <SEO
                 title="About Swissperiences | Our Story & Philosophy"
                 description="Born in the Swiss Alps, Swissperiences curates silence for those who've earned it. Meet the founder, the philosophy, and the vision behind the brand."
-                keywords="about swissperiences, caueh vidal, swiss luxury concierge, alpine experiences founder, switzerland premium travel"
+                keywords="about swissperiences, swiss luxury concierge, alpine experiences founder, switzerland premium travel"
                 canonical="https://swissperiences.ch/about"
                 structuredData={structuredData}
             />

@@ -26,7 +26,7 @@ export default function SEO({
 
   // Use translated defaults if props are not provided
   const finalTitle = title || t("seo.defaultTitle", "Swissperiences | Your Private Sanctuary in the Alps");
-  const finalDescription = description || t("seo.defaultDescription", "A boutique home base in Villars-sur-Ollon curated by Caueh Vidal.");
+  const finalDescription = description || t("seo.defaultDescription", "A boutique alpine sanctuary in Villars-sur-Ollon. Curated Swiss experiences for those who seek silence.");
   const finalKeywords = keywords || t("seo.keywords", "swiss experiences, switzerland travel, alpine retreats");
 
 

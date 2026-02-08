@@ -21,7 +21,7 @@ const testimonials: Testimonial[] = [
     },
     {
         id: 2,
-        quote: "The road journey was transformative. Driving through the passes with Caueh's curated itinerary opened our eyes to a side of Switzerland we would never have found on our own.",
+        quote: "The road journey was transformative. Driving through the passes with the host's curated itinerary opened our eyes to a side of Switzerland we would never have found on our own.",
         author: "Sarah J.",
         role: "Creative Director",
         location: "New York, USA"
