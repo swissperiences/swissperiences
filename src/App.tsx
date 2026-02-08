@@ -139,6 +139,9 @@ const App = () => (
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/:lang/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
+                <Route path="/:lang/members" element={<AuthGuard><LanguageWrapper><Members /></LanguageWrapper></AuthGuard>} />
+                <Route path="/:lang/request-access" element={<LanguageWrapper><RequestAccess /></LanguageWrapper>} />
+                <Route path="/:lang/login" element={<LanguageWrapper><Login /></LanguageWrapper>} />
 
                 {/* 404 catch-all */}
                 <Route path="*" element={<NotFound />} />
