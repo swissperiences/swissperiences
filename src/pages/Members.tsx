@@ -208,27 +208,27 @@ const Members = () => {
                             </div>
                         </Link>
 
-                        {/* Norway - Coming Soon */}
+                        {/* Verbier - Coming Soon */}
                         <div className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/5 opacity-60">
                             <div className="aspect-[4/3] overflow-hidden bg-white/5 flex items-center justify-center">
                                 <span className="text-white/20 text-sm">Image Coming Soon</span>
                             </div>
                             <div className="p-6">
                                 <span className="text-white/30 text-[10px] uppercase tracking-widest">Coming 2027</span>
-                                <h3 className="text-xl font-serif text-white/50 mt-2 mb-2">Fjord Haven</h3>
-                                <p className="text-white/30 text-sm mb-4">Norway</p>
+                                <h3 className="text-xl font-serif text-white/50 mt-2 mb-2">Verbier</h3>
+                                <p className="text-white/30 text-sm mb-4">Valais, Switzerland</p>
                             </div>
                         </div>
 
-                        {/* Patagonia - Coming Soon */}
+                        {/* Zermatt - Coming Soon */}
                         <div className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/5 opacity-60">
                             <div className="aspect-[4/3] overflow-hidden bg-white/5 flex items-center justify-center">
                                 <span className="text-white/20 text-sm">Image Coming Soon</span>
                             </div>
                             <div className="p-6">
                                 <span className="text-white/30 text-[10px] uppercase tracking-widest">Coming 2028</span>
-                                <h3 className="text-xl font-serif text-white/50 mt-2 mb-2">Patagonia Retreat</h3>
-                                <p className="text-white/30 text-sm mb-4">Argentina</p>
+                                <h3 className="text-xl font-serif text-white/50 mt-2 mb-2">Zermatt</h3>
+                                <p className="text-white/30 text-sm mb-4">Matterhorn, Switzerland</p>
                             </div>
                         </div>
                     </div>

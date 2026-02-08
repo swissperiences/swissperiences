@@ -77,8 +77,8 @@ const App = () => (
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 {/* Direct routes without language prefix */}
-                <Route path="/ideas" element={<LanguageWrapper><Ideas /></LanguageWrapper>} />
-                <Route path="/todo" element={<LanguageWrapper><ToDo /></LanguageWrapper>} />
+                <Route path="/ideas" element={<AuthGuard requireAdmin><Ideas /></AuthGuard>} />
+                <Route path="/todo" element={<AuthGuard requireAdmin><ToDo /></AuthGuard>} />
 
                 {/* Sanctuaries */}
                 <Route path="/sanctuaries" element={<LanguageWrapper><Sanctuaries /></LanguageWrapper>} />
@@ -121,8 +121,8 @@ const App = () => (
 
                 {/* Standardized language prefixed routes */}
                 <Route path="/:lang" element={<LanguageWrapper><Index /></LanguageWrapper>} />
-                <Route path="/:lang/ideas" element={<LanguageWrapper><Ideas /></LanguageWrapper>} />
-                <Route path="/:lang/todo" element={<LanguageWrapper><ToDo /></LanguageWrapper>} />
+                <Route path="/:lang/ideas" element={<AuthGuard requireAdmin><Ideas /></AuthGuard>} />
+                <Route path="/:lang/todo" element={<AuthGuard requireAdmin><ToDo /></AuthGuard>} />
                 <Route path="/:lang/sanctuaries" element={<LanguageWrapper><Sanctuaries /></LanguageWrapper>} />
                 <Route path="/:lang/sanctuaries/villars" element={<LanguageWrapper><VillarsRetreat /></LanguageWrapper>} />
                 <Route path="/:lang/experiences" element={<LanguageWrapper><Experiences /></LanguageWrapper>} />
