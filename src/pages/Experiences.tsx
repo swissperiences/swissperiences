@@ -23,9 +23,9 @@ export default function Experiences() {
         {
             icon: <Car size={24} />,
             title: "Alps Road Journey",
-            subtitle: "Private Guide & Range Rover",
+            subtitle: "Private Guide & Luxury SUV",
             price: "From CHF 850",
-            description: "Private Range Rover expeditions through the most beautiful roads in Switzerland. UNESCO heritage sites, hidden vineyards, legendary mountain passes. Your pace, your journey.",
+            description: "Private luxury SUV expeditions through the most beautiful roads in Switzerland. UNESCO heritage sites, hidden vineyards, legendary mountain passes. Your pace, your journey.",
             image: "/images/range-rover-enhanced.jpg",
             href: "/experiences/road-journey",
             available: true,
@@ -67,7 +67,7 @@ export default function Experiences() {
             <SEO
                 title="Premium Alpine Experiences | Swissperiences"
                 description="Curated premium experiences in the Swiss Alps. Private road journeys, cinematic documentation, in-chalet dining, and guided alpine hikes."
-                keywords="swiss alps experiences, luxury experiences switzerland, private chef swiss alps, guided hike switzerland, range rover tour switzerland, drone photography alps"
+                keywords="swiss alps experiences, luxury experiences switzerland, private chef swiss alps, guided hike switzerland, luxury suv tour switzerland, drone photography alps"
                 canonical="https://swissperiences.ch/experiences"
                 structuredData={structuredData}
             />

@@ -49,7 +49,7 @@ export default function IdeasPage() {
 
                 {/* Section 2: Road Trip Loops */}
                 <section className="space-y-6">
-                    <h2 className="text-2xl font-serif border-l-2 border-switz-red pl-4">2. Range Rover Journeys (Swiss Romande)</h2>
+                    <h2 className="text-2xl font-serif border-l-2 border-switz-red pl-4">2. Luxury Road Journeys (Swiss Romande)</h2>
                     <ul className="space-y-4 text-white/70">
                         <li>• <strong>Vineyard & Lake:</strong> Villars → Lavaux (Wine Tasting) → Montreux (Jazz/Lake) → Return</li>
                         <li>• <strong>Cheese & Castle:</strong> Villars → Gruyères (Castle/Cheese) → Broc (Chocolate) → Gstaad (Luxury stroll)</li>
@@ -64,7 +64,7 @@ export default function IdeasPage() {
                         <h3 className="text-xl mb-4">Content Creation Package</h3>
                         <p className="mb-4 text-white/60">Target: Influencers / Brands</p>
                         <ul className="list-disc pl-5 space-y-2 text-white/70">
-                            <li>Use Range Rover as "Hero Prop" for their shots</li>
+                            <li>Use luxury SUV as "Hero Prop" for their shots</li>
                             <li>Provide Drone footage of them driving</li>
                             <li>Stay in Villars Apt as "Home Base"</li>
                         </ul>

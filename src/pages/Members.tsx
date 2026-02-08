@@ -239,7 +239,7 @@ const Members = () => {
                     <h2 className="text-2xl font-serif text-white mb-8">Experiences</h2>
                     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {[
-                            { name: 'Road Journey', price: 'From CHF 850', desc: 'Private Range Rover tours', href: '/experiences/road-journey' },
+                            { name: 'Road Journey', price: 'From CHF 850', desc: 'Private luxury SUV tours', href: '/experiences/road-journey' },
                             { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Professional documentation', href: '/experiences/cinematic-memories' },
                             { name: 'Private Chef', price: 'From CHF 400', desc: 'In-chalet dining', href: '/experiences/private-chef' },
                             { name: 'Guided Hikes', price: 'From CHF 300', desc: 'Expert mountain guides', href: '/experiences/guided-hikes' },

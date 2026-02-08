@@ -17,8 +17,8 @@ export default function RoadJourney() {
             duration: "6-8 Hours"
         },
         {
-            title: "The Bond Circuit (Summer Only)",
-            desc: "Grimsel, Furka, Gotthard. Drive the legendary winding roads of 'Goldfinger'. High-altitude adrenaline and panoramic lunches.",
+            title: "The High Pass Circuit (Summer Only)",
+            desc: "Grimsel, Furka, Gotthard. Three legendary mountain passes in one day. High-altitude adrenaline and panoramic lunches.",
             duration: "Full Day"
         }
     ];
@@ -26,9 +26,9 @@ export default function RoadJourney() {
     return (
         <div className="bg-neutral-950 min-h-screen text-white pb-24">
             <SEO
-                title="Swiss Alps Road Journey | Private Guide & Range Rover"
-                description="Private Range Rover expeditions through the Swiss Alps. UNESCO heritage sites, hidden gems, and local hosts. Your pace, your journey."
-                keywords="swiss alps driving, range rover switzerland, luxury road trip switzerland, lavaux vineyard tour, gruyeres tour, private swiss guide"
+                title="Swiss Alps Road Journey | Private Guide & Luxury SUV"
+                description="Private luxury SUV expeditions through the Swiss Alps. UNESCO heritage sites, hidden gems, and local hosts. Your pace, your journey."
+                keywords="swiss alps driving, luxury suv switzerland, luxury road trip switzerland, lavaux vineyard tour, gruyeres tour, private swiss guide"
                 canonical="https://swissperiences.ch/experiences/road-journey"
                 ogImage="https://www.swissperiences.ch/images/range-rover-enhanced.jpg"
             />
@@ -40,7 +40,7 @@ export default function RoadJourney() {
                     <div className="absolute inset-0">
                         <img
                             src="/images/range-rover-enhanced.jpg"
-                            alt="Range Rover in the Alps"
+                            alt="Luxury SUV on Swiss alpine road"
                             className="w-full h-full object-cover object-center brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                         />
                         <div className="absolute inset-0 bg-black/20" />
@@ -79,7 +79,7 @@ export default function RoadJourney() {
                         <p className="text-white/60 font-light leading-relaxed mb-8">
                             Switzerland is best seen from the road, but driving here requires focus.
                             Allow me to handle the navigation while you immerse yourself in the landscape.
-                            Conducted in the 2024 Range Rover Evoque—providing comfort, style, and panoramic roof views.
+                            Conducted in a premium luxury SUV—providing comfort, style, and panoramic roof views.
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-white/10 pt-8">

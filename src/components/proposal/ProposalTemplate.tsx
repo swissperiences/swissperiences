@@ -343,7 +343,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                 </div>
                                 <div className="space-y-2 relative z-10">
                                     <span className="text-[9px] uppercase tracking-widest text-switz-red font-bold">Transfer</span>
-                                    <p className="text-sm text-white/80 font-serif italic">Range Rover Private</p>
+                                    <p className="text-sm text-white/80 font-serif italic">Private Luxury SUV</p>
                                 </div>
                                 <div className="space-y-2 relative z-10">
                                     <span className="text-[9px] uppercase tracking-widest text-switz-red font-bold">Safe Zone</span>

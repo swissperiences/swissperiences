@@ -149,7 +149,7 @@ const Index = () => {
                 <div className="aspect-[3/4] relative overflow-hidden mb-4">
                   <img
                     src="/images/range-rover-villars.jpg"
-                    alt="Range Rover on Swiss alpine roads"
+                    alt="Private road journey through Swiss alpine roads"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
