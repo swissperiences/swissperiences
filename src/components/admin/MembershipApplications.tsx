@@ -54,13 +54,11 @@ export function MembershipApplications() {
 
     const fetchApplications = async () => {
         try {
-            const { data, error } = await supabase
-                .from('membership_applications')
-                .select('*')
-                .order('created_at', { ascending: false });
+            // Use admin RPC with server-side auth check
+            const { data, error } = await supabase.rpc('admin_get_applications');
 
             if (error) throw error;
-            setApplications(data || []);
+            setApplications((data as Application[]) || []);
         } catch (error) {
             console.error('Error fetching applications:', error);
             toast.error('Failed to load applications');
