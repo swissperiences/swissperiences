@@ -56,7 +56,7 @@ export default function Experiences() {
             subtitle: "Expert Mountain Guides",
             price: "From CHF 300",
             description: "Expert-led alpine adventures from gentle valley walks to challenging summit ascents. Every trail handpicked for beauty, safety, and solitude.",
-            image: "/images/caueh-hiking.jpg",
+            image: "/images/host-hiking.jpg",
             href: "/experiences/guided-hikes",
             available: true,
         },
@@ -78,7 +78,7 @@ export default function Experiences() {
                 <section className="relative h-[70vh] w-full overflow-hidden">
                     <div className="absolute inset-0">
                         <img
-                            src="/images/range-rover-villars.jpg"
+                            src="/images/alpine-road-villars.jpg"
                             alt="Swiss Experience"
                             className="w-full h-full object-cover brightness-[0.5] contrast-[1.1] saturate-[0.9]"
                         />

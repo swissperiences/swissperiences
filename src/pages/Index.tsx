@@ -148,7 +148,7 @@ const Index = () => {
               <Link to="/experiences/road-journey" className="group block">
                 <div className="aspect-[3/4] relative overflow-hidden mb-4">
                   <img
-                    src="/images/range-rover-villars.jpg"
+                    src="/images/alpine-road-villars.jpg"
                     alt="Private road journey through Swiss alpine roads"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />

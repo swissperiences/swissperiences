@@ -127,7 +127,7 @@ export default function RoadJourney() {
                 {/* Gallery / Visual Break */}
                 <section className="w-full h-[400px] md:h-[600px] overflow-hidden relative mb-24">
                     <img
-                        src="/images/range-rover-villars.jpg"
+                        src="/images/alpine-road-villars.jpg"
                         alt="On the road"
                         className="w-full h-full object-cover object-center opacity-60 brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                         loading="lazy"

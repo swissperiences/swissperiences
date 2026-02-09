@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
-import { Play, Camera, Wind, Disc } from "lucide-react";
+import { Camera, Wind, Disc } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function CinematicMemories() {
@@ -30,8 +30,8 @@ export default function CinematicMemories() {
     const galleryItems = [
         { src: "/images/villars-gallery-1.jpg", label: t('cinematic.gallery.nature'), span: "col-span-2 row-span-2" },
         { src: "/images/loft/IMG_8759.jpg", label: t('cinematic.gallery.atmosphere'), span: "col-span-2" },
-        { src: "/images/range-rover-villars.jpg", label: t('cinematic.gallery.movement'), span: "col-span-1" },
-        { src: "/images/caueh-hiking.jpg", label: t('cinematic.gallery.portrait'), span: "col-span-1" },
+        { src: "/images/alpine-road-villars.jpg", label: t('cinematic.gallery.movement'), span: "col-span-1" },
+        { src: "/images/host-hiking.jpg", label: t('cinematic.gallery.portrait'), span: "col-span-1" },
     ];
 
     return (
@@ -121,18 +121,17 @@ export default function CinematicMemories() {
                                 </span>
                             </div>
 
-                            {/* Placeholder for Vimeo/YouTube Embed */}
-                            <div className="absolute inset-0 flex items-center justify-center group/btn">
-                                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center group-hover/btn:bg-switz-red transition-all duration-500 cursor-pointer z-20">
-                                    <Play fill="white" size={24} className="ml-1" />
-                                </div>
-                                <img
-                                    src="/images/mountain-sunset.jpg"
-                                    alt="Video Placeholder"
-                                    className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 transition-all duration-1000"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-                            </div>
+                            <video
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                poster="/images/zermatt-drone-poster.jpg"
+                                className="w-full h-full object-cover"
+                            >
+                                <source src="/videos/zermatt-drone.mp4" type="video/mp4" />
+                            </video>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 pointer-events-none" />
                             <div className="absolute bottom-6 left-6 flex items-center gap-3 z-20">
                                 <div className="w-2 h-2 rounded-full bg-switz-red animate-pulse shadow-[0_0_8px_rgba(234,56,76,0.6)]" />
                                 <span className="text-[10px] uppercase tracking-[0.3em] text-white/70">{t('cinematic.portfolioSample')} 01</span>
@@ -197,12 +196,16 @@ export default function CinematicMemories() {
                     <div className="max-w-2xl mx-auto space-y-12">
                         <span className="text-switz-red text-[10px] uppercase tracking-[0.4em] font-bold">{t('cinematic.priceSession')}</span>
                         <h2 className="text-4xl md:text-5xl font-serif">{t('cinematic.footerTitle')}</h2>
-                        <a
-                            href="/request-access"
-                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
-                        >
-                            {t('cinematic.cta')}
-                        </a>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a
+                                href="https://wa.me/41787002202?text=Hi%2C%20I'm%20interested%20in%20Cinematic%20Memories%20documentation."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-3 bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                            >
+                                {t('cinematic.cta')}
+                            </a>
+                        </div>
                     </div>
                 </section>
             </main>

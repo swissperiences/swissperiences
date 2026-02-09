@@ -60,7 +60,7 @@ const alexConfig: ProposalConfig = {
                     title: "Essential Return",
                     description: "Almoço secreto nos Alpes. Você volta para Londres não apenas descansado, mas revigorado e focado no que importa.",
                     icon: "train",
-                    image: "/images/range-rover-villars.jpg"
+                    image: "/images/alpine-road-villars.jpg"
                 }
             ]
         }
