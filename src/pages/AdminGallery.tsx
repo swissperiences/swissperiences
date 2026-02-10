@@ -2,13 +2,36 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Lightbulb, Rocket, Target } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { calculateGuestPrice, formatCurrency } from "@/lib/revenue-engine";
 import { MembershipApplications } from "@/components/admin/MembershipApplications";
+
+// Debounced input: updates local state immediately, syncs to DB after 600ms idle
+function DebouncedInput({ value, onChange, delay = 600, ...props }: {
+    value: string | number;
+    onChange: (val: string) => void;
+    delay?: number;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'>) {
+    const [local, setLocal] = useState(String(value));
+    const timer = useRef<ReturnType<typeof setTimeout>>();
+
+    useEffect(() => { setLocal(String(value)); }, [value]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = e.target.value;
+        setLocal(val);
+        clearTimeout(timer.current);
+        timer.current = setTimeout(() => onChange(val), delay);
+    };
+
+    useEffect(() => () => clearTimeout(timer.current), []);
+
+    return <input {...props} value={local} onChange={handleChange} />;
+}
 
 const images = [
     "/images/loft/IMG_6006.jpg",
@@ -418,24 +441,24 @@ export default function AdminGallery() {
                                                         </div>
                                                     </TableCell>
                                                     <TableCell>
-                                                        <input
+                                                        <DebouncedInput
                                                             type="number"
                                                             min="0"
                                                             max="99999"
                                                             step="10"
                                                             value={item.nightly_rate_base || 0}
-                                                            onChange={(e) => updateInventoryItem(item.id, { nightly_rate_base: Number(e.target.value) })}
+                                                            onChange={(val) => updateInventoryItem(item.id, { nightly_rate_base: Number(val) })}
                                                             className="bg-black/40 border border-white/10 text-xs font-mono text-white/80 w-20 px-2 py-1 rounded focus:border-switz-red outline-none"
                                                         />
                                                     </TableCell>
                                                     <TableCell className="text-right">
-                                                        <input
+                                                        <DebouncedInput
                                                             type="number"
                                                             min="0"
                                                             max="100"
                                                             step="1"
                                                             value={item.management_fee_rate}
-                                                            onChange={(e) => updateInventoryItem(item.id, { management_fee_rate: Number(e.target.value) })}
+                                                            onChange={(val) => updateInventoryItem(item.id, { management_fee_rate: Number(val) })}
                                                             className="bg-black/40 border border-white/10 text-xs font-mono text-white/80 w-16 px-2 py-1 rounded focus:border-switz-red outline-none text-right"
                                                         />
                                                     </TableCell>
@@ -488,22 +511,22 @@ export default function AdminGallery() {
                                                         </div>
                                                     </TableCell>
                                                     <TableCell>
-                                                        <input
+                                                        <DebouncedInput
                                                             type="text"
                                                             value={partner.base_cost_estimate || ""}
-                                                            onChange={(e) => updatePartnerItem(partner.id, { base_cost_estimate: e.target.value })}
+                                                            onChange={(val) => updatePartnerItem(partner.id, { base_cost_estimate: val })}
                                                             className="bg-black/40 border border-white/10 text-xs font-mono text-white/80 w-20 px-2 py-1 rounded focus:border-switz-red outline-none"
                                                             placeholder="Base cost..."
                                                         />
                                                     </TableCell>
                                                     <TableCell className="text-right">
-                                                        <input
+                                                        <DebouncedInput
                                                             type="number"
                                                             min="0"
                                                             max="100"
                                                             step="1"
                                                             value={partner.commission_rate}
-                                                            onChange={(e) => updatePartnerItem(partner.id, { commission_rate: Number(e.target.value) })}
+                                                            onChange={(val) => updatePartnerItem(partner.id, { commission_rate: Number(val) })}
                                                             className="bg-black/40 border border-white/10 text-xs font-mono text-white/80 w-16 px-2 py-1 rounded focus:border-switz-red outline-none text-right"
                                                         />
                                                     </TableCell>
