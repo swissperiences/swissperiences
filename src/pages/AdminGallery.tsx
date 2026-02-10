@@ -28,14 +28,20 @@ const images = [
     "/images/apt-living-room-1.jpg",
     "/images/apt-living-room-2.jpg",
     "/images/alpine-road-villars.jpg",
-    "/images/range-rover-enhanced.jpg",
+    "/images/host-road-winter.jpg",
     "/images/villars-drone.jpg",
     "/images/caueh-vidal-spring.jpg",
     "/images/host-hiking.jpg",
+    "/images/host-contemplating.jpg",
     "/images/mountain-sunset.jpg",
+    "/images/oeschinen-lake.jpg",
     "/images/snowy-view.jpg",
     "/images/geneva-jet.jpg",
-    "/images/caueh-vidal.jpg"
+    "/images/caueh-vidal.jpg",
+    "/images/drone/villars-autumn-sunset.jpg",
+    "/images/drone/villars-winter-sunset.jpg",
+    "/images/drone/blausee-autumn-aerial.jpg",
+    "/images/drone/geneva-jet-deau-aerial.jpg"
 ];
 
 interface CorporateLead {

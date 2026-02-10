@@ -39,8 +39,8 @@ export default function RoadJourney() {
                 <section className="relative h-[70vh] w-full overflow-hidden">
                     <div className="absolute inset-0">
                         <img
-                            src="/images/range-rover-enhanced.jpg"
-                            alt="Luxury SUV on Swiss alpine road"
+                            src="/images/host-road-winter.jpg"
+                            alt="Host on a snowy Swiss alpine road"
                             className="w-full h-full object-cover object-center brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                         />
                         <div className="absolute inset-0 bg-black/20" />
@@ -127,8 +127,8 @@ export default function RoadJourney() {
                 {/* Gallery / Visual Break */}
                 <section className="w-full h-[400px] md:h-[600px] overflow-hidden relative mb-24">
                     <img
-                        src="/images/alpine-road-villars.jpg"
-                        alt="On the road"
+                        src="/images/oeschinen-lake.jpg"
+                        alt="Oeschinen Lake panoramic view"
                         className="w-full h-full object-cover object-center opacity-60 brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                         loading="lazy"
                     />

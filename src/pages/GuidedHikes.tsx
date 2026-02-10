@@ -133,8 +133,8 @@ export default function GuidedHikes() {
                 {/* Visual Break */}
                 <section className="w-full h-[400px] md:h-[500px] overflow-hidden relative">
                     <img
-                        src="/images/villars-sunrise.jpg"
-                        alt="Mountain Sunrise"
+                        src="/images/host-contemplating.jpg"
+                        alt="Host contemplating the Swiss Alps"
                         className="w-full h-full object-cover object-center opacity-50 brightness-[0.85]"
                         loading="lazy"
                     />
