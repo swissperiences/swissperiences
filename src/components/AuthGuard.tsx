@@ -22,11 +22,11 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                     return;
                 }
 
-                // Check Admin access
+                // Check Admin access via is_admin() RPC (reads from admin_emails table)
                 if (requireAdmin) {
-                    const adminEmails = ['cv@lux-sanctuary.com', 'admin@swissperiences.com', 'cauehvidal@gmail.com'];
-                    if (!adminEmails.includes(user.email || "")) {
-                        console.warn("⛔ [AuthGuard] Admin required but email not in allowlist.");
+                    const { data: isAdmin, error: adminError } = await supabase.rpc('is_admin');
+                    if (adminError || !isAdmin) {
+                        console.warn("⛔ [AuthGuard] Admin required but user is not admin.");
                         navigate("/en");
                         return;
                     }

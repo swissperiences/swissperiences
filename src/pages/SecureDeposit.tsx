@@ -30,7 +30,7 @@ export default function SecureDeposit() {
         setIsLoading(true);
 
         try {
-            const response = await fetch("https://rhoxismvcalqppbnndew.supabase.co/functions/v1/create-checkout", {
+            const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-checkout`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3"
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -11,6 +12,35 @@ serve(async (req) => {
     }
 
     try {
+        // Verify the user has an active membership
+        const authHeader = req.headers.get('Authorization')
+        if (!authHeader) {
+            throw new Error('Authentication required')
+        }
+
+        const supabaseUrl = Deno.env.get('SUPABASE_URL')!
+        const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+        const supabase = createClient(supabaseUrl, supabaseServiceKey)
+
+        // Decode the JWT to get the user ID
+        const token = authHeader.replace('Bearer ', '')
+        const { data: { user }, error: authError } = await supabase.auth.getUser(token)
+
+        if (authError || !user) {
+            throw new Error('Invalid authentication')
+        }
+
+        // Check active membership
+        const { data: member, error: memberError } = await supabase
+            .from('members')
+            .select('membership_status')
+            .eq('auth_user_id', user.id)
+            .single()
+
+        if (memberError || !member || member.membership_status !== 'active') {
+            throw new Error('Active membership required to make booking inquiries')
+        }
+
         const { sanctuary, dateFrom, dateTo, memberName, memberEmail } = await req.json()
 
         if (!sanctuary || !dateFrom || !dateTo || !memberEmail) {
