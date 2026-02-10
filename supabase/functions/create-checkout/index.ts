@@ -75,6 +75,8 @@ serve(async (req) => {
     const currency = isGBP ? 'gbp' : 'chf'
 
     // 1. Create Stripe Checkout Session
+    // - client_reference_id: primary link to membership_application (used by webhook)
+    // - metadata.application_id: redundant link for dashboard visibility
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -92,6 +94,7 @@ serve(async (req) => {
       ],
       mode: 'payment',
       allow_promotion_codes: true,
+      client_reference_id: application_id,
       success_url: `${origin}/?payment=success&session_id={CHECKOUT_SESSION_ID}&email=${encodeURIComponent(email)}`,
       cancel_url: `${origin}/?payment=cancelled`,
       customer_email: email,
