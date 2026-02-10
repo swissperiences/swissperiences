@@ -24,6 +24,12 @@ export function BookingCalendar({ sanctuaryName, isOpen, onClose }: BookingCalen
             return;
         }
 
+        const nights = Math.ceil((date.to.getTime() - date.from.getTime()) / (1000 * 60 * 60 * 24));
+        if (nights < 2) {
+            toast.error("Minimum stay is 2 nights.");
+            return;
+        }
+
         setIsSubmitting(true);
 
         try {

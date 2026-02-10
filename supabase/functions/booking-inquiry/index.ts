@@ -24,6 +24,16 @@ serve(async (req) => {
         const toDate = new Date(dateTo).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
         const nights = Math.ceil((new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / (1000 * 60 * 60 * 24))
 
+        if (nights < 2) {
+            throw new Error('Minimum stay is 2 nights')
+        }
+
+        // Sanitize user-provided strings before embedding in HTML
+        const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+        const safeName = esc(memberName || 'Member')
+        const safeEmail = esc(memberEmail)
+        const safeSanctuary = esc(sanctuary)
+
         // 1. Notify admin
         await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -34,18 +44,18 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: ['hello@swissperiences.ch'],
-                subject: `[BOOKING] ${memberName} — ${sanctuary} — ${fromDate} to ${toDate}`,
+                subject: `[BOOKING] ${safeName} — ${safeSanctuary} — ${fromDate} to ${toDate}`,
                 html: `
                     <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 40px 20px;">
                         <h2 style="font-size: 24px; margin-bottom: 24px;">New Booking Inquiry</h2>
                         <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                            <tr><td style="padding: 8px 0; color: #666;">Member</td><td style="padding: 8px 0;">${memberName}</td></tr>
-                            <tr><td style="padding: 8px 0; color: #666;">Email</td><td style="padding: 8px 0;"><a href="mailto:${memberEmail}">${memberEmail}</a></td></tr>
-                            <tr><td style="padding: 8px 0; color: #666;">Sanctuary</td><td style="padding: 8px 0;">${sanctuary}</td></tr>
+                            <tr><td style="padding: 8px 0; color: #666;">Member</td><td style="padding: 8px 0;">${safeName}</td></tr>
+                            <tr><td style="padding: 8px 0; color: #666;">Email</td><td style="padding: 8px 0;"><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
+                            <tr><td style="padding: 8px 0; color: #666;">Sanctuary</td><td style="padding: 8px 0;">${safeSanctuary}</td></tr>
                             <tr><td style="padding: 8px 0; color: #666;">Dates</td><td style="padding: 8px 0;">${fromDate} — ${toDate}</td></tr>
                             <tr><td style="padding: 8px 0; color: #666;">Nights</td><td style="padding: 8px 0;">${nights}</td></tr>
                         </table>
-                        <p style="margin-top: 24px; font-size: 12px; color: #999;">Reply directly to this email or contact the member at ${memberEmail}.</p>
+                        <p style="margin-top: 24px; font-size: 12px; color: #999;">Reply directly to this email or contact the member at ${safeEmail}.</p>
                     </div>
                 `,
             }),
@@ -61,12 +71,12 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: [memberEmail],
-                subject: `Your inquiry for ${sanctuary} — ${fromDate} to ${toDate}`,
+                subject: `Your inquiry for ${safeSanctuary} — ${fromDate} to ${toDate}`,
                 html: `
                     <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 40px 20px; color: #1a1a1a;">
-                        <p style="font-size: 18px; margin-bottom: 24px;">Thank you, ${memberName.split(' ')[0]}.</p>
+                        <p style="font-size: 18px; margin-bottom: 24px;">Thank you, ${esc(safeName.split(' ')[0])}.</p>
                         <p style="font-size: 14px; color: #555; line-height: 1.8;">
-                            We've received your availability request for <strong>${sanctuary}</strong> from
+                            We've received your availability request for <strong>${safeSanctuary}</strong> from
                             <strong>${fromDate}</strong> to <strong>${toDate}</strong> (${nights} night${nights > 1 ? 's' : ''}).
                         </p>
                         <p style="font-size: 14px; color: #555; line-height: 1.8; margin-top: 16px;">
@@ -80,7 +90,7 @@ serve(async (req) => {
             }),
         })
 
-        console.log(`[BOOKING] Inquiry sent: ${memberEmail} → ${sanctuary} (${fromDate} to ${toDate})`)
+        console.log(`[BOOKING] Inquiry sent: ${safeEmail} → ${safeSanctuary} (${fromDate} to ${toDate})`)
 
         return new Response(
             JSON.stringify({ success: true }),

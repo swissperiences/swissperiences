@@ -32,22 +32,17 @@ const Members = () => {
     });
 
     useEffect(() => {
-        checkAuth();
+        loadProfile();
     }, []);
 
-    const checkAuth = async () => {
+    const loadProfile = async () => {
         try {
+            // AuthGuard already verified auth + active membership.
+            // We only need the profile data here.
             const { data: { user } } = await supabase.auth.getUser();
+            const { data: memberData } = await supabase.rpc('get_member_profile');
 
-            if (!user) {
-                navigate('/login');
-                return;
-            }
-
-            // Get full member profile via RPC (bypasses RLS)
-            const { data: memberData, error } = await supabase.rpc('get_member_profile');
-
-            if (error || !memberData) {
+            if (!memberData) {
                 navigate('/login');
                 return;
             }
@@ -56,8 +51,8 @@ const Members = () => {
             setMember({
                 id: m.id || '',
                 full_name: m.full_name || '',
-                email: m.email || user.email || '',
-                avatar_url: m.avatar_url || user.user_metadata?.avatar_url || null,
+                email: m.email || user?.email || '',
+                avatar_url: m.avatar_url || user?.user_metadata?.avatar_url || null,
                 city: m.city || '',
                 country: m.country || '',
                 membership_tier: m.membership_tier || 'founding',
@@ -65,7 +60,7 @@ const Members = () => {
                 joined_at: m.joined_at || new Date().toISOString(),
             });
         } catch (error) {
-            console.error('Error checking auth:', error);
+            console.error('Error loading member profile:', error);
             navigate('/login');
         } finally {
             setIsLoading(false);
