@@ -117,5 +117,22 @@
       "movement": "Movement",
       "portrait": "Portrait"
     }
+  },
+  "members": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "subtitle": "Access our collection of curated alpine sanctuaries and exclusive experiences.",
+    "sanctuaries": "The Sanctuaries",
+    "experiences": "Experiences",
+    "journals": "Guest Journals",
+    "journalsDesc": "Real stories from real travelers. Explore our archive of curated journeys.",
+    "readJournal": "Read Journal →",
+    "readyToBook": "Ready to book?",
+    "readyToBookDesc": "Contact us directly to arrange your next escape. We'll handle every detail.",
+    "viewDates": "View Dates →",
+    "viewDetails": "View details →"
   }
 }

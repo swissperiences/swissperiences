@@ -120,5 +120,22 @@
       "movement": "Movimento",
       "portrait": "Retrato"
     }
+  },
+  "members": {
+    "greeting": {
+      "morning": "Bom dia",
+      "afternoon": "Boa tarde",
+      "evening": "Boa noite"
+    },
+    "subtitle": "Acesse nossa coleção de santuários alpinos e experiências exclusivas.",
+    "sanctuaries": "Os Santuários",
+    "experiences": "Experiências",
+    "journals": "Diários de Hóspedes",
+    "journalsDesc": "Histórias reais de viajantes reais. Explore nosso arquivo de jornadas curadas.",
+    "readJournal": "Ler Diário →",
+    "readyToBook": "Pronto para reservar?",
+    "readyToBookDesc": "Entre em contato diretamente para organizar sua próxima escapada. Cuidamos de cada detalhe.",
+    "viewDates": "Ver Datas →",
+    "viewDetails": "Ver detalhes →"
   }
 }
