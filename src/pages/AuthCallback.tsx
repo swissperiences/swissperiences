@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 
@@ -9,13 +9,13 @@ import SEO from "@/components/SEO";
  * After Google OAuth, this page checks membership status and routes:
  *   - Active member  → /members
  *   - Pending application → /pending-approval
- *   - No application → /request-access (user is signed in, can apply with context)
+ *   - No application → auto-creates application from Google profile → /pending-approval
  *
- * Legacy ?flow=apply support: if explicitly applying, create application first.
+ * This means every Google sign-in is implicitly an application.
+ * The admin reviews and approves/rejects from the dashboard.
  */
 const AuthCallback = () => {
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -24,8 +24,6 @@ const AuthCallback = () => {
 
     const handleCallback = async () => {
         try {
-            const flow = searchParams.get("flow");
-
             // Wait for Supabase to process the OAuth callback
             const { data: { user }, error: authError } = await supabase.auth.getUser();
 
@@ -35,40 +33,11 @@ const AuthCallback = () => {
                 return;
             }
 
-            // If explicit apply flow, create application first
-            if (flow === "apply") {
-                const fullName = user.user_metadata?.full_name || user.user_metadata?.name || "";
-                const email = user.email || "";
-
-                const { error: insertError } = await supabase
-                    .from("membership_applications")
-                    .insert({
-                        full_name: fullName,
-                        email: email,
-                        referral_source: "google_oauth",
-                        status: "pending",
-                    });
-
-                if (insertError) {
-                    // Duplicate = already applied, continue to status check below
-                    if (
-                        insertError.code !== "23505" &&
-                        !insertError.message?.includes("duplicate") &&
-                        !insertError.details?.includes("already exists")
-                    ) {
-                        console.error("❌ [AuthCallback] Insert error:", insertError);
-                        setError("Something went wrong creating your application. Please try again.");
-                        return;
-                    }
-                }
-            }
-
-            // Unified routing: check actual membership status
+            // Check membership status
             const { data, error: rpcError } = await supabase.rpc("get_or_create_member");
 
             if (rpcError) {
                 console.error("❌ [AuthCallback] RPC error:", rpcError);
-                // Fallback: if RPC fails, at least try to go to members (AuthGuard will handle)
                 navigate("/members", { replace: true });
                 return;
             }
@@ -87,7 +56,6 @@ const AuthCallback = () => {
                         navigate("/members", { replace: true });
                         return;
                     }
-                    // Has member record but not active — shouldn't happen often
                     navigate("/pending-approval", { replace: true });
                     return;
 
@@ -95,10 +63,36 @@ const AuthCallback = () => {
                     navigate("/pending-approval", { replace: true });
                     return;
 
-                case "no_application":
-                    // Signed in but never applied → send to request-access with context
-                    navigate("/request-access", { replace: true });
+                case "no_application": {
+                    // Auto-create application from Google profile data.
+                    // This eliminates the need for a separate form and ensures
+                    // the application email always matches the Google login email.
+                    const fullName = user.user_metadata?.full_name || user.user_metadata?.name || "";
+                    const email = user.email || "";
+
+                    const { error: insertError } = await supabase
+                        .from("membership_applications")
+                        .insert({
+                            full_name: fullName,
+                            email: email,
+                            referral_source: "google_oauth",
+                            status: "pending",
+                        });
+
+                    if (insertError) {
+                        // Duplicate = already applied with this email, just continue
+                        if (
+                            insertError.code !== "23505" &&
+                            !insertError.message?.includes("duplicate") &&
+                            !insertError.details?.includes("already exists")
+                        ) {
+                            console.error("❌ [AuthCallback] Auto-apply insert error:", insertError);
+                        }
+                    }
+
+                    navigate("/pending-approval", { replace: true });
                     return;
+                }
 
                 default:
                     navigate("/request-access", { replace: true });

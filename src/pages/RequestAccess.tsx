@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 const RequestAccess = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -16,6 +17,22 @@ const RequestAccess = () => {
         referralSource: "",
         referralDetail: ""
     });
+
+    // Pre-fill form with Google account data if user is already logged in
+    useEffect(() => {
+        const prefillFromSession = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                setIsLoggedIn(true);
+                setFormData(prev => ({
+                    ...prev,
+                    fullName: user.user_metadata?.full_name || user.user_metadata?.name || prev.fullName,
+                    email: user.email || prev.email,
+                }));
+            }
+        };
+        prefillFromSession();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -235,7 +252,8 @@ const RequestAccess = () => {
                                     required
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors placeholder:text-white/20"
+                                    readOnly={isLoggedIn}
+                                    className={`w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors placeholder:text-white/20 ${isLoggedIn ? 'opacity-60 cursor-not-allowed' : ''}`}
                                     placeholder="your@email.com"
                                 />
                             </div>
