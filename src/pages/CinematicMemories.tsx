@@ -29,8 +29,8 @@ export default function CinematicMemories() {
 
     const galleryItems = [
         { src: "/images/drone/lakeside-village-aerial.jpg", label: t('cinematic.gallery.movement'), span: "col-span-2 row-span-2" },
-        { src: "/images/drone/lake-brienz-aerial.jpg", label: t('cinematic.gallery.nature'), span: "col-span-2" },
-        { src: "/images/drone/villars-autumn-sunset.jpg", label: "Golden Hour", span: "col-span-1" },
+        { src: "/images/drone/villars-autumn-sunset.jpg", label: "Golden Hour", span: "col-span-1 row-span-2" },
+        { src: "/images/drone/lake-brienz-aerial.jpg", label: t('cinematic.gallery.nature'), span: "col-span-1" },
         { src: "/images/drone/blausee-autumn-aerial.jpg", label: "Blausee", span: "col-span-1" },
         { src: "/images/drone/lake-alpine-serenity.jpg", label: t('cinematic.gallery.atmosphere'), span: "col-span-1" },
         { src: "/images/host-hiking.jpg", label: t('cinematic.gallery.portrait'), span: "col-span-1" },

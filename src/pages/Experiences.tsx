@@ -26,7 +26,7 @@ export default function Experiences() {
             subtitle: "Private Guide & Luxury SUV",
             price: "From CHF 850",
             description: "Private luxury SUV expeditions through the most beautiful roads in Switzerland. UNESCO heritage sites, hidden vineyards, legendary mountain passes. Your pace, your journey.",
-            image: "/images/host-road-winter.jpg",
+            image: "/images/alpine-road-villars.jpg",
             href: "/experiences/road-journey",
             available: true,
         },

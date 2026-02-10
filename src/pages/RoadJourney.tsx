@@ -30,7 +30,7 @@ export default function RoadJourney() {
                 description="Private luxury SUV expeditions through the Swiss Alps. UNESCO heritage sites, hidden gems, and local hosts. Your pace, your journey."
                 keywords="swiss alps driving, luxury suv switzerland, luxury road trip switzerland, lavaux vineyard tour, gruyeres tour, private swiss guide"
                 canonical="https://swissperiences.ch/experiences/road-journey"
-                ogImage="https://www.swissperiences.ch/images/range-rover-enhanced.jpg"
+                ogImage="https://www.swissperiences.ch/images/alpine-road-villars.jpg"
             />
             <Navigation />
 
@@ -39,8 +39,8 @@ export default function RoadJourney() {
                 <section className="relative h-[70vh] w-full overflow-hidden">
                     <div className="absolute inset-0">
                         <img
-                            src="/images/host-road-winter.jpg"
-                            alt="Host on a snowy Swiss alpine road"
+                            src="/images/alpine-road-villars.jpg"
+                            alt="Range Rover on a scenic Swiss alpine road"
                             className="w-full h-full object-cover object-center brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                         />
                         <div className="absolute inset-0 bg-black/20" />
