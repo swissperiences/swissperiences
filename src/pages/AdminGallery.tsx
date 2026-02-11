@@ -252,13 +252,14 @@ export default function AdminGallery() {
     };
 
     const updateBookingStatus = async (bookingId: string, newStatus: string) => {
+        const oldStatus = bookingInquiries.find(b => b.id === bookingId)?.status || 'inquiry';
         // Optimistic update
         setBookingInquiries(prev => prev.map(b => b.id === bookingId ? { ...b, status: newStatus } : b));
         try {
-            const { error } = await supabase
-                .from('bookings')
-                .update({ status: newStatus })
-                .eq('id', bookingId);
+            const { data, error } = await supabase.rpc('admin_update_booking_status', {
+                p_booking_id: bookingId,
+                p_new_status: newStatus,
+            });
             if (error) throw error;
             toast({
                 title: "Booking Updated",
@@ -268,7 +269,7 @@ export default function AdminGallery() {
             console.error("Failed to update booking:", err);
             toast({ title: "Update Failed", description: "Could not update booking status.", variant: "destructive" });
             // Revert
-            setBookingInquiries(prev => prev.map(b => b.id === bookingId ? { ...b, status: 'inquiry' } : b));
+            setBookingInquiries(prev => prev.map(b => b.id === bookingId ? { ...b, status: oldStatus } : b));
         }
     };
 
