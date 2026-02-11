@@ -5,6 +5,8 @@ import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import AvailabilityCalendar from "@/components/AvailabilityCalendar";
+import { useBookedDates } from "@/hooks/useBookedDates";
 import { Calendar, MapPin, Users, Mountain, Car, Camera, ChefHat, ArrowLeft, Loader2, Check } from "lucide-react";
 import { toast } from "sonner";
 
@@ -45,6 +47,14 @@ export default function MembersBook() {
     const [preferredDate, setPreferredDate] = useState("");
     const [expGuests, setExpGuests] = useState(1);
     const [expSpecialRequests, setExpSpecialRequests] = useState("");
+
+    // Availability calendar — fetch booked dates for selected sanctuary
+    const { bookedDates, isLoading: datesLoading } = useBookedDates(selectedSanctuary);
+
+    // FUTURE: Combine with manually blocked dates from admin:
+    // const { manuallyBlockedDates } = useManuallyBlockedDates(selectedSanctuary);
+    // const allDisabledDates = [...bookedDates, ...manuallyBlockedDates];
+    const allDisabledDates = bookedDates;
 
     useEffect(() => {
         loadMember();
@@ -302,30 +312,22 @@ export default function MembersBook() {
                             </div>
                         </div>
 
-                        {/* Dates */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Check-in</label>
-                                <input
-                                    type="date"
-                                    value={checkIn}
-                                    onChange={(e) => setCheckIn(e.target.value)}
-                                    min={new Date().toISOString().split("T")[0]}
-                                    required
-                                    className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm focus:border-switz-red focus:outline-none transition-colors"
-                                />
-                            </div>
-                            <div>
-                                <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Check-out</label>
-                                <input
-                                    type="date"
-                                    value={checkOut}
-                                    onChange={(e) => setCheckOut(e.target.value)}
-                                    min={checkIn || new Date().toISOString().split("T")[0]}
-                                    required
-                                    className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm focus:border-switz-red focus:outline-none transition-colors"
-                                />
-                            </div>
+                        {/* Dates — Availability Calendar */}
+                        <div>
+                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-3">Select Dates</label>
+                            <AvailabilityCalendar
+                                disabledDates={allDisabledDates}
+                                mode="range"
+                                isLoading={datesLoading}
+                                minNights={2}
+                                onSelectRange={(ci, co, nights) => {
+                                    setCheckIn(ci);
+                                    setCheckOut(co);
+                                }}
+                            />
+                            {/* Hidden inputs for form validation */}
+                            <input type="hidden" value={checkIn} required />
+                            <input type="hidden" value={checkOut} required />
                         </div>
 
                         {/* Guests */}
@@ -409,17 +411,14 @@ export default function MembersBook() {
                             </div>
                         </div>
 
-                        {/* Date */}
+                        {/* Date — Availability Calendar (single mode for experiences) */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Preferred Date</label>
-                            <input
-                                type="date"
-                                value={preferredDate}
-                                onChange={(e) => setPreferredDate(e.target.value)}
-                                min={new Date().toISOString().split("T")[0]}
-                                required
-                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm focus:border-switz-red focus:outline-none transition-colors"
+                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-3">Preferred Date</label>
+                            <AvailabilityCalendar
+                                mode="single"
+                                onSelectDate={(date) => setPreferredDate(date)}
                             />
+                            <input type="hidden" value={preferredDate} required />
                         </div>
 
                         {/* Number of People */}
