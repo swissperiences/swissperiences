@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Lightbulb, Rocket, Target, CheckCircle, XCircle, MapPin, Clock } from "lucide-react";
+import { ArrowLeft, ExternalLink, Lightbulb, Rocket, Target, CheckCircle, XCircle, MapPin, Clock, CalendarOff, Trash2, Plus, Loader2 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -115,12 +115,33 @@ interface BookingInquiry {
     member_email?: string;
 }
 
+interface BlockedDate {
+    id: string;
+    type: string;
+    item_id: string;
+    date: string;
+    reason: string | null;
+    created_at: string;
+}
+
 const bookingLabels: Record<string, string> = {
     villars: "The Villars Loft",
     road_journey: "Alps Road Journey",
     guided_hike: "Guided Alpine Hike",
     cinematic_memories: "Cinematic Memories",
     private_chef: "Private Chef",
+};
+
+const blockableItems = {
+    sanctuary: [
+        { id: "villars", name: "The Villars Loft" },
+    ],
+    experience: [
+        { id: "road_journey", name: "Alps Road Journey" },
+        { id: "guided_hike", name: "Guided Alpine Hike" },
+        { id: "cinematic_memories", name: "Cinematic Memories" },
+        { id: "private_chef", name: "Private Chef" },
+    ],
 };
 
 export default function AdminGallery() {
@@ -131,7 +152,13 @@ export default function AdminGallery() {
     const [inventory, setInventory] = useState<InventoryItem[]>([]);
     const [partners, setPartners] = useState<PartnerItem[]>([]);
     const [bookingInquiries, setBookingInquiries] = useState<BookingInquiry[]>([]);
+    const [blockedDates, setBlockedDates] = useState<BlockedDate[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isAddingBlock, setIsAddingBlock] = useState(false);
+    const [blockType, setBlockType] = useState<"sanctuary" | "experience">("sanctuary");
+    const [blockItemId, setBlockItemId] = useState("villars");
+    const [blockDate, setBlockDate] = useState("");
+    const [blockReason, setBlockReason] = useState("");
     const { toast } = useToast();
 
     useEffect(() => {
@@ -186,6 +213,14 @@ export default function AdminGallery() {
                 }
                 const bookingsArray = Array.isArray(bookingData) ? bookingData : (bookingData ? JSON.parse(bookingData) : []);
                 setBookingInquiries(bookingsArray);
+
+                // Fetch Blocked Dates
+                const { data: blockedData, error: blockedError } = await supabase.rpc('admin_get_all_blocked_dates');
+                if (blockedError) {
+                    console.error("Error fetching blocked dates:", blockedError);
+                }
+                const blockedArray = Array.isArray(blockedData) ? blockedData : (blockedData ? JSON.parse(blockedData) : []);
+                setBlockedDates(blockedArray);
 
             } catch (error) {
                 console.error("Error fetching admin data:", error);
@@ -287,6 +322,64 @@ export default function AdminGallery() {
         }
     };
 
+    const handleAddBlockedDate = async () => {
+        if (!blockDate || !blockItemId) {
+            toast({ title: "Missing fields", description: "Select an item and date.", variant: "destructive" });
+            return;
+        }
+        setIsAddingBlock(true);
+        try {
+            const { data, error } = await supabase.rpc('admin_add_blocked_date', {
+                p_type: blockType,
+                p_item_id: blockItemId,
+                p_date: blockDate,
+                p_reason: blockReason || null,
+            });
+            if (error) throw error;
+            const result = data as Record<string, any>;
+            if (result?.error) throw new Error(result.error);
+
+            // Add to local state
+            const newItem: BlockedDate = {
+                id: result.id,
+                type: blockType,
+                item_id: blockItemId,
+                date: blockDate,
+                reason: blockReason || null,
+                created_at: new Date().toISOString(),
+            };
+            setBlockedDates(prev => [...prev, newItem].sort((a, b) => a.date.localeCompare(b.date)));
+            setBlockDate("");
+            setBlockReason("");
+            toast({ title: "Date Blocked", description: `${blockDate} blocked for ${bookingLabels[blockItemId] || blockItemId}.` });
+        } catch (err: any) {
+            console.error("Failed to add blocked date:", err);
+            toast({ title: "Failed", description: err.message || "Could not block date.", variant: "destructive" });
+        } finally {
+            setIsAddingBlock(false);
+        }
+    };
+
+    const handleRemoveBlockedDate = async (id: string) => {
+        // Optimistic removal
+        const removed = blockedDates.find(bd => bd.id === id);
+        setBlockedDates(prev => prev.filter(bd => bd.id !== id));
+        try {
+            const { data, error } = await supabase.rpc('admin_remove_blocked_date', {
+                p_blocked_date_id: id,
+            });
+            if (error) throw error;
+            const result = data as Record<string, any>;
+            if (result?.error) throw new Error(result.error);
+            toast({ title: "Block Removed", description: "Date is now available again." });
+        } catch (err: any) {
+            console.error("Failed to remove blocked date:", err);
+            toast({ title: "Failed", description: err.message || "Could not remove block.", variant: "destructive" });
+            // Revert
+            if (removed) setBlockedDates(prev => [...prev, removed].sort((a, b) => a.date.localeCompare(b.date)));
+        }
+    };
+
     const copyToClipboard = (path: string) => {
         navigator.clipboard.writeText(path);
         toast({
@@ -347,6 +440,7 @@ export default function AdminGallery() {
                     <TabsList className="bg-white/5 border border-white/10 p-1 flex-wrap">
                         <TabsTrigger value="membership" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-xs font-bold">Membership</TabsTrigger>
                         <TabsTrigger value="bookings" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Bookings</TabsTrigger>
+                        <TabsTrigger value="blocked" className="data-[state=active]:bg-red-600 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Blocked Dates</TabsTrigger>
                         <TabsTrigger value="leads" className="data-[state=active]:bg-switz-red data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">B2B Signals</TabsTrigger>
                         <TabsTrigger value="waitlist" className="data-[state=active]:bg-indigo-500 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">B2C Waitlist</TabsTrigger>
                         <TabsTrigger value="supply" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Supply Hub</TabsTrigger>
@@ -482,6 +576,149 @@ export default function AdminGallery() {
                                 </div>
                             </div>
                         )}
+                    </TabsContent>
+
+                    {/* === BLOCKED DATES TAB === */}
+                    <TabsContent value="blocked">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            {/* Add Blocked Date Form */}
+                            <Card className="bg-white/5 border-white/5 text-white lg:col-span-1">
+                                <CardHeader className="border-b border-white/5">
+                                    <CardTitle className="font-serif italic text-xl flex items-center gap-2">
+                                        <CalendarOff size={18} className="text-red-400" />
+                                        Block a Date
+                                    </CardTitle>
+                                    <CardDescription className="text-white/40 text-xs">
+                                        Block dates for maintenance, holidays, or owner use.
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className="pt-6 space-y-4">
+                                    {/* Type */}
+                                    <div>
+                                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Type</label>
+                                        <select
+                                            value={blockType}
+                                            onChange={(e) => {
+                                                const newType = e.target.value as "sanctuary" | "experience";
+                                                setBlockType(newType);
+                                                setBlockItemId(blockableItems[newType][0].id);
+                                            }}
+                                            className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm focus:border-switz-red focus:outline-none transition-colors rounded-sm"
+                                        >
+                                            <option value="sanctuary">Sanctuary</option>
+                                            <option value="experience">Experience</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Item */}
+                                    <div>
+                                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Item</label>
+                                        <select
+                                            value={blockItemId}
+                                            onChange={(e) => setBlockItemId(e.target.value)}
+                                            className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm focus:border-switz-red focus:outline-none transition-colors rounded-sm"
+                                        >
+                                            {blockableItems[blockType].map((item) => (
+                                                <option key={item.id} value={item.id}>{item.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    {/* Date */}
+                                    <div>
+                                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Date</label>
+                                        <input
+                                            type="date"
+                                            value={blockDate}
+                                            onChange={(e) => setBlockDate(e.target.value)}
+                                            min={new Date().toISOString().split("T")[0]}
+                                            className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm focus:border-switz-red focus:outline-none transition-colors rounded-sm"
+                                        />
+                                    </div>
+
+                                    {/* Reason */}
+                                    <div>
+                                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                                            Reason <span className="text-white/20">(optional)</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={blockReason}
+                                            onChange={(e) => setBlockReason(e.target.value)}
+                                            placeholder="e.g. maintenance, holiday, owner use..."
+                                            className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors rounded-sm"
+                                        />
+                                    </div>
+
+                                    {/* Submit */}
+                                    <button
+                                        onClick={handleAddBlockedDate}
+                                        disabled={isAddingBlock || !blockDate}
+                                        className="w-full flex items-center justify-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/20 py-3 uppercase tracking-widest text-[10px] font-bold transition-colors disabled:opacity-40 rounded-sm"
+                                    >
+                                        {isAddingBlock ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                                        Block Date
+                                    </button>
+                                </CardContent>
+                            </Card>
+
+                            {/* Blocked Dates List */}
+                            <div className="bg-white/5 border border-white/10 rounded-sm overflow-hidden lg:col-span-2">
+                                <div className="p-6 border-b border-white/10 flex justify-between items-center">
+                                    <h2 className="font-serif text-2xl italic">Active Blocks</h2>
+                                    <span className="text-xs uppercase tracking-widest text-white/40">
+                                        {blockedDates.length} {blockedDates.length === 1 ? "date" : "dates"} blocked
+                                    </span>
+                                </div>
+                                {blockedDates.length === 0 ? (
+                                    <div className="p-12 text-center text-white/30">No dates blocked. Calendar is fully open.</div>
+                                ) : (
+                                    <Table>
+                                        <TableHeader className="bg-white/5">
+                                            <TableRow className="border-white/10 hover:bg-transparent">
+                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Type</TableHead>
+                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Item</TableHead>
+                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Date</TableHead>
+                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Reason</TableHead>
+                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold text-right">Action</TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {blockedDates.map((bd) => (
+                                                <TableRow key={bd.id} className="border-white/5 hover:bg-white/5 transition-colors">
+                                                    <TableCell>
+                                                        <span className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-full border ${
+                                                            bd.type === 'sanctuary'
+                                                                ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                                                                : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
+                                                        }`}>
+                                                            {bd.type}
+                                                        </span>
+                                                    </TableCell>
+                                                    <TableCell className="text-white/80 text-xs">
+                                                        {bookingLabels[bd.item_id] || bd.item_id}
+                                                    </TableCell>
+                                                    <TableCell className="text-white/60 text-xs font-mono">
+                                                        {new Date(bd.date + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}
+                                                    </TableCell>
+                                                    <TableCell className="text-white/40 text-xs italic">
+                                                        {bd.reason || "—"}
+                                                    </TableCell>
+                                                    <TableCell className="text-right">
+                                                        <button
+                                                            onClick={() => handleRemoveBlockedDate(bd.id)}
+                                                            className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-widest font-bold transition-colors ml-auto"
+                                                        >
+                                                            <Trash2 size={12} /> Remove
+                                                        </button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                )}
+                            </div>
+                        </div>
                     </TabsContent>
 
                     {/* === LEADS TAB === */}

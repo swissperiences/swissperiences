@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import AvailabilityCalendar from "@/components/AvailabilityCalendar";
 import { useBookedDates } from "@/hooks/useBookedDates";
+import { useBlockedDates } from "@/hooks/useBlockedDates";
 import { Calendar, MapPin, Users, Mountain, Car, Camera, ChefHat, ArrowLeft, Loader2, Check } from "lucide-react";
 import { toast } from "sonner";
 
@@ -48,13 +49,14 @@ export default function MembersBook() {
     const [expGuests, setExpGuests] = useState(1);
     const [expSpecialRequests, setExpSpecialRequests] = useState("");
 
-    // Availability calendar — fetch booked dates for selected sanctuary
+    // Availability calendar — fetch booked dates + admin-blocked dates
     const { bookedDates, isLoading: datesLoading } = useBookedDates(selectedSanctuary);
+    const { blockedDates: sanctuaryBlockedDates, isLoading: blockedLoading } = useBlockedDates("sanctuary", selectedSanctuary);
+    const { blockedDates: experienceBlockedDates } = useBlockedDates("experience", selectedExperience);
 
-    // FUTURE: Combine with manually blocked dates from admin:
-    // const { manuallyBlockedDates } = useManuallyBlockedDates(selectedSanctuary);
-    // const allDisabledDates = [...bookedDates, ...manuallyBlockedDates];
-    const allDisabledDates = bookedDates;
+    // Combine bookings + admin-blocked dates (deduplicated via Set)
+    const allDisabledDates = [...new Set([...bookedDates, ...sanctuaryBlockedDates])];
+    const experienceDisabledDates = experienceBlockedDates;
 
     useEffect(() => {
         loadMember();
@@ -318,7 +320,7 @@ export default function MembersBook() {
                             <AvailabilityCalendar
                                 disabledDates={allDisabledDates}
                                 mode="range"
-                                isLoading={datesLoading}
+                                isLoading={datesLoading || blockedLoading}
                                 minNights={2}
                                 onSelectRange={(ci, co, nights) => {
                                     setCheckIn(ci);
@@ -415,6 +417,7 @@ export default function MembersBook() {
                         <div>
                             <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-3">Preferred Date</label>
                             <AvailabilityCalendar
+                                disabledDates={experienceDisabledDates}
                                 mode="single"
                                 onSelectDate={(date) => setPreferredDate(date)}
                             />
