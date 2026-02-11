@@ -213,17 +213,18 @@ export default function VillarsRetreat() {
                         </div>
                     </div>
 
-                    {/* CTA Section - Fixed Alignment */}
+                    {/* CTA Section */}
                     <div className="mt-16 md:mt-24">
                         <a
                             href="/request-access"
                             className="inline-block bg-white text-black px-12 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 group relative overflow-hidden"
                         >
                             <span className="relative z-10 flex items-center gap-2">
-                                Check Availability
+                                Become a Member to Book
                                 <div className="w-0 group-hover:w-4 h-px bg-white transition-all duration-500" />
                             </span>
                         </a>
+                        <p className="text-white/40 text-xs mt-4 max-w-sm">Membership required. Apply now for exclusive access to our sanctuaries.</p>
                     </div>
                 </section>
             </main>

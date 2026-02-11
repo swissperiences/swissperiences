@@ -118,9 +118,10 @@ export default function RoadJourney() {
                             href="/request-access"
                             className="w-full mt-8 flex items-center justify-between bg-white text-black px-6 py-4 uppercase tracking-widest text-xs hover:bg-switz-red hover:text-white transition-colors duration-300"
                         >
-                            <span>Plan Your Route</span>
+                            <span>Become a Member to Book</span>
                             <ArrowRight size={16} />
                         </a>
+                        <p className="text-white/40 text-[10px] mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>
                     </div>
                 </section>
 

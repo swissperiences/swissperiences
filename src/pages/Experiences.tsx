@@ -178,13 +178,14 @@ export default function Experiences() {
                 <section className="py-24 px-6 text-center">
                     <div className="max-w-2xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-serif mb-6">Your experience awaits.</h2>
-                        <p className="text-white/50 font-light mb-12">Member pricing and booking available after approval.</p>
+                        <p className="text-white/50 font-light mb-8">Become a member to unlock booking and exclusive pricing.</p>
                         <a
                             href="/request-access"
                             className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
-                            Request Access
+                            Become a Member
                         </a>
+                        <p className="text-white/30 text-xs mt-4">Membership required. Apply now for exclusive access to our curated alpine experiences.</p>
                     </div>
                 </section>
             </main>

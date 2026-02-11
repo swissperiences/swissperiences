@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Lightbulb, Rocket, Target } from "lucide-react";
+import { ArrowLeft, ExternalLink, Lightbulb, Rocket, Target, CheckCircle, XCircle, MapPin, Clock } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -98,6 +98,31 @@ interface PartnerItem {
     base_cost_estimate?: string;
 }
 
+interface BookingInquiry {
+    id: string;
+    member_id: string;
+    sanctuary_id: string | null;
+    experience_type: string | null;
+    check_in: string | null;
+    check_out: string | null;
+    preferred_date: string | null;
+    guests: number;
+    special_requests: string | null;
+    status: string;
+    total_nights: number | null;
+    created_at: string;
+    member_name?: string;
+    member_email?: string;
+}
+
+const bookingLabels: Record<string, string> = {
+    villars: "The Villars Loft",
+    road_journey: "Alps Road Journey",
+    guided_hike: "Guided Alpine Hike",
+    cinematic_memories: "Cinematic Memories",
+    private_chef: "Private Chef",
+};
+
 export default function AdminGallery() {
     const [leads, setLeads] = useState<CorporateLead[]>([]);
     const [waitlist, setWaitlist] = useState<any[]>([]);
@@ -105,6 +130,7 @@ export default function AdminGallery() {
     const [concepts, setConcepts] = useState<any[]>([]);
     const [inventory, setInventory] = useState<InventoryItem[]>([]);
     const [partners, setPartners] = useState<PartnerItem[]>([]);
+    const [bookingInquiries, setBookingInquiries] = useState<BookingInquiry[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const { toast } = useToast();
 
@@ -152,6 +178,30 @@ export default function AdminGallery() {
                     .select('*')
                     .order('name', { ascending: true });
                 setPartners(partData || []);
+
+                // Fetch Booking Inquiries (admin sees all via RLS)
+                const { data: bookingData } = await supabase
+                    .from('bookings')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                // Enrich with member info
+                if (bookingData && bookingData.length > 0) {
+                    const memberIds = [...new Set(bookingData.map((b: any) => b.member_id))];
+                    const { data: membersData } = await supabase
+                        .from('members')
+                        .select('id, full_name, email')
+                        .in('id', memberIds);
+
+                    const memberMap = new Map((membersData || []).map((m: any) => [m.id, m]));
+                    setBookingInquiries(bookingData.map((b: any) => ({
+                        ...b,
+                        member_name: memberMap.get(b.member_id)?.full_name || 'Unknown',
+                        member_email: memberMap.get(b.member_id)?.email || '',
+                    })));
+                } else {
+                    setBookingInquiries([]);
+                }
 
             } catch (error) {
                 console.error("Error fetching admin data:", error);
@@ -217,6 +267,27 @@ export default function AdminGallery() {
         }
     };
 
+    const updateBookingStatus = async (bookingId: string, newStatus: string) => {
+        // Optimistic update
+        setBookingInquiries(prev => prev.map(b => b.id === bookingId ? { ...b, status: newStatus } : b));
+        try {
+            const { error } = await supabase
+                .from('bookings')
+                .update({ status: newStatus })
+                .eq('id', bookingId);
+            if (error) throw error;
+            toast({
+                title: "Booking Updated",
+                description: `Status changed to ${newStatus}.`,
+            });
+        } catch (err) {
+            console.error("Failed to update booking:", err);
+            toast({ title: "Update Failed", description: "Could not update booking status.", variant: "destructive" });
+            // Revert
+            setBookingInquiries(prev => prev.map(b => b.id === bookingId ? { ...b, status: 'inquiry' } : b));
+        }
+    };
+
     const copyToClipboard = (path: string) => {
         navigator.clipboard.writeText(path);
         toast({
@@ -264,23 +335,19 @@ export default function AdminGallery() {
                                 </span>
                             </CardContent>
                         </Card>
-                        <Card className="bg-white/5 border-white/5 text-white group hover:border-switz-red/30 transition-colors">
-                            <a href="https://plausible.io/swissperiences.ch" target="_blank" rel="noopener noreferrer" className="block">
-                                <CardContent className="pt-6 relative">
-                                    <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Network Performance</span>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-3xl font-serif italic text-emerald-400">Active</span>
-                                        <ExternalLink className="w-4 h-4 text-white/20 group-hover:text-switz-red transition-colors" />
-                                    </div>
-                                </CardContent>
-                            </a>
+                        <Card className="bg-white/5 border-white/5 text-white">
+                            <CardContent className="pt-6">
+                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Booking Inquiries</span>
+                                <span className="text-3xl font-serif italic text-amber-400">{bookingInquiries.filter(b => b.status === 'inquiry').length}</span>
+                            </CardContent>
                         </Card>
                     </div>
                 )}
 
                 <Tabs defaultValue="membership" className="space-y-8">
-                    <TabsList className="bg-white/5 border border-white/10 p-1">
+                    <TabsList className="bg-white/5 border border-white/10 p-1 flex-wrap">
                         <TabsTrigger value="membership" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-xs font-bold">Membership</TabsTrigger>
+                        <TabsTrigger value="bookings" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Bookings</TabsTrigger>
                         <TabsTrigger value="leads" className="data-[state=active]:bg-switz-red data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">B2B Signals</TabsTrigger>
                         <TabsTrigger value="waitlist" className="data-[state=active]:bg-indigo-500 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">B2C Waitlist</TabsTrigger>
                         <TabsTrigger value="supply" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Supply Hub</TabsTrigger>
@@ -292,6 +359,130 @@ export default function AdminGallery() {
                     {/* === MEMBERSHIP TAB === */}
                     <TabsContent value="membership">
                         <MembershipApplications />
+                    </TabsContent>
+
+                    {/* === BOOKINGS TAB === */}
+                    <TabsContent value="bookings">
+                        <div className="bg-white/5 border border-white/10 rounded-sm overflow-hidden">
+                            <div className="p-6 border-b border-white/10 flex justify-between items-center">
+                                <h2 className="font-serif text-2xl italic">Booking Inquiries</h2>
+                                <span className="text-xs uppercase tracking-widest text-white/40">
+                                    {bookingInquiries.filter(b => b.status === 'inquiry').length} pending &middot; {bookingInquiries.length} total
+                                </span>
+                            </div>
+                            {isLoading ? (
+                                <div className="p-12 text-center text-white/30 animate-pulse">Loading bookings...</div>
+                            ) : bookingInquiries.length === 0 ? (
+                                <div className="p-12 text-center text-white/30">No booking inquiries yet.</div>
+                            ) : (
+                                <Table>
+                                    <TableHeader className="bg-white/5">
+                                        <TableRow className="border-white/10 hover:bg-transparent">
+                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Status</TableHead>
+                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Type</TableHead>
+                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Member</TableHead>
+                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Dates</TableHead>
+                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Guests</TableHead>
+                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Requested</TableHead>
+                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold text-right">Actions</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        {bookingInquiries.map((booking) => {
+                                            const label = booking.sanctuary_id
+                                                ? bookingLabels[booking.sanctuary_id] || booking.sanctuary_id
+                                                : bookingLabels[booking.experience_type || ''] || booking.experience_type || '—';
+                                            const isSanctuary = !!booking.sanctuary_id;
+                                            const dateStr = booking.check_in
+                                                ? `${new Date(booking.check_in).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} — ${new Date(booking.check_out!).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}${booking.total_nights ? ` (${booking.total_nights}n)` : ''}`
+                                                : booking.preferred_date
+                                                    ? new Date(booking.preferred_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                                                    : '—';
+
+                                            return (
+                                                <TableRow key={booking.id} className="border-white/5 hover:bg-white/5 transition-colors group">
+                                                    <TableCell>
+                                                        <span className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-full border ${
+                                                            booking.status === 'inquiry' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                                                            booking.status === 'confirmed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
+                                                            booking.status === 'cancelled' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
+                                                            'bg-white/10 text-white/40 border-white/10'
+                                                        }`}>
+                                                            {booking.status}
+                                                        </span>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <div className="flex items-center gap-2">
+                                                            {isSanctuary ? <MapPin size={12} className="text-white/30" /> : <Clock size={12} className="text-white/30" />}
+                                                            <span className="text-xs text-white/80">{label}</span>
+                                                        </div>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <div className="flex flex-col">
+                                                            <span className="text-xs text-white/90">{booking.member_name}</span>
+                                                            <span className="text-[10px] text-white/40">{booking.member_email}</span>
+                                                        </div>
+                                                    </TableCell>
+                                                    <TableCell className="text-white/60 text-xs font-mono">{dateStr}</TableCell>
+                                                    <TableCell className="text-white/60 text-xs">{booking.guests}</TableCell>
+                                                    <TableCell className="text-white/40 text-[10px] font-mono">
+                                                        {new Date(booking.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                                    </TableCell>
+                                                    <TableCell className="text-right">
+                                                        {booking.status === 'inquiry' && (
+                                                            <div className="flex items-center gap-2 justify-end">
+                                                                <button
+                                                                    onClick={() => updateBookingStatus(booking.id, 'confirmed')}
+                                                                    className="flex items-center gap-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-widest font-bold transition-colors"
+                                                                >
+                                                                    <CheckCircle size={12} /> Confirm
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => updateBookingStatus(booking.id, 'cancelled')}
+                                                                    className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-widest font-bold transition-colors"
+                                                                >
+                                                                    <XCircle size={12} /> Reject
+                                                                </button>
+                                                            </div>
+                                                        )}
+                                                        {booking.status === 'confirmed' && (
+                                                            <button
+                                                                onClick={() => updateBookingStatus(booking.id, 'completed')}
+                                                                className="flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white/60 px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-widest font-bold transition-colors ml-auto"
+                                                            >
+                                                                Mark Complete
+                                                            </button>
+                                                        )}
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
+                                    </TableBody>
+                                </Table>
+                            )}
+                        </div>
+                        {/* Special Requests Expansion */}
+                        {bookingInquiries.filter(b => b.special_requests).length > 0 && (
+                            <div className="mt-8">
+                                <h3 className="text-white/40 text-xs uppercase tracking-widest mb-4">Special Requests</h3>
+                                <div className="space-y-3">
+                                    {bookingInquiries.filter(b => b.special_requests).map(b => {
+                                        const label = b.sanctuary_id
+                                            ? bookingLabels[b.sanctuary_id] || b.sanctuary_id
+                                            : bookingLabels[b.experience_type || ''] || b.experience_type || '—';
+                                        return (
+                                            <div key={`req-${b.id}`} className="bg-white/[0.02] border border-white/5 p-4 rounded-sm">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <span className="text-xs text-white/60">{b.member_name} — {label}</span>
+                                                    <span className="text-[10px] text-white/30 font-mono">{new Date(b.created_at).toLocaleDateString()}</span>
+                                                </div>
+                                                <p className="text-sm text-white/80 font-light italic">"{b.special_requests}"</p>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
                     </TabsContent>
 
                     {/* === LEADS TAB === */}
