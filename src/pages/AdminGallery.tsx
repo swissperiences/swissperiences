@@ -157,7 +157,8 @@ export default function AdminGallery() {
     const [isAddingBlock, setIsAddingBlock] = useState(false);
     const [blockType, setBlockType] = useState<"sanctuary" | "experience">("sanctuary");
     const [blockItemId, setBlockItemId] = useState("villars");
-    const [blockDate, setBlockDate] = useState("");
+    const [blockStartDate, setBlockStartDate] = useState("");
+    const [blockEndDate, setBlockEndDate] = useState("");
     const [blockReason, setBlockReason] = useState("");
     const { toast } = useToast();
 
@@ -322,39 +323,55 @@ export default function AdminGallery() {
         }
     };
 
-    const handleAddBlockedDate = async () => {
-        if (!blockDate || !blockItemId) {
-            toast({ title: "Missing fields", description: "Select an item and date.", variant: "destructive" });
+    const handleAddBlockedDateRange = async () => {
+        if (!blockStartDate || !blockItemId) {
+            toast({ title: "Missing fields", description: "Select an item and at least a start date.", variant: "destructive" });
             return;
         }
+        // Default end date to start date if not set (single day block)
+        const effectiveEnd = blockEndDate || blockStartDate;
+
+        if (effectiveEnd < blockStartDate) {
+            toast({ title: "Invalid range", description: "End date must be on or after start date.", variant: "destructive" });
+            return;
+        }
+
+        const dayCount = Math.ceil((new Date(effectiveEnd).getTime() - new Date(blockStartDate).getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        if (dayCount > 60) {
+            toast({ title: "Range too long", description: `Maximum 60 days. You selected ${dayCount} days.`, variant: "destructive" });
+            return;
+        }
+
         setIsAddingBlock(true);
         try {
-            const { data, error } = await supabase.rpc('admin_add_blocked_date', {
+            const { data, error } = await supabase.rpc('admin_add_blocked_date_range', {
                 p_type: blockType,
                 p_item_id: blockItemId,
-                p_date: blockDate,
+                p_start_date: blockStartDate,
+                p_end_date: effectiveEnd,
                 p_reason: blockReason || null,
             });
             if (error) throw error;
             const result = data as Record<string, any>;
             if (result?.error) throw new Error(result.error);
 
-            // Add to local state
-            const newItem: BlockedDate = {
-                id: result.id,
-                type: blockType,
-                item_id: blockItemId,
-                date: blockDate,
-                reason: blockReason || null,
-                created_at: new Date().toISOString(),
-            };
-            setBlockedDates(prev => [...prev, newItem].sort((a, b) => a.date.localeCompare(b.date)));
-            setBlockDate("");
+            // Refresh the full list from the server (range creates multiple rows)
+            const { data: refreshed } = await supabase.rpc('admin_get_all_blocked_dates');
+            const refreshedArray = Array.isArray(refreshed) ? refreshed : (refreshed ? JSON.parse(refreshed) : []);
+            setBlockedDates(refreshedArray);
+
+            setBlockStartDate("");
+            setBlockEndDate("");
             setBlockReason("");
-            toast({ title: "Date Blocked", description: `${blockDate} blocked for ${bookingLabels[blockItemId] || blockItemId}.` });
+
+            const label = bookingLabels[blockItemId] || blockItemId;
+            const desc = blockStartDate === effectiveEnd
+                ? `${blockStartDate} blocked for ${label}.`
+                : `${result.days_blocked} days blocked (${blockStartDate} → ${effectiveEnd}) for ${label}.`;
+            toast({ title: "Dates Blocked", description: desc });
         } catch (err: any) {
-            console.error("Failed to add blocked date:", err);
-            toast({ title: "Failed", description: err.message || "Could not block date.", variant: "destructive" });
+            console.error("Failed to add blocked date range:", err);
+            toast({ title: "Failed", description: err.message || "Could not block dates.", variant: "destructive" });
         } finally {
             setIsAddingBlock(false);
         }
@@ -586,10 +603,10 @@ export default function AdminGallery() {
                                 <CardHeader className="border-b border-white/5">
                                     <CardTitle className="font-serif italic text-xl flex items-center gap-2">
                                         <CalendarOff size={18} className="text-red-400" />
-                                        Block a Date
+                                        Block Date Range
                                     </CardTitle>
                                     <CardDescription className="text-white/40 text-xs">
-                                        Block dates for maintenance, holidays, or owner use.
+                                        Block one or more dates for maintenance, holidays, or owner use.
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="pt-6 space-y-4">
@@ -624,17 +641,41 @@ export default function AdminGallery() {
                                         </select>
                                     </div>
 
-                                    {/* Date */}
-                                    <div>
-                                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Date</label>
-                                        <input
-                                            type="date"
-                                            value={blockDate}
-                                            onChange={(e) => setBlockDate(e.target.value)}
-                                            min={new Date().toISOString().split("T")[0]}
-                                            className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm focus:border-switz-red focus:outline-none transition-colors rounded-sm"
-                                        />
+                                    {/* Date Range */}
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Start Date</label>
+                                            <input
+                                                type="date"
+                                                value={blockStartDate}
+                                                onChange={(e) => {
+                                                    setBlockStartDate(e.target.value);
+                                                    // Auto-set end date if empty or before new start
+                                                    if (!blockEndDate || e.target.value > blockEndDate) {
+                                                        setBlockEndDate(e.target.value);
+                                                    }
+                                                }}
+                                                min={new Date().toISOString().split("T")[0]}
+                                                className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm focus:border-switz-red focus:outline-none transition-colors rounded-sm"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">End Date</label>
+                                            <input
+                                                type="date"
+                                                value={blockEndDate}
+                                                onChange={(e) => setBlockEndDate(e.target.value)}
+                                                min={blockStartDate || new Date().toISOString().split("T")[0]}
+                                                className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm focus:border-switz-red focus:outline-none transition-colors rounded-sm"
+                                            />
+                                        </div>
                                     </div>
+                                    {/* Day count preview */}
+                                    {blockStartDate && blockEndDate && blockEndDate >= blockStartDate && (
+                                        <div className="text-[10px] text-white/30 px-1 -mt-2">
+                                            {Math.ceil((new Date(blockEndDate).getTime() - new Date(blockStartDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} day(s) will be blocked
+                                        </div>
+                                    )}
 
                                     {/* Reason */}
                                     <div>
@@ -652,12 +693,12 @@ export default function AdminGallery() {
 
                                     {/* Submit */}
                                     <button
-                                        onClick={handleAddBlockedDate}
-                                        disabled={isAddingBlock || !blockDate}
+                                        onClick={handleAddBlockedDateRange}
+                                        disabled={isAddingBlock || !blockStartDate}
                                         className="w-full flex items-center justify-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/20 py-3 uppercase tracking-widest text-[10px] font-bold transition-colors disabled:opacity-40 rounded-sm"
                                     >
                                         {isAddingBlock ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
-                                        Block Date
+                                        Block Dates
                                     </button>
                                 </CardContent>
                             </Card>
