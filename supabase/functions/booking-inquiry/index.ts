@@ -53,8 +53,10 @@ serve(async (req) => {
         const fromDate = new Date(dateFrom).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
         const toDate = new Date(dateTo).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
         const nights = Math.ceil((new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / (1000 * 60 * 60 * 24))
+        const isExperience = sanctuary.startsWith('Experience:') || dateFrom === dateTo
 
-        if (nights < 2) {
+        // Minimum 2 nights only applies to Sanctuary bookings
+        if (!isExperience && nights < 2) {
             throw new Error('Minimum stay is 2 nights')
         }
 
@@ -63,6 +65,12 @@ serve(async (req) => {
         const safeName = esc(memberName || 'Member')
         const safeEmail = esc(memberEmail)
         const safeSanctuary = esc(sanctuary)
+
+        const dateDisplay = isExperience ? fromDate : `${fromDate} — ${toDate}`
+        const subjectDate = isExperience ? fromDate : `${fromDate} to ${toDate}`
+        const nightsDisplay = isExperience ? '' : `<tr><td style="padding: 8px 0; color: #666;">Nights</td><td style="padding: 8px 0;">${nights}</td></tr>`
+        const dateLabel = isExperience ? 'Preferred Date' : 'Dates'
+        const typeLabel = isExperience ? 'Experience' : 'Sanctuary'
 
         // 1. Notify admin
         await fetch('https://api.resend.com/emails', {
@@ -74,16 +82,16 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: ['hello@swissperiences.ch'],
-                subject: `[BOOKING] ${safeName} — ${safeSanctuary} — ${fromDate} to ${toDate}`,
+                subject: `[BOOKING] ${safeName} — ${safeSanctuary} — ${subjectDate}`,
                 html: `
                     <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 40px 20px;">
                         <h2 style="font-size: 24px; margin-bottom: 24px;">New Booking Inquiry</h2>
                         <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
                             <tr><td style="padding: 8px 0; color: #666;">Member</td><td style="padding: 8px 0;">${safeName}</td></tr>
                             <tr><td style="padding: 8px 0; color: #666;">Email</td><td style="padding: 8px 0;"><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
-                            <tr><td style="padding: 8px 0; color: #666;">Sanctuary</td><td style="padding: 8px 0;">${safeSanctuary}</td></tr>
-                            <tr><td style="padding: 8px 0; color: #666;">Dates</td><td style="padding: 8px 0;">${fromDate} — ${toDate}</td></tr>
-                            <tr><td style="padding: 8px 0; color: #666;">Nights</td><td style="padding: 8px 0;">${nights}</td></tr>
+                            <tr><td style="padding: 8px 0; color: #666;">${typeLabel}</td><td style="padding: 8px 0;">${safeSanctuary}</td></tr>
+                            <tr><td style="padding: 8px 0; color: #666;">${dateLabel}</td><td style="padding: 8px 0;">${dateDisplay}</td></tr>
+                            ${nightsDisplay}
                         </table>
                         <p style="margin-top: 24px; font-size: 12px; color: #999;">Reply directly to this email or contact the member at ${safeEmail}.</p>
                     </div>
@@ -92,6 +100,10 @@ serve(async (req) => {
         })
 
         // 2. Confirm to member
+        const memberBody = isExperience
+            ? `We've received your request for <strong>${safeSanctuary}</strong> on <strong>${fromDate}</strong>.`
+            : `We've received your availability request for <strong>${safeSanctuary}</strong> from <strong>${fromDate}</strong> to <strong>${toDate}</strong> (${nights} night${nights > 1 ? 's' : ''}).`
+
         await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
@@ -101,16 +113,13 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: [memberEmail],
-                subject: `Your inquiry for ${safeSanctuary} — ${fromDate} to ${toDate}`,
+                subject: `Your inquiry for ${safeSanctuary} — ${subjectDate}`,
                 html: `
                     <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 40px 20px; color: #1a1a1a;">
                         <p style="font-size: 18px; margin-bottom: 24px;">Thank you, ${esc(safeName.split(' ')[0])}.</p>
-                        <p style="font-size: 14px; color: #555; line-height: 1.8;">
-                            We've received your availability request for <strong>${safeSanctuary}</strong> from
-                            <strong>${fromDate}</strong> to <strong>${toDate}</strong> (${nights} night${nights > 1 ? 's' : ''}).
-                        </p>
+                        <p style="font-size: 14px; color: #555; line-height: 1.8;">${memberBody}</p>
                         <p style="font-size: 14px; color: #555; line-height: 1.8; margin-top: 16px;">
-                            The Host will review your dates and get back to you within 24 hours.
+                            The Host will review your request and get back to you within 24 hours.
                         </p>
                         <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #eee; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 2px;">
                             Swissperiences
@@ -120,7 +129,7 @@ serve(async (req) => {
             }),
         })
 
-        console.log(`[BOOKING] Inquiry sent: ${safeEmail} → ${safeSanctuary} (${fromDate} to ${toDate})`)
+        console.log(`[BOOKING] Inquiry sent: ${safeEmail} → ${safeSanctuary} (${subjectDate})`)
 
         return new Response(
             JSON.stringify({ success: true }),
