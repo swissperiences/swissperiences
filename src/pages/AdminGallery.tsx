@@ -261,9 +261,23 @@ export default function AdminGallery() {
                 p_new_status: newStatus,
             });
             if (error) throw error;
+
+            // Send confirmation email when confirming a booking
+            if (newStatus === 'confirmed') {
+                const { error: emailError } = await supabase.functions.invoke('send-booking-confirmation', {
+                    body: { bookingId },
+                });
+                if (emailError) {
+                    console.error('Failed to send confirmation email:', emailError);
+                    // Don't block — booking is already confirmed
+                }
+            }
+
             toast({
                 title: "Booking Updated",
-                description: `Status changed to ${newStatus}.`,
+                description: newStatus === 'confirmed'
+                    ? "Booking confirmed. Confirmation email sent to member."
+                    : `Status changed to ${newStatus}.`,
             });
         } catch (err) {
             console.error("Failed to update booking:", err);
