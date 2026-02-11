@@ -179,29 +179,13 @@ export default function AdminGallery() {
                     .order('name', { ascending: true });
                 setPartners(partData || []);
 
-                // Fetch Booking Inquiries (admin sees all via RLS)
-                const { data: bookingData } = await supabase
-                    .from('bookings')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                // Enrich with member info
-                if (bookingData && bookingData.length > 0) {
-                    const memberIds = [...new Set(bookingData.map((b: any) => b.member_id))];
-                    const { data: membersData } = await supabase
-                        .from('members')
-                        .select('id, full_name, email')
-                        .in('id', memberIds);
-
-                    const memberMap = new Map((membersData || []).map((m: any) => [m.id, m]));
-                    setBookingInquiries(bookingData.map((b: any) => ({
-                        ...b,
-                        member_name: memberMap.get(b.member_id)?.full_name || 'Unknown',
-                        member_email: memberMap.get(b.member_id)?.email || '',
-                    })));
-                } else {
-                    setBookingInquiries([]);
+                // Fetch Booking Inquiries via SECURITY DEFINER RPC (bypasses RLS)
+                const { data: bookingData, error: bookingError } = await supabase.rpc('admin_get_bookings');
+                if (bookingError) {
+                    console.error("Error fetching bookings:", bookingError);
                 }
+                const bookingsArray = Array.isArray(bookingData) ? bookingData : (bookingData ? JSON.parse(bookingData) : []);
+                setBookingInquiries(bookingsArray);
 
             } catch (error) {
                 console.error("Error fetching admin data:", error);
