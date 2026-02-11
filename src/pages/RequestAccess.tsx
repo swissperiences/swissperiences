@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 import SEO from "@/components/SEO";
 
 const RequestAccess = () => {
@@ -60,6 +61,7 @@ const RequestAccess = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isSubmitting) return;
         setIsSubmitting(true);
 
         try {
@@ -356,7 +358,11 @@ const RequestAccess = () => {
                                     disabled={isSubmitting}
                                     className="w-full bg-white text-black py-4 text-sm uppercase tracking-widest font-medium hover:bg-white/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    {isSubmitting ? "Submitting..." : "Submit Application"}
+                                    {isSubmitting ? (
+                                        <span className="flex items-center justify-center gap-2">
+                                            <Loader2 size={16} className="animate-spin" /> Submitting...
+                                        </span>
+                                    ) : "Submit Application"}
                                 </button>
 
                                 <p className="text-white/30 text-xs text-center mt-6">

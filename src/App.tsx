@@ -72,7 +72,7 @@ const App = () => (
       <TooltipProvider>
         <I18nextProvider i18n={i18n}>
           <Toaster />
-          <Sonner />
+          <Sonner duration={4000} position="top-right" />
           <BrowserRouter>
             <ScrollToTop />
             <Suspense fallback={<PageLoader />}>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Lock, ArrowRight, Loader2 } from "lucide-react";
 
 export default function SecureDeposit() {
@@ -11,7 +11,6 @@ export default function SecureDeposit() {
     const [tier, setTier] = useState("");
     const [marketingOptIn, setMarketingOptIn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { toast } = useToast();
 
     // Auto-fill email from URL if present (from Waitlist success flow)
     useState(() => {
@@ -27,6 +26,7 @@ export default function SecureDeposit() {
 
     const handleDeposit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isLoading) return;
         setIsLoading(true);
 
         try {
@@ -58,10 +58,8 @@ export default function SecureDeposit() {
             }
         } catch (error: unknown) {
             const err = error as Error;
-            toast({
-                title: "Access Denied",
-                description: err.message,
-                variant: "destructive",
+            toast.error("Access Denied", {
+                description: err.message || "Something went wrong. Please try again.",
             });
         } finally {
             setIsLoading(false);
@@ -139,7 +137,9 @@ export default function SecureDeposit() {
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
-                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    <span className="flex items-center gap-2">
+                                        <Loader2 className="h-4 w-4 animate-spin" /> Redirecting to Stripe...
+                                    </span>
                                 ) : (
                                     <span className="flex items-center gap-2">
                                         Proceed to Payment <ArrowRight size={14} />
