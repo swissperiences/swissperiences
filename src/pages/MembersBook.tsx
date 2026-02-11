@@ -84,18 +84,19 @@ export default function MembersBook() {
 
         setIsSubmitting(true);
         try {
-            const { error } = await supabase.from("bookings").insert({
-                member_id: member.id,
-                sanctuary_id: selectedSanctuary,
-                check_in: checkIn,
-                check_out: checkOut,
-                guests,
-                special_requests: specialRequests || null,
-                total_nights: nights,
-                status: "inquiry",
+            const { data, error } = await supabase.rpc("submit_booking", {
+                p_member_id: member.id,
+                p_sanctuary_id: selectedSanctuary,
+                p_check_in: checkIn,
+                p_check_out: checkOut,
+                p_guests: guests,
+                p_special_requests: specialRequests || null,
+                p_total_nights: nights,
             });
 
             if (error) throw error;
+            const result = data as Record<string, any>;
+            if (result?.error) throw new Error(result.error);
 
             // Send notification email via booking-inquiry Edge Function
             await supabase.functions.invoke("booking-inquiry", {
@@ -129,16 +130,17 @@ export default function MembersBook() {
 
         setIsSubmitting(true);
         try {
-            const { error } = await supabase.from("bookings").insert({
-                member_id: member.id,
-                experience_type: selectedExperience,
-                preferred_date: preferredDate,
-                guests: expGuests,
-                special_requests: expSpecialRequests || null,
-                status: "inquiry",
+            const { data, error } = await supabase.rpc("submit_booking", {
+                p_member_id: member.id,
+                p_experience_type: selectedExperience,
+                p_preferred_date: preferredDate,
+                p_guests: expGuests,
+                p_special_requests: expSpecialRequests || null,
             });
 
             if (error) throw error;
+            const result = data as Record<string, any>;
+            if (result?.error) throw new Error(result.error);
 
             // Send notification email
             const expName = experiences.find((x) => x.id === selectedExperience)?.name || selectedExperience;
