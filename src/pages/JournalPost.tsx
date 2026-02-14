@@ -152,7 +152,7 @@ export default function JournalPost() {
                             {journal.itinerary.map((item, iIdx) => (
                                 <div key={iIdx} className="group grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                                     <div className={cn("order-1", iIdx % 2 !== 0 ? "md:order-2" : "md:order-1")}>
-                                        <div className="aspect-[4/3] overflow-hidden rounded-sm relative">
+                                        <div className="aspect-[4/5] overflow-hidden rounded-sm relative">
                                             <img
                                                 src={item.image}
                                                 alt={item.title}

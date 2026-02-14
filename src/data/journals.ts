@@ -147,7 +147,7 @@ export const journals: JournalEntry[] = [
                 title: "The Turquoise Shore",
                 description: "Lake Brienz. The water so impossibly turquoise it felt unreal. Leo sat at the shore, letting the mountain air replace the London grey. A quiet reset before the journey deeper into the Alps.",
                 image: "/images/guests/leo/1.jpeg",
-                position: "object-top"
+                position: "object-[center_30%]"
             },
             {
                 day: "Day 01 // The Descent",
@@ -161,21 +161,21 @@ export const journals: JournalEntry[] = [
                 title: "Golden Lauterbrunnen",
                 description: "Arriving at the valley of 72 waterfalls dressed in full autumn gold. The second time here, yet the view from the ridge still stopped him mid-sentence. The Swiss flag catching the breeze, the valley floor glowing below.",
                 image: "/images/guests/leo/3.jpeg",
-                position: "object-top"
+                position: "object-[center_20%]"
             },
             {
                 day: "Day 01 // The Falls",
                 title: "Staubbach Encounters",
                 description: "Walking through the village beneath the Staubbach Falls. The spray, the light, the sound of water meeting stone. Leo owned the streets of Lauterbrunnen like a runway, the Alps as his backdrop.",
                 image: "/images/guests/leo/4.jpeg",
-                position: "object-top"
+                position: "object-center"
             },
             {
                 day: "Day 02 // The Summit",
                 title: "Among Friends, Among Peaks",
                 description: "A second morning in the mountains. Snow-capped peaks framing the horizon, a wooden chalet at the edge of the world. No agenda—just coffee, conversation, and the kind of view that makes you question why you ever leave.",
                 image: "/images/guests/leo/5.jpeg",
-                position: "object-top"
+                position: "object-[center_25%]"
             }
         ],
         content: [
