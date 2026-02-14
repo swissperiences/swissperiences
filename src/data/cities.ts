@@ -19,6 +19,8 @@ export interface City {
 
     heroImage: string;
     heroPosition?: string;
+    detailHeroImage?: string;
+    detailHeroPosition?: string;
     tagline: string;
     description: string;
 
@@ -44,7 +46,7 @@ export const cities: City[] = [
         coordinates: "046° 12' N / 006° 09' E",
         elevation: "375m",
         heroImage: "/images/drone/geneva-jet-deau-aerial.jpg",
-        heroPosition: "object-center",
+        heroPosition: "object-[center_25%]",
         tagline: "Where every Swissperiences journey begins.",
         description: "Geneva is the cosmopolitan gateway to the Swiss Alps. Nestled at the southwestern tip of Lac Léman, this international city blends lakeside elegance with a refined cultural scene. For our guests, it serves as the perfect departure point — where urban sophistication meets the first whisper of alpine air.",
         highlights: [
@@ -85,8 +87,8 @@ export const cities: City[] = [
         canton: "Vaud",
         coordinates: "046° 17' N / 007° 05' E",
         elevation: "1,300m",
-        heroImage: "/images/villars-drone.jpg",
-        heroPosition: "object-center",
+        heroImage: "/images/villars-winter-aerial.jpg",
+        heroPosition: "object-[center_40%]",
         tagline: "Our home. Our first sanctuary.",
         description: "Perched at 1,300 meters in the Vaud Alps, Villars-sur-Ollon is a year-round alpine village with a rare combination of accessibility and serenity. Home to The Villars Loft — our first sanctuary — this is where Swissperiences was born. Ski-in proximity, panoramic sunsets over the Rhône Valley, and a pace of life that resets everything.",
         highlights: [
@@ -127,8 +129,8 @@ export const cities: City[] = [
         canton: "Valais",
         coordinates: "046° 06' N / 007° 13' E",
         elevation: "1,500m",
-        heroImage: "/images/villars-winter-aerial.jpg",
-        heroPosition: "object-[center_30%]",
+        heroImage: "/images/verbier-mountains.jpg",
+        heroPosition: "object-[center_40%]",
         tagline: "Where powder meets prestige.",
         description: "Verbier sits at 1,500 meters in the heart of Valais, renowned globally for its off-piste terrain and vibrant alpine culture. One of the world's most coveted ski destinations, it balances raw mountain energy with refined hospitality. Our next sanctuary is being curated here for 2027.",
         highlights: [
@@ -250,8 +252,10 @@ export const cities: City[] = [
         canton: "Bern",
         coordinates: "046° 35' N / 007° 54' E",
         elevation: "795m",
-        heroImage: "/images/drone/blausee-autumn-aerial.jpg",
-        heroPosition: "object-top",
+        heroImage: "/images/lauterbrunnen-valley.jpg",
+        heroPosition: "object-center",
+        detailHeroImage: "/images/lauterbrunnen-staubbach.jpg",
+        detailHeroPosition: "object-[center_30%]",
         tagline: "The valley of 72 waterfalls.",
         description: "Lauterbrunnen is a glacial valley carved between towering limestone cliffs, home to 72 waterfalls including the legendary Staubbach Falls. This is the landscape that inspired Tolkien's Rivendell — a place of vertical beauty, cascading water, and a silence so profound it changes you. Every Swissperiences journey through the Oberland passes through here.",
         highlights: [
@@ -293,8 +297,8 @@ export const cities: City[] = [
         canton: "Vaud",
         coordinates: "046° 26' N / 006° 54' E",
         elevation: "390m",
-        heroImage: "/images/drone/villars-autumn-sunset.jpg",
-        heroPosition: "object-[center_30%]",
+        heroImage: "/images/montreux-lakeside.jpg",
+        heroPosition: "object-[center_40%]",
         tagline: "The Swiss Riviera.",
         description: "Montreux stretches along the eastern shore of Lac Léman, sheltered by the Alps and warmed by a microclimate that allows palm trees to grow at the foot of mountains. Home to the legendary Jazz Festival, the Château de Chillon, and the Lavaux UNESCO vineyards, it is the intersection of Mediterranean warmth and alpine grandeur.",
         highlights: [

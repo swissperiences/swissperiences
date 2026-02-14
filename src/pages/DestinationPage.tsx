@@ -63,7 +63,7 @@ export default function DestinationPage() {
             "latitude": parseFloat(city.coordinates.split("N")[0].replace(/[°']/g, "").trim().replace(/\s+/g, ".")),
             "longitude": parseFloat(city.coordinates.split("/")[1].replace(/[°'EWNS]/g, "").trim().replace(/\s+/g, "."))
         },
-        "image": `${BASE_URL}${city.heroImage}`,
+        "image": `${BASE_URL}${city.detailHeroImage || city.heroImage}`,
         "touristType": "Luxury travelers",
         "containedInPlace": {
             "@type": "Country",
@@ -92,7 +92,7 @@ export default function DestinationPage() {
                 description={city.seo.description}
                 keywords={city.seo.keywords}
                 canonical={`${BASE_URL}/destinations/${city.slug}`}
-                ogImage={`${BASE_URL}${city.heroImage}`}
+                ogImage={`${BASE_URL}${city.detailHeroImage || city.heroImage}`}
                 structuredData={[touristDestinationData, breadcrumbJsonLd]}
             />
             <Navigation />
@@ -105,9 +105,9 @@ export default function DestinationPage() {
                             initial={{ scale: 1.05 }}
                             animate={{ scale: 1 }}
                             transition={{ duration: 8, ease: "linear" }}
-                            src={city.heroImage}
+                            src={city.detailHeroImage || city.heroImage}
                             alt={city.name}
-                            className={`w-full h-full object-cover brightness-[0.6] contrast-[1.1] saturate-[0.9] ${city.heroPosition || "object-center"}`}
+                            className={`w-full h-full object-cover brightness-[0.6] contrast-[1.1] saturate-[0.9] ${city.detailHeroPosition || city.heroPosition || "object-center"}`}
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-neutral-950" />
                     </div>
