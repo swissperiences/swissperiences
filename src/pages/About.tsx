@@ -38,9 +38,9 @@ export default function About() {
                 <section className="relative h-[70vh] w-full overflow-hidden">
                     <div className="absolute inset-0">
                         <img
-                            src="/images/villars-sunrise.jpg"
-                            alt="Swiss Alps at Sunrise"
-                            className="w-full h-full object-cover object-[center_30%] brightness-[0.7] contrast-[1.1] saturate-[0.9]"
+                            src="/images/about-hero.jpg"
+                            alt="Founder overlooking the Swiss Alps from Grindelwald"
+                            className="w-full h-full object-cover object-[center_40%] brightness-[0.6] contrast-[1.1] saturate-[0.9]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-neutral-950" />
                     </div>

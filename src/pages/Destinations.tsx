@@ -42,9 +42,9 @@ export default function Destinations() {
                 <section className="relative h-[80vh] w-full overflow-hidden">
                     <div className="absolute inset-0">
                         <img
-                            src="/images/villars-sunrise.jpg"
-                            alt="Swiss Alps Panorama"
-                            className="w-full h-full object-cover brightness-[0.5] contrast-[1.1] saturate-[0.9]"
+                            src="/images/destinations-hero.jpg"
+                            alt="Aerial view of Geneva with Jet d'Eau and Lake Léman"
+                            className="w-full h-full object-cover object-[center_40%] brightness-[0.5] contrast-[1.1] saturate-[0.9]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-neutral-950" />
                     </div>

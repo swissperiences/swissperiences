@@ -78,9 +78,9 @@ export default function Experiences() {
                 <section className="relative h-[70vh] w-full overflow-hidden">
                     <div className="absolute inset-0">
                         <img
-                            src="/images/alpine-road-villars.jpg"
-                            alt="Swiss Experience"
-                            className="w-full h-full object-cover brightness-[0.5] contrast-[1.1] saturate-[0.9]"
+                            src="/images/experiences-hero.jpg"
+                            alt="Alpine chalet with snow-capped mountain peak in the Swiss Alps"
+                            className="w-full h-full object-cover object-top brightness-[0.5] contrast-[1.1] saturate-[0.9]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-neutral-950" />
                     </div>
