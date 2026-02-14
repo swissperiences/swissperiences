@@ -143,48 +143,47 @@ export const journals: JournalEntry[] = [
         coverPosition: "object-[center_60%]",
         itinerary: [
             {
-                day: "Day 01 // Arrival",
+                day: "Day 01 // Lake Brienz",
                 title: "The Turquoise Shore",
-                description: "Lake Brienz. The water so impossibly turquoise it felt unreal. Leo sat at the shore, letting the mountain air replace the London grey. A quiet reset before the journey deeper into the Alps.",
+                description: "First stop: Lake Brienz. That shade of turquoise that you think is edited until you see it in person. Leo posted up by the shore, already planning the next move on his phone. The Alps can wait—London habits die hard.",
                 image: "/images/guests/leo/1.jpeg",
                 position: "object-[center_30%]"
             },
             {
-                day: "Day 01 // The Descent",
+                day: "Day 01 // Aareschlucht",
                 title: "Into the Gorge",
-                description: "Aareschlucht. Descending into the ancient gorge carved by millennia of glacial water. The walls narrowing, the light dimming, the sound of rushing water echoing off limestone. A cathedral built by nature.",
+                description: "The Aare Gorge. Narrow limestone walls carved over thousands of years by glacial water, with walkways that hug the rock face. Leo exploring the depths with the sound of rushing water all around.",
                 image: "/images/guests/leo/2.jpeg",
                 position: "object-center"
             },
             {
-                day: "Day 01 // The Valley",
-                title: "Golden Lauterbrunnen",
-                description: "Arriving at the valley of 72 waterfalls dressed in full autumn gold. The second time here, yet the view from the ridge still stopped him mid-sentence. The Swiss flag catching the breeze, the valley floor glowing below.",
+                day: "Day 01 // Lauterbrunnen",
+                title: "The Valley in Gold",
+                description: "Lauterbrunnen in full autumn mode. The valley of 72 waterfalls, this time painted in gold and amber. The Swiss flag on the ridge, the valley floor below—his second time here, still just as impressive.",
                 image: "/images/guests/leo/3.jpeg",
                 position: "object-[center_20%]"
             },
             {
-                day: "Day 01 // The Falls",
-                title: "Staubbach Encounters",
-                description: "Walking through the village beneath the Staubbach Falls. The spray, the light, the sound of water meeting stone. Leo owned the streets of Lauterbrunnen like a runway, the Alps as his backdrop.",
+                day: "Day 01 // Staubbach",
+                title: "Under the Falls",
+                description: "Walking through Lauterbrunnen village with the Staubbach Falls towering behind. Classic alpine scenery—chalets, cliffs, and that waterfall cascading 300 meters down the rock face.",
                 image: "/images/guests/leo/4.jpeg",
                 position: "object-center"
             },
             {
-                day: "Day 02 // The Summit",
+                day: "Day 02 // Morning",
                 title: "Among Friends, Among Peaks",
-                description: "A second morning in the mountains. Snow-capped peaks framing the horizon, a wooden chalet at the edge of the world. No agenda—just coffee, conversation, and the kind of view that makes you question why you ever leave.",
+                description: "Day two. A morning at a mountain chalet with the Swissperiences founder—snow-capped peaks behind, autumn colors below. No itinerary, just good company and the kind of views that remind you why you came back.",
                 image: "/images/guests/leo/5.jpeg",
                 position: "object-[center_25%]"
             }
         ],
         content: [
-            "Some places call you back. Not with urgency, but with a quiet pull—a memory of how the air tasted, how the silence felt, how the light hit the mountains at a certain hour. For Leo, Switzerland was that place.",
-            "Having left Brazil years ago for the relentless pace of London, Leo had built a life defined by movement and reinvention. But his first visit to the Swiss Alps had planted something. A stillness. A counterweight to everything London demanded. So when the chance came to return, there was no hesitation.",
-            "The second journey began where the water meets the mountains—Lake Brienz, its surface an impossible shade of turquoise that no photograph can truly capture. From there, we descended into the Aareschlucht, a gorge so ancient and narrow it feels like stepping into the earth's memory. The limestone walls, sculpted by thousands of years of glacial force, hummed with a kind of geological patience that puts human urgency into perspective.",
-            "Lauterbrunnen in autumn is a different creature than in winter. The valley was ablaze—golds, ambers, deep reds cascading down the cliffs. Standing at the ridge with the Swiss flag snapping in the wind, Leo looked out over the valley and simply stood there. No phone. No words. Just presence. It was the look of someone recognizing something familiar, yet seeing it with new eyes.",
-            "The village below the Staubbach Falls became his stage. There is a confidence that comes from returning to a place that moved you—a sense of ownership, of belonging. Leo walked through Lauterbrunnen not as a tourist, but as someone coming home to a feeling.",
-            "The final morning was the quietest. A wooden chalet, snow on the distant peaks, and the kind of conversation that only happens when there is nothing competing for your attention. No schedule to keep, no train to catch. Just two friends, a view that stretched to the horizon, and the unspoken understanding that the mountains had done their work again."
+            "Some places stick with you. For Leo, a Brazilian living in London, Switzerland was one of those. His first visit had left a mark—something about the air, the silence, the scale of the mountains. When the chance came to return in autumn, he didn't think twice.",
+            "The trip started at Lake Brienz, where the water is that shade of turquoise you have to see in person. From there we drove to the Aare Gorge—ancient, narrow, with limestone walls shaped by thousands of years of glacial water. A completely different atmosphere from the open lake just minutes before.",
+            "Lauterbrunnen was the main event. In autumn, the valley transforms. The 72 waterfalls were still flowing, but now framed by golds and reds instead of snow. Standing at the ridge overlook with the Swiss flag catching the wind, Leo took it in quietly. His second time here, but the valley still had something new to show.",
+            "Walking through the village below Staubbach Falls felt unhurried. No crowds, no rush. Just the sound of water hitting stone and the late afternoon light hitting the cliff face. The kind of moment this region does better than anywhere.",
+            "The second morning was the simplest and maybe the best. A chalet in the mountains, coffee, conversation with a friend, and snow-capped peaks stretching to the horizon. No agenda. That's the point of coming back—you already know the highlights, so you can slow down and just be there."
         ]
     }
 ];
