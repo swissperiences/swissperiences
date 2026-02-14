@@ -24,6 +24,8 @@ const Success = lazy(() => import("./pages/Success"));
 const AdminGallery = lazy(() => import("./pages/AdminGallery"));
 const CinematicMemories = lazy(() => import("./pages/CinematicMemories"));
 const JournalPost = lazy(() => import("./pages/JournalPost"));
+const Destinations = lazy(() => import("./pages/Destinations"));
+const DestinationPage = lazy(() => import("./pages/DestinationPage"));
 const AlexProposal = lazy(() => import("./pages/private/AlexProposal"));
 const RequestAccess = lazy(() => import("./pages/RequestAccess"));
 const Login = lazy(() => import("./pages/Login"));
@@ -100,6 +102,8 @@ const App = () => (
                 {/* Content */}
                 <Route path="/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
                 <Route path="/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
+                <Route path="/destinations" element={<LanguageWrapper><Destinations /></LanguageWrapper>} />
+                <Route path="/destinations/:slug" element={<LanguageWrapper><DestinationPage /></LanguageWrapper>} />
                 <Route path="/about" element={<LanguageWrapper><About /></LanguageWrapper>} />
                 <Route path="/contact" element={<LanguageWrapper><Contact /></LanguageWrapper>} />
 
@@ -134,6 +138,8 @@ const App = () => (
                 <Route path="/:lang/experiences/guided-hikes" element={<LanguageWrapper><GuidedHikes /></LanguageWrapper>} />
                 <Route path="/:lang/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
                 <Route path="/:lang/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
+                <Route path="/:lang/destinations" element={<LanguageWrapper><Destinations /></LanguageWrapper>} />
+                <Route path="/:lang/destinations/:slug" element={<LanguageWrapper><DestinationPage /></LanguageWrapper>} />
                 <Route path="/:lang/about" element={<LanguageWrapper><About /></LanguageWrapper>} />
                 <Route path="/:lang/contact" element={<LanguageWrapper><Contact /></LanguageWrapper>} />
                 <Route path="/:lang/success" element={<LanguageWrapper><Success /></LanguageWrapper>} />

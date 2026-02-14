@@ -1,9 +1,51 @@
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 
 export default function VillarsRetreat() {
+    const { lang } = useParams();
+    const { t, i18n } = useTranslation("common");
+    const langPrefix = lang ? `/${lang}` : "";
+    const currentLang = i18n.language || "en";
+    const BASE_URL = "https://www.swissperiences.ch";
+    const langUrl = currentLang !== "en" ? `/${currentLang}` : "";
+
+    const lodgingStructuredData = {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": "The Villars Loft",
+        "description": "Private designer loft in Villars-sur-Ollon. Your curated mountain sanctuary with fireplace, sunset views, and alpine soul.",
+        "image": `${BASE_URL}/images/villars-hero.jpg`,
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Villars-sur-Ollon",
+            "addressRegion": "Vaud",
+            "addressCountry": "CH"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 46.2997,
+            "longitude": 7.0542
+        },
+        "url": `${BASE_URL}/sanctuaries/villars`
+    };
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: t("breadcrumbs.home", "Home"), href: `${BASE_URL}${langUrl}/` },
+        { label: t("breadcrumbs.sanctuaries", "Sanctuaries"), href: `${BASE_URL}${langUrl}/sanctuaries` },
+        { label: "The Villars Loft", href: `${BASE_URL}${langUrl}/sanctuaries/villars` },
+    ]);
+
+    const breadcrumbItems = [
+        { label: t("breadcrumbs.home", "Home"), href: `${langPrefix}/` },
+        { label: t("breadcrumbs.sanctuaries", "Sanctuaries"), href: `${langPrefix}/sanctuaries` },
+        { label: "The Villars Loft" },
+    ];
+
     return (
         <div className="bg-neutral-950 min-h-screen text-white pb-24">
             <SEO
@@ -12,6 +54,7 @@ export default function VillarsRetreat() {
                 keywords="villars sur ollon accommodation, swiss alpine loft, luxury chalet villars, private retreat switzerland, designer mountain home"
                 canonical="https://swissperiences.ch/sanctuaries/villars"
                 ogImage="https://www.swissperiences.ch/images/villars-hero.jpg"
+                structuredData={[lodgingStructuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 
@@ -57,6 +100,13 @@ export default function VillarsRetreat() {
                 <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
                     <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="mb-8"
+                        >
+                            <Breadcrumbs items={breadcrumbItems} />
+                        </motion.div>
                         <h2 className="text-3xl font-serif mb-6">A home, not a rental.</h2>
                         <p className="text-white/60 font-light leading-relaxed mb-6">
                             Located just minutes from the Villars-sur-Ollon ski station, this is my personal residence in the mountains.

@@ -1,13 +1,46 @@
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { Camera, Wind, Disc } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function CinematicMemories() {
-    const { t } = useTranslation('home');
+    const { lang } = useParams();
+    const { t, i18n } = useTranslation('home');
+    const { t: tCommon } = useTranslation('common');
+    const langPrefix = lang ? `/${lang}` : "";
+    const currentLang = i18n.language || "en";
+    const BASE_URL = "https://www.swissperiences.ch";
+    const langUrl = currentLang !== "en" ? `/${currentLang}` : "";
+
+    const serviceStructuredData = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Cinematic Swiss Memories",
+        "description": "Professional drone and cinematic content creation for your Swiss journey. Capture the raw beauty of the Alps without interrupting the moment.",
+        "image": `${BASE_URL}/images/villars-drone.jpg`,
+        "brand": {
+            "@type": "Organization",
+            "name": "Swissperiences",
+            "url": BASE_URL
+        }
+    };
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: tCommon("breadcrumbs.home", "Home"), href: `${BASE_URL}${langUrl}/` },
+        { label: tCommon("breadcrumbs.experiences", "Experiences"), href: `${BASE_URL}${langUrl}/experiences` },
+        { label: "Cinematic Memories", href: `${BASE_URL}${langUrl}/experiences/cinematic-memories` },
+    ]);
+
+    const breadcrumbItems = [
+        { label: tCommon("breadcrumbs.home", "Home"), href: `${langPrefix}/` },
+        { label: tCommon("breadcrumbs.experiences", "Experiences"), href: `${langPrefix}/experiences` },
+        { label: "Cinematic Memories" },
+    ];
 
     const packages = [
         {
@@ -45,6 +78,7 @@ export default function CinematicMemories() {
                 keywords="drone photography switzerland, cinematic travel video, swiss vacation photographer, aerial swiss alps, luxury travel content"
                 canonical="https://swissperiences.ch/experiences/cinematic-memories"
                 ogImage="https://www.swissperiences.ch/images/villars-drone.jpg"
+                structuredData={[serviceStructuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 
@@ -100,6 +134,12 @@ export default function CinematicMemories() {
                 {/* The Philosophy Section */}
                 <section className="max-w-7xl mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                     <div className="space-y-8">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                        >
+                            <Breadcrumbs items={breadcrumbItems} />
+                        </motion.div>
                         <div>
                             <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">{t('cinematic.philosophy')}</span>
                             <h2 className="text-4xl md:text-5xl font-serif leading-tight">{t('cinematic.introTitle')}</h2>

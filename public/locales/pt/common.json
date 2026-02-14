@@ -2,6 +2,7 @@
   "nav": {
     "sanctuaries": "Santuários",
     "experiences": "Experiências",
+    "destinations": "Destinos",
     "journals": "Diários",
     "about": "Sobre",
     "host": "O Anfitrião",
@@ -30,6 +31,28 @@
     "error": "Algo deu errado",
     "successMessage": "Analisaremos sua solicitação e responderemos pessoalmente em até 48 horas.",
     "description": "Cada solicitação é analisada pessoalmente. Isto não é uma lista de emails."
+  },
+  "breadcrumbs": {
+    "home": "Início",
+    "destinations": "Destinos",
+    "journals": "Diários",
+    "sanctuaries": "Santuários",
+    "experiences": "Experiências"
+  },
+  "destinations": {
+    "heroTitle": "Destinos",
+    "heroSubtitle": "Os lugares que definem as nossas jornadas. Cada um escolhido a dedo. Cada um extraordinário.",
+    "highlights": "Destaques",
+    "relatedExperiences": "Experiências Aqui",
+    "relatedSanctuaries": "Fique Aqui",
+    "relatedJournals": "Histórias Daqui",
+    "elevation": "Altitude",
+    "canton": "Cantão",
+    "coordinates": "Coordenadas",
+    "ctaTitle": "O seu destino espera.",
+    "ctaButton": "Torne-se Membro",
+    "explore": "Explorar",
+    "backToAll": "Todos os Destinos"
   },
   "scroll": "Rolar",
   "successPage": {

@@ -1,11 +1,48 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { Clock, Users, Utensils, ArrowRight } from "lucide-react";
 
 export default function PrivateChef() {
+    const { lang } = useParams();
+    const { t, i18n } = useTranslation("common");
+    const langPrefix = lang ? `/${lang}` : "";
+    const currentLang = i18n.language || "en";
+    const BASE_URL = "https://www.swissperiences.ch";
+    const langUrl = currentLang !== "en" ? `/${currentLang}` : "";
+
+    const serviceStructuredData = {
+        "@context": "https://schema.org",
+        "@type": "FoodService",
+        "name": "Private Chef — In-Chalet Dining",
+        "description": "A curated dining experience in the privacy of your alpine sanctuary. Local ingredients, Swiss-French technique, served with a view of the Alps.",
+        "image": `${BASE_URL}/images/loft/IMG_8759.jpg`,
+        "provider": {
+            "@type": "Organization",
+            "name": "Swissperiences",
+            "url": BASE_URL
+        },
+        "areaServed": {
+            "@type": "Place",
+            "name": "Swiss Alps"
+        }
+    };
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: t("breadcrumbs.home", "Home"), href: `${BASE_URL}${langUrl}/` },
+        { label: t("breadcrumbs.experiences", "Experiences"), href: `${BASE_URL}${langUrl}/experiences` },
+        { label: "Private Chef", href: `${BASE_URL}${langUrl}/experiences/private-chef` },
+    ]);
+
+    const breadcrumbItems = [
+        { label: t("breadcrumbs.home", "Home"), href: `${langPrefix}/` },
+        { label: t("breadcrumbs.experiences", "Experiences"), href: `${langPrefix}/experiences` },
+        { label: "Private Chef" },
+    ];
     const menus = [
         {
             title: "Alpine Aperitivo",
@@ -34,6 +71,8 @@ export default function PrivateChef() {
                 description="A curated dining experience in the privacy of your alpine sanctuary. Local ingredients, Swiss-French technique, served with a view of the Alps."
                 keywords="private chef switzerland, in-chalet dining, swiss alps dining, luxury catering villars, fondue experience, alpine fine dining"
                 canonical="https://swissperiences.ch/experiences/private-chef"
+                ogImage={`${BASE_URL}/images/loft/IMG_8759.jpg`}
+                structuredData={[serviceStructuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 
@@ -78,6 +117,13 @@ export default function PrivateChef() {
                 {/* Intro */}
                 <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="mb-8"
+                        >
+                            <Breadcrumbs items={breadcrumbItems} />
+                        </motion.div>
                         <h2 className="text-3xl font-serif mb-6">Your table. Your mountain.</h2>
                         <p className="text-white/60 font-light leading-relaxed mb-6">
                             Why fight for a reservation when the best table in the Alps is in your chalet? Our network of local chefs brings Swiss-French gastronomy directly to your sanctuary.
@@ -146,15 +192,6 @@ export default function PrivateChef() {
                     </div>
                 </section>
 
-                {/* Back to Experiences */}
-                <section className="max-w-7xl mx-auto px-6 py-16 text-center">
-                    <Link
-                        to="/experiences"
-                        className="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
-                    >
-                        ← Back to All Experiences
-                    </Link>
-                </section>
             </main>
 
             <Footer />

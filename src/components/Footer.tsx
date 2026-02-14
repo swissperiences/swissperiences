@@ -37,6 +37,7 @@ export default function Footer() {
             <div className="flex flex-col gap-4 text-white/40">
               <Link to="/sanctuaries" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Sanctuaries</Link>
               <Link to="/experiences" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Experiences</Link>
+              <Link to="/destinations" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Destinations</Link>
               <Link to="/journals" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Journals</Link>
               <Link to="/about" className="text-xs hover:text-white transition-colors uppercase tracking-wide">About</Link>
               <Link to="/contact" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Contact</Link>

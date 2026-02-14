@@ -23,6 +23,7 @@ interface NavigationProps {
 const navLinksConfig = [
   { key: "sanctuaries", href: "/sanctuaries" },
   { key: "experiences", href: "/experiences" },
+  { key: "destinations", href: "/destinations" },
   { key: "journals", href: "/journals" },
   { key: "about", href: "/about" },
 ];

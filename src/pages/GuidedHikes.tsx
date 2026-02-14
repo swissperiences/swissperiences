@@ -1,11 +1,45 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { Clock, Users, Mountain, ArrowRight } from "lucide-react";
 
 export default function GuidedHikes() {
+    const { lang } = useParams();
+    const { t, i18n } = useTranslation("common");
+    const langPrefix = lang ? `/${lang}` : "";
+    const currentLang = i18n.language || "en";
+    const BASE_URL = "https://www.swissperiences.ch";
+    const langUrl = currentLang !== "en" ? `/${currentLang}` : "";
+
+    const experienceStructuredData = {
+        "@context": "https://schema.org",
+        "@type": "TouristTrip",
+        "name": "Guided Alpine Hikes",
+        "description": "Expert-led alpine adventures in the Swiss Alps. From gentle valley walks to challenging summit ascents.",
+        "image": `${BASE_URL}/images/host-hiking.jpg`,
+        "touristType": "Luxury travelers",
+        "provider": {
+            "@type": "Organization",
+            "name": "Swissperiences",
+            "url": BASE_URL
+        }
+    };
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: t("breadcrumbs.home", "Home"), href: `${BASE_URL}${langUrl}/` },
+        { label: t("breadcrumbs.experiences", "Experiences"), href: `${BASE_URL}${langUrl}/experiences` },
+        { label: "Guided Hikes", href: `${BASE_URL}${langUrl}/experiences/guided-hikes` },
+    ]);
+
+    const breadcrumbItems = [
+        { label: t("breadcrumbs.home", "Home"), href: `${langPrefix}/` },
+        { label: t("breadcrumbs.experiences", "Experiences"), href: `${langPrefix}/experiences` },
+        { label: "Guided Hikes" },
+    ];
     const trails = [
         {
             title: "The Panoramic Circuit",
@@ -34,6 +68,8 @@ export default function GuidedHikes() {
                 description="Expert-led alpine adventures in the Swiss Alps. From gentle valley walks to challenging summit ascents. Every trail handpicked for beauty, safety, and solitude."
                 keywords="guided hikes switzerland, swiss alps hiking, mountain guide villars, alpine trekking, glacier 3000 hike, swiss mountain experience"
                 canonical="https://swissperiences.ch/experiences/guided-hikes"
+                ogImage={`${BASE_URL}/images/host-hiking.jpg`}
+                structuredData={[experienceStructuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 
@@ -78,6 +114,13 @@ export default function GuidedHikes() {
                 {/* Intro */}
                 <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="mb-8"
+                        >
+                            <Breadcrumbs items={breadcrumbItems} />
+                        </motion.div>
                         <h2 className="text-3xl font-serif mb-6">The Alps on your terms.</h2>
                         <p className="text-white/60 font-light leading-relaxed mb-6">
                             Switzerland has over 65,000 km of marked hiking trails. We know the ones worth taking. Our certified mountain guides lead private expeditions tailored to your fitness level, interests, and pace.
@@ -146,15 +189,6 @@ export default function GuidedHikes() {
                     </div>
                 </section>
 
-                {/* Back to Experiences */}
-                <section className="max-w-7xl mx-auto px-6 py-16 text-center">
-                    <Link
-                        to="/experiences"
-                        className="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
-                    >
-                        ← Back to All Experiences
-                    </Link>
-                </section>
             </main>
 
             <Footer />

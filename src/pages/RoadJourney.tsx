@@ -1,10 +1,45 @@
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { MapPin, Clock, Users, ArrowRight } from "lucide-react";
 
 export default function RoadJourney() {
+    const { lang } = useParams();
+    const { t, i18n } = useTranslation("common");
+    const langPrefix = lang ? `/${lang}` : "";
+    const currentLang = i18n.language || "en";
+    const BASE_URL = "https://www.swissperiences.ch";
+    const langUrl = currentLang !== "en" ? `/${currentLang}` : "";
+
+    const experienceStructuredData = {
+        "@context": "https://schema.org",
+        "@type": "TouristTrip",
+        "name": "Alps Road Journey",
+        "description": "Private luxury SUV expeditions through the Swiss Alps. UNESCO heritage sites, hidden gems, and local hosts.",
+        "image": `${BASE_URL}/images/alpine-road-villars.jpg`,
+        "touristType": "Luxury travelers",
+        "provider": {
+            "@type": "Organization",
+            "name": "Swissperiences",
+            "url": BASE_URL
+        }
+    };
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: t("breadcrumbs.home", "Home"), href: `${BASE_URL}${langUrl}/` },
+        { label: t("breadcrumbs.experiences", "Experiences"), href: `${BASE_URL}${langUrl}/experiences` },
+        { label: "Alps Road Journey", href: `${BASE_URL}${langUrl}/experiences/road-journey` },
+    ]);
+
+    const breadcrumbItems = [
+        { label: t("breadcrumbs.home", "Home"), href: `${langPrefix}/` },
+        { label: t("breadcrumbs.experiences", "Experiences"), href: `${langPrefix}/experiences` },
+        { label: "Alps Road Journey" },
+    ];
     const routes = [
         {
             title: "Lavaux: The Grand Cru Drive",
@@ -31,6 +66,7 @@ export default function RoadJourney() {
                 keywords="swiss alps driving, luxury suv switzerland, luxury road trip switzerland, lavaux vineyard tour, gruyeres tour, private swiss guide"
                 canonical="https://swissperiences.ch/experiences/road-journey"
                 ogImage="https://www.swissperiences.ch/images/alpine-road-villars.jpg"
+                structuredData={[experienceStructuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 
@@ -75,6 +111,13 @@ export default function RoadJourney() {
                 {/* Intro & Specs */}
                 <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="mb-8"
+                        >
+                            <Breadcrumbs items={breadcrumbItems} />
+                        </motion.div>
                         <h2 className="text-3xl font-serif mb-6">Not just a driver. A host.</h2>
                         <p className="text-white/60 font-light leading-relaxed mb-8">
                             Switzerland is best seen from the road, but driving here requires focus.

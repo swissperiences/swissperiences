@@ -2,6 +2,7 @@
   "nav": {
     "sanctuaries": "Sanctuaries",
     "experiences": "Experiences",
+    "destinations": "Destinations",
     "journals": "Journals",
     "about": "About",
     "host": "The Host",
@@ -30,6 +31,28 @@
     "error": "Something went wrong",
     "successMessage": "We'll review your request and respond personally within 48 hours.",
     "description": "Each request is reviewed personally. This is not a mailing list."
+  },
+  "breadcrumbs": {
+    "home": "Home",
+    "destinations": "Destinations",
+    "journals": "Journals",
+    "sanctuaries": "Sanctuaries",
+    "experiences": "Experiences"
+  },
+  "destinations": {
+    "heroTitle": "Destinations",
+    "heroSubtitle": "The places that define our journeys. Each one handpicked. Each one extraordinary.",
+    "highlights": "Highlights",
+    "relatedExperiences": "Experiences Here",
+    "relatedSanctuaries": "Stay Here",
+    "relatedJournals": "Stories from Here",
+    "elevation": "Elevation",
+    "canton": "Canton",
+    "coordinates": "Coordinates",
+    "ctaTitle": "Your destination awaits.",
+    "ctaButton": "Become a Member",
+    "explore": "Explore",
+    "backToAll": "All Destinations"
   },
   "scroll": "Scroll",
   "successPage": {

@@ -1,17 +1,23 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Share2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Share2 } from "lucide-react";
 import { journals } from "@/data/journals";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import Breadcrumbs, { buildBreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import { cn } from "@/lib/utils";
 
 export default function JournalPost() {
-    const { slug } = useParams();
+    const { slug, lang } = useParams();
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation("common");
     const journal = journals.find(j => j.slug === slug);
+
+    const langPrefix = lang ? `/${lang}` : "";
+    const currentLang = i18n.language || "en";
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -30,26 +36,61 @@ export default function JournalPost() {
         );
     }
 
+    const BASE_URL = "https://www.swissperiences.ch";
+    const langUrl = currentLang !== "en" ? `/${currentLang}` : "";
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: t("breadcrumbs.home", "Home"), href: `${BASE_URL}${langUrl}/` },
+        { label: t("breadcrumbs.journals", "Journals"), href: `${BASE_URL}${langUrl}/journals` },
+        { label: journal.title, href: `${BASE_URL}${langUrl}/journals/${journal.slug}` },
+    ]);
+
+    const breadcrumbItems = [
+        { label: t("breadcrumbs.home", "Home"), href: `${langPrefix}/` },
+        { label: t("breadcrumbs.journals", "Journals"), href: `${langPrefix}/journals` },
+        { label: journal.title },
+    ];
+
+    const articleStructuredData = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": journal.title,
+        "description": journal.description,
+        "image": `${BASE_URL}${journal.coverImage}`,
+        "datePublished": journal.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Swissperiences"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Swissperiences",
+            "url": BASE_URL
+        }
+    };
+
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
             <SEO
                 title={`${journal.title} | Swissperiences Journals`}
                 description={journal.description}
-                ogImage={journal.coverImage}
+                canonical={`${BASE_URL}/journals/${journal.slug}`}
+                ogImage={`${BASE_URL}${journal.coverImage}`}
+                ogType="article"
+                structuredData={[articleStructuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 
             <article className="pt-32 pb-24">
                 {/* HERO */}
                 <div className="max-w-4xl mx-auto px-6 mb-20">
-                    <motion.button
+                    <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        onClick={() => navigate("/journals")}
-                        className="flex items-center gap-2 text-white/40 hover:text-switz-red transition-colors text-xs uppercase tracking-[0.2em] mb-12"
+                        className="mb-12"
                     >
-                        <ArrowLeft size={14} /> Back to Archives
-                    </motion.button>
+                        <Breadcrumbs items={breadcrumbItems} />
+                    </motion.div>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
