@@ -90,8 +90,8 @@ export default function CinematicMemories() {
                             initial={{ scale: 1.1 }}
                             animate={{ scale: 1 }}
                             transition={{ duration: 10, ease: "linear" }}
-                            src="/images/villars-drone.jpg"
-                            alt="Cinematic Drone Shot"
+                            src="/images/villars-sunrise.jpg"
+                            alt="Cinematic drone shot of Villars-sur-Ollon village at sunset"
                             className="w-full h-full object-cover brightness-[0.7] contrast-[1.1] saturate-[0.8]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-neutral-950" />

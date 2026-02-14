@@ -92,8 +92,8 @@ export default function About() {
                         <div className="relative">
                             <div className="aspect-[4/5] overflow-hidden rounded-sm bg-neutral-900 group">
                                 <img
-                                    src="/images/mountain-sunset.jpg"
-                                    alt="Alpine Atmosphere"
+                                    src="/images/drone/villars-winter-sunset.jpg"
+                                    alt="Villars village at sunset in winter"
                                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 brightness-[0.85]"
                                     loading="lazy"
                                 />
