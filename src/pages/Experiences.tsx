@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import MembershipGate from "../components/MembershipGate";
 import { ArrowRight, Car, Camera, ChefHat, Mountain } from "lucide-react";
 
 export default function Experiences() {
@@ -111,6 +112,7 @@ export default function Experiences() {
                     </div>
                 </section>
 
+                <MembershipGate title="Your experience awaits." subtitle="Full details, pricing, and booking available exclusively to members.">
                 {/* Experience Cards */}
                 <section className="max-w-7xl mx-auto px-6 py-16 md:py-24">
                     <div className="space-y-24">
@@ -188,6 +190,7 @@ export default function Experiences() {
                         <p className="text-white/30 text-xs mt-4">Membership required. Apply now for exclusive access to our curated alpine experiences.</p>
                     </div>
                 </section>
+                </MembershipGate>
             </main>
 
             <Footer />

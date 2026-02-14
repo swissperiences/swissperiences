@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import MembershipGate from "../components/MembershipGate";
 import { cities } from "@/data/cities";
 
 export default function Destinations() {
@@ -75,6 +76,7 @@ export default function Destinations() {
                     </div>
                 </section>
 
+                <MembershipGate title="Your destination awaits." subtitle="Explore our curated destinations. Apply for membership to unlock the full guide.">
                 {/* Destinations Grid */}
                 <section className="max-w-7xl mx-auto px-6 py-24 md:py-32 space-y-24">
                     {cities.map((city, idx) => (
@@ -130,6 +132,7 @@ export default function Destinations() {
                         </a>
                     </div>
                 </section>
+                </MembershipGate>
             </main>
 
             <Footer />

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import MembershipGate from "../components/MembershipGate";
 import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { Clock, Users, Utensils, ArrowRight } from "lucide-react";
 
@@ -114,6 +115,7 @@ export default function PrivateChef() {
                     </div>
                 </section>
 
+                <MembershipGate title="Your private dining experience." subtitle="Menus, pricing, and booking available exclusively to members.">
                 {/* Intro */}
                 <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
@@ -191,6 +193,7 @@ export default function PrivateChef() {
                         </p>
                     </div>
                 </section>
+                </MembershipGate>
 
             </main>
 

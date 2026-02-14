@@ -11,6 +11,7 @@ import { getCityBySlug } from "@/data/cities";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import MembershipGate from "@/components/MembershipGate";
 import Breadcrumbs, { buildBreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -146,6 +147,7 @@ export default function DestinationPage() {
                     </div>
                 </section>
 
+                <MembershipGate title={`Explore ${city.name}.`} subtitle="Highlights, related experiences, and local details available to members.">
                 {/* Introduction + Stats */}
                 <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 items-start">
@@ -281,6 +283,7 @@ export default function DestinationPage() {
                         </a>
                     </div>
                 </section>
+                </MembershipGate>
             </main>
 
             <Footer />

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import MembershipGate from "../components/MembershipGate";
 import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { Camera, Wind, Disc } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -131,6 +132,7 @@ export default function CinematicMemories() {
                     </div>
                 </section>
 
+                <MembershipGate title="Capture your moments." subtitle="Packages, pricing, and booking available exclusively to members.">
                 {/* The Philosophy Section */}
                 <section className="max-w-7xl mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                     <div className="space-y-8">
@@ -251,6 +253,7 @@ export default function CinematicMemories() {
                         </div>
                     </div>
                 </section>
+                </MembershipGate>
             </main>
 
             <Footer />

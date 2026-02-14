@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import MembershipGate from "../components/MembershipGate";
 import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 
 export default function VillarsRetreat() {
@@ -96,6 +97,7 @@ export default function VillarsRetreat() {
                     </div>
                 </section>
 
+                <MembershipGate title="Discover the Villars Loft." subtitle="Floor plans, amenities, availability, and booking require membership.">
                 {/* Intro & Amenities */}
                 <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
@@ -277,6 +279,7 @@ export default function VillarsRetreat() {
                         <p className="text-white/40 text-xs mt-4 max-w-sm">Membership required. Apply now for exclusive access to our sanctuaries.</p>
                     </div>
                 </section>
+                </MembershipGate>
             </main>
 
             <Footer />

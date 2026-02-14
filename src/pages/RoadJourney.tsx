@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import MembershipGate from "../components/MembershipGate";
 import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { MapPin, Clock, Users, ArrowRight } from "lucide-react";
 
@@ -108,6 +109,7 @@ export default function RoadJourney() {
                     </div>
                 </section>
 
+                <MembershipGate title="Your journey awaits." subtitle="Route details, pricing, and booking available exclusively to members.">
                 {/* Intro & Specs */}
                 <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div>
@@ -182,6 +184,7 @@ export default function RoadJourney() {
                         </p>
                     </div>
                 </section>
+                </MembershipGate>
             </main>
 
             <Footer />

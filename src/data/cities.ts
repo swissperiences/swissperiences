@@ -169,8 +169,8 @@ export const cities: City[] = [
         canton: "Valais",
         coordinates: "046° 01' N / 007° 45' E",
         elevation: "1,620m",
-        heroImage: "/images/zermatt-drone-poster.jpg",
-        heroPosition: "object-center",
+        heroImage: "/images/zermatt-matterhorn.jpg",
+        heroPosition: "object-[center_35%]",
         tagline: "In the shadow of the Matterhorn.",
         description: "Zermatt is the car-free village at the foot of the most iconic mountain in the Alps. At 1,620 meters, surrounded by 29 peaks over 4,000m, it offers a concentration of alpine grandeur unmatched anywhere else. Our third sanctuary is planned here for 2028 — where solitude meets the sublime.",
         highlights: [

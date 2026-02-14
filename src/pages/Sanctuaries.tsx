@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import MembershipGate from "../components/MembershipGate";
 import { ArrowRight } from "lucide-react";
 
 export default function Sanctuaries() {
@@ -73,6 +74,7 @@ export default function Sanctuaries() {
                     </div>
                 </section>
 
+                <MembershipGate title="Your sanctuary awaits." subtitle="Full details, availability, and member pricing visible after approval.">
                 {/* Villars — Active */}
                 <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -190,6 +192,7 @@ export default function Sanctuaries() {
                         </a>
                     </div>
                 </section>
+                </MembershipGate>
             </main>
 
             <Footer />
