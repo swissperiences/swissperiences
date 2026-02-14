@@ -140,7 +140,7 @@ export const journals: JournalEntry[] = [
         quote: "The mountains don't change. You do.",
         description: "A Brazilian soul, forged in the rhythm of London, crossing the Alps for the second time—chasing the autumn light and the silence he couldn't forget.",
         coverImage: "/images/guests/leo/1.jpeg",
-        coverPosition: "object-top",
+        coverPosition: "object-[center_60%]",
         itinerary: [
             {
                 day: "Day 01 // Arrival",
