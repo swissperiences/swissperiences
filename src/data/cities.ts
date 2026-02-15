@@ -338,8 +338,8 @@ export const cities: City[] = [
         canton: "Vaud",
         coordinates: "046° 31' N / 006° 38' E",
         elevation: "495m",
-        heroImage: "/images/drone/lakeside-village-aerial.jpg",
-        heroPosition: "object-center",
+        heroImage: "/images/lausanne-cathedral.jpg",
+        heroPosition: "object-[center_60%]",
         tagline: "Olympic spirit, alpine soul.",
         description: "Lausanne rises in terraces from Lac Léman into the Jorat hills, a dynamic university city that hosts the International Olympic Committee. With its Gothic cathedral, vibrant Flon district, and position as the gateway to the Lavaux vineyards, it offers an urban energy unique in the Swiss landscape — cultured, youthful, and always looking forward.",
         highlights: [
@@ -377,8 +377,8 @@ export const cities: City[] = [
         canton: "Lucerne",
         coordinates: "047° 03' N / 008° 18' E",
         elevation: "436m",
-        heroImage: "/images/oeschinen-lake.jpg",
-        heroPosition: "object-[center_40%]",
+        heroImage: "/images/lucerne-chapel-bridge.jpg",
+        heroPosition: "object-[center_55%]",
         tagline: "Where the Alps meet the old world.",
         description: "Lucerne sits at the northern edge of Lake Lucerne, where the pre-alpine foothills begin their dramatic rise. Its medieval Chapel Bridge, baroque churches, and car-free old town create an atmosphere of timeless elegance. Mount Pilatus and Rigi are a cable car ride away — making it a rare place where 800 years of history meets 2,000 meters of alpine panorama.",
         highlights: [
@@ -416,8 +416,8 @@ export const cities: City[] = [
         canton: "Bern",
         coordinates: "046° 37' N / 008° 02' E",
         elevation: "1,034m",
-        heroImage: "/images/oeschinensee.jpg",
-        heroPosition: "object-[center_40%]",
+        heroImage: "/images/grindelwald-eiger.jpg",
+        heroPosition: "object-[center_35%]",
         tagline: "In the shadow of the Eiger.",
         description: "Grindelwald is the alpine village that lives beneath the Eiger's legendary north face. At 1,034 meters in the Bernese Oberland, it is a place of vertical drama — where glaciers descend into green valleys and the sound of cowbells mingles with the silence of high altitude. Traditional, authentic, and utterly spectacular.",
         highlights: [
