@@ -67,6 +67,7 @@ export interface ProposalConfig {
         whatsapp: string;
     };
     pricing: {
+        currency?: string; // defaults to "CHF"
         tiers: ProposalTier[];
         addOns: ProposalAddOn[];
     };
@@ -76,6 +77,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
     const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
     // Default to first tier total if available, else 0
     const [selectedTier, setSelectedTier] = useState<number>(config.pricing.tiers[0]?.total || 0);
+    const currency = config.pricing.currency || "CHF ";
 
     const toggleAddon = (id: string) => {
         setSelectedAddons(prev =>
@@ -274,7 +276,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                                 </div>
                                             </div>
                                             <div className="text-right relative z-10">
-                                                <span className="block text-white font-serif text-xl tracking-tighter italic">£{tier.price} <small className="text-[9px] text-white/30 lowercase tracking-widest font-sans not-italic">/pp</small></span>
+                                                <span className="block text-white font-serif text-xl tracking-tighter italic">{currency}{tier.price} <small className="text-[9px] text-white/30 lowercase tracking-widest font-sans not-italic">/pp</small></span>
                                             </div>
                                             {selectedTier === tier.total && (
                                                 <div className="absolute inset-0 bg-gradient-to-r from-switz-red/10 via-transparent to-transparent opacity-50" />
@@ -316,7 +318,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                                     "text-[10px] font-bold tracking-[0.2em] uppercase transition-colors",
                                                     selectedAddons.includes(addon.id) ? "text-switz-red" : "text-white/50 group-hover:text-white"
                                                 )}>{addon.label}</span>
-                                                <span className="text-base font-serif italic text-white tracking-tight ml-4">+ £{addon.price}</span>
+                                                <span className="text-base font-serif italic text-white tracking-tight ml-4">+ {currency}{addon.price}</span>
                                             </div>
                                             <p className="text-[11px] text-white/30 font-light leading-relaxed relative z-10">{addon.description}</p>
                                             <div className={cn(
@@ -512,9 +514,9 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                 <h2 className="text-4xl md:text-6xl font-serif text-white mb-8 tracking-tighter italic">Investimento.</h2>
 
                                 <div className="mb-12 md:mb-16">
-                                    <div className="text-7xl md:text-9xl font-serif text-white tracking-tighter mb-4 italic break-all md:break-normal">£{finalPrice}</div>
+                                    <div className="text-7xl md:text-9xl font-serif text-white tracking-tighter mb-4 italic break-all md:break-normal">{currency}{finalPrice}</div>
                                     <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-                                        {addonsTotal > 0 && <span className="text-white/20 text-2xl line-through font-serif italic">£{selectedTier}</span>}
+                                        {addonsTotal > 0 && <span className="text-white/20 text-2xl line-through font-serif italic">{currency}{selectedTier}</span>}
                                         <span className="text-switz-red text-[9px] font-bold uppercase tracking-[0.3em] bg-switz-red/10 border border-switz-red/20 px-4 py-2 inline-flex items-center gap-3 w-fit">
                                             <div className="w-2 h-2 rounded-full bg-switz-red animate-pulse" /> Private Intake Confirmed
                                         </span>

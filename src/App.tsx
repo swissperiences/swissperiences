@@ -27,6 +27,7 @@ const JournalPost = lazy(() => import("./pages/JournalPost"));
 const Destinations = lazy(() => import("./pages/Destinations"));
 const DestinationPage = lazy(() => import("./pages/DestinationPage"));
 const AlexProposal = lazy(() => import("./pages/private/AlexProposal"));
+const InvitePage = lazy(() => import("./pages/private/InvitePage"));
 const RequestAccess = lazy(() => import("./pages/RequestAccess"));
 const Login = lazy(() => import("./pages/Login"));
 const AuthCallback = lazy(() => import("./pages/AuthCallback"));
@@ -117,6 +118,7 @@ const App = () => (
                 <Route path="/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/private/alex-proposal" element={<AlexProposal />} />
+                <Route path="/invite/:code" element={<InvitePage />} />
                 <Route path="/admin" element={<Navigate to="/admin/gallery" replace />} />
                 <Route path="/admin/gallery" element={<AuthGuard requireAdmin><AdminGallery /></AuthGuard>} />
                 <Route path="/request-access" element={<RequestAccess />} />

@@ -69,6 +69,7 @@ const alexConfig: ProposalConfig = {
         whatsapp: "https://wa.me/41787002202"
     },
     pricing: {
+        currency: "£",
         tiers: [
             { count: 1, price: 1350, total: 1350, label: "VIP Solo (Exclusivo)" },
             { count: 2, price: 1000, total: 2000, label: "2 Pessoas" },
