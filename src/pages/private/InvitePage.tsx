@@ -75,7 +75,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
         },
         loft: {
             image: "/images/villars-hero.jpg",
-            secondaryImages: ["/images/villars/rustic-chalet-snow.jpeg", "/images/villars/bains-outdoor-alps.jpeg"],
+            secondaryImages: ["/images/villars/balcony-skilift-alps.jpeg", "/images/villars/dawn-fog-chalets.jpeg"],
             location: "Villars-sur-Ollon, 1,300m",
             detail: "Exclusivo pra você. Vista frontal pros Alpes, cozinha equipada, lareira a lenha e Wi-Fi de alta velocidade. Ninguém mais tem a chave.",
         },
@@ -302,7 +302,7 @@ export default function InvitePage() {
                             <div className="relative aspect-[16/9] overflow-hidden rounded-sm group">
                                 <img
                                     src={config.loft.secondaryImages[1]}
-                                    alt="Alpine thermal baths"
+                                    alt="Alpine dawn with fog"
                                     className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 brightness-[0.85]"
                                     loading="lazy"
                                 />
