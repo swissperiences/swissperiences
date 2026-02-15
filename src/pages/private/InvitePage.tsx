@@ -325,9 +325,15 @@ export default function InvitePage() {
                     </ScrollReveal>
 
                     <ScrollReveal delay={0.15}>
-                        <p className="text-white/40 font-light text-sm max-w-xl">
+                        <p className="text-white/40 font-light text-sm max-w-xl mb-4">
                             {config.loft.detail}
                         </p>
+                        <Link
+                            to="/sanctuaries/villars"
+                            className="inline-flex items-center gap-2 text-white/30 text-xs uppercase tracking-[0.15em] hover:text-switz-red transition-colors"
+                        >
+                            See full details <ChevronRight className="w-3 h-3" />
+                        </Link>
                     </ScrollReveal>
                 </section>
 
