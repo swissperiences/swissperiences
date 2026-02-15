@@ -178,6 +178,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         // ============================================================
         // STEP 3: Send Admin Notification
         // ============================================================
+        // ⚠️ RATE LIMIT: Wait 1.1s to respect Resend's 2 req/sec limit
+        await new Promise(resolve => setTimeout(resolve, 1100));
         console.log('[CORPORATE API] 📧 Step 3: Attempting to send admin notification...');
 
         const { data: adminData, error: adminError } = await resend.emails.send({

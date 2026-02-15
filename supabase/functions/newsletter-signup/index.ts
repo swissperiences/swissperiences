@@ -111,8 +111,10 @@ serve(async (req) => {
             console.log(`[NEWSLETTER] Welcome email status: ${emailResponse.status}`, emailData)
         }
 
-        // 3. Notify admin (delay to avoid Resend 2 req/sec rate limit)
-        await new Promise((r) => setTimeout(r, 1100))
+        // 3. Notify admin (delay only needed if we sent the welcome email above)
+        if (!alreadySubscribed) {
+            await new Promise((r) => setTimeout(r, 1100))
+        }
         console.log(`[NEWSLETTER] Sending admin notification for: ${email}`)
         const adminResponse = await fetch('https://api.resend.com/emails', {
             method: 'POST',

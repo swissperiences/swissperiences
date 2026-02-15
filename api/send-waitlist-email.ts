@@ -221,7 +221,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             throw new Error(`Failed to send user email: ${userError.message}`);
         }
 
-        // 2. Internal Notification
+        // 2. Internal Notification (delay to avoid Resend 2 req/sec rate limit)
+        await new Promise(resolve => setTimeout(resolve, 1100));
         const { error: adminError } = await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
             to: ['hello@swissperiences.ch'],

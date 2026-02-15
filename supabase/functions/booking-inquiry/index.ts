@@ -141,7 +141,7 @@ serve(async (req) => {
                     <div class="letter">
                         <span class="logo">S W I S S P E R I E N C E S</span>
 
-                        <h1>Noted, ${esc(safeName.split(' ')[0])}.</h1>
+                        <h1>Noted, ${safeName.split(' ')[0]}.</h1>
 
                         <p>${memberBody}</p>
                         <p>We'll review your request and get back to you within 24 hours.</p>
