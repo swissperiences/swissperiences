@@ -56,7 +56,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
         slug: "winter",
         seo: {
             title: "Winter Escape | Swissperiences",
-            description: "Um convite privado para 48 horas nos Alpes Suíços. Ski, fondue, silêncio.",
+            description: "A private invitation for 48 hours in the Swiss Alps. Ski, fondue, silence.",
             ogImage: "/images/villars/sea-of-clouds-sunset.jpeg",
         },
         hero: {
@@ -67,85 +67,85 @@ const inviteConfigs: Record<string, InviteConfig> = {
                     Winter Escape<span className="text-switz-red">.</span>
                 </>
             ),
-            subtitle: "48 horas nos Alpes Suíços. Sem agenda. Sem ruído. Só montanha.",
+            subtitle: "48 hours in the Swiss Alps. No agenda. No noise. Just mountain.",
         },
         intro: {
-            text: "Você não precisa de mais uma viagem. Precisa de uma pausa real — dessas que resetam. Eu preparei cada detalhe pra que a única coisa que você precise fazer seja aparecer. O resto é comigo.",
-            quote: "O mundo exige velocidade. A montanha exige pausa.",
+            text: "You don't need another trip. You need a real pause — the kind that resets everything. I've taken care of every detail so the only thing you need to do is show up. The rest is on me.",
+            quote: "The world demands speed. The mountain demands stillness.",
         },
         loft: {
             image: "/images/villars-hero.jpg",
-            secondaryImages: ["/images/villars/balcony-skilift-alps.jpeg", "/images/villars/dawn-fog-chalets.jpeg"],
+            secondaryImages: ["/images/villars/deep-snow-chalet.jpeg", "/images/villars/dawn-fog-chalets.jpeg"],
             location: "Villars-sur-Ollon, 1,300m",
-            detail: "Exclusivo pra você. Vista frontal pros Alpes, cozinha equipada, lareira a lenha e Wi-Fi de alta velocidade. Ninguém mais tem a chave.",
+            detail: "Exclusively yours. Panoramic views of the Alps, fully equipped kitchen, wood fireplace and high-speed Wi-Fi. No one else has the key.",
         },
         itinerary: [
             {
                 icon: <MapPin className="w-5 h-5" />,
-                label: "Dia 1 — Chegada",
+                label: "Day 1 — Arrival",
                 title: "Gate Pickup",
-                description: "Eu te busco no aeroporto de Genebra ou na estação TGV. Range Rover privado, playlist curada, e uma hora de estrada onde a cidade vai ficando pra trás e os Alpes vão tomando conta do vidro.",
+                description: "I pick you up at Geneva Airport or the TGV station. Private Range Rover, curated playlist, and a one-hour drive where the city fades away and the Alps take over the windshield.",
                 image: "/images/alpine-road-villars.jpg",
             },
             {
                 icon: <Flame className="w-5 h-5" />,
-                label: "Dia 1 — Noite",
+                label: "Day 1 — Evening",
                 title: "The Sanctuary",
-                description: "A porta abre. O welcome basket já espera na mesa — queijos locais, vinho e chocolate suíço. Quadros de vacas suíças na parede, sofá que te engole, e o silêncio dos Alpes pela janela inteira. Hoje você não precisa fazer mais nada.",
+                description: "The door opens. The welcome basket is already on the table — local cheeses, wine and Swiss chocolate. Paintings of Swiss cows on the walls, a sofa that swallows you whole, and the silence of the Alps through the entire window. Tonight, you don't need to do anything else.",
                 image: "/images/villars-gallery-3.jpg",
             },
             {
                 icon: <Mountain className="w-5 h-5" />,
-                label: "Dia 2 — Manhã",
+                label: "Day 2 — Morning",
                 title: "Ski Experience",
-                description: "Manhã nos Alpes com instrutor privado da Villars Ski School — no seu ritmo, sem fila, sem grupo. Enquanto isso, um drone 4K registra tudo de cima. O vídeo é seu.",
+                description: "Morning in the Alps with a private instructor from Villars Ski School — at your pace, no lines, no group. Meanwhile, a 4K drone captures everything from above. The footage is yours.",
                 image: "/images/villars/ski-station-panorama.jpeg",
             },
             {
                 icon: <Sun className="w-5 h-5" />,
-                label: "Dia 2 — Tarde",
-                title: "Tempo Seu",
-                description: "Sem agenda. Você escolhe: caminhar pela vila, tomar um café no terraço com vista pros Alpes, ou simplesmente ficar no loft em silêncio. O relógio para aqui.",
+                label: "Day 2 — Afternoon",
+                title: "Your Time",
+                description: "No agenda. You choose: stroll through the village, have a coffee on a terrace overlooking the Alps, or simply stay in the loft in silence. Time stops here.",
                 image: "/images/villars/morning-peak-sun.jpeg",
             },
             {
                 icon: <Flame className="w-5 h-5" />,
-                label: "Dia 2 — Noite",
+                label: "Day 2 — Evening",
                 title: "Après-Ski & Fondue",
-                description: "Bains de Villars — piscina aquecida com vista pros Alpes pra soltar o corpo. Depois, fondue de Gruyère AOP preparada no loft. Vinho, velas, e nenhuma pressa de ir embora.",
+                description: "Bains de Villars — heated pool with a view of the Alps to unwind. Then, Gruyère AOP fondue prepared at the loft. Wine, candles, and no rush to leave.",
                 image: "/images/villars/bains-winter-pool.jpeg",
             },
             {
                 icon: <Car className="w-5 h-5" />,
-                label: "Dia 3 — Manhã",
+                label: "Day 3 — Morning",
                 title: "The Farewell",
-                description: "Café da manhã com vista. Sem pressa de sair. Quando estiver pronto, eu levo você de volta a Genebra — com o drone edit do weekend já no seu celular.",
+                description: "Breakfast with a view. No rush to leave. When you're ready, I drive you back to Geneva — with the drone edit of your weekend already on your phone.",
                 image: "/images/villars/sunset-snow-road.jpeg",
             },
         ],
         included: [
-            { icon: <MapPin className="w-4 h-4" />, text: "Transfer privado Genebra ↔ Villars (Range Rover)" },
-            { icon: <Users className="w-4 h-4" />, text: "2 noites no Villars Loft (exclusividade total)" },
-            { icon: <Mountain className="w-4 h-4" />, text: "Aula de ski privada com instrutor dedicado" },
-            { icon: <Flame className="w-4 h-4" />, text: "Fondue tradicional no loft + Welcome basket" },
-            { icon: <Camera className="w-4 h-4" />, text: "Fotos & vídeo drone 4K do seu weekend" },
-            { icon: <Clock className="w-4 h-4" />, text: "Host dedicado (PT/EN/FR) durante toda a estadia" },
+            { icon: <MapPin className="w-4 h-4" />, text: "Private transfer Geneva ↔ Villars (Range Rover)" },
+            { icon: <Users className="w-4 h-4" />, text: "2 nights at The Villars Loft (fully exclusive)" },
+            { icon: <Mountain className="w-4 h-4" />, text: "Private ski lesson with dedicated instructor" },
+            { icon: <Flame className="w-4 h-4" />, text: "Traditional fondue at the loft + Welcome basket" },
+            { icon: <Camera className="w-4 h-4" />, text: "Photos & 4K drone video of your weekend" },
+            { icon: <Clock className="w-4 h-4" />, text: "Dedicated host (EN/PT/FR) throughout your stay" },
         ],
         host: {
             image: "/images/host-road-winter.jpg",
             name: "Cauêh Vidal",
             role: "Host & Founder",
-            bio: "Moro na Suíça, conheço cada curva dessas montanhas e cuido de cada detalhe pessoalmente. Não sou uma agência — sou a pessoa que vai te buscar no aeroporto, preparar o loft antes de você chegar, e garantir que você não precise pensar em nada por 48 horas.",
-            quote: "Eu construí isso pra ser o tipo de experiência que eu gostaria de receber.",
+            bio: "I live in Switzerland, I know every curve of these mountains and I take care of every detail personally. I'm not an agency — I'm the person who picks you up at the airport, prepares the loft before you arrive, and makes sure you don't have to think about anything for 48 hours.",
+            quote: "I built this to be the kind of experience I'd want to receive.",
             instagram: "https://instagram.com/caueh",
         },
         pricing: {
             amount: "CHF 1,200",
-            perPerson: "48h, loft inteiro só pra você(s) · até 4 pessoas · a partir de CHF 700/pessoa para grupos",
-            note: "Apenas 2 vagas disponíveis em Março.",
+            perPerson: "48h for 2 guests · entire loft exclusively yours · from CHF 700/person for groups of 4",
+            note: "Only 2 spots available in March.",
         },
         contact: {
-            whatsapp: "https://wa.me/41787002202?text=" + encodeURIComponent("Olá Cauêh, recebi o convite para o Winter Escape em Villars. Gostaria de saber a disponibilidade para as próximas datas."),
+            whatsapp: "https://wa.me/41787002202?text=" + encodeURIComponent("Hi Cauêh, I received the invitation for the Winter Escape in Villars. I'd like to know the availability for upcoming dates."),
             email: "hello@swissperiences.ch",
         },
     },
@@ -256,7 +256,7 @@ export default function InvitePage() {
                             transition={{ delay: 0.5 }}
                             className="text-white/20 text-[9px] uppercase tracking-[0.3em] mt-8 block"
                         >
-                            Convite privado · 1–4 pessoas · Villars-sur-Ollon, Suíça
+                            Private invitation · 1–4 guests · Villars-sur-Ollon, Switzerland
                         </motion.span>
                     </div>
                 </section>
@@ -285,7 +285,7 @@ export default function InvitePage() {
                                 The Sanctuary
                             </span>
                             <h2 className="text-3xl md:text-4xl font-serif leading-tight">
-                                Seu refúgio nos Alpes<span className="text-switz-red">.</span>
+                                Your alpine refuge<span className="text-switz-red">.</span>
                             </h2>
                         </div>
                     </ScrollReveal>
@@ -337,10 +337,10 @@ export default function InvitePage() {
                         <ScrollReveal>
                             <div className="mb-14">
                                 <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
-                                    O Roteiro
+                                    The Itinerary
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif leading-tight">
-                                    48 horas, frame a frame<span className="text-switz-red">.</span>
+                                    48 hours, frame by frame<span className="text-switz-red">.</span>
                                 </h2>
                             </div>
                         </ScrollReveal>
@@ -383,10 +383,10 @@ export default function InvitePage() {
                     <ScrollReveal>
                         <div className="mb-12">
                             <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
-                                Tudo Incluído
+                                All Included
                             </span>
                             <h2 className="text-3xl md:text-4xl font-serif leading-tight">
-                                Zero preocupações<span className="text-switz-red">.</span>
+                                Zero worries<span className="text-switz-red">.</span>
                             </h2>
                         </div>
                     </ScrollReveal>
@@ -408,7 +408,7 @@ export default function InvitePage() {
 
                     <ScrollReveal delay={0.3}>
                         <p className="text-white/25 font-light text-xs italic mt-10 max-w-md">
-                            Você não toca na mala, nem vê um bilhete. Só chega. O resto acontece em silêncio.
+                            You don't touch your luggage, you don't see a ticket. Just arrive. The rest happens in silence.
                         </p>
                     </ScrollReveal>
                 </section>
@@ -418,20 +418,20 @@ export default function InvitePage() {
                     <ScrollReveal>
                         <div className="border border-white/5 rounded-sm p-8 md:p-12">
                             <span className="text-white/20 text-[9px] uppercase tracking-[0.3em] block mb-6">
-                                Para quem quer ir além
+                                For those who want more
                             </span>
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                                     <span className="text-white/40 font-light text-sm">Helicopter transfer from Geneva</span>
-                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">sob consulta</span>
+                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">on request</span>
                                 </div>
                                 <div className="flex items-center justify-between py-3 border-b border-white/5">
-                                    <span className="text-white/40 font-light text-sm">Private chef experience no loft</span>
-                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">sob consulta</span>
+                                    <span className="text-white/40 font-light text-sm">Private chef experience at the loft</span>
+                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">on request</span>
                                 </div>
                                 <div className="flex items-center justify-between py-3">
-                                    <span className="text-white/40 font-light text-sm">Wine pairing curado por sommelier</span>
-                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">sob consulta</span>
+                                    <span className="text-white/40 font-light text-sm">Sommelier-curated wine pairing</span>
+                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">on request</span>
                                 </div>
                             </div>
                         </div>
@@ -461,7 +461,7 @@ export default function InvitePage() {
                             <div className="w-full md:w-7/12 space-y-8">
                                 <ScrollReveal delay={0.1}>
                                     <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
-                                        Quem te recebe
+                                        Who welcomes you
                                     </span>
                                     <h2 className="text-3xl md:text-4xl font-serif leading-tight mb-2">
                                         {config.host.name}<span className="text-switz-red">.</span>
@@ -515,10 +515,10 @@ export default function InvitePage() {
                                         The Journals
                                     </span>
                                     <h3 className="text-xl md:text-2xl font-serif text-white/80 group-hover:text-white transition-colors mb-3">
-                                        Histórias dos Alpes<span className="text-switz-red">.</span>
+                                        Stories from the Alps<span className="text-switz-red">.</span>
                                     </h3>
                                     <p className="text-white/30 font-light text-sm leading-relaxed max-w-lg">
-                                        Bastidores, rotas secretas e o que acontece entre uma experiência e outra. Escrito por quem vive aqui.
+                                        Real life in the Swiss Alps — the hidden trails, the quiet mornings, and what it's really like to call this place home.
                                     </p>
                                 </div>
                                 <ChevronRight className="w-4 h-4 text-white/10 group-hover:text-white/40 group-hover:translate-x-1 transition-all mt-2" />
@@ -532,7 +532,7 @@ export default function InvitePage() {
                     <div className="max-w-3xl mx-auto px-6 text-center">
                         <ScrollReveal>
                             <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
-                                Investimento
+                                Investment
                             </span>
                             <div className="text-6xl md:text-8xl font-serif text-white italic tracking-tight mb-4">
                                 {config.pricing.amount}
@@ -553,21 +553,21 @@ export default function InvitePage() {
                                     rel="noopener noreferrer"
                                     className="group bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 flex items-center gap-3"
                                 >
-                                    Falar no WhatsApp
+                                    Message on WhatsApp
                                     <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                                 </a>
                                 <a
                                     href={`mailto:${config.contact.email}`}
                                     className="text-white/30 text-xs uppercase tracking-[0.15em] font-bold hover:text-white/60 transition-colors"
                                 >
-                                    Ou envie um email →
+                                    Or send an email →
                                 </a>
                             </div>
                         </ScrollReveal>
 
                         <ScrollReveal delay={0.2}>
                             <p className="text-white/15 text-[10px] uppercase tracking-[0.2em] mt-14">
-                                Este é um convite privado. Não compartilhe este link.
+                                This is a private invitation. Please do not share this link.
                             </p>
                         </ScrollReveal>
                     </div>
