@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Mountain, Flame, Camera, Clock, Users, ChevronRight, BookOpen } from "lucide-react";
+import { MapPin, Mountain, Flame, Camera, Clock, Users, ChevronRight, BookOpen, Sun, Car } from "lucide-react";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
 import SEO from "@/components/SEO";
@@ -91,7 +91,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Dia 1 — Noite",
                 title: "The Sanctuary",
-                description: "A porta abre. O welcome basket já espera na mesa. Quadros de vacas suíças na parede, sofá que te engole, e o silêncio dos Alpes pela janela inteira. Hoje você não precisa fazer mais nada.",
+                description: "A porta abre. O welcome basket já espera na mesa — queijos locais, vinho e chocolate suíço. Quadros de vacas suíças na parede, sofá que te engole, e o silêncio dos Alpes pela janela inteira. Hoje você não precisa fazer mais nada.",
                 image: "/images/villars-gallery-3.jpg",
             },
             {
@@ -102,11 +102,25 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 image: "/images/villars/ski-station-panorama.jpeg",
             },
             {
+                icon: <Sun className="w-5 h-5" />,
+                label: "Dia 2 — Tarde",
+                title: "Tempo Seu",
+                description: "Sem agenda. Você escolhe: caminhar pela vila, tomar um café no terraço com vista pros Alpes, ou simplesmente ficar no loft em silêncio. O relógio para aqui.",
+                image: "/images/villars/morning-peak-sun.jpeg",
+            },
+            {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Dia 2 — Noite",
                 title: "Après-Ski & Fondue",
                 description: "Bains de Villars — piscina aquecida com vista pros Alpes pra soltar o corpo. Depois, fondue de Gruyère AOP preparada no loft. Vinho, velas, e nenhuma pressa de ir embora.",
                 image: "/images/villars/bains-winter-pool.jpeg",
+            },
+            {
+                icon: <Car className="w-5 h-5" />,
+                label: "Dia 3 — Manhã",
+                title: "The Farewell",
+                description: "Café da manhã com vista. Sem pressa de sair. Quando estiver pronto, eu levo você de volta a Genebra — com o drone edit do weekend já no seu celular.",
+                image: "/images/villars/sunset-snow-road.jpeg",
             },
         ],
         included: [
