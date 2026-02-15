@@ -90,6 +90,11 @@ const AuthCallback = () => {
                         }
                     }
 
+                    // Also add to Resend newsletter audience (fire-and-forget)
+                    supabase.functions.invoke("newsletter-signup", {
+                        body: { email },
+                    }).catch((err) => console.warn("⚠️ [AuthCallback] Newsletter signup failed:", err));
+
                     navigate("/pending-approval", { replace: true });
                     return;
                 }

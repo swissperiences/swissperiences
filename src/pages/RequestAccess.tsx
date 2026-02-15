@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowRight, Check } from "lucide-react";
 import SEO from "@/components/SEO";
 
 const RequestAccess = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [newsletterEmail, setNewsletterEmail] = useState("");
+    const [newsletterLoading, setNewsletterLoading] = useState(false);
+    const [newsletterDone, setNewsletterDone] = useState(false);
 
     const [formData, setFormData] = useState({
         fullName: "",
@@ -56,6 +59,32 @@ const RequestAccess = () => {
             console.error(`Error logging in with ${provider}:`, error.message);
             toast.error(`Failed to connect with ${provider}. Please try again.`);
             setIsSubmitting(false);
+        }
+    };
+
+    const handleNewsletterSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newsletterEmail) return;
+
+        setNewsletterLoading(true);
+        try {
+            const { data, error } = await supabase.functions.invoke("newsletter-signup", {
+                body: { email: newsletterEmail },
+            });
+            if (error) throw error;
+
+            setNewsletterDone(true);
+            if (data?.already_subscribed) {
+                toast.success("You're already on the list.");
+            } else {
+                toast.success("Welcome to the inner circle.");
+            }
+            setNewsletterEmail("");
+        } catch (error) {
+            console.error("Newsletter error:", error);
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setNewsletterLoading(false);
         }
     };
 
@@ -379,6 +408,44 @@ const RequestAccess = () => {
                             >
                                 Sign in →
                             </a>
+                        </div>
+
+                        {/* Newsletter alternative */}
+                        <div className="mt-12 pt-8 border-t border-white/5 text-center">
+                            <p className="text-white/30 text-xs uppercase tracking-[0.2em] mb-6">
+                                Not ready to apply? Join our private list.
+                            </p>
+                            {newsletterDone ? (
+                                <div className="flex items-center justify-center gap-2 text-switz-red text-sm tracking-widest uppercase animate-fade-in">
+                                    <Check size={16} />
+                                    <span>You're on the list</span>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleNewsletterSubmit} className="relative max-w-sm mx-auto">
+                                    <div className="relative group">
+                                        <input
+                                            type="email"
+                                            value={newsletterEmail}
+                                            onChange={(e) => setNewsletterEmail(e.target.value)}
+                                            placeholder="Enter your email"
+                                            required
+                                            disabled={newsletterLoading}
+                                            className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/20 focus:outline-none focus:border-switz-red transition-colors rounded-none disabled:opacity-50"
+                                        />
+                                        <button
+                                            type="submit"
+                                            disabled={newsletterLoading}
+                                            className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-switz-red transition-colors disabled:opacity-50"
+                                        >
+                                            {newsletterLoading ? (
+                                                <Loader2 size={16} className="animate-spin" />
+                                            ) : (
+                                                <ArrowRight size={16} />
+                                            )}
+                                        </button>
+                                    </div>
+                                </form>
+                            )}
                         </div>
                     </div>
                 </div>

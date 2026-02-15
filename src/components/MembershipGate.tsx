@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/use-auth";
 import { Link } from "react-router-dom";
-import { Lock } from "lucide-react";
+import { Lock, ArrowRight, Loader2, Check } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface MembershipGateProps {
     children: React.ReactNode;
@@ -13,8 +16,37 @@ interface MembershipGateProps {
 
 export default function MembershipGate({ children, title, subtitle }: MembershipGateProps) {
     const { isLoggedIn } = useAuth();
+    const [email, setEmail] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubscribed, setIsSubscribed] = useState(false);
 
     if (isLoggedIn) return <>{children}</>;
+
+    const handleNewsletterSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!email) return;
+
+        setIsLoading(true);
+        try {
+            const { data, error } = await supabase.functions.invoke("newsletter-signup", {
+                body: { email },
+            });
+            if (error) throw error;
+
+            setIsSubscribed(true);
+            if (data?.already_subscribed) {
+                toast.success("You're already on the list.");
+            } else {
+                toast.success("Welcome to the inner circle.");
+            }
+            setEmail("");
+        } catch (error) {
+            console.error("Newsletter error:", error);
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <section className="py-32 px-6 text-center">
@@ -46,6 +78,44 @@ export default function MembershipGate({ children, title, subtitle }: Membership
                     >
                         Sign In
                     </Link>
+                </div>
+
+                {/* Newsletter alternative */}
+                <div className="mt-16 pt-12 border-t border-white/5">
+                    <p className="text-white/30 text-xs uppercase tracking-[0.2em] mb-6">
+                        Not ready to apply?
+                    </p>
+                    {isSubscribed ? (
+                        <div className="flex items-center justify-center gap-2 text-switz-red text-sm tracking-widest uppercase animate-fade-in">
+                            <Check size={16} />
+                            <span>You're on the list</span>
+                        </div>
+                    ) : (
+                        <form onSubmit={handleNewsletterSubmit} className="relative max-w-sm mx-auto">
+                            <div className="relative group">
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Join our private list"
+                                    required
+                                    disabled={isLoading}
+                                    className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/20 focus:outline-none focus:border-switz-red transition-colors rounded-none disabled:opacity-50"
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-switz-red transition-colors disabled:opacity-50"
+                                >
+                                    {isLoading ? (
+                                        <Loader2 size={16} className="animate-spin" />
+                                    ) : (
+                                        <ArrowRight size={16} />
+                                    )}
+                                </button>
+                            </div>
+                        </form>
+                    )}
                 </div>
             </motion.div>
         </section>
