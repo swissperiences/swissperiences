@@ -21,6 +21,15 @@ interface InviteIncludedItem {
     text: string;
 }
 
+interface InviteHost {
+    image: string;
+    name: string;
+    role: string;
+    bio: string;
+    quote: string;
+    instagram?: string;
+}
+
 interface InviteConfig {
     slug: string;
     clientName?: string;
@@ -35,6 +44,7 @@ interface InviteConfig {
     };
     itinerary: InviteItineraryItem[];
     included: InviteIncludedItem[];
+    host: InviteHost;
     pricing: { amount: string; perPerson: string; note: string };
     contact: { whatsapp: string; email: string };
 }
@@ -57,45 +67,45 @@ const inviteConfigs: Record<string, InviteConfig> = {
                     Winter Escape<span className="text-switz-red">.</span>
                 </>
             ),
-            subtitle: "48 horas nos Alpes Suíços que vão redefinir o que você entende por descanso.",
+            subtitle: "48 horas nos Alpes Suíços. Sem agenda. Sem ruído. Só montanha.",
         },
         intro: {
-            text: "O silêncio real não é a ausência de som — é a ausência de ruído. Preparamos uma logística invisível para que sua única preocupação seja estar presente.",
+            text: "Você não precisa de mais uma viagem. Precisa de uma pausa real — dessas que resetam. Eu preparei cada detalhe pra que a única coisa que você precise fazer seja aparecer. O resto é comigo.",
             quote: "O mundo exige velocidade. A montanha exige pausa.",
         },
         loft: {
             image: "/images/villars-hero.jpg",
             secondaryImages: ["/images/loft/IMG_8736.jpg", "/images/apartment-fireplace.jpg"],
             location: "Villars-sur-Ollon, 1,300m",
-            detail: "Loft privado com lareira, vista para os Alpes, cozinha equipada e Wi-Fi de alta velocidade.",
+            detail: "Exclusivo pra você. Lareira a lenha, vista frontal pros Alpes, cozinha equipada e Wi-Fi de alta velocidade. Ninguém mais tem a chave.",
         },
         itinerary: [
             {
                 icon: <MapPin className="w-5 h-5" />,
                 label: "Dia 1 — Chegada",
                 title: "Gate Pickup",
-                description: "Busca no aeroporto de Genebra ou estação TGV. Range Rover privado pela autoroute até os Alpes de Vaud.",
+                description: "Eu te busco no aeroporto de Genebra ou na estação TGV. Range Rover privado, playlist curada, e uma hora de estrada onde a cidade vai ficando pra trás e os Alpes vão tomando conta do vidro.",
                 image: "/images/alpine-road-villars.jpg",
             },
             {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Dia 1 — Noite",
                 title: "The Sanctuary",
-                description: "Check-in no Loft. Lareira acesa, welcome basket, vista dos Alpes. O primeiro sono profundo em meses.",
+                description: "A porta abre. A lareira já queima. O welcome basket já espera na mesa. Vista dos Alpes pela janela inteira. Hoje você não precisa fazer mais nada.",
                 image: "/images/apartment-fireplace.jpg",
             },
             {
                 icon: <Mountain className="w-5 h-5" />,
                 label: "Dia 2 — Manhã",
                 title: "Ski Experience",
-                description: "Aula privada com instrutor dedicado da Villars Ski School. Drone 4K capturando suas melhores curvas.",
+                description: "Manhã nos Alpes com instrutor privado da Villars Ski School — no seu ritmo, sem fila, sem grupo. Enquanto isso, um drone 4K registra tudo de cima. O vídeo é seu.",
                 image: "/images/drone/villars-winter-sunset.jpg",
             },
             {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Dia 2 — Noite",
                 title: "Après-Ski & Fondue",
-                description: "Spa termal de Villars para relaxar. Fondue tradicional suíça preparada no loft com Gruyère AOP.",
+                description: "Primeiro, o spa termal de Villars pra descomprimir. Depois, fondue de Gruyère AOP preparada no loft — com a lareira acesa de novo e nenhuma pressa de ir embora.",
                 image: "/images/villars-feature.jpg",
             },
         ],
@@ -107,6 +117,14 @@ const inviteConfigs: Record<string, InviteConfig> = {
             { icon: <Camera className="w-4 h-4" />, text: "Fotos & vídeo drone 4K do seu weekend" },
             { icon: <Clock className="w-4 h-4" />, text: "Host dedicado (PT/EN/FR) durante toda a estadia" },
         ],
+        host: {
+            image: "/images/caueh-vidal-spring.jpg",
+            name: "Cauêh Vidal",
+            role: "Host & Founder",
+            bio: "Moro na Suíça, conheço cada curva dessas montanhas e cuido de cada detalhe pessoalmente. Não sou uma agência — sou a pessoa que vai te buscar no aeroporto, acender a lareira antes de você chegar, e garantir que você não precise pensar em nada por 48 horas.",
+            quote: "Eu construí isso pra ser o tipo de experiência que eu gostaria de receber.",
+            instagram: "https://instagram.com/caueh",
+        },
         pricing: {
             amount: "CHF 1,200",
             perPerson: "a partir de CHF 700/pessoa para grupos",
@@ -362,6 +380,70 @@ export default function InvitePage() {
                                 </div>
                             </ScrollReveal>
                         ))}
+                    </div>
+                </section>
+
+                {/* ── Your Host ───────────────────────────────────────── */}
+                <section className="border-t border-white/5 py-20 md:py-28">
+                    <div className="max-w-6xl mx-auto px-6">
+                        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
+                            <ScrollReveal variant="scale" className="w-full md:w-5/12">
+                                <div className="relative aspect-[3/4] overflow-hidden rounded-sm group">
+                                    <img
+                                        src={config.host.image}
+                                        alt={config.host.name}
+                                        className="w-full h-full object-cover object-[center_25%] grayscale group-hover:grayscale-0 transition-all duration-1000 brightness-[0.85] group-hover:brightness-100"
+                                        loading="lazy"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                    <div className="absolute bottom-6 left-6">
+                                        <span className="text-[9px] text-white/40 uppercase tracking-[0.2em] block mb-1">Your Host</span>
+                                        <span className="text-white font-serif text-lg">{config.host.name}</span>
+                                    </div>
+                                </div>
+                            </ScrollReveal>
+
+                            <div className="w-full md:w-7/12 space-y-8">
+                                <ScrollReveal delay={0.1}>
+                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
+                                        Quem te recebe
+                                    </span>
+                                    <h2 className="text-3xl md:text-4xl font-serif leading-tight mb-2">
+                                        {config.host.name}<span className="text-switz-red">.</span>
+                                    </h2>
+                                    <p className="text-white/40 text-xs uppercase tracking-[0.15em]">
+                                        {config.host.role}
+                                    </p>
+                                </ScrollReveal>
+
+                                <ScrollReveal delay={0.2}>
+                                    <p className="text-white/60 font-light text-base md:text-lg leading-relaxed max-w-[50ch]">
+                                        {config.host.bio}
+                                    </p>
+                                </ScrollReveal>
+
+                                <ScrollReveal delay={0.3}>
+                                    <blockquote className="border-l-2 border-switz-red/50 pl-6">
+                                        <p className="text-white/80 font-serif italic text-lg md:text-xl leading-relaxed">
+                                            "{config.host.quote}"
+                                        </p>
+                                    </blockquote>
+                                </ScrollReveal>
+
+                                {config.host.instagram && (
+                                    <ScrollReveal delay={0.4}>
+                                        <a
+                                            href={config.host.instagram}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 text-white/30 text-xs uppercase tracking-[0.15em] hover:text-white/60 transition-colors"
+                                        >
+                                            @caueh →
+                                        </a>
+                                    </ScrollReveal>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </section>
 
