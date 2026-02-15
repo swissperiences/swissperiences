@@ -84,25 +84,27 @@ serve(async (req) => {
                 to: ['hello@swissperiences.ch'],
                 subject: `[BOOKING] ${safeName} — ${safeSanctuary} — ${subjectDate}`,
                 html: `
-                    <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 40px 20px;">
-                        <h2 style="font-size: 24px; margin-bottom: 24px;">New Booking Inquiry</h2>
-                        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-                            <tr><td style="padding: 8px 0; color: #666;">Member</td><td style="padding: 8px 0;">${safeName}</td></tr>
-                            <tr><td style="padding: 8px 0; color: #666;">Email</td><td style="padding: 8px 0;"><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
-                            <tr><td style="padding: 8px 0; color: #666;">${typeLabel}</td><td style="padding: 8px 0;">${safeSanctuary}</td></tr>
-                            <tr><td style="padding: 8px 0; color: #666;">${dateLabel}</td><td style="padding: 8px 0;">${dateDisplay}</td></tr>
-                            ${nightsDisplay}
-                        </table>
-                        <p style="margin-top: 24px; font-size: 12px; color: #999;">Reply directly to this email or contact the member at ${safeEmail}.</p>
-                    </div>
+            <div style="font-family: 'Courier New', monospace; padding: 30px; background: #111; color: #eee; line-height: 1.6;">
+                <div style="border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between;">
+                    <span style="font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #fff; font-weight: 700;">New Booking</span>
+                </div>
+                <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Member</span><br><span style="color: #F3F4F6;">${safeName}</span></p>
+                <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Email</span><br><a href="mailto:${safeEmail}" style="color: #D8B58A;">${safeEmail}</a></p>
+                <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">${typeLabel}</span><br><span style="color: #F3F4F6;">${safeSanctuary}</span></p>
+                <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">${dateLabel}</span><br><span style="color: #F3F4F6;">${dateDisplay}</span></p>
+                ${!isExperience ? `<p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Nights</span><br><span style="color: #F3F4F6;">${nights}</span></p>` : ''}
+                <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
+            </div>
                 `,
             }),
         })
 
-        // 2. Confirm to member
+        // 2. Confirm to member (delay to avoid Resend 2 req/sec rate limit)
+        await new Promise((r) => setTimeout(r, 1100))
+
         const memberBody = isExperience
             ? `We've received your request for <strong>${safeSanctuary}</strong> on <strong>${fromDate}</strong>.`
-            : `We've received your availability request for <strong>${safeSanctuary}</strong> from <strong>${fromDate}</strong> to <strong>${toDate}</strong> (${nights} night${nights > 1 ? 's' : ''}).`
+            : `We've received your request for <strong>${safeSanctuary}</strong> from <strong>${fromDate}</strong> to <strong>${toDate}</strong> (${nights} night${nights > 1 ? 's' : ''}).`
 
         await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -113,18 +115,51 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: [memberEmail],
-                subject: `Your inquiry for ${safeSanctuary} — ${subjectDate}`,
+                subject: `Your inquiry — ${safeSanctuary}`,
                 html: `
-                    <div style="font-family: Georgia, serif; max-width: 500px; margin: 0 auto; padding: 40px 20px; color: #1a1a1a;">
-                        <p style="font-size: 18px; margin-bottom: 24px;">Thank you, ${esc(safeName.split(' ')[0])}.</p>
-                        <p style="font-size: 14px; color: #555; line-height: 1.8;">${memberBody}</p>
-                        <p style="font-size: 14px; color: #555; line-height: 1.8; margin-top: 16px;">
-                            The Host will review your request and get back to you within 24 hours.
-                        </p>
-                        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #eee; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 2px;">
-                            Swissperiences
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body { margin: 0; padding: 0; background-color: #F9F7F2; font-family: 'Times New Roman', Times, serif; color: #1A1D2E; }
+                    .wrapper { width: 100%; background-color: #F9F7F2; padding: 80px 0; }
+                    .letter { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 540px; padding: 100px 60px; text-align: left; box-shadow: 0 4px 30px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03); }
+                    .logo { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; display: block; text-align: center; }
+                    h1 { font-family: 'Times New Roman', Times, serif; font-size: 28px; font-weight: 400; font-style: italic; line-height: 1.4; margin-bottom: 40px; color: #1A1D2E; }
+                    p { font-size: 16px; line-height: 1.9; margin-bottom: 28px; color: #444; font-weight: 300; }
+                    .signature { margin-top: 60px; }
+                    .closing { font-style: italic; color: #1A1D2E; margin-bottom: 10px; }
+                    .host { font-size: 14px; letter-spacing: 1px; color: #888; text-transform: uppercase; }
+                    .footer { margin-top: 100px; font-size: 9px; color: #CCC; letter-spacing: 2px; text-transform: uppercase; text-align: center; }
+                    .footer a { color: #BBB; text-decoration: none; margin: 0 10px; }
+                </style>
+            </head>
+            <body>
+                <center class="wrapper">
+                    <div class="letter">
+                        <span class="logo">S W I S S P E R I E N C E S</span>
+
+                        <h1>Noted, ${esc(safeName.split(' ')[0])}.</h1>
+
+                        <p>${memberBody}</p>
+                        <p>We'll review your request and get back to you within 24 hours.</p>
+
+                        <div class="signature">
+                            <p class="closing">Talk soon.</p>
+                            <p class="host">— Swissperiences</p>
+                        </div>
+
+                        <div class="footer">
+                            © 2026 Swissperiences • Geneva, Switzerland<br><br>
+                            <a href="https://swissperiences.ch">Website</a>
+                            <a href="mailto:hello@swissperiences.ch">Contact</a>
                         </div>
                     </div>
+                </center>
+            </body>
+            </html>
                 `,
             }),
         })

@@ -99,86 +99,60 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log('[CORPORATE API] 📧 Step 2: Attempting to send user confirmation email...');
 
         const { data: userData, error: userError } = await resend.emails.send({
-            from: 'hello@swissperiences.ch',
+            from: 'Swissperiences <hello@swissperiences.ch>',
             to: [email],
-            subject: 'Your team inquiry received.',
+            subject: "We've received your inquiry.",
             html: `<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inquiry Received</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #F9FAFB; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; color: #1A1D2E; }
-        .wrapper { width: 100%; background-color: #F9FAFB; padding: 40px 0; }
-        .main { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 600px; border-radius: 2px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        
-        .hero-img { width: 100%; height: 280px; object-fit: cover; background-color: #1A1D2E; }
-        
-        .logo-area { text-align: center; padding: 40px 0 10px; }
-        .logo-text { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: #1A1D2E; font-weight: 400; }
-        
-        .content { padding: 40px 60px 60px; text-align: center; }
-        
-        h1 { font-family: 'Times New Roman', Times, serif; font-size: 32px; font-weight: 400; font-style: italic; margin-bottom: 30px; color: #1A1D2E; line-height: 1.2; }
-        p { font-size: 15px; line-height: 1.8; color: #555555; margin-bottom: 24px; font-weight: 300; }
-        
-        .divider-small { width: 40px; height: 1px; background-color: #D8B58A; margin: 30px auto; border: none; }
-        
-        .details-box { background-color: #FAFAFA; padding: 30px; margin-top: 40px; text-align: left; border-left: 2px solid #D8B58A; }
+        body { margin: 0; padding: 0; background-color: #F9F7F2; font-family: 'Times New Roman', Times, serif; color: #1A1D2E; }
+        .wrapper { width: 100%; background-color: #F9F7F2; padding: 80px 0; }
+        .letter { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 540px; padding: 100px 60px; text-align: left; box-shadow: 0 4px 30px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03); }
+        .logo { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; display: block; text-align: center; }
+        h1 { font-family: 'Times New Roman', Times, serif; font-size: 28px; font-weight: 400; font-style: italic; line-height: 1.4; margin-bottom: 40px; color: #1A1D2E; }
+        p { font-size: 16px; line-height: 1.9; margin-bottom: 28px; color: #444; font-weight: 300; }
+        .details { margin: 40px 0; padding: 30px; background: #FAFAF8; border-left: 2px solid #1A1D2E; }
         .detail-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 5px; display: block; }
-        .detail-value { font-size: 14px; color: #1A1D2E; font-weight: 500; }
-        
-        .footer { background-color: #1A1D2E; color: #666; padding: 40px; text-align: center; font-size: 11px; letter-spacing: 1px; }
-        .footer a { color: #888; text-decoration: none; border-bottom: 1px solid #444; padding-bottom: 2px; transition: color 0.2s; }
-        .footer a:hover { color: #fff; border-color: #fff; }
-        
-        @media only screen and (max-width: 600px) {
-            .content { padding: 30px 25px; }
-            h1 { font-size: 28px; }
-            .hero-img { height: 200px; }
-        }
+        .detail-value { font-size: 14px; color: #1A1D2E; font-weight: 500; margin-bottom: 20px; }
+        .signature { margin-top: 60px; }
+        .closing { font-style: italic; color: #1A1D2E; margin-bottom: 10px; }
+        .host { font-size: 14px; letter-spacing: 1px; color: #888; text-transform: uppercase; }
+        .footer { margin-top: 100px; font-size: 9px; color: #CCC; letter-spacing: 2px; text-transform: uppercase; text-align: center; }
+        .footer a { color: #BBB; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <center>
-            <div class="main">
-                <!-- Hero Image: Team contemplating Matterhorn at sunset -->
-                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200&auto=format&fit=crop" alt="Team Retreat at Matterhorn" class="hero-img">
-                
-                <div class="logo-area">
-                    <div class="logo-text">Swissperiences</div>
-                </div>
-                
-                <div class="content">
-                    <h1>The journey begins.</h1>
-                    
-                    <p>Dear ${contactName},</p>
-                    <p>We have received your inquiry for <strong>${companyName}</strong>.</p>
-                    <p>True clarity is rarely found in the noise of the day-to-day. It is found in the silence of the Alps, in the pause between moments.</p>
-                    <p>Our curation team is reviewing your requirements. We will design a proposal that aligns with your team's intent and goals.</p>
-                    
-                    <hr class="divider-small">
-                    
-                    <p style="font-size: 13px; color: #888; margin-top: 30px;">You entered the following details:</p>
-                    
-                    <div class="details-box">
-                        <span class="detail-label">TEAM SIZE</span>
-                        <div class="detail-value" style="margin-bottom: 20px;">${teamSize}</div>
-                        
-                        <span class="detail-label">VISION / MESSAGE</span>
-                        <div class="detail-value">${message || "No specific message provided."}</div>
-                    </div>
-                </div>
-                
-                <div class="footer">
-                    <p>© 2025 SWISSPERIENCES • GENEVA, SWITZERLAND</p>
-                    <p><a href="https://swissperiences.ch">WEBSITE</a> &nbsp;&nbsp; <a href="mailto:hello@swissperiences.ch">CONTACT</a></p>
-                </div>
+    <center class="wrapper">
+        <div class="letter">
+            <span class="logo">S W I S S P E R I E N C E S</span>
+
+            <h1>Thank you, ${contactName}.</h1>
+
+            <p>We've received your inquiry for <strong>${companyName}</strong>. Our team is reviewing your requirements and will design a proposal that aligns with your goals.</p>
+            <p>Expect to hear from us within the next few days.</p>
+
+            <div class="details">
+                <span class="detail-label">Team Size</span>
+                <div class="detail-value">${teamSize}</div>
+                <span class="detail-label">Message</span>
+                <div class="detail-value" style="margin-bottom: 0;">${message || "—"}</div>
             </div>
-        </center>
-    </div>
+
+            <div class="signature">
+                <p class="closing">We look forward to working with your team.</p>
+                <p class="host">— Swissperiences</p>
+            </div>
+
+            <div class="footer">
+                © 2026 Swissperiences • Geneva, Switzerland<br><br>
+                <a href="https://swissperiences.ch">Website</a>
+                <a href="mailto:hello@swissperiences.ch">Contact</a>
+            </div>
+        </div>
+    </center>
 </body>
 </html>`
         });
@@ -207,71 +181,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log('[CORPORATE API] 📧 Step 3: Attempting to send admin notification...');
 
         const { data: adminData, error: adminError } = await resend.emails.send({
-            from: 'hello@swissperiences.ch',
+            from: 'Swissperiences <hello@swissperiences.ch>',
             to: ['hello@swissperiences.ch'],
-            subject: `[INTEL] New Corp Inquiry: ${companyName}`,
-            html: `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Intelligence Report</title>
-    <style>
-        body { background-color: #1A1D2E; color: #E5E7EB; font-family: 'Courier New', Courier, monospace; margin: 0; padding: 40px 20px; }
-        .intel-card { background-color: #11131F; max-width: 500px; margin: 0 auto; border: 1px solid #333; border-top: 4px solid #D8B58A; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .header { border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
-        .title { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #fff; font-weight: 700; }
-        .badge { background: #D8B58A; color: #000; font-size: 10px; padding: 4px 8px; font-weight: bold; border-radius: 2px; }
-        .data-row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed #333; padding-bottom: 5px; }
-        .label { color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
-        .value { color: #F3F4F6; font-size: 13px; font-weight: 500; text-align: right; }
-        .message-block { background: #000; padding: 15px; margin-top: 20px; font-size: 12px; line-height: 1.5; color: #D1D5DB; border-left: 2px solid #555; }
-        .footer { margin-top: 30px; font-size: 10px; color: #4B5563; text-align: center; letter-spacing: 1px; }
-        .action-link { display: block; text-align: center; margin-top: 25px; color: #D8B58A; text-decoration: none; font-size: 12px; border: 1px solid #D8B58A; padding: 10px; transition: all 0.2s; }
-        .action-link:hover { background: #D8B58A; color: #000; }
-    </style>
-</head>
-<body>
-    <div class="intel-card">
-        <div class="header">
-            <span class="title">New Inquiry</span>
-            <span class="badge">CORPORATE</span>
-        </div>
-        
-        <div class="data-row">
-            <span class="label">Organization</span>
-            <span class="value">${companyName}</span>
-        </div>
-        <div class="data-row">
-            <span class="label">Point of Contact</span>
-            <span class="value">${contactName}</span>
-        </div>
-        <div class="data-row">
-            <span class="label">Contact Email</span>
-            <span class="value">${email}</span>
-        </div>
-        <div class="data-row">
-            <span class="label">Est. Cohort</span>
-            <span class="value">${teamSize}</span>
-        </div>
-        <div class="data-row">
-            <span class="label">Newsletter Consent</span>
-            <span class="value" style="color: ${newsletter_opt_in ? '#10B981' : '#EF4444'};">${newsletter_opt_in ? '✓ OPTED-IN' : '✗ OPTED-OUT'}</span>
-        </div>
-
-        <div class="label" style="margin-top: 20px;">Briefing / Intent</div>
-        <div class="message-block">
-            "${message}"
-        </div>
-        
-        <a href="mailto:${email}" class="action-link">:: INITIATE CONTACT ::</a>
-        
-        <div class="footer">
-            SECURE TRANSMISSION // ${new Date().toISOString().split('T')[0]}<br>
-            SWISSPERIENCES INTELLIGENCE UNIT
-        </div>
-    </div>
-</body>
-</html>`
+            subject: `[CORPORATE] ${companyName} — ${contactName}`,
+            html: `
+            <div style="font-family: 'Courier New', monospace; padding: 30px; background: #111; color: #eee; line-height: 1.6;">
+                <h2 style="color: #D8B58A; border-bottom: 1px solid #333; padding-bottom: 10px;">Corporate Inquiry</h2>
+                <p style="margin: 10px 0;"><strong>Company:</strong> ${companyName}</p>
+                <p style="margin: 10px 0;"><strong>Contact:</strong> ${contactName}</p>
+                <p style="margin: 10px 0;"><strong>Email:</strong> <a href="mailto:${email}" style="color: #D8B58A;">${email}</a></p>
+                <p style="margin: 10px 0;"><strong>Team Size:</strong> ${teamSize}</p>
+                <p style="margin: 10px 0;"><strong>Newsletter:</strong> ${newsletter_opt_in ? 'Yes' : 'No'}</p>
+                <div style="margin-top: 20px; padding: 15px; background: #000; border-left: 2px solid #D8B58A;">
+                    <p style="margin: 0; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px;">Message</p>
+                    <p style="margin: 10px 0 0 0;">${message || "—"}</p>
+                </div>
+                <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
+            </div>`
         });
 
         console.log('[CORPORATE API] 📥 RESEND RESPONSE:', JSON.stringify({ data: adminData, error: adminError }, null, 2));

@@ -53,7 +53,7 @@ serve(async (req) => {
                 body: JSON.stringify({
                     from: 'Swissperiences <hello@swissperiences.ch>',
                     to: [email],
-                    subject: "The mountains are expecting you.",
+                    subject: "You're on the list.",
                     html: `
             <!DOCTYPE html>
             <html>
@@ -81,17 +81,17 @@ serve(async (req) => {
                     <div class="letter">
                         <span class="logo">S W I S S P E R I E N C E S</span>
 
-                        <h1>You're in. Welcome to the quiet side.</h1>
+                        <h1>Consider this your quiet introduction.</h1>
 
-                        <p>There are many ways to experience Switzerland. You've chosen the one most people never find.</p>
-                        <p>From time to time, we'll share what matters — a hidden trail, a silent retreat, a perspective worth the altitude. No noise. No spam. Just the essential.</p>
+                        <p>You've joined our private list — a small circle that hears from us first. Seasonal intakes, hidden retreats, stories from the Alps. No noise. No spam. Just the essential.</p>
+                        <p>When you're ready to go further, membership unlocks the full experience: curated sanctuaries, private dining, guided journeys, and everything in between.</p>
 
                         <div class="cta-box">
-                            <a href="https://swissperiences.ch" class="btn-primary">Explore</a>
+                            <a href="https://swissperiences.ch/request-access" class="btn-primary">Apply for Membership</a>
                         </div>
 
                         <div class="signature">
-                            <p class="closing">In the meantime, breathe. The mountains aren't going anywhere.</p>
+                            <p class="closing">Until then, the mountains will be here.</p>
                             <p class="host">— Swissperiences</p>
                         </div>
 
@@ -111,15 +111,17 @@ serve(async (req) => {
             console.log(`[NEWSLETTER] Welcome email status: ${emailResponse.status}`, emailData)
         }
 
-        // 3. Notify admin
-        await fetch('https://api.resend.com/emails', {
+        // 3. Notify admin (delay to avoid Resend 2 req/sec rate limit)
+        await new Promise((r) => setTimeout(r, 1100))
+        console.log(`[NEWSLETTER] Sending admin notification for: ${email}`)
+        const adminResponse = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${RESEND_API_KEY}`,
             },
             body: JSON.stringify({
-                from: 'Swissperiences Intel <hello@swissperiences.ch>',
+                from: 'Swissperiences <hello@swissperiences.ch>',
                 to: ['hello@swissperiences.ch'],
                 subject: `[THE LIST] ${email}`,
                 html: `
@@ -132,6 +134,8 @@ serve(async (req) => {
                 `,
             }),
         })
+        const adminData = await adminResponse.json()
+        console.log(`[NEWSLETTER] Admin notification status: ${adminResponse.status}`, adminData)
 
         return new Response(
             JSON.stringify({

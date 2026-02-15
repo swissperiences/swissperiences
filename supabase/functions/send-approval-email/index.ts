@@ -42,45 +42,55 @@ serve(async (req) => {
       body: JSON.stringify({
         from: 'Swissperiences <hello@swissperiences.ch>',
         to: [email],
-        subject: 'Welcome to Swissperiences',
+        subject: 'Welcome to Swissperiences.',
         html: `
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: 'Georgia', serif; line-height: 1.8; color: #1a1a1a; max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-    .header { text-align: center; margin-bottom: 40px; }
-    .logo { font-size: 24px; letter-spacing: 0.1em; }
-    .divider { width: 60px; height: 1px; background: #ddd; margin: 30px auto; }
-    h1 { font-size: 28px; font-weight: normal; margin-bottom: 20px; }
-    p { margin-bottom: 20px; color: #444; }
-    .button { display: inline-block; background: #1a1a1a; color: white; padding: 16px 32px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.15em; font-size: 12px; margin: 30px 0; }
-    .footer { margin-top: 60px; padding-top: 30px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center; }
+    body { margin: 0; padding: 0; background-color: #F9F7F2; font-family: 'Times New Roman', Times, serif; color: #1A1D2E; }
+    .wrapper { width: 100%; background-color: #F9F7F2; padding: 80px 0; }
+    .letter { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 540px; padding: 100px 60px; text-align: left; box-shadow: 0 4px 30px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03); }
+    .logo { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; display: block; text-align: center; }
+    h1 { font-family: 'Times New Roman', Times, serif; font-size: 28px; font-weight: 400; font-style: italic; line-height: 1.4; margin-bottom: 40px; color: #1A1D2E; }
+    p { font-size: 16px; line-height: 1.9; margin-bottom: 28px; color: #444; font-weight: 300; }
+    .signature { margin-top: 60px; }
+    .closing { font-style: italic; color: #1A1D2E; margin-bottom: 10px; }
+    .host { font-size: 14px; letter-spacing: 1px; color: #888; text-transform: uppercase; }
+    .cta-box { margin: 60px 0; padding: 40px 0; border-top: 1px solid #F0EFEA; border-bottom: 1px solid #F0EFEA; text-align: center; }
+    .btn-primary { display: inline-block; background-color: #1A1D2E; color: #ffffff !important; padding: 18px 40px; text-decoration: none; text-transform: uppercase; letter-spacing: 3px; font-size: 10px; font-weight: bold; border-radius: 2px; }
+    .footer { margin-top: 100px; font-size: 9px; color: #CCC; letter-spacing: 2px; text-transform: uppercase; text-align: center; }
+    .footer a { color: #BBB; text-decoration: none; margin: 0 10px; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="logo">SWISSPERIENCES</div>
-  </div>
+  <center class="wrapper">
+    <div class="letter">
+      <span class="logo">S W I S S P E R I E N C E S</span>
 
-  <div class="divider"></div>
+      <h1>${fullName.split(' ')[0]}, you're in.</h1>
 
-  <h1>${fullName.split(' ')[0]},</h1>
+      <p>Your membership has been approved. Welcome to Swissperiences — a private collection of curated alpine sanctuaries, experiences and journeys.</p>
+      <p>You now have full access to our collection, booking calendar, and everything we keep behind closed doors.</p>
 
-  <p>Your application has been approved.</p>
+      <div class="cta-box">
+        <a href="https://swissperiences.ch/login" class="btn-primary">Enter</a>
+      </div>
 
-  <p>Welcome to Swissperiences—a private network of curated alpine sanctuaries.</p>
+      <div class="signature">
+        <p class="closing">See you in the mountains.</p>
+        <p class="host">— Swissperiences</p>
+      </div>
 
-  <p>You now have full access to our collection and booking calendar.</p>
-
-  <a href="https://swissperiences.ch/login" class="button">Enter The Sanctuary</a>
-
-  <p style="margin-top: 40px;">See you in the mountains.</p>
-
-  <div class="footer">
-    <p>Swissperiences · Geneva, Switzerland · <a href="https://swissperiences.ch" style="color: #999;">swissperiences.ch</a></p>
-  </div>
+      <div class="footer">
+        © 2026 Swissperiences • Geneva, Switzerland<br><br>
+        <a href="https://swissperiences.ch">Website</a>
+        <a href="mailto:hello@swissperiences.ch">Contact</a>
+      </div>
+    </div>
+  </center>
 </body>
 </html>
           `,

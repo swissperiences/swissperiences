@@ -113,43 +113,64 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: [member.email],
-                subject: `Your booking has been confirmed! — ${bookingName}`,
+                subject: `Confirmed — ${bookingName}`,
                 html: `
-                    <div style="font-family: Georgia, serif; max-width: 520px; margin: 0 auto; padding: 40px 20px; color: #1a1a1a;">
-                        <p style="font-size: 20px; margin-bottom: 24px;">Hi ${firstName},</p>
-                        <p style="font-size: 15px; color: #333; line-height: 1.8; margin-bottom: 24px;">
-                            Great news! Your booking has been <strong style="color: #16a34a;">confirmed</strong>.
-                        </p>
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body { margin: 0; padding: 0; background-color: #F9F7F2; font-family: 'Times New Roman', Times, serif; color: #1A1D2E; }
+                    .wrapper { width: 100%; background-color: #F9F7F2; padding: 80px 0; }
+                    .letter { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 540px; padding: 100px 60px; text-align: left; box-shadow: 0 4px 30px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03); }
+                    .logo { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; display: block; text-align: center; }
+                    h1 { font-family: 'Times New Roman', Times, serif; font-size: 28px; font-weight: 400; font-style: italic; line-height: 1.4; margin-bottom: 40px; color: #1A1D2E; }
+                    p { font-size: 16px; line-height: 1.9; margin-bottom: 28px; color: #444; font-weight: 300; }
+                    .details { margin: 40px 0; padding: 30px; background: #FAFAF8; border-left: 2px solid #1A1D2E; }
+                    .details table { width: 100%; border-collapse: collapse; font-size: 14px; }
+                    .details td { padding: 8px 0; vertical-align: top; }
+                    .details td:first-child { color: #999; width: 120px; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; padding-top: 10px; }
+                    .details td:last-child { color: #1A1D2E; }
+                    .signature { margin-top: 60px; }
+                    .closing { font-style: italic; color: #1A1D2E; margin-bottom: 10px; }
+                    .host { font-size: 14px; letter-spacing: 1px; color: #888; text-transform: uppercase; }
+                    .footer { margin-top: 100px; font-size: 9px; color: #CCC; letter-spacing: 2px; text-transform: uppercase; text-align: center; }
+                    .footer a { color: #BBB; text-decoration: none; margin: 0 10px; }
+                </style>
+            </head>
+            <body>
+                <center class="wrapper">
+                    <div class="letter">
+                        <span class="logo">S W I S S P E R I E N C E S</span>
 
-                        <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 24px 0; background: #fafafa; border-radius: 4px;">
-                            <tbody style="padding: 16px;">
+                        <h1>${firstName}, your booking is confirmed.</h1>
+
+                        <p>Everything is set. Here are your details:</p>
+
+                        <div class="details">
+                            <table>
                                 ${detailsHtml}
                                 ${specialRequestsHtml}
-                            </tbody>
-                        </table>
-
-                        <div style="border-left: 3px solid #c8102e; padding-left: 16px; margin: 32px 0;">
-                            <p style="font-size: 14px; color: #555; line-height: 1.7; margin: 0;">
-                                We'll contact you shortly with payment details and final arrangements.
-                            </p>
+                            </table>
                         </div>
 
-                        <p style="font-size: 14px; color: #555; line-height: 1.8; margin-top: 24px;">
-                            For questions, reply to this email or contact us at
-                            <a href="mailto:hello@swissperiences.ch" style="color: #c8102e;">hello@swissperiences.ch</a>.
-                        </p>
+                        <p>We'll be in touch shortly with payment details and final arrangements. For anything at all, reach us at <a href="mailto:hello@swissperiences.ch" style="color: #1A1D2E;">hello@swissperiences.ch</a>.</p>
 
-                        <p style="font-size: 15px; color: #333; margin-top: 32px;">
-                            Looking forward to hosting you!
-                        </p>
-                        <p style="font-size: 14px; color: #666; margin-top: 4px;">
-                            — The Swissperiences Team
-                        </p>
+                        <div class="signature">
+                            <p class="closing">Looking forward to hosting you.</p>
+                            <p class="host">— Swissperiences</p>
+                        </div>
 
-                        <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #eee; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 2px;">
-                            Swissperiences
+                        <div class="footer">
+                            © 2026 Swissperiences • Geneva, Switzerland<br><br>
+                            <a href="https://swissperiences.ch">Website</a>
+                            <a href="mailto:hello@swissperiences.ch">Contact</a>
                         </div>
                     </div>
+                </center>
+            </body>
+            </html>
                 `,
             }),
         })
