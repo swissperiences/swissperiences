@@ -60,7 +60,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
             ogImage: "/images/villars/sea-of-clouds-sunset.jpeg",
         },
         hero: {
-            image: "/images/villars/sea-of-clouds-sunset.jpeg",
+            image: "/images/villars/drone-valley-winter.jpeg",
             label: "Private Invitation",
             title: (
                 <>
@@ -75,7 +75,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
         },
         loft: {
             image: "/images/villars-hero.jpg",
-            secondaryImages: ["/images/villars/deep-snow-chalet.jpeg", "/images/villars/dawn-fog-chalets.jpeg"],
+            secondaryImages: ["/images/apartment-fireplace.jpg", "/images/villars/dawn-fog-chalets.jpeg"],
             location: "Villars-sur-Ollon, 1,300m",
             detail: "Exclusively yours. Panoramic views of the Alps, fully equipped kitchen, wood fireplace and high-speed Wi-Fi. No one else has the key.",
         },
