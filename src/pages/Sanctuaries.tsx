@@ -167,7 +167,7 @@ export default function Sanctuaries() {
                                 <img
                                     src="/images/zermatt-matterhorn.jpg"
                                     alt="Zermatt, Matterhorn"
-                                    className="w-full h-full object-cover object-[center_35%] brightness-[0.4] saturate-[0.6] group-hover:brightness-[0.5] transition-all duration-700"
+                                    className="w-full h-full object-cover object-[center_20%] brightness-[0.4] saturate-[0.6] group-hover:brightness-[0.5] transition-all duration-700"
                                 />
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <span className="text-6xl md:text-8xl font-serif text-white/[0.08]">03</span>

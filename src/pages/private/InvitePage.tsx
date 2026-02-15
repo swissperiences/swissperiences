@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Mountain, Flame, Camera, Clock, Users, ChevronRight } from "lucide-react";
+import { MapPin, Mountain, Flame, Camera, Clock, Users, ChevronRight, BookOpen } from "lucide-react";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
 import SEO from "@/components/SEO";
@@ -75,7 +75,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
         },
         loft: {
             image: "/images/villars-hero.jpg",
-            secondaryImages: ["/images/villars/loft-window-clouds.jpeg", "/images/villars/loft-balcony-blue-hour.jpeg"],
+            secondaryImages: ["/images/villars/rustic-chalet-snow.jpeg", "/images/villars/bains-outdoor-alps.jpeg"],
             location: "Villars-sur-Ollon, 1,300m",
             detail: "Exclusivo pra você. Vista frontal pros Alpes, cozinha equipada, lareira a lenha e Wi-Fi de alta velocidade. Ninguém mais tem a chave.",
         },
@@ -118,7 +118,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
             { icon: <Clock className="w-4 h-4" />, text: "Host dedicado (PT/EN/FR) durante toda a estadia" },
         ],
         host: {
-            image: "/images/villars/caueh-swiss-chalet.jpeg",
+            image: "/images/host-road-winter.jpg",
             name: "Cauêh Vidal",
             role: "Host & Founder",
             bio: "Moro na Suíça, conheço cada curva dessas montanhas e cuido de cada detalhe pessoalmente. Não sou uma agência — sou a pessoa que vai te buscar no aeroporto, preparar o loft antes de você chegar, e garantir que você não precise pensar em nada por 48 horas.",
@@ -302,7 +302,7 @@ export default function InvitePage() {
                             <div className="relative aspect-[16/9] overflow-hidden rounded-sm group">
                                 <img
                                     src={config.loft.secondaryImages[1]}
-                                    alt="Fireplace"
+                                    alt="Alpine thermal baths"
                                     className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 brightness-[0.85]"
                                     loading="lazy"
                                 />
@@ -486,6 +486,31 @@ export default function InvitePage() {
                             </div>
                         </div>
                     </div>
+                </section>
+
+                {/* ── Journals Teaser ─────────────────────────────────── */}
+                <section className="max-w-3xl mx-auto px-6 pb-20 md:pb-28">
+                    <ScrollReveal>
+                        <Link to="/journals" className="group block border border-white/5 hover:border-white/15 rounded-sm p-8 md:p-12 transition-all duration-500">
+                            <div className="flex items-start gap-6">
+                                <div className="text-switz-red/40 group-hover:text-switz-red/70 transition-colors mt-1">
+                                    <BookOpen className="w-5 h-5" />
+                                </div>
+                                <div className="flex-1">
+                                    <span className="text-white/20 text-[9px] uppercase tracking-[0.3em] block mb-3">
+                                        The Journals
+                                    </span>
+                                    <h3 className="text-xl md:text-2xl font-serif text-white/80 group-hover:text-white transition-colors mb-3">
+                                        Histórias dos Alpes<span className="text-switz-red">.</span>
+                                    </h3>
+                                    <p className="text-white/30 font-light text-sm leading-relaxed max-w-lg">
+                                        Bastidores, rotas secretas e o que acontece entre uma experiência e outra. Escrito por quem vive aqui.
+                                    </p>
+                                </div>
+                                <ChevronRight className="w-4 h-4 text-white/10 group-hover:text-white/40 group-hover:translate-x-1 transition-all mt-2" />
+                            </div>
+                        </Link>
+                    </ScrollReveal>
                 </section>
 
                 {/* ── Pricing + CTA ────────────────────────────────────── */}

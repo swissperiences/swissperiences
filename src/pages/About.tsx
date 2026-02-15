@@ -100,7 +100,7 @@ export default function About() {
                             </div>
                             <div className="absolute -bottom-6 -left-6 bg-neutral-950 border border-white/10 px-6 py-4">
                                 <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] block mb-1">Founded</span>
-                                <span className="text-white font-serif text-lg">Geneva, 2024</span>
+                                <span className="text-white font-serif text-lg">Villars, 2024</span>
                             </div>
                         </div>
                     </div>

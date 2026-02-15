@@ -87,8 +87,8 @@ export const cities: City[] = [
         canton: "Vaud",
         coordinates: "046° 17' N / 007° 05' E",
         elevation: "1,300m",
-        heroImage: "/images/villars/sea-of-clouds-sunset.jpeg",
-        heroPosition: "object-[center_60%]",
+        heroImage: "/images/villars/drone-valley-winter.jpeg",
+        heroPosition: "object-[center_40%]",
         tagline: "Our home. Our first sanctuary.",
         description: "Perched at 1,300 meters in the Vaud Alps, Villars-sur-Ollon is a year-round alpine village with a rare combination of accessibility and serenity. Home to The Villars Loft — our first sanctuary — this is where Swissperiences was born. Ski-in proximity, panoramic sunsets over the Rhône Valley, and a pace of life that resets everything.",
         highlights: [
@@ -170,7 +170,7 @@ export const cities: City[] = [
         coordinates: "046° 01' N / 007° 45' E",
         elevation: "1,620m",
         heroImage: "/images/zermatt-matterhorn.jpg",
-        heroPosition: "object-[center_35%]",
+        heroPosition: "object-[center_20%]",
         tagline: "In the shadow of the Matterhorn.",
         description: "Zermatt is the car-free village at the foot of the most iconic mountain in the Alps. At 1,620 meters, surrounded by 29 peaks over 4,000m, it offers a concentration of alpine grandeur unmatched anywhere else. Our third sanctuary is planned here for 2028 — where solitude meets the sublime.",
         highlights: [
