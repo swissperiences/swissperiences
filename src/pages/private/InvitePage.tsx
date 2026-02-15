@@ -112,7 +112,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Day 2 — Evening",
                 title: "Après-Ski & Fondue",
-                description: "Bains de Villars — heated pool with a view of the Alps to unwind. Then, Gruyère AOP fondue prepared at the loft. Wine, candles, and no rush to leave.",
+                description: "Bains de Villars — steam rising from the pool while the peaks turn blue. Then, Gruyère AOP fondue prepared at the loft. Wine, candles, and no rush to leave.",
                 image: "/images/villars/bains-winter-pool.jpeg",
             },
             {
@@ -414,7 +414,7 @@ export default function InvitePage() {
 
                     <ScrollReveal delay={0.3}>
                         <p className="text-white/25 font-light text-xs italic mt-10 max-w-md">
-                            You don't touch your luggage, you don't see a ticket. Just arrive. The rest happens in silence.
+                            You don't touch your luggage, you barely see a ticket. Just arrive. The rest happens in silence.
                         </p>
                     </ScrollReveal>
                 </section>
@@ -530,6 +530,15 @@ export default function InvitePage() {
                                 <ChevronRight className="w-4 h-4 text-white/10 group-hover:text-white/40 group-hover:translate-x-1 transition-all mt-2" />
                             </div>
                         </Link>
+                    </ScrollReveal>
+                </section>
+
+                {/* ── Exclusivity note ────────────────────────────────── */}
+                <section className="max-w-3xl mx-auto px-6 pb-10 md:pb-14">
+                    <ScrollReveal>
+                        <p className="text-white/25 font-light text-sm italic text-center leading-relaxed">
+                            I only host a few weekends each season so I can be fully present with each guest.
+                        </p>
                     </ScrollReveal>
                 </section>
 
