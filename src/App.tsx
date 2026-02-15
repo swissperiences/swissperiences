@@ -44,6 +44,7 @@ const Experiences = lazy(() => import("./pages/Experiences"));
 const PrivateChef = lazy(() => import("./pages/PrivateChef"));
 const GuidedHikes = lazy(() => import("./pages/GuidedHikes"));
 const MembersBook = lazy(() => import("./pages/MembersBook"));
+const Partnerships = lazy(() => import("./pages/Partnerships"));
 
 const queryClient = new QueryClient();
 
@@ -113,6 +114,7 @@ const App = () => (
                 <Route path="/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
                 <Route path="/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
+                <Route path="/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/private/alex-proposal" element={<AlexProposal />} />
                 <Route path="/admin" element={<Navigate to="/admin/gallery" replace />} />
@@ -146,6 +148,7 @@ const App = () => (
                 <Route path="/:lang/privacy" element={<LanguageWrapper><Privacy /></LanguageWrapper>} />
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/:lang/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
+                <Route path="/:lang/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/:lang/members/book" element={<AuthGuard><LanguageWrapper><MembersBook /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members" element={<AuthGuard><LanguageWrapper><Members /></LanguageWrapper></AuthGuard>} />

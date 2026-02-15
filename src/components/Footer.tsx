@@ -42,6 +42,7 @@ export default function Footer() {
               <Link to="/about" className="text-xs hover:text-white transition-colors uppercase tracking-wide">About</Link>
               <Link to="/contact" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Contact</Link>
               <Link to="/for-teams" className="text-xs hover:text-white transition-colors uppercase tracking-wide">For Teams</Link>
+              <Link to="/partnerships" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Partnerships</Link>
               <Link to={isLoggedIn ? "/members" : "/login"} className="text-xs hover:text-white transition-colors uppercase tracking-wide">
                 {isLoggedIn ? "My Account" : "Members"}
               </Link>
