@@ -57,10 +57,10 @@ const inviteConfigs: Record<string, InviteConfig> = {
         seo: {
             title: "Winter Escape | Swissperiences",
             description: "Um convite privado para 48 horas nos Alpes Suíços. Ski, fondue, silêncio.",
-            ogImage: "/images/drone/villars-winter-sunset.jpg",
+            ogImage: "/images/villars-winter-aerial.jpg",
         },
         hero: {
-            image: "/images/drone/villars-winter-sunset.jpg",
+            image: "/images/villars-winter-aerial.jpg",
             label: "Private Invitation",
             title: (
                 <>
@@ -75,9 +75,9 @@ const inviteConfigs: Record<string, InviteConfig> = {
         },
         loft: {
             image: "/images/villars-hero.jpg",
-            secondaryImages: ["/images/loft/IMG_8736.jpg", "/images/apartment-fireplace.jpg"],
+            secondaryImages: ["/images/loft/IMG_8759.jpg", "/images/apt-balcony-sunset.jpg"],
             location: "Villars-sur-Ollon, 1,300m",
-            detail: "Exclusivo pra você. Lareira a lenha, vista frontal pros Alpes, cozinha equipada e Wi-Fi de alta velocidade. Ninguém mais tem a chave.",
+            detail: "Exclusivo pra você. Vista frontal pros Alpes, cozinha equipada, lareira a lenha e Wi-Fi de alta velocidade. Ninguém mais tem a chave.",
         },
         itinerary: [
             {
@@ -91,22 +91,22 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Dia 1 — Noite",
                 title: "The Sanctuary",
-                description: "A porta abre. A lareira já queima. O welcome basket já espera na mesa. Vista dos Alpes pela janela inteira. Hoje você não precisa fazer mais nada.",
-                image: "/images/apartment-fireplace.jpg",
+                description: "A porta abre. O welcome basket já espera na mesa. Quadros de vacas suíças na parede, sofá que te engole, e o silêncio dos Alpes pela janela inteira. Hoje você não precisa fazer mais nada.",
+                image: "/images/villars-gallery-3.jpg",
             },
             {
                 icon: <Mountain className="w-5 h-5" />,
                 label: "Dia 2 — Manhã",
                 title: "Ski Experience",
                 description: "Manhã nos Alpes com instrutor privado da Villars Ski School — no seu ritmo, sem fila, sem grupo. Enquanto isso, um drone 4K registra tudo de cima. O vídeo é seu.",
-                image: "/images/drone/villars-winter-sunset.jpg",
+                image: "/images/alex_ski_update.jpg",
             },
             {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Dia 2 — Noite",
                 title: "Après-Ski & Fondue",
-                description: "Primeiro, o spa termal de Villars pra descomprimir. Depois, fondue de Gruyère AOP preparada no loft — com a lareira acesa de novo e nenhuma pressa de ir embora.",
-                image: "/images/villars-feature.jpg",
+                description: "Bains de Villars — piscina aquecida com vista pros Alpes pra soltar o corpo. Depois, fondue de Gruyère AOP preparada no loft. Vinho, velas, e nenhuma pressa de ir embora.",
+                image: "/images/mountain-sunset.jpg",
             },
         ],
         included: [
@@ -118,10 +118,10 @@ const inviteConfigs: Record<string, InviteConfig> = {
             { icon: <Clock className="w-4 h-4" />, text: "Host dedicado (PT/EN/FR) durante toda a estadia" },
         ],
         host: {
-            image: "/images/caueh-vidal-spring.jpg",
+            image: "/images/host-road-winter.jpg",
             name: "Cauêh Vidal",
             role: "Host & Founder",
-            bio: "Moro na Suíça, conheço cada curva dessas montanhas e cuido de cada detalhe pessoalmente. Não sou uma agência — sou a pessoa que vai te buscar no aeroporto, acender a lareira antes de você chegar, e garantir que você não precise pensar em nada por 48 horas.",
+            bio: "Moro na Suíça, conheço cada curva dessas montanhas e cuido de cada detalhe pessoalmente. Não sou uma agência — sou a pessoa que vai te buscar no aeroporto, preparar o loft antes de você chegar, e garantir que você não precise pensar em nada por 48 horas.",
             quote: "Eu construí isso pra ser o tipo de experiência que eu gostaria de receber.",
             instagram: "https://instagram.com/caueh",
         },
