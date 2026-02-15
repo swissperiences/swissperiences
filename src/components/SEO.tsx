@@ -9,6 +9,7 @@ interface SEOProps {
   ogType?: string;
   ogImage?: string;
   structuredData?: object | object[];
+  noIndex?: boolean;
 }
 
 export default function SEO({
@@ -19,6 +20,7 @@ export default function SEO({
   ogType = "website",
   ogImage = "https://www.swissperiences.ch/og-image.jpg",
   structuredData,
+  noIndex = false,
 }: SEOProps) {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || "en";
@@ -66,7 +68,7 @@ export default function SEO({
       <meta name="twitter:creator" content="@Swissperiences" />
 
       {/* Additional SEO */}
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
       <meta name="language" content={currentLang === "pt" ? "Portuguese" : "English"} />
       <meta name="revisit-after" content="7 days" />
       <meta name="author" content="Swissperiences" />

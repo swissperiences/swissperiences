@@ -127,11 +127,11 @@ const inviteConfigs: Record<string, InviteConfig> = {
         },
         pricing: {
             amount: "CHF 1,200",
-            perPerson: "a partir de CHF 700/pessoa para grupos",
-            note: "Preço de lançamento — vagas limitadas para esta temporada.",
+            perPerson: "48h, loft inteiro só pra você(s) · até 4 pessoas · a partir de CHF 700/pessoa para grupos",
+            note: "Apenas 2 vagas disponíveis em Março.",
         },
         contact: {
-            whatsapp: "https://wa.me/41787002202",
+            whatsapp: "https://wa.me/41787002202?text=" + encodeURIComponent("Olá Cauêh, recebi o convite para o Winter Escape em Villars. Gostaria de saber a disponibilidade para as próximas datas."),
             email: "hello@swissperiences.ch",
         },
     },
@@ -145,6 +145,7 @@ function InvalidInvite() {
             <SEO
                 title="Invitation | Swissperiences"
                 description="Private invitation to a curated Swiss experience."
+                noIndex
             />
             <Navigation />
             <main className="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center">
@@ -196,6 +197,7 @@ export default function InvitePage() {
                 description={config.seo.description}
                 ogImage={config.seo.ogImage}
                 keywords="swissperiences, private invitation, luxury swiss experience, villars, alps"
+                noIndex
             />
             <Navigation />
 
@@ -234,6 +236,14 @@ export default function InvitePage() {
                         >
                             {config.hero.subtitle}
                         </motion.p>
+                        <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="text-white/20 text-[9px] uppercase tracking-[0.3em] mt-8 block"
+                        >
+                            Convite privado · 1–4 pessoas · Villars-sur-Ollon, Suíça
+                        </motion.span>
                     </div>
                 </section>
 
@@ -381,6 +391,37 @@ export default function InvitePage() {
                             </ScrollReveal>
                         ))}
                     </div>
+
+                    <ScrollReveal delay={0.3}>
+                        <p className="text-white/25 font-light text-xs italic mt-10 max-w-md">
+                            Você não toca na mala, nem vê um bilhete. Só chega. O resto acontece em silêncio.
+                        </p>
+                    </ScrollReveal>
+                </section>
+
+                {/* ── Enhancements ────────────────────────────────────── */}
+                <section className="max-w-3xl mx-auto px-6 pb-20 md:pb-28">
+                    <ScrollReveal>
+                        <div className="border border-white/5 rounded-sm p-8 md:p-12">
+                            <span className="text-white/20 text-[9px] uppercase tracking-[0.3em] block mb-6">
+                                Para quem quer ir além
+                            </span>
+                            <div className="space-y-4">
+                                <div className="flex items-center justify-between py-3 border-b border-white/5">
+                                    <span className="text-white/40 font-light text-sm">Helicopter transfer from Geneva</span>
+                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">sob consulta</span>
+                                </div>
+                                <div className="flex items-center justify-between py-3 border-b border-white/5">
+                                    <span className="text-white/40 font-light text-sm">Private chef experience no loft</span>
+                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">sob consulta</span>
+                                </div>
+                                <div className="flex items-center justify-between py-3">
+                                    <span className="text-white/40 font-light text-sm">Wine pairing curado por sommelier</span>
+                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">sob consulta</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollReveal>
                 </section>
 
                 {/* ── Your Host ───────────────────────────────────────── */}
