@@ -60,7 +60,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
             ogImage: "/images/villars/sea-of-clouds-sunset.jpeg",
         },
         hero: {
-            image: "/images/villars/drone-valley-winter.jpeg",
+            image: "/images/drone/villars-winter-sunset.jpg",
             label: "Private Invitation",
             title: (
                 <>
