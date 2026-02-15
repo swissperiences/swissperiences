@@ -139,10 +139,14 @@ export default function Sanctuaries() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Verbier */}
                         <div className="group relative overflow-hidden rounded-sm border border-white/5">
-                            <div className="aspect-[16/9] overflow-hidden bg-gradient-to-br from-white/[0.03] to-white/[0.01] flex items-center justify-center">
-                                <div className="text-center px-8">
-                                    <span className="text-6xl md:text-8xl font-serif text-white/[0.06] block mb-4">02</span>
-                                    <span className="text-white/20 text-sm">Imagery coming soon</span>
+                            <div className="aspect-[16/9] overflow-hidden relative">
+                                <img
+                                    src="/images/verbier-mountains.jpg"
+                                    alt="Verbier, Swiss Alps"
+                                    className="w-full h-full object-cover object-[center_40%] brightness-[0.4] saturate-[0.6] group-hover:brightness-[0.5] transition-all duration-700"
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-6xl md:text-8xl font-serif text-white/[0.08]">02</span>
                                 </div>
                             </div>
                             <div className="p-8">
@@ -159,10 +163,14 @@ export default function Sanctuaries() {
 
                         {/* Zermatt */}
                         <div className="group relative overflow-hidden rounded-sm border border-white/5">
-                            <div className="aspect-[16/9] overflow-hidden bg-gradient-to-br from-white/[0.03] to-white/[0.01] flex items-center justify-center">
-                                <div className="text-center px-8">
-                                    <span className="text-6xl md:text-8xl font-serif text-white/[0.06] block mb-4">03</span>
-                                    <span className="text-white/20 text-sm">Imagery coming soon</span>
+                            <div className="aspect-[16/9] overflow-hidden relative">
+                                <img
+                                    src="/images/zermatt-matterhorn.jpg"
+                                    alt="Zermatt, Matterhorn"
+                                    className="w-full h-full object-cover object-[center_35%] brightness-[0.4] saturate-[0.6] group-hover:brightness-[0.5] transition-all duration-700"
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-6xl md:text-8xl font-serif text-white/[0.08]">03</span>
                                 </div>
                             </div>
                             <div className="p-8">
