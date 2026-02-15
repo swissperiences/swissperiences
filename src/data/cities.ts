@@ -87,8 +87,8 @@ export const cities: City[] = [
         canton: "Vaud",
         coordinates: "046° 17' N / 007° 05' E",
         elevation: "1,300m",
-        heroImage: "/images/villars/drone-valley-winter.jpeg",
-        heroPosition: "object-[center_40%]",
+        heroImage: "/images/villars/sea-of-clouds-sunset.jpeg",
+        heroPosition: "object-[center_60%]",
         tagline: "Our home. Our first sanctuary.",
         description: "Perched at 1,300 meters in the Vaud Alps, Villars-sur-Ollon is a year-round alpine village with a rare combination of accessibility and serenity. Home to The Villars Loft — our first sanctuary — this is where Swissperiences was born. Ski-in proximity, panoramic sunsets over the Rhône Valley, and a pace of life that resets everything.",
         highlights: [
