@@ -57,10 +57,10 @@ const inviteConfigs: Record<string, InviteConfig> = {
         seo: {
             title: "Winter Escape | Swissperiences",
             description: "Um convite privado para 48 horas nos Alpes Suíços. Ski, fondue, silêncio.",
-            ogImage: "/images/villars-winter-aerial.jpg",
+            ogImage: "/images/villars/sea-of-clouds-sunset.jpeg",
         },
         hero: {
-            image: "/images/villars-winter-aerial.jpg",
+            image: "/images/villars/sea-of-clouds-sunset.jpeg",
             label: "Private Invitation",
             title: (
                 <>
@@ -75,7 +75,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
         },
         loft: {
             image: "/images/villars-hero.jpg",
-            secondaryImages: ["/images/loft/IMG_8759.jpg", "/images/apt-balcony-sunset.jpg"],
+            secondaryImages: ["/images/villars/loft-window-clouds.jpeg", "/images/villars/loft-balcony-blue-hour.jpeg"],
             location: "Villars-sur-Ollon, 1,300m",
             detail: "Exclusivo pra você. Vista frontal pros Alpes, cozinha equipada, lareira a lenha e Wi-Fi de alta velocidade. Ninguém mais tem a chave.",
         },
@@ -99,14 +99,14 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 label: "Dia 2 — Manhã",
                 title: "Ski Experience",
                 description: "Manhã nos Alpes com instrutor privado da Villars Ski School — no seu ritmo, sem fila, sem grupo. Enquanto isso, um drone 4K registra tudo de cima. O vídeo é seu.",
-                image: "/images/alex_ski_update.jpg",
+                image: "/images/villars/ski-station-panorama.jpeg",
             },
             {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Dia 2 — Noite",
                 title: "Après-Ski & Fondue",
                 description: "Bains de Villars — piscina aquecida com vista pros Alpes pra soltar o corpo. Depois, fondue de Gruyère AOP preparada no loft. Vinho, velas, e nenhuma pressa de ir embora.",
-                image: "/images/mountain-sunset.jpg",
+                image: "/images/villars/bains-winter-pool.jpeg",
             },
         ],
         included: [
@@ -118,7 +118,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
             { icon: <Clock className="w-4 h-4" />, text: "Host dedicado (PT/EN/FR) durante toda a estadia" },
         ],
         host: {
-            image: "/images/host-road-winter.jpg",
+            image: "/images/villars/caueh-swiss-chalet.jpeg",
             name: "Cauêh Vidal",
             role: "Host & Founder",
             bio: "Moro na Suíça, conheço cada curva dessas montanhas e cuido de cada detalhe pessoalmente. Não sou uma agência — sou a pessoa que vai te buscar no aeroporto, preparar o loft antes de você chegar, e garantir que você não precise pensar em nada por 48 horas.",

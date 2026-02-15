@@ -142,8 +142,8 @@ export default function VillarsRetreat() {
                     {/* Highlight Image: Fireplace */}
                     <div className="relative aspect-square md:aspect-[4/3] overflow-hidden rounded-sm group">
                         <img
-                            src="/images/villars-feature.jpg"
-                            alt="Cozy Fireplace"
+                            src="/images/villars/swiss-flags-window.jpeg"
+                            alt="Swiss Winter View"
                             className="w-full h-full object-cover object-[center_35%] transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                             loading="lazy"
                         />
@@ -233,8 +233,8 @@ export default function VillarsRetreat() {
                         {/* Large Item */}
                         <div className="md:col-span-2 relative h-[300px] md:h-full overflow-hidden group">
                             <img
-                                src="/images/villars-gallery-1.jpg"
-                                alt="Balcony View"
+                                src="/images/villars/loft-window-clouds.jpeg"
+                                alt="View from the Loft"
                                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                 loading="lazy"
                             />
@@ -248,8 +248,8 @@ export default function VillarsRetreat() {
                         <div className="flex flex-col gap-1 h-[500px] md:h-full">
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
-                                    src="/images/villars-gallery-2.jpg"
-                                    alt="Premium Bath"
+                                    src="/images/villars/bains-night-pool.jpeg"
+                                    alt="Bains de Villars"
                                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                     loading="lazy"
                                 />
