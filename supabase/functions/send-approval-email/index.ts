@@ -68,7 +68,7 @@ serve(async (req) => {
 <body>
   <center class="wrapper">
     <div class="letter">
-      <span class="logo">S W I S S P E R I E N C E S</span>
+      <img src="https://www.swissperiences.ch/images/logo-dark.png" alt="Swissperiences" style="height: 24px; width: auto; margin-bottom: 70px; display: block;">
 
       <h1>${fullName.split(' ')[0]}, you're in.</h1>
 
