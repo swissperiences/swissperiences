@@ -78,13 +78,9 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             {/* Logo */}
             <Link
               to="/"
-              className="hover:opacity-80 transition-opacity shrink-0 flex items-center h-10"
+              className="font-light text-white hover:opacity-80 transition-opacity uppercase tracking-[0.25em] text-xs md:text-sm shrink-0 flex items-center h-10"
             >
-              <img
-                src="/images/logo-light.png"
-                alt="Swissperiences"
-                className="h-4 md:h-[18px] w-auto"
-              />
+              Swissperiences
             </Link>
 
             {/* Desktop Navigation Links - More Compact & Active State Support */}

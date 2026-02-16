@@ -15,11 +15,9 @@ export default function Footer() {
 
           {/* BRAND */}
           <div className="lg:col-span-5">
-            <img
-              src="/images/logo-light.png"
-              alt="Swissperiences"
-              className="h-5 w-auto mb-8 opacity-95"
-            />
+            <span className="text-3xl font-serif italic text-white/95 lowercase tracking-tight block mb-8">
+              {t('footer.tagline', 'swissperiences')}
+            </span>
             <p className="text-white/40 font-light text-sm leading-relaxed max-w-sm mb-8">
               {t('footer.description', 'Curating silence in a noisy world. We craft bespoke alpine journeys for those who seek to disconnect in order to reconnect.')}
             </p>
