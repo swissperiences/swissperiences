@@ -95,16 +95,22 @@ const AuthCallback = () => {
                     return;
 
                 case "no_application": {
-                    // Auto-create application from Google profile data
+                    // Auto-create application from profile data
                     const fullName = user.user_metadata?.full_name || user.user_metadata?.name || "";
                     const email = user.email || "";
+                    const isOAuth = !!user.user_metadata?.full_name || !!user.user_metadata?.avatar_url;
+                    const referral = isOAuth ? "google_oauth" : "email";
+
+                    // RLS requires full_name <> '' — for email signups without a name,
+                    // use the email prefix as a placeholder
+                    const safeName = fullName || email.split("@")[0] || "Member";
 
                     const { error: insertError } = await supabase
                         .from("membership_applications")
                         .insert({
-                            full_name: fullName,
+                            full_name: safeName,
                             email: email,
-                            referral_source: "google_oauth",
+                            referral_source: referral,
                             status: "pending",
                         });
 
