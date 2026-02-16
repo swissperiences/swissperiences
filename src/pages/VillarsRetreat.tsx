@@ -148,7 +148,7 @@ export default function VillarsRetreat() {
                             loading="lazy"
                         />
                         <div className="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-white/90">
-                            Aprés-Ski Evenings
+                            Après-Ski Evenings
                         </div>
                     </div>
                 </section>
@@ -176,9 +176,9 @@ export default function VillarsRetreat() {
                                 </div>
                                 <div className="aspect-[1/1] overflow-hidden rounded-sm bg-neutral-900 group border border-white/5">
                                     <img
-                                        src="/images/loft/IMG_6006.jpg"
+                                        src="/images/apartment-fireplace.jpg"
                                         className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
-                                        alt="Loft Light"
+                                        alt="Wood-burning fireplace"
                                     />
                                 </div>
                             </div>
@@ -205,16 +205,16 @@ export default function VillarsRetreat() {
                             <div className="space-y-8">
                                 <div className="aspect-[1/1] overflow-hidden rounded-sm bg-neutral-900 group border border-white/5 relative">
                                     <img
-                                        src="/images/loft/IMG_5973.jpg"
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
-                                        alt="Loft Artifact"
+                                        src="/images/villars/sea-of-clouds-sunset.jpeg"
+                                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
+                                        alt="Sea of clouds sunset"
                                     />
                                 </div>
                                 <div className="group relative aspect-[4/5] overflow-hidden rounded-sm bg-neutral-900 border border-white/5">
                                     <img
-                                        src="/images/loft/IMG_4277.jpg"
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
-                                        alt="Loft Evening"
+                                        src="/images/villars/chalet-trail-mountain.jpeg"
+                                        className="w-full h-full object-cover object-[center_40%] group-hover:scale-105 transition-all duration-[2000ms] ease-out grayscale hover:grayscale-0"
+                                        alt="Alpine chalet with mountain peak"
                                     />
                                     <div className="absolute bottom-4 right-4">
                                         <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans">046° 17' N / 007° 05' E</span>
@@ -256,8 +256,8 @@ export default function VillarsRetreat() {
                             </div>
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
-                                    src="/images/villars-gallery-3.jpg"
-                                    alt="Day View"
+                                    src="/images/villars/bains-winter-pool.jpeg"
+                                    alt="Bains de Villars thermal pool"
                                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                     loading="lazy"
                                 />
