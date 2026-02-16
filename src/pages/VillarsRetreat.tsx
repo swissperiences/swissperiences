@@ -256,8 +256,8 @@ export default function VillarsRetreat() {
                             </div>
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
-                                    src="/images/villars/bains-winter-pool.jpeg"
-                                    alt="Bains de Villars thermal pool"
+                                    src="/images/villars/dawn-fog-chalets.jpeg"
+                                    alt="Alpine chalets with morning fog"
                                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                     loading="lazy"
                                 />
