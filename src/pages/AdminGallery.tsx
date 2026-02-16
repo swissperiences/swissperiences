@@ -423,47 +423,45 @@ export default function AdminGallery() {
             <main className="max-w-7xl mx-auto">
                 {/* === STATS SUMMARY === */}
                 {!isLoading && (
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                         <Card className="bg-white/5 border-white/5 text-white">
                             <CardContent className="pt-6">
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Total Signals</span>
-                                <span className="text-3xl font-serif italic">{leads.length + waitlist.length}</span>
+                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Pending Bookings</span>
+                                <span className="text-3xl font-serif italic text-amber-400">{bookingInquiries.filter(b => b.status === 'inquiry').length}</span>
                             </CardContent>
                         </Card>
                         <Card className="bg-white/5 border-white/5 text-white">
                             <CardContent className="pt-6">
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">New Inquiries (B2B)</span>
+                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Confirmed Bookings</span>
+                                <span className="text-3xl font-serif italic text-emerald-400">{bookingInquiries.filter(b => b.status === 'confirmed').length}</span>
+                            </CardContent>
+                        </Card>
+                        <Card className="bg-white/5 border-white/5 text-white">
+                            <CardContent className="pt-6">
+                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">B2B Leads</span>
                                 <span className="text-3xl font-serif italic text-switz-red">{leads.filter(l => l.status === 'new').length}</span>
                             </CardContent>
                         </Card>
                         <Card className="bg-white/5 border-white/5 text-white">
                             <CardContent className="pt-6">
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Waitlist (B2C)</span>
-                                <span className="text-3xl font-serif italic text-indigo-400">
-                                    {waitlist.length}
-                                </span>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-white/5 border-white/5 text-white">
-                            <CardContent className="pt-6">
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Booking Inquiries</span>
-                                <span className="text-3xl font-serif italic text-amber-400">{bookingInquiries.filter(b => b.status === 'inquiry').length}</span>
+                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Blocked Dates</span>
+                                <span className="text-3xl font-serif italic text-red-400">{blockedDates.length}</span>
                             </CardContent>
                         </Card>
                     </div>
                 )}
 
                 <Tabs defaultValue="membership" className="space-y-8">
-                    <TabsList className="bg-white/5 border border-white/10 p-1 flex-wrap">
-                        <TabsTrigger value="membership" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-xs font-bold">Membership</TabsTrigger>
-                        <TabsTrigger value="bookings" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Bookings</TabsTrigger>
-                        <TabsTrigger value="blocked" className="data-[state=active]:bg-red-600 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Blocked Dates</TabsTrigger>
-                        <TabsTrigger value="leads" className="data-[state=active]:bg-switz-red data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">B2B Signals</TabsTrigger>
-                        <TabsTrigger value="waitlist" className="data-[state=active]:bg-indigo-500 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">B2C Waitlist</TabsTrigger>
-                        <TabsTrigger value="supply" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Supply Hub</TabsTrigger>
-                        <TabsTrigger value="assets" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-xs font-bold">Asset Vault</TabsTrigger>
-                        <TabsTrigger value="concepts" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-xs font-bold">R&D Lab</TabsTrigger>
-                        <TabsTrigger value="strategy" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white uppercase tracking-widest text-xs font-bold">Strategy & Tasks</TabsTrigger>
+                    <TabsList className="bg-white/5 border border-white/10 p-1 flex-wrap gap-1">
+                        <TabsTrigger value="membership" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-[10px] font-bold">Membership</TabsTrigger>
+                        <TabsTrigger value="bookings" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Bookings</TabsTrigger>
+                        <TabsTrigger value="blocked" className="data-[state=active]:bg-red-600 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Blocked Dates</TabsTrigger>
+                        <TabsTrigger value="supply" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Supply Hub</TabsTrigger>
+                        <TabsTrigger value="leads" className="data-[state=active]:bg-switz-red data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">B2B Leads</TabsTrigger>
+                        <TabsTrigger value="waitlist" className="data-[state=active]:bg-indigo-500 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Waitlist</TabsTrigger>
+                        <TabsTrigger value="strategy" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Strategy</TabsTrigger>
+                        <TabsTrigger value="concepts" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-[10px] font-bold">R&D Lab</TabsTrigger>
+                        <TabsTrigger value="assets" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-[10px] font-bold">Assets</TabsTrigger>
                     </TabsList>
 
                     {/* === MEMBERSHIP TAB === */}
@@ -516,6 +514,7 @@ export default function AdminGallery() {
                                                             booking.status === 'inquiry' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
                                                             booking.status === 'confirmed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
                                                             booking.status === 'cancelled' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
+                                                            booking.status === 'completed' ? 'bg-sky-500/10 text-sky-400 border-sky-500/20' :
                                                             'bg-white/10 text-white/40 border-white/10'
                                                         }`}>
                                                             {booking.status}
@@ -529,8 +528,13 @@ export default function AdminGallery() {
                                                     </TableCell>
                                                     <TableCell>
                                                         <div className="flex flex-col">
-                                                            <span className="text-xs text-white/90">{booking.member_name}</span>
+                                                            <span className="text-xs text-white/90">{booking.member_name || '—'}</span>
                                                             <span className="text-[10px] text-white/40">{booking.member_email}</span>
+                                                            {booking.special_requests && (
+                                                                <span className="text-[10px] text-amber-400/60 italic mt-1 truncate max-w-[200px]" title={booking.special_requests}>
+                                                                    "{booking.special_requests}"
+                                                                </span>
+                                                            )}
                                                         </div>
                                                     </TableCell>
                                                     <TableCell className="text-white/60 text-xs font-mono">{dateStr}</TableCell>
