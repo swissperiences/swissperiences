@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2, ArrowRight, Check } from "lucide-react";
 import SEO from "@/components/SEO";
+import { newsletterSignup } from "@/lib/newsletter";
 
 const RequestAccess = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -68,10 +69,7 @@ const RequestAccess = () => {
 
         setNewsletterLoading(true);
         try {
-            const { data, error } = await supabase.functions.invoke("newsletter-signup", {
-                body: { email: newsletterEmail },
-            });
-            if (error) throw error;
+            const data = await newsletterSignup(newsletterEmail);
 
             setNewsletterDone(true);
             if (data?.already_subscribed) {

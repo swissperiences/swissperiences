@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
+import { newsletterSignup } from "@/lib/newsletter";
 
 /**
  * Unified Auth Callback
@@ -91,9 +92,8 @@ const AuthCallback = () => {
                     }
 
                     // Also add to Resend newsletter audience (fire-and-forget)
-                    supabase.functions.invoke("newsletter-signup", {
-                        body: { email },
-                    }).catch((err) => console.warn("⚠️ [AuthCallback] Newsletter signup failed:", err));
+                    newsletterSignup(email)
+                        .catch((err) => console.warn("⚠️ [AuthCallback] Newsletter signup failed:", err));
 
                     navigate("/pending-approval", { replace: true });
                     return;

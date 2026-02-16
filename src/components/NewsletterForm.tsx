@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Loader2, Check } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
+import { newsletterSignup } from '@/lib/newsletter';
 
 export default function NewsletterForm() {
     const { t } = useTranslation('common');
@@ -17,11 +17,7 @@ export default function NewsletterForm() {
         setIsLoading(true);
 
         try {
-            const { data, error } = await supabase.functions.invoke('newsletter-signup', {
-                body: { email },
-            });
-
-            if (error) throw error;
+            const data = await newsletterSignup(email);
 
             setIsSuccess(true);
             if (data?.already_subscribed) {

@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/use-auth";
 import { Link } from "react-router-dom";
 import { Lock, ArrowRight, Loader2, Check } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { newsletterSignup } from "@/lib/newsletter";
 
 interface MembershipGateProps {
     children: React.ReactNode;
@@ -28,10 +28,7 @@ export default function MembershipGate({ children, title, subtitle }: Membership
 
         setIsLoading(true);
         try {
-            const { data, error } = await supabase.functions.invoke("newsletter-signup", {
-                body: { email },
-            });
-            if (error) throw error;
+            const data = await newsletterSignup(email);
 
             setIsSubscribed(true);
             if (data?.already_subscribed) {
