@@ -1,14 +1,23 @@
 /**
  * Newsletter signup utility
  *
- * Uses direct fetch with the anon key instead of supabase.functions.invoke()
- * to avoid auth session issues — stale/invalid refresh tokens in localStorage
- * cause supabase.functions.invoke() to throw FunctionsHttpError even for
- * public endpoints that don't require authentication.
+ * Uses a dedicated Supabase client with no auth session persistence
+ * to avoid stale refresh token issues that break supabase.functions.invoke()
+ * for anonymous/public-facing features.
  */
 
+import { createClient } from '@supabase/supabase-js';
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+// Dedicated client for public endpoints — no session persistence
+const publicClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+    },
+});
 
 export interface NewsletterResult {
     success: boolean;
@@ -16,20 +25,10 @@ export interface NewsletterResult {
 }
 
 export async function newsletterSignup(email: string): Promise<NewsletterResult> {
-    const response = await fetch(`${SUPABASE_URL}/functions/v1/newsletter-signup`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-            'apikey': SUPABASE_ANON_KEY,
-        },
-        body: JSON.stringify({ email }),
+    const { data, error } = await publicClient.functions.invoke('newsletter-signup', {
+        body: { email },
     });
 
-    if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || 'Newsletter signup failed');
-    }
-
-    return response.json();
+    if (error) throw error;
+    return data;
 }
