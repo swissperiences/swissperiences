@@ -16,6 +16,7 @@ const publicClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
     auth: {
         persistSession: false,
         autoRefreshToken: false,
+        storageKey: 'sb-public-anon',
     },
 });
 
