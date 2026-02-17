@@ -93,7 +93,7 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: ['hello@swissperiences.ch'],
-                subject: `[APPLICATION] ${full_name} — ${city}`,
+                subject: `[APPLICATION] ${full_name}${city ? ` — ${city}` : ''}`,
                 html: `
             <div style="font-family: 'Courier New', monospace; padding: 30px; background: #111; color: #eee; line-height: 1.6;">
                 <h2 style="color: #D8B58A; border-bottom: 1px solid #333; padding-bottom: 10px;">New Membership Application</h2>

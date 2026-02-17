@@ -15,6 +15,7 @@ DROP POLICY IF EXISTS "Authenticated can read applications" ON membership_applic
 DROP POLICY IF EXISTS "Authenticated can update applications" ON membership_applications;
 
 -- Only allow users to read their OWN application (by email match)
+DROP POLICY IF EXISTS "Users can read own application" ON membership_applications;
 CREATE POLICY "Users can read own application"
     ON membership_applications
     FOR SELECT
@@ -181,6 +182,7 @@ GRANT EXECUTE ON FUNCTION public.admin_update_application_status(uuid, text) TO 
 DROP POLICY IF EXISTS "Tokens are private" ON approval_tokens;
 
 -- Allow authenticated users to read tokens linked to their own application
+DROP POLICY IF EXISTS "Users can read own activation tokens" ON approval_tokens;
 CREATE POLICY "Users can read own activation tokens"
     ON approval_tokens
     FOR SELECT
@@ -193,6 +195,7 @@ CREATE POLICY "Users can read own activation tokens"
     );
 
 -- Allow authenticated users to mark their own tokens as used
+DROP POLICY IF EXISTS "Users can mark own tokens as used" ON approval_tokens;
 CREATE POLICY "Users can mark own tokens as used"
     ON approval_tokens
     FOR UPDATE
@@ -211,6 +214,7 @@ CREATE POLICY "Users can mark own tokens as used"
     );
 
 -- Allow admin to insert tokens (for sending activation links)
+DROP POLICY IF EXISTS "Admin can insert tokens" ON approval_tokens;
 CREATE POLICY "Admin can insert tokens"
     ON approval_tokens
     FOR INSERT

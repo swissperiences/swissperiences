@@ -39,6 +39,7 @@ $$;
 
 -- 3. RLS for admin_emails: only admins can read, nobody can write via client
 -- (write via migration or service_role only)
+DROP POLICY IF EXISTS "Admin can read admin_emails" ON admin_emails;
 CREATE POLICY "Admin can read admin_emails"
     ON admin_emails
     FOR SELECT

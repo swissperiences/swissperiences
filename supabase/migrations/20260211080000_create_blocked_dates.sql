@@ -21,6 +21,7 @@ ALTER TABLE public.blocked_dates
 ALTER TABLE public.blocked_dates ENABLE ROW LEVEL SECURITY;
 
 -- Admin-only policies (using admin_emails table)
+DROP POLICY IF EXISTS "admin_select_blocked_dates" ON public.blocked_dates;
 CREATE POLICY "admin_select_blocked_dates" ON public.blocked_dates
     FOR SELECT TO authenticated
     USING (
@@ -30,6 +31,7 @@ CREATE POLICY "admin_select_blocked_dates" ON public.blocked_dates
         )
     );
 
+DROP POLICY IF EXISTS "admin_insert_blocked_dates" ON public.blocked_dates;
 CREATE POLICY "admin_insert_blocked_dates" ON public.blocked_dates
     FOR INSERT TO authenticated
     WITH CHECK (
@@ -39,6 +41,7 @@ CREATE POLICY "admin_insert_blocked_dates" ON public.blocked_dates
         )
     );
 
+DROP POLICY IF EXISTS "admin_delete_blocked_dates" ON public.blocked_dates;
 CREATE POLICY "admin_delete_blocked_dates" ON public.blocked_dates
     FOR DELETE TO authenticated
     USING (

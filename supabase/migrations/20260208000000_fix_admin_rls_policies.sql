@@ -162,12 +162,14 @@ WHERE NOT EXISTS (SELECT 1 FROM admin_partners LIMIT 1);
 -- ============================================================
 DROP POLICY IF EXISTS "Users cannot read inquiries" ON corporate_inquiries;
 
+DROP POLICY IF EXISTS "Admin can read inquiries" ON corporate_inquiries;
 CREATE POLICY "Admin can read inquiries"
     ON corporate_inquiries
     FOR SELECT
     TO authenticated
     USING (public.is_admin());
 
+DROP POLICY IF EXISTS "Admin can update inquiries" ON corporate_inquiries;
 CREATE POLICY "Admin can update inquiries"
     ON corporate_inquiries
     FOR UPDATE
