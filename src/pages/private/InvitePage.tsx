@@ -135,7 +135,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
             image: "/images/host-road-winter.jpg",
             name: "Cauêh Vidal",
             role: "Host & Founder",
-            bio: "I live in Switzerland, I know every curve of these mountains and I take care of every detail personally. I'm not an agency — I'm the person who picks you up at the airport, prepares the loft before you arrive, and makes sure you don't have to think about anything for 48 hours.",
+            bio: "I live in Switzerland, I know every curve of these mountains and I take care of every detail personally. I'm not an agency — I'm the person who picks you up at the airport, prepares the loft before you arrive, and makes sure you don't have to think about anything for 3 days.",
             quote: "I built this to be the kind of experience I'd want to receive.",
             instagram: "https://instagram.com/caueh",
         },
