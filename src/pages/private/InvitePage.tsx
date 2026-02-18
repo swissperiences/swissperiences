@@ -99,7 +99,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 label: "Day 2 — Morning",
                 title: "Mountain Morning",
                 description: "Morning in the Alps — ski on your own, book a guided snowshoe walk, or simply stand outside and feel the cold air on your face. This time is yours to shape.",
-                image: "/images/villars/ski-station-panorama.jpeg",
+                image: "/images/villars/ski-villars-slopes.jpeg",
             },
             {
                 icon: <Coffee className="w-5 h-5" />,
