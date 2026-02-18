@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Mountain, Flame, Camera, Clock, Users, ChevronRight, BookOpen, Sun, Car } from "lucide-react";
+import { MapPin, Mountain, Flame, Camera, Clock, Users, ChevronRight, BookOpen, Sun, Car, Coffee, Droplets } from "lucide-react";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
 import SEO from "@/components/SEO";
@@ -91,35 +91,49 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Day 1 — Evening",
                 title: "The Sanctuary",
-                description: "The door opens. The welcome basket is already on the table — local cheeses, wine and Swiss chocolate. Paintings of Swiss cows on the walls, a sofa that swallows you whole, and the silence of the Alps through the entire window. Tonight, you don't need to do anything else.",
+                description: "The door opens. The welcome basket is already on the table — local cheeses, wine and Swiss chocolate. A sofa that swallows you whole, cow paintings on the walls, and the kind of silence you only hear in the mountains. Tonight, you don't need to do anything else.",
                 image: "/images/villars/loft-night-fireplace.jpeg",
             },
             {
                 icon: <Mountain className="w-5 h-5" />,
                 label: "Day 2 — Morning",
                 title: "Mountain Morning",
-                description: "Morning in the Alps — ski on your own, book a guided snowshoe walk, or simply enjoy the mountain air. This time is yours to shape.",
+                description: "Morning in the Alps — ski on your own, book a guided snowshoe walk, or simply stand outside and feel the cold air on your face. This time is yours to shape.",
                 image: "/images/villars/ski-station-panorama.jpeg",
             },
             {
-                icon: <Sun className="w-5 h-5" />,
+                icon: <Coffee className="w-5 h-5" />,
+                label: "Day 2 — Midday",
+                title: "Village & Terraces",
+                description: "Stroll through Villars village, sit on a sun-drenched terrace with a coffee, or wander into a local bakery. No plans, no rush — just the rhythm of a mountain town.",
+                image: "/images/villars/village-mountain-view.jpeg",
+            },
+            {
+                icon: <Droplets className="w-5 h-5" />,
                 label: "Day 2 — Afternoon",
-                title: "Your Time",
-                description: "No agenda. You choose: stroll through the village, have a coffee on a terrace overlooking the Alps, or simply stay in the loft in silence. Time stops here.",
-                image: "/images/villars/morning-peak-sun.jpeg",
+                title: "Alpine Spa",
+                description: "Bains de Villars — heated pools overlooking the peaks, steam rising into the cold air. Let the mountain water and the silence do the work for you.",
+                image: "/images/villars/thermal-pool-alps.jpeg",
             },
             {
                 icon: <Flame className="w-5 h-5" />,
                 label: "Day 2 — Evening",
-                title: "Après-Ski & Fondue",
-                description: "Bains de Villars — steam rising from the pool while the peaks turn blue. Then, Gruyère AOP fondue prepared at the loft. Wine, candles, and no rush to leave.",
-                image: "/images/villars/thermal-pool-alps.jpeg",
+                title: "Fondue Night",
+                description: "Back at the loft. Gruyère AOP fondue on the table, local wine in the glass, candles lit. The fireplace takes care of the rest.",
+                image: "/images/villars/loft-fireplace-evening.jpeg",
+            },
+            {
+                icon: <Sun className="w-5 h-5" />,
+                label: "Day 3 — Morning",
+                title: "Last Light",
+                description: "Wake up slow. Coffee with a view, blanket around your shoulders, snow still on the rooftops. The mountains are the same, but something in you has moved.",
+                image: "/images/villars/bedroom-snow-morning.jpeg",
             },
             {
                 icon: <Car className="w-5 h-5" />,
-                label: "Day 3 — Morning",
+                label: "Day 3 — Departure",
                 title: "The Farewell",
-                description: "Breakfast with a view. No rush to leave. When you're ready, I drive you back to Geneva — with the drone edit of your weekend already on your phone.",
+                description: "When you're ready, I drive you back to Geneva — with the drone edit of your weekend already on your phone and the mountain still playing in your head.",
                 image: "/images/villars/ski-sunset-golden.jpeg",
             },
         ],
