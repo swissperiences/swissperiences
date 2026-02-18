@@ -384,6 +384,7 @@ export default function MembersBook() {
                                     <p className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</p>
                                     <p className="text-2xl font-serif text-white">{formatCHF(total)}</p>
                                     <p className="text-white/30 text-xs">{nights} nights × {formatCHF(sanctuary.nightlyRate)}/night</p>
+                                    <p className="text-white/20 text-[10px] mt-2">Final amount confirmed by our team before payment.</p>
                                 </div>
                             );
                         })()}
@@ -395,9 +396,9 @@ export default function MembersBook() {
                             className="w-full bg-white text-black py-4 uppercase tracking-widest text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500 disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
-                            Submit Booking Request
+                            Request This Stay
                         </button>
-                        <p className="text-white/30 text-[10px] text-center">Minimum 2-night stay. We'll confirm availability within 24-48 hours.</p>
+                        <p className="text-white/30 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24–48 hours.</p>
                     </motion.form>
                 )}
 
@@ -489,6 +490,7 @@ export default function MembersBook() {
                                     <p className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</p>
                                     <p className="text-2xl font-serif text-white">{formatCHF(exp.basePrice)}</p>
                                     <p className="text-white/30 text-xs">{exp.name} • {expGuests} {expGuests === 1 ? "person" : "people"}</p>
+                                    <p className="text-white/20 text-[10px] mt-2">Final amount confirmed by our team before payment.</p>
                                 </div>
                             );
                         })()}
@@ -500,9 +502,9 @@ export default function MembersBook() {
                             className="w-full bg-white text-black py-4 uppercase tracking-widest text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500 disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
-                            Submit Experience Request
+                            Request This Experience
                         </button>
-                        <p className="text-white/30 text-[10px] text-center">We'll confirm availability within 24-48 hours.</p>
+                        <p className="text-white/30 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24–48 hours.</p>
                     </motion.form>
                 )}
             </main>

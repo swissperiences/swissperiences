@@ -116,7 +116,7 @@ const MembersProfile = () => {
                 return;
             }
 
-            toast.success("Profile updated.");
+            toast.success("Profile updated — we'll use this to fine-tune your next escape.");
             // Update local profile state so hasChanges() resets
             setProfile((prev) =>
                 prev
@@ -184,10 +184,13 @@ const MembersProfile = () => {
                     <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
                         Profile
                     </span>
-                    <h1 className="text-3xl md:text-4xl font-serif text-white mb-2">
+                    <h1 className="text-3xl md:text-4xl font-serif text-white mb-3">
                         Edit your profile
                     </h1>
-                    <p className="text-white/40 text-sm">
+                    <p className="text-white/40 text-sm mb-2">
+                        We use this to tailor your stays, hosts and experiences to you.
+                    </p>
+                    <p className="text-white/30 text-xs">
                         Member since{" "}
                         {new Date(profile.joined_at).toLocaleDateString("en-US", {
                             month: "long",
@@ -267,7 +270,7 @@ const MembersProfile = () => {
                     {/* Phone */}
                     <div>
                         <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
-                            Phone
+                            Phone <span className="normal-case tracking-normal text-white/20">(for stay logistics only)</span>
                         </label>
                         <input
                             type="tel"
@@ -288,7 +291,7 @@ const MembersProfile = () => {
                             onChange={(e) => setBio(e.target.value)}
                             rows={3}
                             className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors resize-none placeholder:text-white/20"
-                            placeholder="A few words about yourself..."
+                            placeholder="Tell us how you like to travel, relax and disconnect..."
                         />
                     </div>
 
@@ -302,7 +305,7 @@ const MembersProfile = () => {
                             onChange={(e) => setPreferences(e.target.value)}
                             rows={3}
                             className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors resize-none placeholder:text-white/20"
-                            placeholder="Dietary needs, activity preferences, anything we should know..."
+                            placeholder="Dietary needs, preferred activities, energy levels, anything that helps us personalise your stay..."
                         />
                     </div>
                 </div>

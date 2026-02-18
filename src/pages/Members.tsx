@@ -238,6 +238,7 @@ const Members = () => {
                                 <Pencil size={12} />
                                 Edit Profile
                             </Link>
+                            <p className="text-white/15 text-[10px] mt-2">Keep your details updated so we can design the right stays for you.</p>
                         </div>
                     </div>
                 </div>

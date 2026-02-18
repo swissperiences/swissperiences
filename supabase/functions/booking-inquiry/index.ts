@@ -124,7 +124,7 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: [memberEmail],
-                subject: `Your inquiry — ${safeSanctuary}`,
+                subject: `[Swissperiences] We received your request — next steps`,
                 html: `
             <!DOCTYPE html>
             <html>
@@ -135,9 +135,11 @@ serve(async (req) => {
                     body { margin: 0; padding: 0; background-color: #F9F7F2; font-family: 'Times New Roman', Times, serif; color: #1A1D2E; }
                     .wrapper { width: 100%; background-color: #F9F7F2; padding: 80px 0; }
                     .letter { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 540px; padding: 100px 60px; text-align: left; box-shadow: 0 4px 30px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03); }
-                    .logo { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; display: block; text-align: center; }
                     h1 { font-family: 'Times New Roman', Times, serif; font-size: 28px; font-weight: 400; font-style: italic; line-height: 1.4; margin-bottom: 40px; color: #1A1D2E; }
                     p { font-size: 16px; line-height: 1.9; margin-bottom: 28px; color: #444; font-weight: 300; }
+                    .detail-row { display: block; margin-bottom: 12px; }
+                    .detail-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #999; display: block; margin-bottom: 2px; }
+                    .detail-value { font-size: 15px; color: #1A1D2E; }
                     .signature { margin-top: 60px; }
                     .closing { font-style: italic; color: #1A1D2E; margin-bottom: 10px; }
                     .host { font-size: 14px; letter-spacing: 1px; color: #888; text-transform: uppercase; }
@@ -150,11 +152,25 @@ serve(async (req) => {
                     <div class="letter">
                         <p style="font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; text-align: center;">Swissperiences</p>
 
-                        <h1>Noted, ${safeName.split(' ')[0]}.</h1>
+                        <h1>Thank you, ${safeName.split(' ')[0]}.</h1>
 
-                        <p>${memberBody}</p>
+                        <p>We've received your booking request and our team is reviewing availability.</p>
+
+                        <!-- Booking Summary -->
+                        <div style="border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 28px 0; margin: 30px 0;">
+                            <span class="detail-row"><span class="detail-label">${typeLabel}</span><span class="detail-value">${safeSanctuary}</span></span>
+                            <span class="detail-row"><span class="detail-label">${dateLabel}</span><span class="detail-value">${dateDisplay}</span></span>
+                            ${!isExperience ? `<span class="detail-row"><span class="detail-label">Duration</span><span class="detail-value">${nights} night${nights > 1 ? 's' : ''}</span></span>` : ''}
+                            <span class="detail-row"><span class="detail-label">Guests</span><span class="detail-value">${guestCount}</span></span>
+                        </div>
+
                         ${specialRequestsNote}
-                        <p>We'll review your request and get back to you within 24 hours.</p>
+
+                        <!-- What happens next -->
+                        <p style="font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #999; margin-bottom: 12px; font-family: Arial, sans-serif;">What happens next</p>
+                        <p>Within 24–48 hours you'll receive a follow-up email with confirmed details and payment instructions.</p>
+
+                        <p style="font-size: 14px; color: #888; font-style: italic;">If anything is time-sensitive or you'd like to adjust details, simply reply to this email.</p>
 
                         <div class="signature">
                             <p class="closing">Talk soon.</p>
@@ -162,7 +178,7 @@ serve(async (req) => {
                         </div>
 
                         <div class="footer">
-                            © 2026 Swissperiences • Geneva, Switzerland<br><br>
+                            &copy; 2026 Swissperiences &middot; Geneva, Switzerland<br><br>
                             <a href="https://swissperiences.ch">Website</a>
                             <a href="mailto:hello@swissperiences.ch">Contact</a>
                         </div>
