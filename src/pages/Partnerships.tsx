@@ -36,6 +36,11 @@ const partnershipTypes = [
         description:
             "White-label access to our Swiss network for your most discerning clients. Discreet, seamless, and fully managed.",
     },
+    {
+        title: "Private Chalets & Second Homes",
+        description:
+            "We partner with a select number of private owners whose properties naturally belong in this world. We help transform your chalet or second home into a quiet, profitable alpine retreat — handling guest experience, operations and positioning while you retain full ownership and control. We don't manage properties at scale. We choose a handful, and we treat each one as our own.",
+    },
 ];
 
 export default function Partnerships() {
@@ -136,6 +141,12 @@ export default function Partnerships() {
                                         and discretion. Every detail is
                                         personal. Every experience is bespoke.
                                         Every member is known by name.
+                                    </p>
+                                    <p>
+                                        We also partner with a handful of
+                                        private owners whose homes naturally
+                                        belong in this world — turning quiet
+                                        properties into curated sanctuaries.
                                     </p>
                                 </div>
                                 <Link
