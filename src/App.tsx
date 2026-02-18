@@ -45,6 +45,7 @@ const Experiences = lazy(() => import("./pages/Experiences"));
 const PrivateChef = lazy(() => import("./pages/PrivateChef"));
 const GuidedHikes = lazy(() => import("./pages/GuidedHikes"));
 const MembersBook = lazy(() => import("./pages/MembersBook"));
+const MembersProfile = lazy(() => import("./pages/MembersProfile"));
 const Partnerships = lazy(() => import("./pages/Partnerships"));
 
 const queryClient = new QueryClient();
@@ -127,6 +128,7 @@ const App = () => (
                 <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/pending-approval" element={<PendingApproval />} />
                 <Route path="/members/book" element={<AuthGuard><MembersBook /></AuthGuard>} />
+                <Route path="/members/profile" element={<AuthGuard><MembersProfile /></AuthGuard>} />
                 <Route path="/members" element={<AuthGuard><Members /></AuthGuard>} />
 
                 {/* Standardized language prefixed routes */}
@@ -153,6 +155,7 @@ const App = () => (
                 <Route path="/:lang/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/:lang/members/book" element={<AuthGuard><LanguageWrapper><MembersBook /></LanguageWrapper></AuthGuard>} />
+                <Route path="/:lang/members/profile" element={<AuthGuard><LanguageWrapper><MembersProfile /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members" element={<AuthGuard><LanguageWrapper><Members /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/request-access" element={<LanguageWrapper><RequestAccess /></LanguageWrapper>} />
                 <Route path="/:lang/login" element={<LanguageWrapper><Login /></LanguageWrapper>} />

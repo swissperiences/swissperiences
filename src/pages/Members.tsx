@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
-import { LogOut, MapPin, Calendar, Mail, MessageCircle, BookOpen, ArrowRight, Clock, X } from "lucide-react";
+import { LogOut, MapPin, Calendar, Mail, MessageCircle, BookOpen, ArrowRight, Clock, X, Pencil } from "lucide-react";
 import { BookingCalendar } from "@/components/BookingCalendar";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -228,6 +228,16 @@ const Members = () => {
                                 <Calendar size={14} />
                                 <span>Member since {new Date(member.joined_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
                             </div>
+                        </div>
+
+                        <div className="mt-6 pt-5 border-t border-white/5">
+                            <Link
+                                to="/members/profile"
+                                className="inline-flex items-center gap-2 text-white/30 hover:text-white text-xs uppercase tracking-widest transition-colors"
+                            >
+                                <Pencil size={12} />
+                                Edit Profile
+                            </Link>
                         </div>
                     </div>
                 </div>
