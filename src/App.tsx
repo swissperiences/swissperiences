@@ -47,6 +47,7 @@ const GuidedHikes = lazy(() => import("./pages/GuidedHikes"));
 const MembersBook = lazy(() => import("./pages/MembersBook"));
 const MembersProfile = lazy(() => import("./pages/MembersProfile"));
 const Partnerships = lazy(() => import("./pages/Partnerships"));
+const Sustainability = lazy(() => import("./pages/Sustainability"));
 
 const queryClient = new QueryClient();
 
@@ -117,6 +118,7 @@ const App = () => (
                 <Route path="/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
                 <Route path="/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
+                <Route path="/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/private/alex-proposal" element={<AlexProposal />} />
                 <Route path="/invite/:code" element={<InvitePage />} />
@@ -153,6 +155,7 @@ const App = () => (
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/:lang/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
                 <Route path="/:lang/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
+                <Route path="/:lang/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/:lang/members/book" element={<AuthGuard><LanguageWrapper><MembersBook /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members/profile" element={<AuthGuard><LanguageWrapper><MembersProfile /></LanguageWrapper></AuthGuard>} />
