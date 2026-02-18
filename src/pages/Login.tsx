@@ -43,20 +43,25 @@ const Login = () => {
      * Used after both Google OAuth redirect and Email/Password sign-in.
      */
     const routeByMembership = async () => {
-        const { data } = await supabase.rpc("get_or_create_member");
+        const { data, error } = await supabase.rpc("get_or_create_member");
         const result = data as { status: string; member?: { membership_status: string } } | null;
+
+        console.log("[routeByMembership]", JSON.stringify(result), error?.message);
 
         if (result?.status === "found" || result?.status === "created") {
             if (result?.member?.membership_status === "active") {
                 navigate("/members", { replace: true });
                 return;
             }
+            // Member exists but not active — treat as pending
+            navigate("/pending-approval", { replace: true });
+            return;
         }
         if (result?.status === "pending") {
             navigate("/pending-approval", { replace: true });
             return;
         }
-        // no_application or anything else
+        // no_application or anything else — check for any application
         navigate("/request-access", { replace: true });
     };
 
