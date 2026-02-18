@@ -158,7 +158,7 @@ export function MembershipApplications() {
         };
 
         return (
-            <span className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-full border ${styles[status]}`}>
+            <span className={`text-xs uppercase tracking-wider px-2 py-1 rounded-full border ${styles[status]}`}>
                 {status}
             </span>
         );
@@ -181,25 +181,25 @@ export function MembershipApplications() {
             <div className="grid grid-cols-4 gap-4">
                 <Card className="bg-white/5 border-white/5 text-white">
                     <CardContent className="pt-6">
-                        <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Total Applications</span>
+                        <span className="text-xs uppercase tracking-wider text-white/40 mb-2 block">Total Applications</span>
                         <span className="text-3xl font-serif italic">{applications.length}</span>
                     </CardContent>
                 </Card>
                 <Card className="bg-amber-500/5 border-amber-500/10 text-white">
                     <CardContent className="pt-6">
-                        <span className="text-[10px] uppercase tracking-widest text-amber-400/60 mb-2 block">Pending Review</span>
+                        <span className="text-xs uppercase tracking-wider text-amber-400/60 mb-2 block">Pending Review</span>
                         <span className="text-3xl font-serif italic text-amber-400">{pendingCount}</span>
                     </CardContent>
                 </Card>
                 <Card className="bg-emerald-500/5 border-emerald-500/10 text-white">
                     <CardContent className="pt-6">
-                        <span className="text-[10px] uppercase tracking-widest text-emerald-400/60 mb-2 block">Approved</span>
+                        <span className="text-xs uppercase tracking-wider text-emerald-400/60 mb-2 block">Approved</span>
                         <span className="text-3xl font-serif italic text-emerald-400">{approvedCount}</span>
                     </CardContent>
                 </Card>
                 <Card className="bg-white/5 border-white/5 text-white">
                     <CardContent className="pt-6">
-                        <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Conversion Rate</span>
+                        <span className="text-xs uppercase tracking-wider text-white/40 mb-2 block">Conversion Rate</span>
                         <span className="text-3xl font-serif italic">
                             {applications.length > 0 ? Math.round((approvedCount / applications.length) * 100) : 0}%
                         </span>
@@ -226,12 +226,12 @@ export function MembershipApplications() {
                                 <Table>
                                     <TableHeader className="bg-white/5">
                                         <TableRow className="border-white/10 hover:bg-transparent">
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Status</TableHead>
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Applicant</TableHead>
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Location</TableHead>
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Source</TableHead>
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Date</TableHead>
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40 text-right">Actions</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40">Status</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40">Applicant</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40">Location</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40">Source</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40">Date</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40 text-right">Actions</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
@@ -245,7 +245,7 @@ export function MembershipApplications() {
                                                 <TableCell>
                                                     <div className="flex flex-col">
                                                         <span className="text-white font-medium">{app.full_name}</span>
-                                                        <span className="text-[10px] text-white/40">{app.email}</span>
+                                                        <span className="text-xs text-white/50">{app.email}</span>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell className="text-white/60 text-xs">
@@ -364,7 +364,7 @@ export function MembershipApplications() {
                                         <div className="space-y-2">
                                             <div className="flex items-center gap-2 text-white/40">
                                                 <MessageSquare size={14} />
-                                                <span className="text-[10px] uppercase tracking-widest">What brought them here</span>
+                                                <span className="text-xs uppercase tracking-wider">What brought them here</span>
                                             </div>
                                             <p className="text-white/80 text-sm leading-relaxed bg-white/5 p-4 rounded-sm border border-white/5 italic">
                                                 "{selectedApp.reason}"
@@ -374,7 +374,7 @@ export function MembershipApplications() {
 
                                     {/* Referral */}
                                     <div className="space-y-2">
-                                        <span className="text-[10px] uppercase tracking-widest text-white/40">Referral Source</span>
+                                        <span className="text-xs uppercase tracking-wider text-white/40">Referral Source</span>
                                         <p className="text-white/70 text-sm capitalize">
                                             {selectedApp.referral_source || 'Not specified'}
                                             {selectedApp.referral_detail && ` — ${selectedApp.referral_detail}`}
@@ -402,7 +402,7 @@ export function MembershipApplications() {
                                     {/* Member Profile (approved members only) */}
                                     {selectedApp.status === 'approved' && (
                                         <div className="space-y-4 pt-4 border-t border-white/5">
-                                            <span className="text-[10px] uppercase tracking-widest text-white/40 flex items-center gap-2">
+                                            <span className="text-xs uppercase tracking-wider text-white/40 flex items-center gap-2">
                                                 <User size={12} />
                                                 Member Profile
                                             </span>
@@ -421,7 +421,7 @@ export function MembershipApplications() {
                                                         <div>
                                                             <div className="flex items-center gap-2 text-white/30 mb-1">
                                                                 <Heart size={12} />
-                                                                <span className="text-[9px] uppercase tracking-widest">About</span>
+                                                                <span className="text-xs uppercase tracking-wider">About</span>
                                                             </div>
                                                             <p className="text-white/60 text-xs leading-relaxed bg-white/5 p-3 rounded-sm border border-white/5">
                                                                 {memberProfile.bio}
@@ -432,7 +432,7 @@ export function MembershipApplications() {
                                                         <div>
                                                             <div className="flex items-center gap-2 text-white/30 mb-1">
                                                                 <Settings size={12} />
-                                                                <span className="text-[9px] uppercase tracking-widest">Preferences</span>
+                                                                <span className="text-xs uppercase tracking-wider">Preferences</span>
                                                             </div>
                                                             <p className="text-white/60 text-xs leading-relaxed bg-white/5 p-3 rounded-sm border border-white/5">
                                                                 {memberProfile.preferences}
@@ -441,7 +441,7 @@ export function MembershipApplications() {
                                                     )}
                                                 </div>
                                             ) : (
-                                                <p className="text-white/20 text-[10px] italic">Member hasn't filled in their profile yet.</p>
+                                                <p className="text-white/20 text-xs italic">Member hasn't filled in their profile yet.</p>
                                             )}
                                         </div>
                                     )}

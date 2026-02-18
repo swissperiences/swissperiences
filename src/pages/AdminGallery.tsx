@@ -421,47 +421,49 @@ export default function AdminGallery() {
             </header>
 
             <main className="max-w-7xl mx-auto">
-                {/* === STATS SUMMARY === */}
+                {/* === ACTION CARDS — "What needs my attention?" === */}
                 {!isLoading && (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <Card className="bg-white/5 border-white/5 text-white">
-                            <CardContent className="pt-6">
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Pending Bookings</span>
-                                <span className="text-3xl font-serif italic text-amber-400">{bookingInquiries.filter(b => b.status === 'inquiry').length}</span>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-white/5 border-white/5 text-white">
-                            <CardContent className="pt-6">
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Confirmed Bookings</span>
-                                <span className="text-3xl font-serif italic text-emerald-400">{bookingInquiries.filter(b => b.status === 'confirmed').length}</span>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-white/5 border-white/5 text-white">
-                            <CardContent className="pt-6">
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">B2B Leads</span>
-                                <span className="text-3xl font-serif italic text-switz-red">{leads.filter(l => l.status === 'new').length}</span>
-                            </CardContent>
-                        </Card>
-                        <Card className="bg-white/5 border-white/5 text-white">
-                            <CardContent className="pt-6">
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2 block">Blocked Dates</span>
-                                <span className="text-3xl font-serif italic text-red-400">{blockedDates.length}</span>
-                            </CardContent>
-                        </Card>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        {bookingInquiries.filter(b => b.status === 'inquiry').length > 0 && (
+                            <button onClick={() => document.querySelector<HTMLButtonElement>('[value="bookings"]')?.click()} className="text-left bg-amber-500/5 border border-amber-500/15 hover:border-amber-500/30 rounded-sm p-5 transition-all group">
+                                <span className="text-amber-400 text-3xl font-serif italic block mb-1">{bookingInquiries.filter(b => b.status === 'inquiry').length}</span>
+                                <span className="text-amber-400/80 text-sm font-light">bookings waiting for review</span>
+                                <span className="text-amber-400/40 text-xs block mt-2 group-hover:text-amber-400/70 transition-colors">Open bookings →</span>
+                            </button>
+                        )}
+                        {leads.filter(l => l.status === 'new').length > 0 && (
+                            <button onClick={() => document.querySelector<HTMLButtonElement>('[value="leads"]')?.click()} className="text-left bg-switz-red/5 border border-switz-red/15 hover:border-switz-red/30 rounded-sm p-5 transition-all group">
+                                <span className="text-switz-red text-3xl font-serif italic block mb-1">{leads.filter(l => l.status === 'new').length}</span>
+                                <span className="text-switz-red/80 text-sm font-light">new B2B leads</span>
+                                <span className="text-switz-red/40 text-xs block mt-2 group-hover:text-switz-red/70 transition-colors">Open leads →</span>
+                            </button>
+                        )}
+                        {bookingInquiries.filter(b => b.status === 'inquiry').length === 0 && leads.filter(l => l.status === 'new').length === 0 && (
+                            <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-sm p-5 md:col-span-3">
+                                <span className="text-emerald-400 text-sm font-light">All clear — nothing needs your attention right now.</span>
+                            </div>
+                        )}
+                        <div className="bg-white/[0.02] border border-white/5 rounded-sm p-5 flex items-center justify-between">
+                            <div>
+                                <span className="text-white/60 text-sm font-light block">{bookingInquiries.filter(b => b.status === 'confirmed').length} confirmed</span>
+                                <span className="text-white/30 text-xs">{blockedDates.length} dates blocked</span>
+                            </div>
+                            <span className="text-white/20 text-xs">overview</span>
+                        </div>
                     </div>
                 )}
 
                 <Tabs defaultValue="membership" className="space-y-8">
-                    <TabsList className="bg-white/5 border border-white/10 p-1 flex-wrap gap-1">
-                        <TabsTrigger value="membership" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-[10px] font-bold">Membership</TabsTrigger>
-                        <TabsTrigger value="bookings" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Bookings</TabsTrigger>
-                        <TabsTrigger value="blocked" className="data-[state=active]:bg-red-600 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Blocked Dates</TabsTrigger>
-                        <TabsTrigger value="supply" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Supply Hub</TabsTrigger>
-                        <TabsTrigger value="leads" className="data-[state=active]:bg-switz-red data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">B2B Leads</TabsTrigger>
-                        <TabsTrigger value="waitlist" className="data-[state=active]:bg-indigo-500 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Waitlist</TabsTrigger>
-                        <TabsTrigger value="strategy" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white uppercase tracking-widest text-[10px] font-bold">Strategy</TabsTrigger>
-                        <TabsTrigger value="concepts" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-[10px] font-bold">R&D Lab</TabsTrigger>
-                        <TabsTrigger value="assets" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-widest text-[10px] font-bold">Assets</TabsTrigger>
+                    <TabsList className="bg-white/5 border border-white/10 p-1.5 flex-wrap gap-1">
+                        <TabsTrigger value="membership" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">Membership</TabsTrigger>
+                        <TabsTrigger value="bookings" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">Bookings</TabsTrigger>
+                        <TabsTrigger value="blocked" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">Blocked Dates</TabsTrigger>
+                        <TabsTrigger value="supply" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">Supply Hub</TabsTrigger>
+                        <TabsTrigger value="leads" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">B2B Leads</TabsTrigger>
+                        <TabsTrigger value="waitlist" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">Waitlist</TabsTrigger>
+                        <TabsTrigger value="strategy" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">Strategy</TabsTrigger>
+                        <TabsTrigger value="concepts" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">R&D Lab</TabsTrigger>
+                        <TabsTrigger value="assets" className="data-[state=active]:bg-white data-[state=active]:text-black uppercase tracking-wider text-xs font-bold">Assets</TabsTrigger>
                     </TabsList>
 
                     {/* === MEMBERSHIP TAB === */}
@@ -486,13 +488,13 @@ export default function AdminGallery() {
                                 <Table>
                                     <TableHeader className="bg-white/5">
                                         <TableRow className="border-white/10 hover:bg-transparent">
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Status</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Type</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Member</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Dates</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Guests</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Requested</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold text-right">Actions</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Status</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Type</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Member</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Dates</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Guests</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Requested</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold text-right">Actions</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
@@ -510,7 +512,7 @@ export default function AdminGallery() {
                                             return (
                                                 <TableRow key={booking.id} className="border-white/5 hover:bg-white/5 transition-colors group">
                                                     <TableCell>
-                                                        <span className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-full border ${
+                                                        <span className={`text-xs uppercase tracking-wider px-2 py-1 rounded-full border ${
                                                             booking.status === 'inquiry' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
                                                             booking.status === 'confirmed' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
                                                             booking.status === 'cancelled' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
@@ -529,9 +531,9 @@ export default function AdminGallery() {
                                                     <TableCell>
                                                         <div className="flex flex-col">
                                                             <span className="text-xs text-white/90">{booking.member_name || '—'}</span>
-                                                            <span className="text-[10px] text-white/40">{booking.member_email}</span>
+                                                            <span className="text-xs text-white/50">{booking.member_email}</span>
                                                             {booking.special_requests && (
-                                                                <span className="text-[10px] text-amber-400/60 italic mt-1 truncate max-w-[200px]" title={booking.special_requests}>
+                                                                <span className="text-xs text-amber-400/60 italic mt-1 truncate max-w-[200px]" title={booking.special_requests}>
                                                                     "{booking.special_requests}"
                                                                 </span>
                                                             )}
@@ -539,7 +541,7 @@ export default function AdminGallery() {
                                                     </TableCell>
                                                     <TableCell className="text-white/60 text-xs font-mono">{dateStr}</TableCell>
                                                     <TableCell className="text-white/60 text-xs">{booking.guests}</TableCell>
-                                                    <TableCell className="text-white/40 text-[10px] font-mono">
+                                                    <TableCell className="text-white/50 text-xs font-mono">
                                                         {new Date(booking.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                                                     </TableCell>
                                                     <TableCell className="text-right">
@@ -547,13 +549,13 @@ export default function AdminGallery() {
                                                             <div className="flex items-center gap-2 justify-end">
                                                                 <button
                                                                     onClick={() => updateBookingStatus(booking.id, 'confirmed')}
-                                                                    className="flex items-center gap-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-widest font-bold transition-colors"
+                                                                    className="flex items-center gap-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-3 py-1.5 rounded-sm text-xs uppercase tracking-wider font-bold transition-colors"
                                                                 >
                                                                     <CheckCircle size={12} /> Confirm
                                                                 </button>
                                                                 <button
                                                                     onClick={() => updateBookingStatus(booking.id, 'cancelled')}
-                                                                    className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-widest font-bold transition-colors"
+                                                                    className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-sm text-xs uppercase tracking-wider font-bold transition-colors"
                                                                 >
                                                                     <XCircle size={12} /> Reject
                                                                 </button>
@@ -562,7 +564,7 @@ export default function AdminGallery() {
                                                         {booking.status === 'confirmed' && (
                                                             <button
                                                                 onClick={() => updateBookingStatus(booking.id, 'completed')}
-                                                                className="flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white/60 px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-widest font-bold transition-colors ml-auto"
+                                                                className="flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white/60 px-3 py-1.5 rounded-sm text-xs uppercase tracking-wider font-bold transition-colors ml-auto"
                                                             >
                                                                 Mark Complete
                                                             </button>
@@ -588,7 +590,7 @@ export default function AdminGallery() {
                                             <div key={`req-${b.id}`} className="bg-white/[0.02] border border-white/5 p-4 rounded-sm">
                                                 <div className="flex items-center justify-between mb-2">
                                                     <span className="text-xs text-white/60">{b.member_name} — {label}</span>
-                                                    <span className="text-[10px] text-white/30 font-mono">{new Date(b.created_at).toLocaleDateString()}</span>
+                                                    <span className="text-xs text-white/40 font-mono">{new Date(b.created_at).toLocaleDateString()}</span>
                                                 </div>
                                                 <p className="text-sm text-white/80 font-light italic">"{b.special_requests}"</p>
                                             </div>
@@ -616,7 +618,7 @@ export default function AdminGallery() {
                                 <CardContent className="pt-6 space-y-4">
                                     {/* Type */}
                                     <div>
-                                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Type</label>
+                                        <label className="text-xs uppercase tracking-wider text-white/40 block mb-2">Type</label>
                                         <select
                                             value={blockType}
                                             onChange={(e) => {
@@ -633,7 +635,7 @@ export default function AdminGallery() {
 
                                     {/* Item */}
                                     <div>
-                                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Item</label>
+                                        <label className="text-xs uppercase tracking-wider text-white/40 block mb-2">Item</label>
                                         <select
                                             value={blockItemId}
                                             onChange={(e) => setBlockItemId(e.target.value)}
@@ -648,7 +650,7 @@ export default function AdminGallery() {
                                     {/* Date Range */}
                                     <div className="grid grid-cols-2 gap-3">
                                         <div>
-                                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Start Date</label>
+                                            <label className="text-xs uppercase tracking-wider text-white/40 block mb-2">Start Date</label>
                                             <input
                                                 type="date"
                                                 value={blockStartDate}
@@ -664,7 +666,7 @@ export default function AdminGallery() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">End Date</label>
+                                            <label className="text-xs uppercase tracking-wider text-white/40 block mb-2">End Date</label>
                                             <input
                                                 type="date"
                                                 value={blockEndDate}
@@ -676,14 +678,14 @@ export default function AdminGallery() {
                                     </div>
                                     {/* Day count preview */}
                                     {blockStartDate && blockEndDate && blockEndDate >= blockStartDate && (
-                                        <div className="text-[10px] text-white/30 px-1 -mt-2">
+                                        <div className="text-xs text-white/40 px-1 -mt-2">
                                             {Math.ceil((new Date(blockEndDate).getTime() - new Date(blockStartDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} day(s) will be blocked
                                         </div>
                                     )}
 
                                     {/* Reason */}
                                     <div>
-                                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                                        <label className="text-xs uppercase tracking-wider text-white/40 block mb-2">
                                             Reason <span className="text-white/20">(optional)</span>
                                         </label>
                                         <input
@@ -699,7 +701,7 @@ export default function AdminGallery() {
                                     <button
                                         onClick={handleAddBlockedDateRange}
                                         disabled={isAddingBlock || !blockStartDate}
-                                        className="w-full flex items-center justify-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/20 py-3 uppercase tracking-widest text-[10px] font-bold transition-colors disabled:opacity-40 rounded-sm"
+                                        className="w-full flex items-center justify-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/20 py-3 uppercase tracking-wider text-xs font-bold transition-colors disabled:opacity-40 rounded-sm"
                                     >
                                         {isAddingBlock ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
                                         Block Dates
@@ -721,18 +723,18 @@ export default function AdminGallery() {
                                     <Table>
                                         <TableHeader className="bg-white/5">
                                             <TableRow className="border-white/10 hover:bg-transparent">
-                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Type</TableHead>
-                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Item</TableHead>
-                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Date</TableHead>
-                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Reason</TableHead>
-                                                <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold text-right">Action</TableHead>
+                                                <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Type</TableHead>
+                                                <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Item</TableHead>
+                                                <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Date</TableHead>
+                                                <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Reason</TableHead>
+                                                <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold text-right">Action</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
                                             {blockedDates.map((bd) => (
                                                 <TableRow key={bd.id} className="border-white/5 hover:bg-white/5 transition-colors">
                                                     <TableCell>
-                                                        <span className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-full border ${
+                                                        <span className={`text-xs uppercase tracking-wider px-2 py-1 rounded-full border ${
                                                             bd.type === 'sanctuary'
                                                                 ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
                                                                 : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
@@ -752,7 +754,7 @@ export default function AdminGallery() {
                                                     <TableCell className="text-right">
                                                         <button
                                                             onClick={() => handleRemoveBlockedDate(bd.id)}
-                                                            className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-sm text-[10px] uppercase tracking-widest font-bold transition-colors ml-auto"
+                                                            className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 px-3 py-1.5 rounded-sm text-xs uppercase tracking-wider font-bold transition-colors ml-auto"
                                                         >
                                                             <Trash2 size={12} /> Remove
                                                         </button>
@@ -781,11 +783,11 @@ export default function AdminGallery() {
                                 <Table>
                                     <TableHeader className="bg-white/5">
                                         <TableRow className="border-white/10 hover:bg-transparent">
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Status</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Company</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Contact</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Cohort Size</TableHead>
-                                            <TableHead className="text-white/40 uppercase text-[10px] tracking-widest font-bold">Date</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Status</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Company</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Contact</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Cohort Size</TableHead>
+                                            <TableHead className="text-white/50 uppercase text-xs tracking-wider font-bold">Date</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
@@ -810,7 +812,7 @@ export default function AdminGallery() {
                                                                 toast({ title: "Update Failed", description: "Could not update lead status.", variant: "destructive" });
                                                             }
                                                         }}
-                                                        className="bg-black/40 border border-white/10 text-[9px] uppercase tracking-widest rounded-full px-2 py-1 text-switz-red cursor-pointer focus:outline-none focus:border-switz-red"
+                                                        className="bg-black/40 border border-white/10 text-xs uppercase tracking-wider rounded-full px-2 py-1 text-switz-red cursor-pointer focus:outline-none focus:border-switz-red"
                                                     >
                                                         <option value="new">NEW</option>
                                                         <option value="contacted">CONTACTED</option>
@@ -823,11 +825,11 @@ export default function AdminGallery() {
                                                 <TableCell>
                                                     <a href={`mailto:${lead.email}`} className="flex flex-col hover:opacity-70 transition-opacity">
                                                         <span className="text-xs text-white/90">{lead.contact_name}</span>
-                                                        <span className="text-[10px] text-white/40 underline decoration-white/10">{lead.email}</span>
+                                                        <span className="text-xs text-white/50 underline decoration-white/10">{lead.email}</span>
                                                     </a>
                                                 </TableCell>
                                                 <TableCell className="text-white/60 text-xs">{lead.team_size}</TableCell>
-                                                <TableCell className="text-white/40 text-[10px] font-mono">
+                                                <TableCell className="text-white/50 text-xs font-mono">
                                                     {new Date(lead.created_at).toLocaleDateString()}
                                                 </TableCell>
                                             </TableRow>
@@ -849,9 +851,9 @@ export default function AdminGallery() {
                                 <Table>
                                     <TableHeader className="bg-white/5">
                                         <TableRow className="border-white/10 hover:bg-transparent">
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Name</TableHead>
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Email</TableHead>
-                                            <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Joined</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40">Name</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40">Email</TableHead>
+                                            <TableHead className="text-xs uppercase tracking-wider text-white/40">Joined</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
@@ -863,7 +865,7 @@ export default function AdminGallery() {
                                                         {item.email}
                                                     </a>
                                                 </TableCell>
-                                                <TableCell className="text-white/40 text-[10px] font-mono">
+                                                <TableCell className="text-white/50 text-xs font-mono">
                                                     {new Date(item.created_at).toLocaleDateString()}
                                                 </TableCell>
                                             </TableRow>
@@ -890,17 +892,17 @@ export default function AdminGallery() {
                                         <CardDescription className="text-white/40 text-xs">Property portfolio & yield management.</CardDescription>
                                     </div>
                                     <div className="bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-sm">
-                                        <span className="text-[10px] text-amber-500 font-bold uppercase tracking-widest">Asset-Light Model</span>
+                                        <span className="text-xs text-amber-500 font-bold uppercase tracking-wider">Asset-Light Model</span>
                                     </div>
                                 </CardHeader>
                                 <CardContent className="p-0">
                                     <Table>
                                         <TableHeader className="bg-white/5">
                                             <TableRow className="border-white/10 hover:bg-transparent">
-                                                <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Property</TableHead>
-                                                <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Base (CHF)</TableHead>
-                                                <TableHead className="text-[10px] uppercase tracking-widest text-white/40 text-right">Fee %</TableHead>
-                                                <TableHead className="text-[10px] uppercase tracking-widest text-white/40 text-right">Guest CHF</TableHead>
+                                                <TableHead className="text-xs uppercase tracking-wider text-white/40">Property</TableHead>
+                                                <TableHead className="text-xs uppercase tracking-wider text-white/40">Base (CHF)</TableHead>
+                                                <TableHead className="text-xs uppercase tracking-wider text-white/40 text-right">Fee %</TableHead>
+                                                <TableHead className="text-xs uppercase tracking-wider text-white/40 text-right">Guest CHF</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
@@ -909,7 +911,7 @@ export default function AdminGallery() {
                                                     <TableCell className="font-medium text-white max-w-[150px]">
                                                         <div className="flex flex-col">
                                                             <span className="truncate">{item.name}</span>
-                                                            <span className="text-[9px] text-white/20 uppercase tracking-widest truncate">{item.location}</span>
+                                                            <span className="text-xs text-white/30 uppercase tracking-wider truncate">{item.location}</span>
                                                         </div>
                                                     </TableCell>
                                                     <TableCell>
@@ -957,17 +959,17 @@ export default function AdminGallery() {
                                         <CardDescription className="text-white/40 text-xs">Financial hub for local partners.</CardDescription>
                                     </div>
                                     <div className="bg-switz-red/10 border border-switz-red/20 px-3 py-1 rounded-sm">
-                                        <span className="text-[10px] text-switz-red font-bold uppercase tracking-widest">Ethos-Verified</span>
+                                        <span className="text-xs text-switz-red font-bold uppercase tracking-wider">Ethos-Verified</span>
                                     </div>
                                 </CardHeader>
                                 <CardContent className="p-0">
                                     <Table>
                                         <TableHeader className="bg-white/5">
                                             <TableRow className="border-white/10 hover:bg-transparent">
-                                                <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Partner</TableHead>
-                                                <TableHead className="text-[10px] uppercase tracking-widest text-white/40">Cost Est (CHF)</TableHead>
-                                                <TableHead className="text-[10px] uppercase tracking-widest text-white/40 text-right">Markup %</TableHead>
-                                                <TableHead className="text-[10px] uppercase tracking-widest text-white/40 text-right">Guest CHF</TableHead>
+                                                <TableHead className="text-xs uppercase tracking-wider text-white/40">Partner</TableHead>
+                                                <TableHead className="text-xs uppercase tracking-wider text-white/40">Cost Est (CHF)</TableHead>
+                                                <TableHead className="text-xs uppercase tracking-wider text-white/40 text-right">Markup %</TableHead>
+                                                <TableHead className="text-xs uppercase tracking-wider text-white/40 text-right">Guest CHF</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
@@ -979,7 +981,7 @@ export default function AdminGallery() {
                                                                 <span className="truncate">{partner.name}</span>
                                                                 {partner.ethos_verified && <span className="text-switz-red text-[8px]">★</span>}
                                                             </div>
-                                                            <span className="text-[9px] text-white/40 truncate">{partner.service_type}</span>
+                                                            <span className="text-xs text-white/40 truncate">{partner.service_type}</span>
                                                         </div>
                                                     </TableCell>
                                                     <TableCell>
@@ -1047,7 +1049,7 @@ export default function AdminGallery() {
                                         </div>
                                     </div>
                                     <div className="p-3 border-t border-white/5 bg-white/[0.01]">
-                                        <p className="text-[9px] font-mono text-white/30 truncate">{img}</p>
+                                        <p className="text-xs font-mono text-white/30 truncate">{img}</p>
                                     </div>
                                 </motion.div>
                             ))}
@@ -1073,7 +1075,7 @@ export default function AdminGallery() {
                                         <p className="text-sm text-white/70 leading-relaxed mb-4">
                                             "{concept.description}"
                                         </p>
-                                        <div className="bg-black/40 p-3 rounded text-[10px] font-mono text-switz-red border border-switz-red/20">
+                                        <div className="bg-black/40 p-3 rounded text-xs font-mono text-switz-red border border-switz-red/20">
                                             REQ: {concept.assets_req}
                                         </div>
                                     </CardContent>
@@ -1096,7 +1098,7 @@ export default function AdminGallery() {
                                 <CardContent className="space-y-6">
                                     {['Operations', 'Growth'].map(cat => (
                                         <div key={cat} className="space-y-4">
-                                            <h3 className={`${cat === 'Operations' ? 'text-switz-red' : 'text-emerald-400'} text-[10px] uppercase tracking-[0.2em] font-bold border-b border-white/5 pb-2`}>
+                                            <h3 className={`${cat === 'Operations' ? 'text-switz-red' : 'text-emerald-400'} text-xs uppercase tracking-wider font-bold border-b border-white/5 pb-2`}>
                                                 {cat}
                                             </h3>
                                             {tasks.filter(t => t.category === cat).map(task => (
@@ -1142,7 +1144,7 @@ const AdminTask = ({ status, text, onClick }: { status: 'pending' | 'done', text
         className="flex items-center gap-3 group px-3 py-2 border border-white/5 hover:bg-white/[0.02] transition-colors rounded-sm cursor-pointer"
     >
         <div className={`w-4 h-4 border rounded-full flex items-center justify-center transition-all ${status === 'done' ? 'bg-emerald-500 border-emerald-500' : 'border-white/20 group-hover:border-switz-red'}`}>
-            {status === 'done' && <span className="text-[10px] text-white">✓</span>}
+            {status === 'done' && <span className="text-xs text-white">✓</span>}
         </div>
         <span className={`text-xs font-light tracking-wide ${status === 'done' ? 'text-white/20 line-through' : 'text-white/70'}`}>{text}</span>
     </div>
