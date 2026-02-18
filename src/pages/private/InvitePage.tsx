@@ -56,7 +56,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
         slug: "winter",
         seo: {
             title: "Winter Escape | Swissperiences",
-            description: "A private invitation for 48 hours in the Swiss Alps. Ski, fondue, silence.",
+            description: "A private invitation for 3 days in the Swiss Alps. Ski, fondue, silence.",
             ogImage: "/images/villars/sea-of-clouds-sunset.jpeg",
         },
         hero: {
@@ -74,8 +74,8 @@ const inviteConfigs: Record<string, InviteConfig> = {
             quote: "The world demands speed. The mountain demands stillness.",
         },
         loft: {
-            image: "/images/villars-hero.jpg",
-            secondaryImages: ["/images/apartment-fireplace.jpg", "/images/villars/dawn-fog-chalets.jpeg"],
+            image: "/images/villars/loft-wide-interior.jpeg",
+            secondaryImages: ["/images/villars/loft-sofa-cozy.jpeg", "/images/villars/dawn-fog-chalets.jpeg"],
             location: "Villars-sur-Ollon, 1,300m",
             detail: "Exclusively yours. Panoramic views of the Alps, fully equipped kitchen, wood fireplace and high-speed Wi-Fi. No one else has the key.",
         },
@@ -92,13 +92,13 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 label: "Day 1 — Evening",
                 title: "The Sanctuary",
                 description: "The door opens. The welcome basket is already on the table — local cheeses, wine and Swiss chocolate. Paintings of Swiss cows on the walls, a sofa that swallows you whole, and the silence of the Alps through the entire window. Tonight, you don't need to do anything else.",
-                image: "/images/villars-gallery-3.jpg",
+                image: "/images/villars/loft-night-fireplace.jpeg",
             },
             {
                 icon: <Mountain className="w-5 h-5" />,
                 label: "Day 2 — Morning",
-                title: "Ski Experience",
-                description: "Morning in the Alps — ski on your own, take a guided snowshoe walk, or simply enjoy the mountain air. This time is yours to shape.",
+                title: "Mountain Morning",
+                description: "Morning in the Alps — ski on your own, book a guided snowshoe walk, or simply enjoy the mountain air. This time is yours to shape.",
                 image: "/images/villars/ski-station-panorama.jpeg",
             },
             {
@@ -113,14 +113,14 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 label: "Day 2 — Evening",
                 title: "Après-Ski & Fondue",
                 description: "Bains de Villars — steam rising from the pool while the peaks turn blue. Then, Gruyère AOP fondue prepared at the loft. Wine, candles, and no rush to leave.",
-                image: "/images/villars/bains-winter-pool.jpeg",
+                image: "/images/villars/thermal-pool-alps.jpeg",
             },
             {
                 icon: <Car className="w-5 h-5" />,
                 label: "Day 3 — Morning",
                 title: "The Farewell",
                 description: "Breakfast with a view. No rush to leave. When you're ready, I drive you back to Geneva — with the drone edit of your weekend already on your phone.",
-                image: "/images/villars/sunset-snow-road.jpeg",
+                image: "/images/villars/ski-sunset-golden.jpeg",
             },
         ],
         included: [
