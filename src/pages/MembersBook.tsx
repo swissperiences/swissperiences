@@ -118,6 +118,8 @@ export default function MembersBook() {
                     dateTo: checkOut,
                     memberName: member.full_name,
                     memberEmail: member.email,
+                    guests,
+                    specialRequests: specialRequests || null,
                 },
             });
 
@@ -163,6 +165,8 @@ export default function MembersBook() {
                     dateTo: preferredDate,
                     memberName: member.full_name,
                     memberEmail: member.email,
+                    guests: expGuests,
+                    specialRequests: expSpecialRequests || null,
                 },
             });
 

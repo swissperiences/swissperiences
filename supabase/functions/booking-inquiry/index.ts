@@ -41,11 +41,13 @@ serve(async (req) => {
             throw new Error('Active membership required to make booking inquiries')
         }
 
-        const { sanctuary, dateFrom, dateTo, memberName, memberEmail } = await req.json()
+        const { sanctuary, dateFrom, dateTo, memberName, memberEmail, guests, specialRequests } = await req.json()
 
         if (!sanctuary || !dateFrom || !dateTo || !memberEmail) {
             throw new Error('Missing required fields')
         }
+
+        const guestCount = guests || 1
 
         const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
         if (!RESEND_API_KEY) throw new Error('RESEND_API_KEY not set')
@@ -93,6 +95,8 @@ serve(async (req) => {
                 <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">${typeLabel}</span><br><span style="color: #F3F4F6;">${safeSanctuary}</span></p>
                 <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">${dateLabel}</span><br><span style="color: #F3F4F6;">${dateDisplay}</span></p>
                 ${!isExperience ? `<p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Nights</span><br><span style="color: #F3F4F6;">${nights}</span></p>` : ''}
+                <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Guests</span><br><span style="color: #F3F4F6;">${guestCount}</span></p>
+                ${specialRequests ? `<div style="margin: 15px 0; padding: 12px; background: #000; border-left: 2px solid #D8B58A;"><p style="margin: 0; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px;">Special Requests</p><p style="margin: 8px 0 0 0; color: #eee; font-size: 13px;">${esc(specialRequests)}</p></div>` : ''}
                 <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
             </div>
                 `,
@@ -102,9 +106,14 @@ serve(async (req) => {
         // 2. Confirm to member (delay to avoid Resend 2 req/sec rate limit)
         await new Promise((r) => setTimeout(r, 1100))
 
+        const guestLine = guestCount > 1 ? ` for <strong>${guestCount} guests</strong>` : ''
         const memberBody = isExperience
-            ? `We've received your request for <strong>${safeSanctuary}</strong> on <strong>${fromDate}</strong>.`
-            : `We've received your request for <strong>${safeSanctuary}</strong> from <strong>${fromDate}</strong> to <strong>${toDate}</strong> (${nights} night${nights > 1 ? 's' : ''}).`
+            ? `We've received your request for <strong>${safeSanctuary}</strong> on <strong>${fromDate}</strong>${guestLine}.`
+            : `We've received your request for <strong>${safeSanctuary}</strong> from <strong>${fromDate}</strong> to <strong>${toDate}</strong> (${nights} night${nights > 1 ? 's' : ''})${guestLine}.`
+
+        const specialRequestsNote = specialRequests
+            ? `<p style="margin-top: 10px; padding: 20px; background: #FAFAF8; border-left: 2px solid #1A1D2E; font-size: 14px; color: #666; font-style: italic;">Your requests: ${esc(specialRequests)}</p>`
+            : ''
 
         await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -144,6 +153,7 @@ serve(async (req) => {
                         <h1>Noted, ${safeName.split(' ')[0]}.</h1>
 
                         <p>${memberBody}</p>
+                        ${specialRequestsNote}
                         <p>We'll review your request and get back to you within 24 hours.</p>
 
                         <div class="signature">
