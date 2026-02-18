@@ -18,15 +18,18 @@ interface MemberBasic {
 }
 
 const sanctuaries = [
-    { id: "villars", name: "The Villars Loft", location: "Villars-sur-Ollon", price: "From CHF 1,200/night", image: "/images/villars-hero.jpg" },
+    { id: "villars", name: "The Villars Loft", location: "Villars-sur-Ollon", price: "From CHF 1,200/night", nightlyRate: 1200, image: "/images/villars-hero.jpg" },
 ];
 
 const experiences = [
-    { id: "road_journey", name: "Alps Road Journey", icon: <Car size={18} />, price: "From CHF 850" },
-    { id: "guided_hike", name: "Guided Alpine Hike", icon: <Mountain size={18} />, price: "From CHF 300" },
-    { id: "cinematic_memories", name: "Cinematic Memories", icon: <Camera size={18} />, price: "From CHF 600" },
-    { id: "private_chef", name: "Private Chef", icon: <ChefHat size={18} />, price: "From CHF 400" },
+    { id: "road_journey", name: "Alps Road Journey", icon: <Car size={18} />, price: "From CHF 850", basePrice: 850 },
+    { id: "guided_hike", name: "Guided Alpine Hike", icon: <Mountain size={18} />, price: "From CHF 300", basePrice: 300 },
+    { id: "cinematic_memories", name: "Cinematic Memories", icon: <Camera size={18} />, price: "From CHF 600", basePrice: 600 },
+    { id: "private_chef", name: "Private Chef", icon: <ChefHat size={18} />, price: "From CHF 400", basePrice: 400 },
 ];
+
+const formatCHF = (amount: number) =>
+    `CHF ${amount.toLocaleString("de-CH")}`;
 
 export default function MembersBook() {
     const navigate = useNavigate();
@@ -96,6 +99,9 @@ export default function MembersBook() {
 
         setIsSubmitting(true);
         try {
+            const sanctuary = sanctuaries.find((s) => s.id === selectedSanctuary);
+            const estimatedPrice = sanctuary ? sanctuary.nightlyRate * nights : null;
+
             const { data, error } = await supabase.rpc("submit_booking", {
                 p_member_id: member.id,
                 p_sanctuary_id: selectedSanctuary,
@@ -104,6 +110,7 @@ export default function MembersBook() {
                 p_guests: guests,
                 p_special_requests: specialRequests || null,
                 p_total_nights: nights,
+                p_estimated_price: estimatedPrice,
             });
 
             if (error) throw error;
@@ -144,12 +151,16 @@ export default function MembersBook() {
 
         setIsSubmitting(true);
         try {
+            const exp = experiences.find((x) => x.id === selectedExperience);
+            const estimatedPrice = exp ? exp.basePrice : null;
+
             const { data, error } = await supabase.rpc("submit_booking", {
                 p_member_id: member.id,
                 p_experience_type: selectedExperience,
                 p_preferred_date: preferredDate,
                 p_guests: expGuests,
                 p_special_requests: expSpecialRequests || null,
+                p_estimated_price: estimatedPrice,
             });
 
             if (error) throw error;
@@ -362,6 +373,21 @@ export default function MembersBook() {
                             />
                         </div>
 
+                        {/* Estimated Price */}
+                        {checkIn && checkOut && (() => {
+                            const nights = Math.ceil((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 60 * 60 * 24));
+                            const sanctuary = sanctuaries.find((s) => s.id === selectedSanctuary);
+                            if (!sanctuary || nights < 2) return null;
+                            const total = sanctuary.nightlyRate * nights;
+                            return (
+                                <div className="bg-white/[0.03] border border-white/10 p-5 space-y-2">
+                                    <p className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</p>
+                                    <p className="text-2xl font-serif text-white">{formatCHF(total)}</p>
+                                    <p className="text-white/30 text-xs">{nights} nights × {formatCHF(sanctuary.nightlyRate)}/night</p>
+                                </div>
+                            );
+                        })()}
+
                         {/* Submit */}
                         <button
                             type="submit"
@@ -453,6 +479,19 @@ export default function MembersBook() {
                                 className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors resize-none"
                             />
                         </div>
+
+                        {/* Estimated Price */}
+                        {preferredDate && (() => {
+                            const exp = experiences.find((x) => x.id === selectedExperience);
+                            if (!exp) return null;
+                            return (
+                                <div className="bg-white/[0.03] border border-white/10 p-5 space-y-2">
+                                    <p className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</p>
+                                    <p className="text-2xl font-serif text-white">{formatCHF(exp.basePrice)}</p>
+                                    <p className="text-white/30 text-xs">{exp.name} • {expGuests} {expGuests === 1 ? "person" : "people"}</p>
+                                </div>
+                            );
+                        })()}
 
                         {/* Submit */}
                         <button
