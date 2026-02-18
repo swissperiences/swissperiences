@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, X, Clock, Mail, User, MapPin, MessageSquare, Loader2 } from "lucide-react";
+import { Check, X, Clock, Mail, User, MapPin, MessageSquare, Loader2, Phone, Heart, Settings } from "lucide-react";
 
 interface Application {
     id: string;
@@ -20,11 +20,19 @@ interface Application {
     reviewed_at: string;
 }
 
+interface MemberProfile {
+    phone: string | null;
+    bio: string | null;
+    preferences: string | null;
+}
+
 export function MembershipApplications() {
     const [applications, setApplications] = useState<Application[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedApp, setSelectedApp] = useState<Application | null>(null);
     const [sendingEmail, setSendingEmail] = useState<string | null>(null);
+    const [memberProfile, setMemberProfile] = useState<MemberProfile | null>(null);
+    const [profileLoading, setProfileLoading] = useState(false);
 
     const sendApprovalEmail = async (app: Application) => {
         setSendingEmail(app.id);
@@ -51,6 +59,36 @@ export function MembershipApplications() {
     useEffect(() => {
         fetchApplications();
     }, []);
+
+    // Fetch member profile when selecting an approved application
+    useEffect(() => {
+        if (selectedApp?.status === 'approved') {
+            fetchMemberProfile(selectedApp.id);
+        } else {
+            setMemberProfile(null);
+        }
+    }, [selectedApp?.id, selectedApp?.status]);
+
+    const fetchMemberProfile = async (applicationId: string) => {
+        setProfileLoading(true);
+        try {
+            const { data, error } = await supabase
+                .from('members')
+                .select('phone, bio, preferences')
+                .eq('application_id', applicationId)
+                .maybeSingle();
+
+            if (!error && data) {
+                setMemberProfile(data as MemberProfile);
+            } else {
+                setMemberProfile(null);
+            }
+        } catch {
+            setMemberProfile(null);
+        } finally {
+            setProfileLoading(false);
+        }
+    };
 
     const fetchApplications = async () => {
         try {
@@ -360,6 +398,53 @@ export function MembershipApplications() {
                                             </div>
                                         )}
                                     </div>
+
+                                    {/* Member Profile (approved members only) */}
+                                    {selectedApp.status === 'approved' && (
+                                        <div className="space-y-4 pt-4 border-t border-white/5">
+                                            <span className="text-[10px] uppercase tracking-widest text-white/40 flex items-center gap-2">
+                                                <User size={12} />
+                                                Member Profile
+                                            </span>
+
+                                            {profileLoading ? (
+                                                <p className="text-white/20 text-xs animate-pulse">Loading profile...</p>
+                                            ) : memberProfile && (memberProfile.phone || memberProfile.bio || memberProfile.preferences) ? (
+                                                <div className="space-y-3">
+                                                    {memberProfile.phone && (
+                                                        <div className="flex items-start gap-3">
+                                                            <Phone size={14} className="text-white/30 mt-0.5 shrink-0" />
+                                                            <p className="text-white/70 text-sm">{memberProfile.phone}</p>
+                                                        </div>
+                                                    )}
+                                                    {memberProfile.bio && (
+                                                        <div>
+                                                            <div className="flex items-center gap-2 text-white/30 mb-1">
+                                                                <Heart size={12} />
+                                                                <span className="text-[9px] uppercase tracking-widest">About</span>
+                                                            </div>
+                                                            <p className="text-white/60 text-xs leading-relaxed bg-white/5 p-3 rounded-sm border border-white/5">
+                                                                {memberProfile.bio}
+                                                            </p>
+                                                        </div>
+                                                    )}
+                                                    {memberProfile.preferences && (
+                                                        <div>
+                                                            <div className="flex items-center gap-2 text-white/30 mb-1">
+                                                                <Settings size={12} />
+                                                                <span className="text-[9px] uppercase tracking-widest">Preferences</span>
+                                                            </div>
+                                                            <p className="text-white/60 text-xs leading-relaxed bg-white/5 p-3 rounded-sm border border-white/5">
+                                                                {memberProfile.preferences}
+                                                            </p>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <p className="text-white/20 text-[10px] italic">Member hasn't filled in their profile yet.</p>
+                                            )}
+                                        </div>
+                                    )}
 
                                     {/* Quick Actions */}
                                     {(selectedApp.status === 'pending' || selectedApp.status === 'waitlist') && (
