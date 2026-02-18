@@ -67,7 +67,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
                     Winter Escape<span className="text-switz-red">.</span>
                 </>
             ),
-            subtitle: "48 hours in the Swiss Alps. No agenda. No noise. Just mountain.",
+            subtitle: "A 3-day escape in the Swiss Alps. No agenda. No noise. Just mountain.",
         },
         intro: {
             text: "You don't need another trip. You need a real pause — the kind that resets everything. I've taken care of every detail so the only thing you need to do is show up. The rest is on me.",
@@ -98,7 +98,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
                 icon: <Mountain className="w-5 h-5" />,
                 label: "Day 2 — Morning",
                 title: "Ski Experience",
-                description: "Morning in the Alps with a private instructor from Villars Ski School — at your pace, no lines, no group. Meanwhile, a 4K drone captures everything from above. The footage is yours.",
+                description: "Morning in the Alps — ski on your own, take a guided snowshoe walk, or simply enjoy the mountain air. This time is yours to shape.",
                 image: "/images/villars/ski-station-panorama.jpeg",
             },
             {
@@ -126,7 +126,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
         included: [
             { icon: <MapPin className="w-4 h-4" />, text: "Private transfer Geneva ↔ Villars (Range Rover)" },
             { icon: <Users className="w-4 h-4" />, text: "2 nights at The Villars Loft (fully exclusive)" },
-            { icon: <Mountain className="w-4 h-4" />, text: "Private ski lesson with dedicated instructor" },
+            { icon: <Mountain className="w-4 h-4" />, text: "Panoramic mountain views from 1,300m altitude" },
             { icon: <Flame className="w-4 h-4" />, text: "Traditional fondue at the loft + Welcome basket" },
             { icon: <Camera className="w-4 h-4" />, text: "Photos & 4K drone video of your weekend" },
             { icon: <Clock className="w-4 h-4" />, text: "Dedicated host (EN/PT/FR) throughout your stay" },
@@ -141,7 +141,7 @@ const inviteConfigs: Record<string, InviteConfig> = {
         },
         pricing: {
             amount: "CHF 1,200",
-            perPerson: "48h for 2 guests · entire loft exclusively yours · from CHF 700/person for groups of 4",
+            perPerson: "3 days for 2 guests · entire loft exclusively yours · from CHF 700/person for groups of 4",
             note: "Only 2 spots available in March.",
         },
         contact: {
@@ -346,7 +346,7 @@ export default function InvitePage() {
                                     The Itinerary
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif leading-tight">
-                                    48 hours, frame by frame<span className="text-switz-red">.</span>
+                                    3 days, frame by frame<span className="text-switz-red">.</span>
                                 </h2>
                             </div>
                         </ScrollReveal>
@@ -417,6 +417,65 @@ export default function InvitePage() {
                             You don't touch your luggage, you barely see a ticket. Just arrive. The rest happens in silence.
                         </p>
                     </ScrollReveal>
+                </section>
+
+                {/* ── Optional Add-Ons ────────────────────────────────── */}
+                <section className="max-w-4xl mx-auto px-6 pb-20 md:pb-28">
+                    <ScrollReveal>
+                        <div className="mb-8">
+                            <span className="text-white/20 text-[9px] uppercase tracking-[0.3em] block mb-3">
+                                Optional Add-Ons
+                            </span>
+                            <h3 className="text-2xl font-serif text-white/80 mb-2">
+                                Customize your escape<span className="text-switz-red">.</span>
+                            </h3>
+                            <p className="text-white/30 text-xs font-light">
+                                Add what you want, skip what you don't.
+                            </p>
+                        </div>
+                    </ScrollReveal>
+
+                    <div className="space-y-4">
+                        <ScrollReveal delay={0.1}>
+                            <div className="flex items-center justify-between py-4 border-b border-white/5">
+                                <div>
+                                    <span className="text-white/60 font-light text-sm block">🎿 Ski Experience</span>
+                                    <span className="text-white/30 text-xs">Private instructor + equipment + ski pass</span>
+                                </div>
+                                <span className="text-white/40 text-sm font-light">+CHF 350/person</span>
+                            </div>
+                        </ScrollReveal>
+
+                        <ScrollReveal delay={0.15}>
+                            <div className="flex items-center justify-between py-4 border-b border-white/5">
+                                <div>
+                                    <span className="text-white/60 font-light text-sm block">🏔️ Snowshoeing</span>
+                                    <span className="text-white/30 text-xs">Guided hike with equipment included</span>
+                                </div>
+                                <span className="text-white/40 text-sm font-light">+CHF 120/person</span>
+                            </div>
+                        </ScrollReveal>
+
+                        <ScrollReveal delay={0.2}>
+                            <div className="flex items-center justify-between py-4 border-b border-white/5">
+                                <div>
+                                    <span className="text-white/60 font-light text-sm block">👨‍🍳 Private Chef Dinner</span>
+                                    <span className="text-white/30 text-xs">3-course meal at the loft</span>
+                                </div>
+                                <span className="text-white/40 text-sm font-light">+CHF 300</span>
+                            </div>
+                        </ScrollReveal>
+
+                        <ScrollReveal delay={0.25}>
+                            <div className="flex items-center justify-between py-4">
+                                <div>
+                                    <span className="text-white/60 font-light text-sm block">🍷 Wine Tasting</span>
+                                    <span className="text-white/30 text-xs">Local Vaud winery visit</span>
+                                </div>
+                                <span className="text-white/40 text-sm font-light">+CHF 80/person</span>
+                            </div>
+                        </ScrollReveal>
+                    </div>
                 </section>
 
                 {/* ── Enhancements ────────────────────────────────────── */}
