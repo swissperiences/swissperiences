@@ -160,11 +160,11 @@ const Members = () => {
                             </div>
                         )}
                         <span className="text-white/60 text-xs uppercase tracking-widest truncate">{member.full_name}</span>
-                        <span className={`text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-full shrink-0 hidden sm:inline ${member.membership_status === 'active'
+                        <span className={`text-xs uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0 hidden sm:inline ${member.membership_status === 'active'
                             ? 'bg-emerald-500/20 text-emerald-400'
                             : 'bg-white/10 text-white/40'
                             }`}>
-                            {member.membership_tier}
+                            {member.membership_tier === 'member' ? 'Member' : `${member.membership_tier} Member`}
                         </span>
                     </div>
                     <button
@@ -182,7 +182,7 @@ const Members = () => {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
                 {/* Welcome Section */}
                 <div className="mb-16">
-                    <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
+                    <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-4">
                         Member Area
                     </span>
                     <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">
@@ -198,13 +198,13 @@ const Members = () => {
                     <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-sm p-5 sm:p-8 max-w-md">
                         <div className="flex items-start justify-between mb-8">
                             <div>
-                                <span className="text-[10px] uppercase tracking-widest text-white/40 block mb-1">
-                                    {member.membership_tier} Member
+                                <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                                    {member.membership_tier === 'member' ? 'Member' : `${member.membership_tier} Member`}
                                 </span>
                                 <h3 className="text-xl font-serif text-white">{member.full_name}</h3>
                             </div>
                             <div className="text-right">
-                                <span className={`text-[9px] uppercase tracking-widest px-2 py-1 rounded-full ${member.membership_status === 'active'
+                                <span className={`text-xs uppercase tracking-widest px-2 py-1 rounded-full ${member.membership_status === 'active'
                                     ? 'bg-emerald-500/20 text-emerald-400'
                                     : 'bg-white/10 text-white/40'
                                     }`}>
@@ -238,7 +238,7 @@ const Members = () => {
                                 <Pencil size={12} />
                                 Edit Profile
                             </Link>
-                            <p className="text-white/15 text-[10px] mt-2">Keep your details updated so we can design the right stays for you.</p>
+                            <p className="text-white/30 text-xs mt-2">Keep your details updated so we can design the right stays for you.</p>
                         </div>
                     </div>
                 </div>
@@ -296,7 +296,7 @@ const Members = () => {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-3 shrink-0">
-                                            <span className={`text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border ${statusStyles[b.status] || 'bg-white/5 text-white/40 border-white/10'}`}>
+                                            <span className={`text-xs uppercase tracking-widest px-3 py-1 rounded-full border ${statusStyles[b.status] || 'bg-white/5 text-white/40 border-white/10'}`}>
                                                 {b.status}
                                             </span>
                                             {canCancel && (
@@ -330,7 +330,7 @@ const Members = () => {
                                 />
                             </div>
                             <div className="p-6">
-                                <span className="text-switz-red text-[10px] uppercase tracking-widest">Available</span>
+                                <span className="text-switz-red text-xs uppercase tracking-widest">Available</span>
                                 <h3 className="text-xl font-serif text-white mt-2 mb-2">The Villars Loft</h3>
                                 <p className="text-white/60 text-sm mb-4">Villars-sur-Ollon, Switzerland</p>
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -358,7 +358,7 @@ const Members = () => {
                                 </div>
                             </div>
                             <div className="p-6">
-                                <span className="text-white/30 text-[10px] uppercase tracking-widest">Coming 2027</span>
+                                <span className="text-white/30 text-xs uppercase tracking-widest">Coming 2027</span>
                                 <h3 className="text-xl font-serif text-white/50 mt-2 mb-2">Verbier</h3>
                                 <p className="text-white/30 text-sm mb-4">Valais, Switzerland</p>
                             </div>
@@ -377,7 +377,7 @@ const Members = () => {
                                 </div>
                             </div>
                             <div className="p-6">
-                                <span className="text-white/30 text-[10px] uppercase tracking-widest">Coming 2028</span>
+                                <span className="text-white/30 text-xs uppercase tracking-widest">Coming 2028</span>
                                 <h3 className="text-xl font-serif text-white/50 mt-2 mb-2">Zermatt</h3>
                                 <p className="text-white/30 text-sm mb-4">Matterhorn, Switzerland</p>
                             </div>
@@ -388,7 +388,7 @@ const Members = () => {
                 {/* Experiences */}
                 <div className="mb-16">
                     <h2 className="text-2xl font-serif text-white mb-8">{t('members.experiences')}</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {[
                             { name: 'Road Journey', price: 'From CHF 850', desc: 'Private luxury SUV tours', href: '/experiences/road-journey', image: '/images/alpine-road-villars.jpg' },
                             { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Professional documentation', href: '/experiences/cinematic-memories', image: '/images/drone/lake-brienz-aerial.jpg' },
@@ -404,7 +404,7 @@ const Members = () => {
                                     <p className="text-white/40 text-xs mb-4">{exp.desc}</p>
                                     <span className="text-switz-red text-sm">{exp.price}</span>
                                     {exp.href && (
-                                        <span className="block text-white/30 text-[10px] uppercase tracking-widest mt-3">{t('members.viewDetails')}</span>
+                                        <span className="block text-white/50 group-hover:text-switz-red text-xs uppercase tracking-wider mt-3 transition-colors">{t('members.viewDetails')}</span>
                                     )}
                                 </>
                             );
@@ -449,7 +449,7 @@ const Members = () => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                                 </div>
                                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.2em] block mb-2">{journal.date}</span>
+                                    <span className="text-switz-red text-xs uppercase tracking-[0.2em] block mb-2">{journal.date}</span>
                                     <h3 className="text-white font-serif text-xl mb-1">{journal.guests}</h3>
                                     <p className="text-white/50 text-xs italic">{journal.title}</p>
                                 </div>
