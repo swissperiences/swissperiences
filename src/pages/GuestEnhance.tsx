@@ -209,6 +209,8 @@ export default function GuestEnhance() {
                                     <button
                                         key={item.id}
                                         type="button"
+                                        aria-pressed={isSelected}
+                                        aria-label={`${item.name} — ${formatCHF(item.price)}`}
                                         onClick={() => toggle(item.id)}
                                         className={`w-full flex items-start gap-4 p-5 rounded-sm border text-left transition-all duration-200 ${
                                             isSelected
@@ -246,6 +248,8 @@ export default function GuestEnhance() {
                                     <button
                                         key={item.id}
                                         type="button"
+                                        aria-pressed={isSelected}
+                                        aria-label={`${item.name} — ${formatCHF(item.price)}`}
                                         onClick={() => toggle(item.id)}
                                         className={`flex items-center gap-3 p-4 rounded-sm border text-left transition-all duration-200 ${
                                             isSelected

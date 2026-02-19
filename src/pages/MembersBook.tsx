@@ -438,6 +438,8 @@ export default function MembersBook() {
                                         <button
                                             key={exp.id}
                                             type="button"
+                                            aria-pressed={isSelected}
+                                            aria-label={`${exp.name} — ${exp.price}`}
                                             onClick={() => toggleAddOn(exp.id)}
                                             className={`flex items-center gap-3 p-4 rounded-sm border text-left transition-all duration-200 ${
                                                 isSelected

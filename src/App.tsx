@@ -8,6 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n/config";
 import ScrollToTop from "./components/ScrollToTop";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // Lazy load routes for code splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -82,6 +83,7 @@ const App = () => (
           <Toaster />
           <Sonner duration={4000} position="top-right" />
           <BrowserRouter>
+            <ErrorBoundary>
             <ScrollToTop />
             <Suspense fallback={<PageLoader />}>
               <Routes>
@@ -172,6 +174,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
+            </ErrorBoundary>
           </BrowserRouter>
         </I18nextProvider>
       </TooltipProvider>
