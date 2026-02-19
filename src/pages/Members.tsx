@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
-import { LogOut, MapPin, Calendar, Mail, MessageCircle, BookOpen, ArrowRight, Clock, X, Pencil } from "lucide-react";
+import { LogOut, MapPin, Calendar, Mail, MessageCircle, ArrowRight, Clock, X, Pencil } from "lucide-react";
 import { BookingCalendar } from "@/components/BookingCalendar";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -181,7 +181,7 @@ const Members = () => {
             {/* Main Content */}
             <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
                 {/* Welcome Section */}
-                <div className="mb-16">
+                <div className="mb-12">
                     <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-4">
                         Member Area
                     </span>
@@ -191,56 +191,6 @@ const Members = () => {
                     <p className="text-white/60 font-light max-w-xl">
                         {t('members.subtitle')}
                     </p>
-                </div>
-
-                {/* Membership Card */}
-                <div className="mb-16">
-                    <div className="bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-sm p-5 sm:p-8 max-w-md">
-                        <div className="flex items-start justify-between mb-8">
-                            <div>
-                                <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
-                                    {member.membership_tier === 'member' ? 'Member' : `${member.membership_tier} Member`}
-                                </span>
-                                <h3 className="text-xl font-serif text-white">{member.full_name}</h3>
-                            </div>
-                            <div className="text-right">
-                                <span className={`text-xs uppercase tracking-widest px-2 py-1 rounded-full ${member.membership_status === 'active'
-                                    ? 'bg-emerald-500/20 text-emerald-400'
-                                    : 'bg-white/10 text-white/40'
-                                    }`}>
-                                    {member.membership_status}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="space-y-3 text-sm">
-                            <div className="flex items-center gap-3 text-white/60 min-w-0">
-                                <Mail size={14} className="shrink-0" />
-                                <span className="truncate">{member.email}</span>
-                            </div>
-                            {(member.city || member.country) && (
-                                <div className="flex items-center gap-3 text-white/60">
-                                    <MapPin size={14} />
-                                    <span>{member.city}{member.country ? `, ${member.country}` : ''}</span>
-                                </div>
-                            )}
-                            <div className="flex items-center gap-3 text-white/60">
-                                <Calendar size={14} />
-                                <span>Member since {new Date(member.joined_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
-                            </div>
-                        </div>
-
-                        <div className="mt-6 pt-5 border-t border-white/5">
-                            <Link
-                                to="/members/profile"
-                                className="inline-flex items-center gap-2 text-white/30 hover:text-white text-xs uppercase tracking-widest transition-colors"
-                            >
-                                <Pencil size={12} />
-                                Edit Profile
-                            </Link>
-                            <p className="text-white/30 text-xs mt-2">Keep your details updated so we can design the right stays for you.</p>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Primary CTA */}
@@ -523,6 +473,46 @@ const Members = () => {
                                 </div>
                             </Link>
                         ))}
+                    </div>
+                </div>
+
+                {/* Your Membership */}
+                <div className="mb-16">
+                    <h2 className="text-2xl font-serif text-white mb-8">Your Membership</h2>
+                    <div className="bg-gradient-to-br from-white/5 to-transparent border border-white/10 rounded-sm p-5 sm:p-8">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                            <div className="flex items-center gap-4 min-w-0">
+                                {member.avatar_url ? (
+                                    <img src={member.avatar_url} alt={member.full_name} className="w-12 h-12 rounded-full shrink-0" />
+                                ) : (
+                                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/60 text-lg font-serif shrink-0">
+                                        {member.full_name.charAt(0)}
+                                    </div>
+                                )}
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-3 mb-1">
+                                        <h3 className="text-lg font-serif text-white truncate">{member.full_name}</h3>
+                                        <span className={`text-xs uppercase tracking-wider px-2 py-0.5 rounded-full shrink-0 ${member.membership_status === 'active'
+                                            ? 'bg-emerald-500/20 text-emerald-400'
+                                            : 'bg-white/10 text-white/40'
+                                            }`}>
+                                            {member.membership_tier === 'member' ? 'Member' : `${member.membership_tier} Member`}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center gap-4 text-white/40 text-sm">
+                                        <span className="truncate">{member.email}</span>
+                                        <span className="hidden sm:inline shrink-0">Since {new Date(member.joined_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <Link
+                                to="/members/profile"
+                                className="inline-flex items-center gap-2 text-white/40 hover:text-white text-xs uppercase tracking-widest transition-colors shrink-0"
+                            >
+                                <Pencil size={12} />
+                                Edit Profile
+                            </Link>
+                        </div>
                     </div>
                 </div>
 
