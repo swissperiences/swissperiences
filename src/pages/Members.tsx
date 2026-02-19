@@ -290,50 +290,76 @@ const Members = () => {
                                 <ArrowRight size={14} />
                             </Link>
                         </div>
-                    ) : (
-                        <div className="space-y-4">
-                            {bookings.map((b) => {
-                                const label = b.sanctuary_id
-                                    ? bookingLabels[b.sanctuary_id] || b.sanctuary_id
-                                    : bookingLabels[b.experience_type || ''] || b.experience_type || 'Booking';
-                                const dateStr = b.check_in
-                                    ? `${new Date(b.check_in).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} — ${new Date(b.check_out!).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}${b.total_nights ? ` (${b.total_nights} nights)` : ''}`
-                                    : b.preferred_date
-                                        ? new Date(b.preferred_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-                                        : '';
-                                const canCancel = (b.status === 'inquiry' || b.status === 'confirmed') &&
-                                    (b.check_in ? new Date(b.check_in) > new Date(Date.now() + 7 * 86400000) : true);
+                    ) : (() => {
+                        const now = new Date();
+                        const upcoming = bookings.filter(b =>
+                            (b.status !== 'cancelled' && b.status !== 'completed') &&
+                            (b.check_in ? new Date(b.check_in) >= now : b.preferred_date ? new Date(b.preferred_date) >= now : true)
+                        );
+                        const past = bookings.filter(b =>
+                            b.status === 'completed' || b.status === 'cancelled' ||
+                            (b.check_in && new Date(b.check_in) < now && b.status !== 'inquiry') ||
+                            (b.preferred_date && new Date(b.preferred_date) < now && b.status !== 'inquiry')
+                        );
 
-                                return (
-                                    <div key={b.id} className="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                                        <div className="flex items-center gap-4 min-w-0">
-                                            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/40 shrink-0">
-                                                {b.sanctuary_id ? <MapPin size={16} /> : <Clock size={16} />}
-                                            </div>
-                                            <div className="min-w-0">
-                                                <h4 className="text-white text-sm font-medium truncate">{label}</h4>
-                                                <p className="text-white/40 text-xs mt-0.5">{dateStr} &middot; {b.guests} {b.guests === 1 ? 'guest' : 'guests'}</p>
-                                            </div>
+                        const renderBooking = (b: Booking) => {
+                            const label = b.sanctuary_id
+                                ? bookingLabels[b.sanctuary_id] || b.sanctuary_id
+                                : bookingLabels[b.experience_type || ''] || b.experience_type || 'Booking';
+                            const dateStr = b.check_in
+                                ? `${new Date(b.check_in).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} — ${new Date(b.check_out!).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}${b.total_nights ? ` (${b.total_nights} nights)` : ''}`
+                                : b.preferred_date
+                                    ? new Date(b.preferred_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+                                    : '';
+                            const canCancel = (b.status === 'inquiry' || b.status === 'confirmed') &&
+                                (b.check_in ? new Date(b.check_in) > new Date(Date.now() + 7 * 86400000) : true);
+
+                            return (
+                                <div key={b.id} className="bg-white/5 border border-white/10 rounded-sm p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div className="flex items-center gap-4 min-w-0">
+                                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/40 shrink-0">
+                                            {b.sanctuary_id ? <MapPin size={16} /> : <Clock size={16} />}
                                         </div>
-                                        <div className="flex items-center gap-3 shrink-0">
-                                            <span className={`text-xs uppercase tracking-widest px-3 py-1 rounded-full border ${statusStyles[b.status] || 'bg-white/5 text-white/40 border-white/10'}`}>
-                                                {b.status}
-                                            </span>
-                                            {canCancel && (
-                                                <button
-                                                    onClick={() => cancelBooking(b.id)}
-                                                    className="text-white/20 hover:text-red-400 transition-colors"
-                                                    title="Cancel booking"
-                                                >
-                                                    <X size={16} />
-                                                </button>
-                                            )}
+                                        <div className="min-w-0">
+                                            <h4 className="text-white text-sm font-medium truncate">{label}</h4>
+                                            <p className="text-white/40 text-xs mt-0.5">{dateStr} &middot; {b.guests} {b.guests === 1 ? 'guest' : 'guests'}</p>
                                         </div>
                                     </div>
-                                );
-                            })}
-                        </div>
-                    )}
+                                    <div className="flex items-center gap-3 shrink-0">
+                                        <span className={`text-xs uppercase tracking-widest px-3 py-1 rounded-full border ${statusStyles[b.status] || 'bg-white/5 text-white/40 border-white/10'}`}>
+                                            {b.status}
+                                        </span>
+                                        {canCancel && (
+                                            <button
+                                                onClick={() => cancelBooking(b.id)}
+                                                className="text-white/20 hover:text-red-400 transition-colors"
+                                                title="Cancel booking"
+                                            >
+                                                <X size={16} />
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        };
+
+                        return (
+                            <div className="space-y-8">
+                                {upcoming.length > 0 && (
+                                    <div>
+                                        <h3 className="text-xs uppercase tracking-widest text-white/30 mb-4">Upcoming</h3>
+                                        <div className="space-y-3">{upcoming.map(renderBooking)}</div>
+                                    </div>
+                                )}
+                                {past.length > 0 && (
+                                    <div>
+                                        <h3 className="text-xs uppercase tracking-widest text-white/30 mb-4">Past Journeys</h3>
+                                        <div className="space-y-3">{past.map(renderBooking)}</div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })()}
                 </div>
 
                 {/* This Season */}
@@ -432,10 +458,10 @@ const Members = () => {
                     <h2 className="text-2xl font-serif text-white mb-8">{t('members.experiences')}</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {[
-                            { name: 'Road Journey', price: 'From CHF 850', desc: 'Private luxury SUV tours', href: '/experiences/road-journey', image: '/images/alpine-road-villars.jpg' },
-                            { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Professional documentation', href: '/experiences/cinematic-memories', image: '/images/drone/lake-brienz-aerial.jpg' },
-                            { name: 'Private Chef', price: 'From CHF 400', desc: 'In-chalet dining', href: '/experiences/private-chef', image: '/images/loft/IMG_8759.jpg' },
-                            { name: 'Guided Hikes', price: 'From CHF 300', desc: 'Expert mountain guides', href: '/experiences/guided-hikes', image: '/images/host-hiking.jpg' },
+                            { name: 'Road Journey', price: 'From CHF 850', desc: 'Private alpine drive through the Swiss passes', href: '/experiences/road-journey', image: '/images/alpine-road-villars.jpg' },
+                            { name: 'Cinematic Memories', price: 'CHF 600', desc: 'Drone footage and photos of your weekend', href: '/experiences/cinematic-memories', image: '/images/drone/lake-brienz-aerial.jpg' },
+                            { name: 'Private Chef', price: 'From CHF 400', desc: 'A chef comes to your sanctuary', href: '/experiences/private-chef', image: '/images/loft/IMG_8759.jpg' },
+                            { name: 'Guided Hikes', price: 'From CHF 300', desc: 'Local guide, your pace, real trails', href: '/experiences/guided-hikes', image: '/images/host-hiking.jpg' },
                         ].map((exp) => {
                             const CardContent = (
                                 <>
