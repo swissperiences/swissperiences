@@ -243,7 +243,7 @@ const Members = () => {
                     </div>
                 </div>
 
-                {/* Book Now CTA */}
+                {/* Primary CTA */}
                 <div className="mb-16">
                     <Link
                         to="/members/book"
@@ -254,23 +254,43 @@ const Members = () => {
                                 <Calendar size={20} />
                             </div>
                             <div>
-                                <h3 className="text-white font-serif text-lg sm:text-xl">Book a Sanctuary or Experience</h3>
-                                <p className="text-white/40 text-xs sm:text-sm mt-1">Request availability for stays and curated alpine experiences.</p>
+                                <h3 className="text-white font-serif text-lg sm:text-xl">Plan your next escape</h3>
+                                <p className="text-white/40 text-xs sm:text-sm mt-1">Tell us when you want to go — we'll handle the rest.</p>
                             </div>
                         </div>
                         <ArrowRight size={20} className="text-white/20 group-hover:text-switz-red transition-colors shrink-0 hidden sm:block" />
                     </Link>
                 </div>
 
-                {/* My Bookings */}
-                {bookings.length > 0 && (
-                    <div className="mb-16">
-                        <div className="flex items-end justify-between mb-8">
-                            <h2 className="text-2xl font-serif text-white">My Bookings</h2>
+                {/* My Journeys */}
+                <div className="mb-16">
+                    <div className="flex items-end justify-between mb-8">
+                        <h2 className="text-2xl font-serif text-white">My Journeys</h2>
+                        {bookings.length > 0 && (
                             <Link to="/members/book" className="text-switz-red text-xs uppercase tracking-widest hover:text-white transition-colors hidden sm:block">
                                 New Booking →
                             </Link>
+                        )}
+                    </div>
+
+                    {bookings.length === 0 ? (
+                        <div className="border border-dashed border-white/10 rounded-sm p-8 sm:p-12 text-center">
+                            <div className="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center text-white/20 mx-auto mb-5">
+                                <MapPin size={24} />
+                            </div>
+                            <h3 className="text-white font-serif text-lg mb-2">No journeys yet</h3>
+                            <p className="text-white/40 text-sm max-w-sm mx-auto mb-6">
+                                Your first alpine escape is one message away. We'll design something around your schedule.
+                            </p>
+                            <Link
+                                to="/members/book"
+                                className="inline-flex items-center gap-2 bg-switz-red text-white px-6 py-3 text-xs uppercase tracking-widest font-medium hover:bg-switz-red/80 transition-colors"
+                            >
+                                Plan my first escape
+                                <ArrowRight size={14} />
+                            </Link>
                         </div>
+                    ) : (
                         <div className="space-y-4">
                             {bookings.map((b) => {
                                 const label = b.sanctuary_id
@@ -313,8 +333,30 @@ const Members = () => {
                                 );
                             })}
                         </div>
+                    )}
+                </div>
+
+                {/* This Season */}
+                <div className="mb-16">
+                    <div className="relative overflow-hidden rounded-sm border border-white/10 bg-gradient-to-r from-white/5 to-transparent">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-6 p-6 sm:p-8">
+                            <div className="flex-1">
+                                <span className="text-switz-red text-xs font-bold uppercase tracking-[0.3em] block mb-3">This Season</span>
+                                <h3 className="text-xl sm:text-2xl font-serif text-white mb-2">Winter in Villars</h3>
+                                <p className="text-white/50 text-sm font-light leading-relaxed max-w-md">
+                                    Ski, fondue by the fireplace, thermal baths with mountain views. A few weekends left before the season closes.
+                                </p>
+                            </div>
+                            <Link
+                                to="/members/book"
+                                className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 text-xs uppercase tracking-widest font-medium hover:bg-white/90 transition-colors shrink-0 w-full sm:w-auto justify-center"
+                            >
+                                Request Dates
+                                <ArrowRight size={14} />
+                            </Link>
+                        </div>
                     </div>
-                )}
+                </div>
 
                 {/* Sanctuaries */}
                 <div className="mb-16">
@@ -458,12 +500,12 @@ const Members = () => {
                     </div>
                 </div>
 
-                {/* Contact */}
+                {/* Concierge */}
                 <div className="border-t border-white/5 pt-16">
                     <div className="max-w-xl">
-                        <h2 className="text-2xl font-serif text-white mb-4">{t('members.readyToBook')}</h2>
+                        <h2 className="text-2xl font-serif text-white mb-4">Not sure what you need?</h2>
                         <p className="text-white/60 font-light mb-8">
-                            {t('members.readyToBookDesc')}
+                            Tell us when you want to escape and how many people — we'll design the rest. No forms, no back-and-forth. Just a conversation.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <a
