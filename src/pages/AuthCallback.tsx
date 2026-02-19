@@ -68,8 +68,8 @@ const AuthCallback = () => {
 
             if (rpcError) {
                 console.error("❌ [AuthCallback] RPC error:", rpcError);
-                // Fallback: try members page, AuthGuard will handle if not authorized
-                navigate("/members", { replace: true });
+                // Don't fallback to /members (AuthGuard would fail too → redirect loop)
+                navigate("/pending-approval", { replace: true });
                 return;
             }
 

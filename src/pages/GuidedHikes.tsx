@@ -6,10 +6,12 @@ import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import MembershipGate from "../components/MembershipGate";
 import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
+import { useAuth } from "@/hooks/use-auth";
 import { Clock, Users, Mountain, ArrowRight } from "lucide-react";
 
 export default function GuidedHikes() {
     const { lang } = useParams();
+    const { isLoggedIn } = useAuth();
     const { t, i18n } = useTranslation("common");
     const langPrefix = lang ? `/${lang}` : "";
     const currentLang = i18n.language || "en";
@@ -166,13 +168,13 @@ export default function GuidedHikes() {
                             ))}
                         </div>
                         <a
-                            href="/request-access"
+                            href={isLoggedIn ? "/members/book" : "/request-access"}
                             className="w-full mt-8 flex items-center justify-between bg-white text-black px-6 py-4 uppercase tracking-widest text-xs hover:bg-switz-red hover:text-white transition-colors duration-300"
                         >
-                            <span>Become a Member to Book</span>
+                            <span>{isLoggedIn ? "Book This Experience" : "Become a Member to Book"}</span>
                             <ArrowRight size={16} />
                         </a>
-                        <p className="text-white/40 text-[10px] mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>
+                        {!isLoggedIn && <p className="text-white/40 text-[10px] mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>}
                     </div>
                 </section>
 

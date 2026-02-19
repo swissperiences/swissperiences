@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
@@ -115,7 +116,7 @@ export default function Contact() {
                             <div className="border-b border-white/5 pb-8">
                                 <h3 className="text-white font-serif text-lg mb-3">How do I become a member?</h3>
                                 <p className="text-white/50 font-light text-sm leading-relaxed">
-                                    Membership is by application only. Submit your request through our <a href="/request-access" className="text-switz-red hover:text-white transition-colors">Request Access</a> page, and we'll review it within 48 hours.
+                                    Membership is by application only. Submit your request through our <Link to="/request-access" className="text-switz-red hover:text-white transition-colors">Request Access</Link> page, and we'll review it within 48 hours.
                                 </p>
                             </div>
                             <div className="border-b border-white/5 pb-8">

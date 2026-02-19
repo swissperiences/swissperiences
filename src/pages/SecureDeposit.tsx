@@ -158,7 +158,7 @@ export default function SecureDeposit() {
                             <span>Encrypted Transaction via Stripe</span>
                         </div>
                         <p className="mt-2">
-                            By proceeding, you agree to our <a href="/terms" className="text-white/50 hover:text-white underline">Terms & Conditions</a>.
+                            By proceeding, you agree to our <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white underline">Terms & Conditions</a>.
                         </p>
                     </div>
                 </div>

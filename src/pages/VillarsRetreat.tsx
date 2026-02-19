@@ -6,9 +6,11 @@ import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import MembershipGate from "../components/MembershipGate";
 import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function VillarsRetreat() {
     const { lang } = useParams();
+    const { isLoggedIn } = useAuth();
     const { t, i18n } = useTranslation("common");
     const langPrefix = lang ? `/${lang}` : "";
     const currentLang = i18n.language || "en";
@@ -268,15 +270,15 @@ export default function VillarsRetreat() {
                     {/* CTA Section */}
                     <div className="mt-16 md:mt-24">
                         <a
-                            href="/request-access"
+                            href={isLoggedIn ? "/members/book" : "/request-access"}
                             className="inline-block bg-white text-black px-12 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 group relative overflow-hidden"
                         >
                             <span className="relative z-10 flex items-center gap-2">
-                                Become a Member to Book
+                                {isLoggedIn ? "Book This Sanctuary" : "Become a Member to Book"}
                                 <div className="w-0 group-hover:w-4 h-px bg-white transition-all duration-500" />
                             </span>
                         </a>
-                        <p className="text-white/40 text-xs mt-4 max-w-sm">Membership required. Apply now for exclusive access to our sanctuaries.</p>
+                        {!isLoggedIn && <p className="text-white/40 text-xs mt-4 max-w-sm">Membership required. Apply now for exclusive access to our sanctuaries.</p>}
                     </div>
                 </section>
                 </MembershipGate>

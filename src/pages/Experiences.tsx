@@ -4,9 +4,11 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import MembershipGate from "../components/MembershipGate";
+import { useAuth } from "@/hooks/use-auth";
 import { ArrowRight, Car, Camera, ChefHat, Mountain } from "lucide-react";
 
 export default function Experiences() {
+    const { isLoggedIn } = useAuth();
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -179,15 +181,15 @@ export default function Experiences() {
                 {/* CTA */}
                 <section className="py-24 px-6 text-center">
                     <div className="max-w-2xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-serif mb-6">Your experience awaits.</h2>
-                        <p className="text-white/50 font-light mb-8">Become a member to unlock booking and exclusive pricing.</p>
+                        <h2 className="text-3xl md:text-4xl font-serif mb-6">{isLoggedIn ? "Ready to plan your next escape?" : "Your experience awaits."}</h2>
+                        <p className="text-white/50 font-light mb-8">{isLoggedIn ? "Browse our curated experiences and book directly from your member area." : "Become a member to unlock booking and exclusive pricing."}</p>
                         <a
-                            href="/request-access"
+                            href={isLoggedIn ? "/members/book" : "/request-access"}
                             className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
-                            Become a Member
+                            {isLoggedIn ? "Book Now" : "Become a Member"}
                         </a>
-                        <p className="text-white/30 text-xs mt-4">Membership required. Apply now for exclusive access to our curated alpine experiences.</p>
+                        {!isLoggedIn && <p className="text-white/30 text-xs mt-4">Membership required. Apply now for exclusive access to our curated alpine experiences.</p>}
                     </div>
                 </section>
                 </MembershipGate>

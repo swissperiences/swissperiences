@@ -74,7 +74,11 @@ const Members = () => {
             // AuthGuard already verified auth + active membership.
             // We only need the profile data here.
             const { data: { user } } = await supabase.auth.getUser();
-            const { data: memberData } = await supabase.rpc('get_member_profile');
+            const { data: memberData, error: profileError } = await supabase.rpc('get_member_profile');
+
+            if (profileError) {
+                console.error("❌ [Members] Profile load error:", profileError);
+            }
 
             if (!memberData) {
                 navigate('/login');
@@ -186,7 +190,7 @@ const Members = () => {
                         Member Area
                     </span>
                     <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">
-                        {new Date().getHours() < 12 ? t('members.greeting.morning') : new Date().getHours() < 18 ? t('members.greeting.afternoon') : t('members.greeting.evening')}, {member.full_name.split(' ')[0]}.
+                        {new Date().getHours() < 12 ? t('members.greeting.morning') : new Date().getHours() < 18 ? t('members.greeting.afternoon') : t('members.greeting.evening')}, {(member.full_name?.trim().split(' ')[0]) || 'there'}.
                     </h1>
                     <p className="text-white/60 font-light max-w-xl">
                         {t('members.subtitle')}
@@ -248,8 +252,8 @@ const Members = () => {
                         );
                         const past = bookings.filter(b =>
                             b.status === 'completed' || b.status === 'cancelled' ||
-                            (b.check_in && new Date(b.check_in) < now && b.status !== 'inquiry') ||
-                            (b.preferred_date && new Date(b.preferred_date) < now && b.status !== 'inquiry')
+                            (b.check_in && new Date(b.check_in) < now) ||
+                            (!b.check_in && b.preferred_date && new Date(b.preferred_date) < now)
                         );
 
                         const renderBooking = (b: Booking) => {
@@ -257,7 +261,7 @@ const Members = () => {
                                 ? bookingLabels[b.sanctuary_id] || b.sanctuary_id
                                 : bookingLabels[b.experience_type || ''] || b.experience_type || 'Booking';
                             const dateStr = b.check_in
-                                ? `${new Date(b.check_in).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} — ${new Date(b.check_out!).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}${b.total_nights ? ` (${b.total_nights} nights)` : ''}`
+                                ? `${new Date(b.check_in).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} — ${b.check_out ? new Date(b.check_out).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}${b.total_nights ? ` (${b.total_nights} nights)` : ''}`
                                 : b.preferred_date
                                     ? new Date(b.preferred_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
                                     : '';

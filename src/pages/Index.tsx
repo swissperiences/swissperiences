@@ -4,9 +4,11 @@ import SEO from "@/components/SEO";
 import { Founder } from "@/components/Founder";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/hooks/use-auth";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
@@ -71,16 +73,13 @@ const Index = () => {
           >
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8">
               <span className="block text-white/90">Switzerland is boring.</span>
-              <span className="block mt-4 text-white/50 italic">Thank god.</span>
+              <span className="block mt-4 text-white/50 italic">Beautifully so.</span>
             </h1>
 
             <div className="w-16 h-px bg-white/20 mx-auto my-12" />
 
-            <p className="text-white/50 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-4">
-              No noise. No agenda. No performance.
-            </p>
-            <p className="text-white/30 text-base md:text-lg font-light leading-relaxed max-w-xl mx-auto">
-              And in that nothing, you'll find everything you forgot you had.
+            <p className="text-white/50 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
+              Private access to a curated world of alpine sanctuaries and bespoke experiences — for those who measure luxury in silence, not spectacle.
             </p>
           </div>
 
@@ -88,11 +87,11 @@ const Index = () => {
             className={`mt-16 transition-all duration-[2000ms] delay-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           >
             <button
-              onClick={() => navigate('/login')}
+              onClick={() => navigate(isLoggedIn ? '/members' : '/login')}
               className="group relative px-12 py-4 border border-white/20 hover:border-white/40 transition-all duration-500"
             >
               <span className="text-[11px] uppercase tracking-[0.25em] text-white/70 group-hover:text-white transition-colors">
-                Request Access
+                {isLoggedIn ? "Enter Member Area" : "Request Your Stay"}
               </span>
               <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </button>
@@ -288,8 +287,9 @@ const Index = () => {
 
                 <div className="mt-12 pt-8 border-t border-white/10">
                   <p className="text-white/40 text-sm leading-relaxed">
-                    Membership is by application only. We review each request
-                    to ensure alignment with our community.
+                    {isLoggedIn
+                      ? "You're already part of this world. Your next escape is one message away."
+                      : "Membership is by application only. We review each request to ensure alignment with our community."}
                   </p>
                 </div>
               </div>
@@ -367,19 +367,21 @@ const Index = () => {
           <div className="max-w-2xl mx-auto text-center">
 
             <h2 className="font-serif text-4xl md:text-5xl text-white/90 mb-6">
-              The silence is waiting.
+              {isLoggedIn ? "Your next escape starts here." : "The silence is waiting."}
             </h2>
 
             <p className="text-white/40 text-lg mb-12">
-              Apply for membership. We'll be in touch within 48 hours.
+              {isLoggedIn
+                ? "Browse sanctuaries, plan experiences, and let us handle the rest."
+                : "Apply for membership. We'll be in touch within 48 hours."}
             </p>
 
             <button
-              onClick={() => navigate('/login')}
+              onClick={() => navigate(isLoggedIn ? '/members' : '/login')}
               className="group relative px-16 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
             >
               <span className="text-[11px] uppercase tracking-[0.25em] font-medium">
-                Request Access
+                {isLoggedIn ? "Go to Member Area" : "Request Your Stay"}
               </span>
             </button>
 

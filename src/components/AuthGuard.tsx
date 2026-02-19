@@ -49,7 +49,7 @@ const AuthGuard = ({ children, requireAdmin = false }: AuthGuardProps) => {
                                 setIsLoading(false);
                                 return;
                             }
-                            navigate("/request-access");
+                            navigate("/pending-approval");
                             return;
 
                         case 'pending':
