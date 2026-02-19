@@ -48,6 +48,7 @@ const MembersBook = lazy(() => import("./pages/MembersBook"));
 const MembersProfile = lazy(() => import("./pages/MembersProfile"));
 const Partnerships = lazy(() => import("./pages/Partnerships"));
 const Sustainability = lazy(() => import("./pages/Sustainability"));
+const GuestEnhance = lazy(() => import("./pages/GuestEnhance"));
 
 const queryClient = new QueryClient();
 
@@ -120,6 +121,7 @@ const App = () => (
                 <Route path="/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
                 <Route path="/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
+                <Route path="/enhance" element={<GuestEnhance />} />
                 <Route path="/private/alex-proposal" element={<AlexProposal />} />
                 <Route path="/invite/:code" element={<InvitePage />} />
                 <Route path="/admin" element={<Navigate to="/admin/gallery" replace />} />
