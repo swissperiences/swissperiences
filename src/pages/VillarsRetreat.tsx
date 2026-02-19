@@ -235,14 +235,14 @@ export default function VillarsRetreat() {
                         {/* Large Item */}
                         <div className="md:col-span-2 relative h-[300px] md:h-full overflow-hidden group">
                             <img
-                                src="/images/villars/loft-window-clouds.jpeg"
-                                alt="View from the Loft"
+                                src="/images/villars/loft-wide-interior.jpeg"
+                                alt="The Villars Loft — full living space"
                                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                 loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             <span className="absolute bottom-6 left-6 text-white font-serif text-2xl italic opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                Unrivaled Sunsets
+                                Your Alpine Living Room
                             </span>
                         </div>
 
@@ -250,16 +250,16 @@ export default function VillarsRetreat() {
                         <div className="flex flex-col gap-1 h-[500px] md:h-full">
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
-                                    src="/images/villars/bains-night-pool.jpeg"
-                                    alt="Bains de Villars"
+                                    src="/images/villars/loft-fireplace-evening.jpeg"
+                                    alt="Fireplace evening at the Villars Loft"
                                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                     loading="lazy"
                                 />
                             </div>
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
-                                    src="/images/villars/dawn-fog-chalets.jpeg"
-                                    alt="Alpine chalets with morning fog"
+                                    src="/images/villars/sea-of-clouds-sunset.jpeg"
+                                    alt="Sea of clouds at sunset from the balcony"
                                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                     loading="lazy"
                                 />
