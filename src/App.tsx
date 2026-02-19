@@ -49,6 +49,7 @@ const MembersProfile = lazy(() => import("./pages/MembersProfile"));
 const Partnerships = lazy(() => import("./pages/Partnerships"));
 const Sustainability = lazy(() => import("./pages/Sustainability"));
 const GuestEnhance = lazy(() => import("./pages/GuestEnhance"));
+const LinkGenerator = lazy(() => import("./pages/LinkGenerator"));
 
 const queryClient = new QueryClient();
 
@@ -132,6 +133,7 @@ const App = () => (
                 <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/pending-approval" element={<PendingApproval />} />
                 <Route path="/members/book" element={<AuthGuard><MembersBook /></AuthGuard>} />
+                <Route path="/members/links" element={<AuthGuard requireAdmin><LinkGenerator /></AuthGuard>} />
                 <Route path="/members/profile" element={<AuthGuard><MembersProfile /></AuthGuard>} />
                 <Route path="/members" element={<AuthGuard><Members /></AuthGuard>} />
 

@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import AvailabilityCalendar from "@/components/AvailabilityCalendar";
 import { useBookedDates } from "@/hooks/useBookedDates";
 import { useBlockedDates } from "@/hooks/useBlockedDates";
-import { Calendar, MapPin, Mountain, Car, Camera, ChefHat, ArrowLeft, Loader2, Check, Plus, X, ShieldCheck } from "lucide-react";
+import { Calendar, MapPin, Mountain, Car, Camera, ChefHat, ArrowLeft, Loader2, Check, Plus, X, ShieldCheck, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 interface MemberBasic {
@@ -246,6 +246,41 @@ export default function MembersBook() {
                         <p className="text-white/60 font-light">
                             Thank you, {member?.full_name.split(" ")[0]}. We'll review your booking request and confirm within 24-48 hours.
                         </p>
+
+                        {/* Enhance CTA — only for sanctuary bookings with dates */}
+                        {checkIn && checkOut && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                                className="bg-white/[0.03] border border-white/10 p-6 text-left max-w-md mx-auto"
+                            >
+                                <div className="flex items-center gap-3 mb-3">
+                                    <div className="w-10 h-10 rounded-full bg-switz-red/10 flex items-center justify-center">
+                                        <Sparkles size={18} className="text-switz-red" />
+                                    </div>
+                                    <div>
+                                        <p className="text-white text-sm font-medium">Personalize your stay</p>
+                                        <p className="text-white/40 text-xs">Add extras like early check-in, transfers, or a welcome package.</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        const params = new URLSearchParams({
+                                            guest: member?.full_name || "",
+                                            email: member?.email || "",
+                                            checkin: checkIn,
+                                            checkout: checkOut,
+                                        });
+                                        navigate(`/enhance?${params.toString()}`);
+                                    }}
+                                    className="w-full bg-switz-red/10 text-switz-red border border-switz-red/20 px-6 py-3 uppercase tracking-widest text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                                >
+                                    Enhance Your Stay
+                                </button>
+                            </motion.div>
+                        )}
+
                         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                             <button
                                 onClick={() => { setSubmitted(false); setCheckIn(""); setCheckOut(""); setPreferredDate(""); setSpecialRequests(""); setExpSpecialRequests(""); setSelectedAddOns([]); }}

@@ -35,11 +35,12 @@ const formatCHF = (amount: number) =>
 export default function GuestEnhance() {
     const [searchParams] = useSearchParams();
     const prefillName = searchParams.get("guest") || "";
+    const prefillEmail = searchParams.get("email") || "";
     const prefillCheckin = searchParams.get("checkin") || "";
     const prefillCheckout = searchParams.get("checkout") || "";
 
     const [guestName, setGuestName] = useState(prefillName);
-    const [guestEmail, setGuestEmail] = useState("");
+    const [guestEmail, setGuestEmail] = useState(prefillEmail);
     const [checkIn, setCheckIn] = useState(prefillCheckin);
     const [checkOut, setCheckOut] = useState(prefillCheckout);
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
