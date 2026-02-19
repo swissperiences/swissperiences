@@ -41,7 +41,7 @@ serve(async (req) => {
             throw new Error('Active membership required to make booking inquiries')
         }
 
-        const { sanctuary, dateFrom, dateTo, memberName, memberEmail, guests, specialRequests } = await req.json()
+        const { sanctuary, dateFrom, dateTo, memberName, memberEmail, guests, specialRequests, addOns, estimatedTotal } = await req.json()
 
         if (!sanctuary || !dateFrom || !dateTo || !memberEmail) {
             throw new Error('Missing required fields')
@@ -74,6 +74,26 @@ serve(async (req) => {
         const dateLabel = isExperience ? 'Preferred Date' : 'Dates'
         const typeLabel = isExperience ? 'Experience' : 'Sanctuary'
 
+        // Build add-ons HTML sections
+        const safeAddOns: Array<{ name: string; price: number }> = Array.isArray(addOns) ? addOns : []
+        const formatCHF = (amount: number) => `CHF ${amount.toLocaleString('de-CH')}`
+
+        const adminAddOnsHtml = safeAddOns.length > 0
+            ? `<p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Add-ons</span><br>${safeAddOns.map(a => `<span style="color: #F3F4F6;">${esc(a.name)} — ${formatCHF(a.price)}</span>`).join('<br>')}</p>`
+            : ''
+
+        const adminTotalHtml = estimatedTotal
+            ? `<p style="margin: 15px 0; padding-top: 12px; border-top: 1px solid #333;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Estimated Total</span><br><span style="color: #D8B58A; font-size: 18px; font-weight: 700;">${formatCHF(estimatedTotal)}</span></p>`
+            : ''
+
+        const memberAddOnsHtml = safeAddOns.length > 0
+            ? `<div style="margin-top: 8px;">${safeAddOns.map(a => `<span class="detail-row"><span class="detail-label">Add-on</span><span class="detail-value">${esc(a.name)} — ${formatCHF(a.price)}</span></span>`).join('')}</div>`
+            : ''
+
+        const memberTotalHtml = estimatedTotal
+            ? `<span class="detail-row" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee;"><span class="detail-label">Estimated Total</span><span class="detail-value" style="font-size: 20px; font-family: 'Times New Roman', Times, serif;">${formatCHF(estimatedTotal)}</span></span><p style="font-size: 12px; color: #bbb; margin-top: 4px;">Final amount confirmed before payment.</p>`
+            : ''
+
         // 1. Notify admin
         await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -96,6 +116,8 @@ serve(async (req) => {
                 <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">${dateLabel}</span><br><span style="color: #F3F4F6;">${dateDisplay}</span></p>
                 ${!isExperience ? `<p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Nights</span><br><span style="color: #F3F4F6;">${nights}</span></p>` : ''}
                 <p style="margin: 10px 0;"><span style="color: #6B7280; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;">Guests</span><br><span style="color: #F3F4F6;">${guestCount}</span></p>
+                ${adminAddOnsHtml}
+                ${adminTotalHtml}
                 ${specialRequests ? `<div style="margin: 15px 0; padding: 12px; background: #000; border-left: 2px solid #D8B58A;"><p style="margin: 0; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px;">Special Requests</p><p style="margin: 8px 0 0 0; color: #eee; font-size: 13px;">${esc(specialRequests)}</p></div>` : ''}
                 <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
             </div>
@@ -162,6 +184,8 @@ serve(async (req) => {
                             <span class="detail-row"><span class="detail-label">${dateLabel}</span><span class="detail-value">${dateDisplay}</span></span>
                             ${!isExperience ? `<span class="detail-row"><span class="detail-label">Duration</span><span class="detail-value">${nights} night${nights > 1 ? 's' : ''}</span></span>` : ''}
                             <span class="detail-row"><span class="detail-label">Guests</span><span class="detail-value">${guestCount}</span></span>
+                            ${memberAddOnsHtml}
+                            ${memberTotalHtml}
                         </div>
 
                         ${specialRequestsNote}

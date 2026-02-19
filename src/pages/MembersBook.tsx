@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import Navigation from "@/components/Navigation";
@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import AvailabilityCalendar from "@/components/AvailabilityCalendar";
 import { useBookedDates } from "@/hooks/useBookedDates";
 import { useBlockedDates } from "@/hooks/useBlockedDates";
-import { Calendar, MapPin, Users, Mountain, Car, Camera, ChefHat, ArrowLeft, Loader2, Check } from "lucide-react";
+import { Calendar, MapPin, Mountain, Car, Camera, ChefHat, ArrowLeft, Loader2, Check, Plus, X, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
 interface MemberBasic {
@@ -31,6 +31,9 @@ const experiences = [
 const formatCHF = (amount: number) =>
     `CHF ${amount.toLocaleString("de-CH")}`;
 
+const formatDate = (dateStr: string) =>
+    new Date(dateStr + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+
 export default function MembersBook() {
     const navigate = useNavigate();
     const [member, setMember] = useState<MemberBasic | null>(null);
@@ -45,6 +48,7 @@ export default function MembersBook() {
     const [checkOut, setCheckOut] = useState("");
     const [guests, setGuests] = useState(1);
     const [specialRequests, setSpecialRequests] = useState("");
+    const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
 
     // Experience form
     const [selectedExperience, setSelectedExperience] = useState("road_journey");
@@ -81,14 +85,35 @@ export default function MembersBook() {
         }
     };
 
+    const toggleAddOn = (id: string) => {
+        setSelectedAddOns((prev) =>
+            prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+        );
+    };
+
+    const getAddOnsList = () =>
+        experiences.filter((e) => selectedAddOns.includes(e.id));
+
+    const getSanctuaryTotal = () => {
+        if (!checkIn || !checkOut) return null;
+        const nights = Math.ceil(
+            (new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 60 * 60 * 24)
+        );
+        const sanctuary = sanctuaries.find((s) => s.id === selectedSanctuary);
+        if (!sanctuary || nights < 2) return null;
+        const staySubtotal = sanctuary.nightlyRate * nights;
+        const addOnsSubtotal = getAddOnsList().reduce((sum, e) => sum + e.basePrice, 0);
+        return { nights, sanctuary, staySubtotal, addOnsSubtotal, total: staySubtotal + addOnsSubtotal };
+    };
+
     const handleSanctuarySubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!member || !checkIn || !checkOut) return;
 
-        const nights = Math.ceil(
-            (new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 60 * 60 * 24)
-        );
-        if (nights < 2) {
+        const calc = getSanctuaryTotal();
+        if (!calc) return;
+
+        if (calc.nights < 2) {
             toast.error("Minimum stay is 2 nights.");
             return;
         }
@@ -99,8 +124,11 @@ export default function MembersBook() {
 
         setIsSubmitting(true);
         try {
-            const sanctuary = sanctuaries.find((s) => s.id === selectedSanctuary);
-            const estimatedPrice = sanctuary ? sanctuary.nightlyRate * nights : null;
+            const addOns = getAddOnsList();
+            const addOnsText = addOns.length > 0
+                ? `\n\nAdd-ons: ${addOns.map((a) => `${a.name} (${formatCHF(a.basePrice)})`).join(", ")}`
+                : "";
+            const fullRequests = (specialRequests || "") + addOnsText || null;
 
             const { data, error } = await supabase.rpc("submit_booking", {
                 p_member_id: member.id,
@@ -108,9 +136,9 @@ export default function MembersBook() {
                 p_check_in: checkIn,
                 p_check_out: checkOut,
                 p_guests: guests,
-                p_special_requests: specialRequests || null,
-                p_total_nights: nights,
-                p_estimated_price: estimatedPrice,
+                p_special_requests: fullRequests,
+                p_total_nights: calc.nights,
+                p_estimated_price: calc.total,
             });
 
             if (error) throw error;
@@ -120,13 +148,15 @@ export default function MembersBook() {
             // Send notification email via booking-inquiry Edge Function
             await supabase.functions.invoke("booking-inquiry", {
                 body: {
-                    sanctuary: sanctuaries.find((s) => s.id === selectedSanctuary)?.name || selectedSanctuary,
+                    sanctuary: calc.sanctuary.name,
                     dateFrom: checkIn,
                     dateTo: checkOut,
                     memberName: member.full_name,
                     memberEmail: member.email,
                     guests,
                     specialRequests: specialRequests || null,
+                    addOns: addOns.map((a) => ({ name: a.name, price: a.basePrice })),
+                    estimatedTotal: calc.total,
                 },
             });
 
@@ -218,7 +248,7 @@ export default function MembersBook() {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                             <button
-                                onClick={() => { setSubmitted(false); setCheckIn(""); setCheckOut(""); setPreferredDate(""); setSpecialRequests(""); setExpSpecialRequests(""); }}
+                                onClick={() => { setSubmitted(false); setCheckIn(""); setCheckOut(""); setPreferredDate(""); setSpecialRequests(""); setExpSpecialRequests(""); setSelectedAddOns([]); }}
                                 className="bg-white text-black px-8 py-4 uppercase tracking-widest text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                             >
                                 Book Another
@@ -236,6 +266,8 @@ export default function MembersBook() {
             </div>
         );
     }
+
+    const sanctuaryCalc = getSanctuaryTotal();
 
     return (
         <div className="min-h-screen bg-black">
@@ -337,12 +369,11 @@ export default function MembersBook() {
                                 mode="range"
                                 isLoading={datesLoading || blockedLoading}
                                 minNights={2}
-                                onSelectRange={(ci, co, nights) => {
+                                onSelectRange={(ci, co) => {
                                     setCheckIn(ci);
                                     setCheckOut(co);
                                 }}
                             />
-                            {/* Hidden inputs for form validation */}
                             <input type="hidden" value={checkIn} required />
                             <input type="hidden" value={checkOut} required />
                         </div>
@@ -361,6 +392,42 @@ export default function MembersBook() {
                             </select>
                         </div>
 
+                        {/* Add-ons */}
+                        <div>
+                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-1">Enhance Your Stay</label>
+                            <p className="text-white/25 text-xs mb-4">Add curated experiences during your stay.</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {experiences.map((exp) => {
+                                    const isSelected = selectedAddOns.includes(exp.id);
+                                    return (
+                                        <button
+                                            key={exp.id}
+                                            type="button"
+                                            onClick={() => toggleAddOn(exp.id)}
+                                            className={`flex items-center gap-3 p-4 rounded-sm border text-left transition-all duration-200 ${
+                                                isSelected
+                                                    ? "border-switz-red bg-switz-red/5"
+                                                    : "border-white/10 hover:border-white/20"
+                                            }`}
+                                        >
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                                                isSelected ? "bg-switz-red/20 text-switz-red" : "bg-white/5 text-white/40"
+                                            }`}>
+                                                {isSelected ? <Check size={14} /> : <Plus size={14} />}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <span className="text-white text-sm font-medium block">{exp.name}</span>
+                                                <span className="text-white/40 text-xs">{exp.price}</span>
+                                            </div>
+                                            {isSelected && (
+                                                <X size={14} className="text-white/30 shrink-0" />
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
                         {/* Special Requests */}
                         <div>
                             <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/20">(Optional)</span></label>
@@ -373,32 +440,86 @@ export default function MembersBook() {
                             />
                         </div>
 
-                        {/* Estimated Price */}
-                        {checkIn && checkOut && (() => {
-                            const nights = Math.ceil((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / (1000 * 60 * 60 * 24));
-                            const sanctuary = sanctuaries.find((s) => s.id === selectedSanctuary);
-                            if (!sanctuary || nights < 2) return null;
-                            const total = sanctuary.nightlyRate * nights;
-                            return (
-                                <div className="bg-white/[0.03] border border-white/10 p-5 space-y-2">
-                                    <p className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</p>
-                                    <p className="text-2xl font-serif text-white">{formatCHF(total)}</p>
-                                    <p className="text-white/30 text-xs">{nights} nights × {formatCHF(sanctuary.nightlyRate)}/night</p>
-                                    <p className="text-white/20 text-[10px] mt-2">Final amount confirmed by our team before payment.</p>
-                                </div>
-                            );
-                        })()}
+                        {/* Summary Card */}
+                        <AnimatePresence>
+                            {sanctuaryCalc && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="bg-white/[0.03] border border-white/10 p-6 space-y-4">
+                                        <p className="text-[10px] uppercase tracking-widest text-white/40">Booking Summary</p>
+
+                                        {/* Property */}
+                                        <div className="flex items-center gap-3">
+                                            <img src={sanctuaryCalc.sanctuary.image} alt={sanctuaryCalc.sanctuary.name} className="w-12 h-9 object-cover rounded-sm" />
+                                            <div>
+                                                <p className="text-white text-sm font-medium">{sanctuaryCalc.sanctuary.name}</p>
+                                                <p className="text-white/30 text-xs">{sanctuaryCalc.sanctuary.location}</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Details */}
+                                        <div className="grid grid-cols-3 gap-4 py-3 border-t border-white/5">
+                                            <div>
+                                                <p className="text-white/30 text-[10px] uppercase tracking-wider">Check-in</p>
+                                                <p className="text-white text-xs mt-1">{formatDate(checkIn)}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-white/30 text-[10px] uppercase tracking-wider">Check-out</p>
+                                                <p className="text-white text-xs mt-1">{formatDate(checkOut)}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-white/30 text-[10px] uppercase tracking-wider">Guests</p>
+                                                <p className="text-white text-xs mt-1">{guests} {guests === 1 ? "guest" : "guests"}</p>
+                                            </div>
+                                        </div>
+
+                                        {/* Line items */}
+                                        <div className="space-y-2 pt-2 border-t border-white/5">
+                                            <div className="flex justify-between text-sm">
+                                                <span className="text-white/60">{sanctuaryCalc.nights} nights x {formatCHF(sanctuaryCalc.sanctuary.nightlyRate)}</span>
+                                                <span className="text-white">{formatCHF(sanctuaryCalc.staySubtotal)}</span>
+                                            </div>
+
+                                            {getAddOnsList().map((addon) => (
+                                                <div key={addon.id} className="flex justify-between text-sm">
+                                                    <span className="text-white/60">{addon.name}</span>
+                                                    <span className="text-white">{formatCHF(addon.basePrice)}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* Total */}
+                                        <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
+                                            <span className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</span>
+                                            <span className="text-2xl font-serif text-white">{formatCHF(sanctuaryCalc.total)}</span>
+                                        </div>
+
+                                        <p className="text-white/20 text-[10px]">Final amount confirmed by our team before payment.</p>
+
+                                        {/* Cancellation Policy */}
+                                        <div className="flex items-start gap-2 pt-2 border-t border-white/5">
+                                            <ShieldCheck size={14} className="text-emerald-500/70 shrink-0 mt-0.5" />
+                                            <p className="text-emerald-400/60 text-xs">Free cancellation up to 7 days before check-in.</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
                         {/* Submit */}
                         <button
                             type="submit"
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || !sanctuaryCalc}
                             className="w-full bg-white text-black py-4 uppercase tracking-widest text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500 disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
                             Request This Stay
                         </button>
-                        <p className="text-white/30 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24–48 hours.</p>
+                        <p className="text-white/30 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
                     </motion.form>
                 )}
 
@@ -481,16 +602,27 @@ export default function MembersBook() {
                             />
                         </div>
 
-                        {/* Estimated Price */}
+                        {/* Estimated Price + Cancellation */}
                         {preferredDate && (() => {
                             const exp = experiences.find((x) => x.id === selectedExperience);
                             if (!exp) return null;
                             return (
-                                <div className="bg-white/[0.03] border border-white/10 p-5 space-y-2">
-                                    <p className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</p>
-                                    <p className="text-2xl font-serif text-white">{formatCHF(exp.basePrice)}</p>
-                                    <p className="text-white/30 text-xs">{exp.name} • {expGuests} {expGuests === 1 ? "person" : "people"}</p>
-                                    <p className="text-white/20 text-[10px] mt-2">Final amount confirmed by our team before payment.</p>
+                                <div className="bg-white/[0.03] border border-white/10 p-5 space-y-3">
+                                    <p className="text-[10px] uppercase tracking-widest text-white/40">Booking Summary</p>
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-white/60">{exp.name}</span>
+                                        <span className="text-white">{formatCHF(exp.basePrice)}</span>
+                                    </div>
+                                    <p className="text-white/30 text-xs">{formatDate(preferredDate)} · {expGuests} {expGuests === 1 ? "person" : "people"}</p>
+                                    <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
+                                        <span className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</span>
+                                        <span className="text-2xl font-serif text-white">{formatCHF(exp.basePrice)}</span>
+                                    </div>
+                                    <p className="text-white/20 text-[10px]">Final amount confirmed by our team before payment.</p>
+                                    <div className="flex items-start gap-2 pt-2 border-t border-white/5">
+                                        <ShieldCheck size={14} className="text-emerald-500/70 shrink-0 mt-0.5" />
+                                        <p className="text-emerald-400/60 text-xs">Free cancellation up to 7 days before the experience.</p>
+                                    </div>
                                 </div>
                             );
                         })()}
@@ -504,7 +636,7 @@ export default function MembersBook() {
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
                             Request This Experience
                         </button>
-                        <p className="text-white/30 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24–48 hours.</p>
+                        <p className="text-white/30 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
                     </motion.form>
                 )}
             </main>
