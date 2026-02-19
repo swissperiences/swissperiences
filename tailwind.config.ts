@@ -59,6 +59,7 @@ export default {
         banner: "hsl(var(--surface-banner))",
         "swiss-red": "hsl(var(--swiss-red))",
         "swiss-red-hover": "hsl(var(--swiss-red-hover))",
+        "switz-red": "hsl(var(--swiss-red))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

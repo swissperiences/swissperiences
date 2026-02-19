@@ -86,8 +86,7 @@ export default function GuestEnhance() {
                     guestEmail: guestEmail.trim(),
                     checkIn: checkIn || null,
                     checkOut: checkOut || null,
-                    selections: selected.map((a) => ({ name: a.name, price: a.price, category: a.category })),
-                    total,
+                    selections: selected.map((a) => ({ id: a.id })),
                     notes: notes.trim() || null,
                 }),
             });
