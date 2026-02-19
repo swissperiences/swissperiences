@@ -25,7 +25,11 @@ const PRICE_CATALOG: Record<string, { name: string; price: number; category: 'ex
 };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const allowedOrigins = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
+    const origin = req.headers.origin as string;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -48,6 +52,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!guestName || !guestEmail || !Array.isArray(selections) || selections.length === 0) {
         return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(String(guestEmail).slice(0, 200))) {
+        return res.status(400).json({ error: 'Invalid email address' });
     }
 
     if (selections.length > Object.keys(PRICE_CATALOG).length) {

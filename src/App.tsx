@@ -161,6 +161,7 @@ const App = () => (
                 <Route path="/:lang/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
                 <Route path="/:lang/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
+                <Route path="/:lang/enhance" element={<LanguageWrapper><GuestEnhance /></LanguageWrapper>} />
                 <Route path="/:lang/members/book" element={<AuthGuard><LanguageWrapper><MembersBook /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members/profile" element={<AuthGuard><LanguageWrapper><MembersProfile /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members" element={<AuthGuard><LanguageWrapper><Members /></LanguageWrapper></AuthGuard>} />
