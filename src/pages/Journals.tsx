@@ -10,11 +10,37 @@ import { journals } from "@/data/journals";
 export default function Journals() {
     const navigate = useNavigate();
 
+    const BASE_URL = "https://www.swissperiences.ch";
+
+    const collectionJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Guest Journals",
+        "description": "Real stories from real travelers. Explore our archive of curated Swiss journeys.",
+        "url": `${BASE_URL}/journals`,
+        "publisher": {
+            "@type": "Organization",
+            "name": "Swissperiences",
+            "url": BASE_URL,
+        },
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": journals.map((j, i) => ({
+                "@type": "ListItem",
+                "position": i + 1,
+                "url": `${BASE_URL}/journals/${j.slug}`,
+                "name": j.title,
+            })),
+        },
+    };
+
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
             <SEO
                 title="Guest Journals | Swissperiences"
                 description="Real stories from real travelers. Explore our archive of curated Swiss journeys."
+                canonical={`${BASE_URL}/journals`}
+                structuredData={collectionJsonLd}
             />
             <Navigation />
 
