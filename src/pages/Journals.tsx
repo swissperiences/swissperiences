@@ -13,7 +13,7 @@ export default function Journals() {
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
             <SEO
-                title="Guest Journals | Swissperiences"
+                title="Guest Journals | Real Alpine Stories | Swissperiences"
                 description="Real stories from real travelers. Explore our archive of curated Swiss journeys."
             />
             <Navigation />
