@@ -24,7 +24,7 @@ export default function Contact() {
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
             <SEO
-                title="Contact | Swissperiences"
+                title="Contact | Get in Touch | Swissperiences"
                 description="Get in touch with Swissperiences. Inquire about memberships, bookings, or partnerships. Based in Geneva, Switzerland."
                 keywords="contact swissperiences, swiss luxury concierge contact, alpine retreat inquiry, geneva switzerland travel"
                 canonical="https://swissperiences.ch/contact"
