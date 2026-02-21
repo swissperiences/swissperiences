@@ -9,7 +9,7 @@ export default function Terms() {
       <SEO
         title="Terms & Conditions | Swissperiences"
         description="Swissperiences Terms and Conditions. Information regarding deposits, cancellations, weather policies, and governing law."
-        canonical="https://swissperiences.ch/terms"
+        canonical="https://www.swissperiences.ch/terms"
       />
       <Navigation />
 
