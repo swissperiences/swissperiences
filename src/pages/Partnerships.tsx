@@ -61,7 +61,7 @@ export default function Partnerships() {
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
             <SEO
-                title="Partnerships | Swissperiences"
+                title="Private Partnerships | Luxury Alpine Collaborations | Swissperiences"
                 description="We build discreet partnerships with those who serve the world's most discerning individuals. Private banking, luxury brands, real estate, and hospitality."
                 keywords="swissperiences partnerships, luxury partnerships switzerland, private banking experiences, family office switzerland, luxury brand partnerships"
                 canonical="https://swissperiences.ch/partnerships"
