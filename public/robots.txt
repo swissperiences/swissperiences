@@ -6,4 +6,4 @@ Allow: /
 # Disallow: /admin
 
 # Sitemap
-Sitemap: https://swissperiences.ch/sitemap.xml
+Sitemap: https://www.swissperiences.ch/sitemap.xml
