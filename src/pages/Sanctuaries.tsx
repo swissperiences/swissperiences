@@ -31,7 +31,7 @@ export default function Sanctuaries() {
                 title="Alpine Sanctuaries | Private Retreats in Switzerland"
                 description="Discover our network of curated alpine sanctuaries. Private residences in the Swiss Alps designed for those seeking silence and beauty."
                 keywords="swiss alpine sanctuary, private retreat switzerland, luxury chalet villars, exclusive swiss accommodation, alpine hideaway"
-                canonical="https://swissperiences.ch/sanctuaries"
+                canonical="https://www.swissperiences.ch/sanctuaries"
                 structuredData={structuredData}
             />
             <Navigation />
