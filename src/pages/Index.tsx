@@ -5,6 +5,7 @@ import { Founder } from "@/components/Founder";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useAuth } from "@/hooks/use-auth";
+import SeasonalPackages from "@/components/SeasonalPackages";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -190,6 +191,11 @@ const Index = () => {
 
           </div>
         </section>
+
+        {/* ═══════════════════════════════════════════
+            2.5. SEASONAL — What's happening now
+        ═══════════════════════════════════════════ */}
+        <SeasonalPackages onNavigate={(path) => navigate(path)} isLoggedIn={isLoggedIn} />
 
         {/* ═══════════════════════════════════════════
             3. JOURNAL PROOF — Real guests, real stories
