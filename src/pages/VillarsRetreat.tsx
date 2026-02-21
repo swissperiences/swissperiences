@@ -52,7 +52,7 @@ export default function VillarsRetreat() {
     return (
         <div className="bg-neutral-950 min-h-screen text-white pb-24">
             <SEO
-                title="Villars Alpine Retreat | Private Designer Loft"
+                title="The Villars Loft | Private Alpine Sanctuary at 1,300m | Swissperiences"
                 description="Stay at a private designer loft in Villars-sur-Ollon. Your curated mountain sanctuary with fireplace, sunset views, and alpine soul. Minutes from ski pistes."
                 keywords="villars sur ollon accommodation, swiss alpine loft, luxury chalet villars, private retreat switzerland, designer mountain home"
                 canonical="https://swissperiences.ch/sanctuaries/villars"
