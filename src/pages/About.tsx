@@ -25,7 +25,7 @@ export default function About() {
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
             <SEO
-                title="About Swissperiences | Our Story & Philosophy"
+                title="Our Story & Philosophy | Born from Silence | Swissperiences"
                 description="Born in the Swiss Alps, Swissperiences curates silence for those who've earned it. Meet the founder, the philosophy, and the vision behind the brand."
                 keywords="about swissperiences, swiss luxury concierge, alpine experiences founder, switzerland premium travel"
                 canonical="https://swissperiences.ch/about"
