@@ -28,7 +28,7 @@ export default function About() {
                 title="Our Story & Philosophy | Born from Silence | Swissperiences"
                 description="Born in the Swiss Alps, Swissperiences curates silence for those who've earned it. Meet the founder, the philosophy, and the vision behind the brand."
                 keywords="about swissperiences, swiss luxury concierge, alpine experiences founder, switzerland premium travel"
-                canonical="https://swissperiences.ch/about"
+                canonical="https://www.swissperiences.ch/about"
                 structuredData={structuredData}
             />
             <Navigation />
