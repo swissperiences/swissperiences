@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { MapPin, Mountain, Flame, Camera, Clock, Users, ChevronRight, BookOpen, Sun, Car, Coffee, Droplets } from "lucide-react";
 import Navigation from "../../components/Navigation";
@@ -46,6 +47,14 @@ interface InviteConfig {
     included: InviteIncludedItem[];
     host: InviteHost;
     pricing: { amount: string; perPerson: string; note: string };
+    foundingPricing?: {
+        amount: string;
+        regularAmount: string;
+        badge: { en: string; pt: string };
+        perPerson: { en: string; pt: string };
+        note: { en: string; pt: string };
+        disclaimer: { en: string; pt: string };
+    };
     contact: { whatsapp: string; email: string };
 }
 
@@ -158,6 +167,26 @@ const inviteConfigs: Record<string, InviteConfig> = {
             perPerson: "3 days for 2 guests · entire loft exclusively yours · from CHF 700/person for groups of 4",
             note: "Only 2 spots available in March.",
         },
+        foundingPricing: {
+            amount: "CHF 950",
+            regularAmount: "CHF 1,200",
+            badge: {
+                en: "Founding Guest",
+                pt: "Convidado Fundador",
+            },
+            perPerson: {
+                en: "3 days for 2 guests · entire loft exclusively yours",
+                pt: "3 dias para 2 convidados · loft inteiro exclusivamente seu",
+            },
+            note: {
+                en: "Only 2 weekends available at this rate",
+                pt: "Apenas 2 fins de semana disponíveis neste valor",
+            },
+            disclaimer: {
+                en: "March 2026 · Villars-sur-Ollon",
+                pt: "Março 2026 · Villars-sur-Ollon",
+            },
+        },
         contact: {
             whatsapp: "https://wa.me/41787002202?text=" + encodeURIComponent("Hi Cauêh, I received the invitation for the Winter Escape in Villars. I'd like to know the availability for upcoming dates."),
             email: "hello@swissperiences.ch",
@@ -212,6 +241,8 @@ function InvalidInvite() {
 
 export default function InvitePage() {
     const { code } = useParams<{ code: string }>();
+    const { i18n } = useTranslation();
+    const lang = (i18n.language === "pt" ? "pt" : "en") as "en" | "pt";
     const config = code ? inviteConfigs[code.toLowerCase()] : undefined;
 
     if (!config) {
@@ -615,25 +646,57 @@ export default function InvitePage() {
                     </ScrollReveal>
                 </section>
 
-                {/* ── Pricing + CTA ────────────────────────────────────── */}
-                <section className="border-t border-white/5 py-20 md:py-28">
-                    <div className="max-w-3xl mx-auto px-6 text-center">
-                        <ScrollReveal>
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
-                                Investment
-                            </span>
-                            <div className="text-6xl md:text-8xl font-serif text-white italic tracking-tight mb-4">
-                                {config.pricing.amount}
-                            </div>
-                            <p className="text-white/30 text-sm font-light mb-2">
-                                {config.pricing.perPerson}
-                            </p>
-                            <p className="text-switz-red/70 text-xs uppercase tracking-[0.15em] font-bold mb-14">
-                                {config.pricing.note}
-                            </p>
-                        </ScrollReveal>
+                {/* ── Founding Guest Pricing ────────────────────────────── */}
+                {config.foundingPricing && (
+                    <section className="border-t border-white/5 py-20 md:py-28">
+                        <div className="max-w-3xl mx-auto px-6 text-center">
+                            <ScrollReveal>
+                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-8">
+                                    {config.foundingPricing.badge[lang]}
+                                </span>
+                                <div className="mb-3">
+                                    <span className="text-white/25 text-lg md:text-xl font-serif line-through italic">
+                                        {config.foundingPricing.regularAmount}
+                                    </span>
+                                </div>
+                                <div className="text-6xl md:text-8xl font-serif text-white italic tracking-tight mb-5">
+                                    {config.foundingPricing.amount}
+                                </div>
+                                <p className="text-white/30 text-sm font-light mb-6">
+                                    {config.foundingPricing.perPerson[lang]}
+                                </p>
+                                <p className="text-white/40 text-xs uppercase tracking-[0.15em] mb-3">
+                                    {config.foundingPricing.note[lang]}
+                                </p>
+                                <p className="text-white/15 text-[10px] uppercase tracking-[0.2em]">
+                                    {config.foundingPricing.disclaimer[lang]}
+                                </p>
+                            </ScrollReveal>
+                        </div>
+                    </section>
+                )}
 
-                        <ScrollReveal delay={0.1}>
+                {/* ── CTA ─────────────────────────────────────────────── */}
+                <section className={config.foundingPricing ? "pb-20 md:pb-28" : "border-t border-white/5 py-20 md:py-28"}>
+                    <div className="max-w-3xl mx-auto px-6 text-center">
+                        {!config.foundingPricing && (
+                            <ScrollReveal>
+                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
+                                    Investment
+                                </span>
+                                <div className="text-6xl md:text-8xl font-serif text-white italic tracking-tight mb-4">
+                                    {config.pricing.amount}
+                                </div>
+                                <p className="text-white/30 text-sm font-light mb-2">
+                                    {config.pricing.perPerson}
+                                </p>
+                                <p className="text-switz-red/70 text-xs uppercase tracking-[0.15em] font-bold mb-14">
+                                    {config.pricing.note}
+                                </p>
+                            </ScrollReveal>
+                        )}
+
+                        <ScrollReveal delay={config.foundingPricing ? 0 : 0.1}>
                             <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
                                 <a
                                     href={config.contact.whatsapp}
@@ -653,7 +716,7 @@ export default function InvitePage() {
                             </div>
                         </ScrollReveal>
 
-                        <ScrollReveal delay={0.2}>
+                        <ScrollReveal delay={config.foundingPricing ? 0.1 : 0.2}>
                             <p className="text-white/15 text-[10px] uppercase tracking-[0.2em] mt-14">
                                 This is a private invitation. Please do not share this link.
                             </p>

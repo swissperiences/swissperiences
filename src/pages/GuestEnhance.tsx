@@ -35,11 +35,12 @@ const formatCHF = (amount: number) =>
 export default function GuestEnhance() {
     const [searchParams] = useSearchParams();
     const prefillName = searchParams.get("guest") || "";
+    const prefillEmail = searchParams.get("email") || "";
     const prefillCheckin = searchParams.get("checkin") || "";
     const prefillCheckout = searchParams.get("checkout") || "";
 
     const [guestName, setGuestName] = useState(prefillName);
-    const [guestEmail, setGuestEmail] = useState("");
+    const [guestEmail, setGuestEmail] = useState(prefillEmail);
     const [checkIn, setCheckIn] = useState(prefillCheckin);
     const [checkOut, setCheckOut] = useState(prefillCheckout);
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -86,8 +87,7 @@ export default function GuestEnhance() {
                     guestEmail: guestEmail.trim(),
                     checkIn: checkIn || null,
                     checkOut: checkOut || null,
-                    selections: selected.map((a) => ({ name: a.name, price: a.price, category: a.category })),
-                    total,
+                    selections: selected.map((a) => ({ id: a.id })),
                     notes: notes.trim() || null,
                 }),
             });
@@ -209,6 +209,8 @@ export default function GuestEnhance() {
                                     <button
                                         key={item.id}
                                         type="button"
+                                        aria-pressed={isSelected}
+                                        aria-label={`${item.name} — ${formatCHF(item.price)}`}
                                         onClick={() => toggle(item.id)}
                                         className={`w-full flex items-start gap-4 p-5 rounded-sm border text-left transition-all duration-200 ${
                                             isSelected
@@ -246,6 +248,8 @@ export default function GuestEnhance() {
                                     <button
                                         key={item.id}
                                         type="button"
+                                        aria-pressed={isSelected}
+                                        aria-label={`${item.name} — ${formatCHF(item.price)}`}
                                         onClick={() => toggle(item.id)}
                                         className={`flex items-center gap-3 p-4 rounded-sm border text-left transition-all duration-200 ${
                                             isSelected

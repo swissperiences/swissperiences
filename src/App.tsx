@@ -8,6 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n/config";
 import ScrollToTop from "./components/ScrollToTop";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // Lazy load routes for code splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -49,6 +50,7 @@ const MembersProfile = lazy(() => import("./pages/MembersProfile"));
 const Partnerships = lazy(() => import("./pages/Partnerships"));
 const Sustainability = lazy(() => import("./pages/Sustainability"));
 const GuestEnhance = lazy(() => import("./pages/GuestEnhance"));
+const LinkGenerator = lazy(() => import("./pages/LinkGenerator"));
 
 const queryClient = new QueryClient();
 
@@ -81,6 +83,7 @@ const App = () => (
           <Toaster />
           <Sonner duration={4000} position="top-right" />
           <BrowserRouter>
+            <ErrorBoundary>
             <ScrollToTop />
             <Suspense fallback={<PageLoader />}>
               <Routes>
@@ -132,6 +135,7 @@ const App = () => (
                 <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/pending-approval" element={<PendingApproval />} />
                 <Route path="/members/book" element={<AuthGuard><MembersBook /></AuthGuard>} />
+                <Route path="/members/links" element={<AuthGuard requireAdmin><LinkGenerator /></AuthGuard>} />
                 <Route path="/members/profile" element={<AuthGuard><MembersProfile /></AuthGuard>} />
                 <Route path="/members" element={<AuthGuard><Members /></AuthGuard>} />
 
@@ -159,6 +163,7 @@ const App = () => (
                 <Route path="/:lang/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
                 <Route path="/:lang/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
+                <Route path="/:lang/enhance" element={<LanguageWrapper><GuestEnhance /></LanguageWrapper>} />
                 <Route path="/:lang/members/book" element={<AuthGuard><LanguageWrapper><MembersBook /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members/profile" element={<AuthGuard><LanguageWrapper><MembersProfile /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members" element={<AuthGuard><LanguageWrapper><Members /></LanguageWrapper></AuthGuard>} />
@@ -169,6 +174,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
+            </ErrorBoundary>
           </BrowserRouter>
         </I18nextProvider>
       </TooltipProvider>

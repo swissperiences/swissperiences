@@ -18,7 +18,7 @@ export default function About() {
                 "address": { "@type": "PostalAddress", "addressCountry": "CH" }
             },
             "description": "A private network of curated alpine sanctuaries for those seeking silence in a noisy world.",
-            "url": "https://swissperiences.ch"
+            "url": "https://www.swissperiences.ch"
         }
     };
 

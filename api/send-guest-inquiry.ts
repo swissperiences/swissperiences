@@ -12,8 +12,24 @@ interface Selection {
     category: 'experience' | 'extra';
 }
 
+// Server-side price catalog — source of truth
+const PRICE_CATALOG: Record<string, { name: string; price: number; category: 'experience' | 'extra' }> = {
+    road_journey:       { name: 'Alps Road Journey',       price: 850, category: 'experience' },
+    guided_hike:        { name: 'Guided Alpine Hike',      price: 300, category: 'experience' },
+    cinematic_memories: { name: 'Cinematic Memories',       price: 600, category: 'experience' },
+    private_chef:       { name: 'Private Chef Evening',     price: 400, category: 'experience' },
+    early_checkin:      { name: 'Early Check-in (10:00)',   price: 50,  category: 'extra' },
+    late_checkout:      { name: 'Late Check-out (14:00)',   price: 50,  category: 'extra' },
+    transfer:           { name: 'Station Transfer',         price: 80,  category: 'extra' },
+    welcome_package:    { name: 'Welcome Package',          price: 75,  category: 'extra' },
+};
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const allowedOrigins = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
+    const origin = req.headers.origin as string;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -32,18 +48,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(500).json({ error: 'Server configuration error' });
     }
 
-    const { guestName, guestEmail, checkIn, checkOut, selections, total, notes } = req.body;
+    const { guestName, guestEmail, checkIn, checkOut, selections, notes } = req.body;
 
-    if (!guestName || !guestEmail || !selections?.length) {
+    if (!guestName || !guestEmail || !Array.isArray(selections) || selections.length === 0) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(String(guestEmail).slice(0, 200))) {
+        return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+    if (selections.length > Object.keys(PRICE_CATALOG).length) {
+        return res.status(400).json({ error: 'Too many selections' });
+    }
+
+    // Validate & resolve selections against server-side catalog
+    const safeSelections: Selection[] = [];
+    for (const sel of selections) {
+        const catalogItem = PRICE_CATALOG[sel.id];
+        if (!catalogItem) {
+            return res.status(400).json({ error: `Unknown item: ${String(sel.id).slice(0, 50)}` });
+        }
+        safeSelections.push(catalogItem);
+    }
+
+    // Recalculate total server-side — never trust client total
+    const total = safeSelections.reduce((sum, s) => sum + s.price, 0);
 
     const resend = new Resend(RESEND_API_KEY);
     const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     const formatCHF = (amount: number) => `CHF ${amount.toLocaleString('de-CH')}`;
-    const safeName = esc(guestName);
-    const safeEmail = esc(guestEmail);
-    const safeSelections: Selection[] = selections;
+    const safeName = esc(String(guestName).slice(0, 200));
+    const safeEmail = esc(String(guestEmail).slice(0, 200));
 
     const experienceItems = safeSelections.filter(s => s.category === 'experience');
     const extraItems = safeSelections.filter(s => s.category === 'extra');
@@ -165,6 +203,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } catch (error: unknown) {
         const err = error as Error;
         console.error('[GUEST UPSELL] Error:', err.message);
-        return res.status(500).json({ error: err.message });
+        return res.status(500).json({ error: 'Something went wrong. Please try again.' });
     }
 }

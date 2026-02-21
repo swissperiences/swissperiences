@@ -47,7 +47,7 @@ export default function Partnerships() {
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Partnerships | Swissperiences",
+        name: "Private Partnerships | Luxury Alpine Collaborations | Swissperiences",
         description:
             "Strategic partnerships with luxury brands and organizations across Switzerland.",
         provider: {
