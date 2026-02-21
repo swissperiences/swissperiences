@@ -30,7 +30,7 @@ export default function Destinations() {
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
             <SEO
-                title="Destinations | Curated Swiss Locations | Swissperiences"
+                title="Curated Swiss Destinations | Geneva, Villars, Zermatt | Swissperiences"
                 description="Explore our curated network of Swiss destinations. From Geneva to Zermatt, each location handpicked for extraordinary alpine experiences."
                 keywords="swiss destinations, switzerland travel, alpine cities, geneva, zermatt, interlaken, villars, lauterbrunnen, luxury swiss travel"
                 canonical="https://www.swissperiences.ch/destinations"
