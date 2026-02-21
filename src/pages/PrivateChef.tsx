@@ -73,7 +73,7 @@ export default function PrivateChef() {
                 title="Private Chef | In-Chalet Dining in the Swiss Alps"
                 description="A curated dining experience in the privacy of your alpine sanctuary. Local ingredients, Swiss-French technique, served with a view of the Alps."
                 keywords="private chef switzerland, in-chalet dining, swiss alps dining, luxury catering villars, fondue experience, alpine fine dining"
-                canonical="https://swissperiences.ch/experiences/private-chef"
+                canonical="https://www.swissperiences.ch/experiences/private-chef"
                 ogImage={`${BASE_URL}/images/loft/IMG_8759.jpg`}
                 structuredData={[serviceStructuredData, breadcrumbJsonLd]}
             />
