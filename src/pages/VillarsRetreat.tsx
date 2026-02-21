@@ -55,7 +55,7 @@ export default function VillarsRetreat() {
                 title="The Villars Loft | Private Alpine Sanctuary at 1,300m | Swissperiences"
                 description="Stay at a private designer loft in Villars-sur-Ollon. Your curated mountain sanctuary with fireplace, sunset views, and alpine soul. Minutes from ski pistes."
                 keywords="villars sur ollon accommodation, swiss alpine loft, luxury chalet villars, private retreat switzerland, designer mountain home"
-                canonical="https://swissperiences.ch/sanctuaries/villars"
+                canonical="https://www.swissperiences.ch/sanctuaries/villars"
                 ogImage="https://www.swissperiences.ch/images/villars-hero.jpg"
                 structuredData={[lodgingStructuredData, breadcrumbJsonLd]}
             />
