@@ -53,7 +53,7 @@ export default function Partnerships() {
         provider: {
             "@type": "Organization",
             name: "Swissperiences",
-            url: "https://swissperiences.ch",
+            url: "https://www.swissperiences.ch",
         },
         areaServed: "Switzerland",
     };
@@ -64,7 +64,7 @@ export default function Partnerships() {
                 title="Private Partnerships | Luxury Alpine Collaborations | Swissperiences"
                 description="We build discreet partnerships with those who serve the world's most discerning individuals. Private banking, luxury brands, real estate, and hospitality."
                 keywords="swissperiences partnerships, luxury partnerships switzerland, private banking experiences, family office switzerland, luxury brand partnerships"
-                canonical="https://swissperiences.ch/partnerships"
+                canonical="https://www.swissperiences.ch/partnerships"
                 structuredData={structuredData}
             />
             <Navigation />
