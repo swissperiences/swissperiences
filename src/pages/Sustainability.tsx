@@ -53,7 +53,7 @@ export default function Sustainability() {
                 title="Sustainability | Swissperiences"
                 description="How Swissperiences aligns with the UN Sustainable Development Goals — local economy, small groups, seasonal produce, and low-impact travel in the Swiss Alps."
                 keywords="sustainability, SDGs, responsible travel, swiss alps, eco-friendly, sustainable tourism"
-                canonical="https://swissperiences.ch/sustainability"
+                canonical="https://www.swissperiences.ch/sustainability"
             />
             <Navigation />
 

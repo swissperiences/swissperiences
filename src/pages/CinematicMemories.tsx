@@ -77,7 +77,7 @@ export default function CinematicMemories() {
                 title="Cinematic Swiss Memories | Professional Drone & Photo"
                 description="Professional drone and cinematic content creation for your Swiss journey. Capture the raw beauty of the Alps without interrupting the moment."
                 keywords="drone photography switzerland, cinematic travel video, swiss vacation photographer, aerial swiss alps, luxury travel content"
-                canonical="https://swissperiences.ch/experiences/cinematic-memories"
+                canonical="https://www.swissperiences.ch/experiences/cinematic-memories"
                 ogImage="https://www.swissperiences.ch/images/villars-drone.jpg"
                 structuredData={[serviceStructuredData, breadcrumbJsonLd]}
             />

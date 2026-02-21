@@ -10,7 +10,7 @@ export default function Privacy() {
         title="Privacy Policy | Swissperiences"
         description="Swissperiences Privacy Policy. We respect your privacy and comply with Swiss FADP and GDPR. Learn about our cookie-free analytics and data protection practices."
         keywords="privacy policy, data protection, GDPR, Swiss FADP, privacy-first analytics"
-        canonical="https://swissperiences.ch/privacy"
+        canonical="https://www.swissperiences.ch/privacy"
       />
       {/* Header */}
       <header className="border-b border-white/10">

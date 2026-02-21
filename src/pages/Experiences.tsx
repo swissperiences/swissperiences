@@ -71,7 +71,7 @@ export default function Experiences() {
                 title="Premium Alpine Experiences | Swissperiences"
                 description="Curated premium experiences in the Swiss Alps. Private road journeys, cinematic documentation, in-chalet dining, and guided alpine hikes."
                 keywords="swiss alps experiences, luxury experiences switzerland, private chef swiss alps, guided hike switzerland, luxury suv tour switzerland, drone photography alps"
-                canonical="https://swissperiences.ch/experiences"
+                canonical="https://www.swissperiences.ch/experiences"
                 structuredData={structuredData}
             />
             <Navigation />

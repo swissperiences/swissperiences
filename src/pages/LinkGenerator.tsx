@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { Copy, Check, Link2, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
 
-const SITE_URL = "https://swissperiences.ch";
+const SITE_URL = "https://www.swissperiences.ch";
 
 const MESSAGE_TEMPLATE = (name: string, link: string) =>
     `Hi ${name}! Thank you for booking with us. We're excited to host you at The Villars Loft.

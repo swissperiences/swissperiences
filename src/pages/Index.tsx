@@ -26,8 +26,8 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Swissperiences",
-    "url": "https://swissperiences.ch",
-    "logo": "https://swissperiences.ch/favicon-512x512.png",
+    "url": "https://www.swissperiences.ch",
+    "logo": "https://www.swissperiences.ch/favicon-512x512.png",
     "description": "A private network of curated alpine sanctuaries for those seeking silence in a noisy world.",
     "address": {
       "@type": "PostalAddress",

@@ -70,7 +70,7 @@ export default function GuidedHikes() {
                 title="Guided Alpine Hikes | Expert Mountain Guides in Switzerland"
                 description="Expert-led alpine adventures in the Swiss Alps. From gentle valley walks to challenging summit ascents. Every trail handpicked for beauty, safety, and solitude."
                 keywords="guided hikes switzerland, swiss alps hiking, mountain guide villars, alpine trekking, glacier 3000 hike, swiss mountain experience"
-                canonical="https://swissperiences.ch/experiences/guided-hikes"
+                canonical="https://www.swissperiences.ch/experiences/guided-hikes"
                 ogImage={`${BASE_URL}/images/host-hiking.jpg`}
                 structuredData={[experienceStructuredData, breadcrumbJsonLd]}
             />

@@ -28,10 +28,10 @@ const ForTeams = () => {
     return (
         <div className="min-h-screen bg-background relative">
             <SEO
-                title="Corporate Retreats Switzerland | Swissperiences for Teams"
+                title="Corporate Alpine Retreats Switzerland | Swissperiences for Teams"
                 description="Tailored corporate retreats and team experiences in the Swiss Alps. Strengthen team bonds through authentic Swiss experiences. Perfect for team building and corporate offsites."
                 keywords="corporate retreats switzerland, team building switzerland, swiss alps corporate events, company retreats switzerland, team offsites geneva, corporate team building"
-                canonical="https://swissperiences.ch/for-teams"
+                canonical="https://www.swissperiences.ch/for-teams"
                 structuredData={structuredData}
             />
             {/* Global video background for entire page */}

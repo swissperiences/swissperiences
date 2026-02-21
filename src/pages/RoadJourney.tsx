@@ -67,7 +67,7 @@ export default function RoadJourney() {
                 title="Swiss Alps Road Journey | Private Guide & Luxury SUV"
                 description="Private luxury SUV expeditions through the Swiss Alps. UNESCO heritage sites, hidden gems, and local hosts. Your pace, your journey."
                 keywords="swiss alps driving, luxury suv switzerland, luxury road trip switzerland, lavaux vineyard tour, gruyeres tour, private swiss guide"
-                canonical="https://swissperiences.ch/experiences/road-journey"
+                canonical="https://www.swissperiences.ch/experiences/road-journey"
                 ogImage="https://www.swissperiences.ch/images/alpine-road-villars.jpg"
                 structuredData={[experienceStructuredData, breadcrumbJsonLd]}
             />
