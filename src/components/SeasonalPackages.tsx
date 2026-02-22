@@ -17,7 +17,7 @@ const seasons: Season[] = [
     months: "December — March",
     tagline: "The silence of snow.",
     activities: ["Skiing & Snowboarding", "Thermal Baths", "Fondue by Fireplace", "Snowshoeing"],
-    image: "/images/villars/ski-sunset-golden.jpeg",
+    image: "/images/villars/ski-villars-slopes.jpeg",
   },
   {
     id: "spring",
