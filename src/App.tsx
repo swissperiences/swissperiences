@@ -51,6 +51,7 @@ const Partnerships = lazy(() => import("./pages/Partnerships"));
 const Sustainability = lazy(() => import("./pages/Sustainability"));
 const GuestEnhance = lazy(() => import("./pages/GuestEnhance"));
 const LinkGenerator = lazy(() => import("./pages/LinkGenerator"));
+const Packages = lazy(() => import("./pages/Packages"));
 
 const queryClient = new QueryClient();
 
@@ -107,6 +108,9 @@ const App = () => (
                 <Route path="/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
                 <Route path="/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
 
+                {/* Packages */}
+                <Route path="/packages" element={<LanguageWrapper><Packages /></LanguageWrapper>} />
+
                 {/* Content */}
                 <Route path="/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
                 <Route path="/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
@@ -150,6 +154,7 @@ const App = () => (
                 <Route path="/:lang/experiences/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
                 <Route path="/:lang/experiences/private-chef" element={<LanguageWrapper><PrivateChef /></LanguageWrapper>} />
                 <Route path="/:lang/experiences/guided-hikes" element={<LanguageWrapper><GuidedHikes /></LanguageWrapper>} />
+                <Route path="/:lang/packages" element={<LanguageWrapper><Packages /></LanguageWrapper>} />
                 <Route path="/:lang/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
                 <Route path="/:lang/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
                 <Route path="/:lang/destinations" element={<LanguageWrapper><Destinations /></LanguageWrapper>} />

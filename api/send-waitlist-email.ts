@@ -65,6 +65,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         start_date = null,
         end_date = null,
         num_guests = null,
+        message = null,
         language = 'en'
     } = req.body;
 
@@ -159,6 +160,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (season) console.log(`[API] 🏔️ Season: ${season}`);
     if (start_date) console.log(`[API] 📅 Dates: ${start_date} to ${end_date}`);
     if (num_guests) console.log(`[API] 👥 Guests: ${num_guests}`);
+    if (message) console.log(`[API] 💬 Message: ${message}`);
 
     try {
         // 1. Save to database first
@@ -235,6 +237,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 <p style="margin: 10px 0;"><strong>Intent:</strong> ${intent || '—'}</p>
                 <p style="margin: 10px 0;"><strong>Dates:</strong> ${start_date || '—'} — ${end_date || '—'}</p>
                 <p style="margin: 10px 0;"><strong>Guests:</strong> ${num_guests || '—'}</p>
+                <p style="margin: 10px 0;"><strong>Message:</strong> ${message || '—'}</p>
                 <p style="margin: 10px 0;"><strong>Language:</strong> ${language}</p>
                 <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
             </div>

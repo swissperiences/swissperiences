@@ -1,11 +1,14 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import SEO from "@/components/SEO";
 import { Founder } from "@/components/Founder";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import TrustBar from "@/components/TrustBar";
+import GuestQuotes from "@/components/GuestQuotes";
+import RequestQuoteForm from "@/components/RequestQuoteForm";
+import PackagesPreview from "@/components/PackagesPreview";
 import { useAuth } from "@/hooks/use-auth";
-import SeasonalPackages from "@/components/SeasonalPackages";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -23,6 +26,31 @@ const Index = () => {
     };
   }, []);
 
+  // Scroll-triggered fade-in
+  const useScrollReveal = () => {
+    const ref = useRef<HTMLDivElement>(null);
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+      const el = ref.current;
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+        { threshold: 0.15 }
+      );
+      observer.observe(el);
+      return () => observer.disconnect();
+    }, []);
+    return { ref, visible };
+  };
+
+  const s1 = useScrollReveal(); // Sanctuary full-bleed
+  const s2 = useScrollReveal(); // Statement
+  const s3 = useScrollReveal(); // Packages preview
+  const s4 = useScrollReveal(); // Guest quotes
+  const s5 = useScrollReveal(); // Journal
+  const s6 = useScrollReveal(); // For Those Who
+  const s7 = useScrollReveal(); // Final CTA
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -38,366 +66,356 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white overflow-hidden">
+    <div className="min-h-screen bg-[#060606] text-white">
       <SEO structuredData={structuredData} />
 
-      {/* Background Video with Parallax */}
-      <div
-        className="fixed inset-0 z-0"
-        style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black z-10" />
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover opacity-50"
-          poster="/videos/hero-poster.jpg"
+      {/* ════════════════════════════════════════
+          1. HERO — Full-screen video, editorial type
+      ════════════════════════════════════════ */}
+      <section className="relative h-screen overflow-hidden">
+        {/* Video background */}
+        <div
+          className="absolute inset-0"
+          style={{ transform: `translateY(${scrollY * 0.2}px)` }}
         >
-          <source src="/videos/hero-optimized.webm" type="video/webm" />
-          <source src="/videos/hero-final.mp4" type="video/mp4" />
-        </video>
-      </div>
-
-      {/* Main Content */}
-      <main className="relative z-10 min-h-screen flex flex-col">
+          <video
+            autoPlay muted loop playsInline
+            className="w-full h-full object-cover"
+            poster="/videos/hero-poster.jpg"
+          >
+            <source src="/videos/hero-optimized.webm" type="video/webm" />
+            <source src="/videos/hero-final.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#060606]" />
+        </div>
 
         <Navigation />
 
-        {/* ═══════════════════════════════════════════
-            1. HERO — The Statement
-        ═══════════════════════════════════════════ */}
-        <section className="min-h-screen flex flex-col justify-center items-center px-8 relative">
+        {/* Hero content */}
+        <div className="relative z-10 h-full flex flex-col justify-end pb-24 md:pb-32 px-8 md:px-16 lg:px-24">
           <div
-            className={`text-center max-w-4xl transition-all duration-[2000ms] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            className={`max-w-5xl transition-all duration-[2500ms] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
           >
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8">
-              <span className="block text-white/90">Switzerland is boring.</span>
-              <span className="block mt-4 text-white/50 italic">Beautifully so.</span>
+            <h1 className="font-serif text-[clamp(3rem,8vw,9rem)] leading-[0.85] tracking-tight">
+              <span className="block text-white">Switzerland</span>
+              <span className="block text-white">is boring.</span>
+              <span className="block mt-2 text-white/40 italic text-[clamp(2.5rem,6vw,7rem)]">Beautifully so.</span>
             </h1>
-
-            <div className="w-16 h-px bg-white/20 mx-auto my-12" />
-
-            <p className="text-white/50 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
-              Private access to a curated world of alpine sanctuaries and bespoke experiences — for those who measure luxury in silence, not spectacle.
-            </p>
           </div>
 
           <div
-            className={`mt-16 transition-all duration-[2000ms] delay-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            className={`mt-12 flex flex-wrap items-center gap-4 md:gap-8 transition-all duration-[2500ms] delay-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           >
-            <button
-              onClick={() => navigate(isLoggedIn ? '/members' : '/login')}
-              className="group relative px-12 py-4 border border-white/20 hover:border-white/40 transition-all duration-500"
-            >
-              <span className="text-[11px] uppercase tracking-[0.25em] text-white/70 group-hover:text-white transition-colors">
-                {isLoggedIn ? "Enter Member Area" : "Request Your Stay"}
-              </span>
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </button>
-          </div>
-
-          <div
-            className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-[2000ms] delay-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
-          >
-            <div className="flex flex-col items-center gap-3">
-              <span className="text-[9px] uppercase tracking-[0.3em] text-white/30">Scroll</span>
-              <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════
-            2. WHAT WE ACTUALLY DO — Visual proof
-        ═══════════════════════════════════════════ */}
-        <section className="py-24 md:py-32 px-8 bg-gradient-to-b from-transparent via-black/50 to-[#0a0a0a]">
-          <div className="max-w-6xl mx-auto">
-
-            <div className="text-center mb-16 md:mb-20">
-              <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6 block">
-                What We Curate
-              </span>
-              <p className="text-white/50 text-lg md:text-xl font-light max-w-2xl mx-auto">
-                Private alpine sanctuaries. Curated experiences.
-                Designed for those who need nothing but space.
-              </p>
-            </div>
-
-            {/* Three visual cards */}
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-
-              {/* The Sanctuary */}
-              <Link to="/sanctuaries/villars" className="group block">
-                <div className="aspect-[3/4] relative overflow-hidden mb-4">
-                  <img
-                    src="/images/apt-living-room-1.jpg"
-                    alt="The Alpine Loft in Villars"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="text-[9px] uppercase tracking-[0.3em] text-white/50">Villars-sur-Ollon</span>
-                  </div>
-                </div>
-                <h3 className="font-serif text-lg text-white/80 mb-1">The Alpine Sanctuary</h3>
-                <p className="text-white/40 text-sm">A private loft above the clouds, 1,300m.</p>
-              </Link>
-
-              {/* The Road Journey */}
-              <Link to="/experiences/road-journey" className="group block">
-                <div className="aspect-[3/4] relative overflow-hidden mb-4">
-                  <img
-                    src="/images/alpine-road-villars.jpg"
-                    alt="Private road journey through Swiss alpine roads"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="text-[9px] uppercase tracking-[0.3em] text-white/50">Curated Experience</span>
-                  </div>
-                </div>
-                <h3 className="font-serif text-lg text-white/80 mb-1">The Road Journey</h3>
-                <p className="text-white/40 text-sm">Swiss alpine passes. Your story at the wheel.</p>
-              </Link>
-
-              {/* The Private Chef */}
-              <Link to="/experiences/private-chef" className="group block">
-                <div className="aspect-[3/4] relative overflow-hidden mb-4">
-                  <img
-                    src="/images/loft/IMG_8759.jpg"
-                    alt="Private dining at the Alpine Loft"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="text-[9px] uppercase tracking-[0.3em] text-white/50">Members Only</span>
-                  </div>
-                </div>
-                <h3 className="font-serif text-lg text-white/80 mb-1">The Private Chef</h3>
-                <p className="text-white/40 text-sm">Alpine gastronomy in the intimacy of your sanctuary.</p>
-              </Link>
-
-            </div>
-
-            <div className="text-center mt-12">
-              <Link
-                to="/experiences"
-                className="text-[11px] uppercase tracking-[0.2em] text-white/40 hover:text-white/70 transition-colors border-b border-white/10 hover:border-white/30 pb-1"
+            {isLoggedIn ? (
+              <button
+                onClick={() => navigate('/members')}
+                className="group px-10 py-4 border border-white/20 hover:border-white/50 transition-all duration-500"
               >
-                View All Experiences
-              </Link>
-            </div>
-
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════
-            2.5. SEASONAL — What's happening now
-        ═══════════════════════════════════════════ */}
-        <SeasonalPackages onNavigate={(path) => navigate(path)} isLoggedIn={isLoggedIn} />
-
-        {/* ═══════════════════════════════════════════
-            3. JOURNAL PROOF — Real guests, real stories
-        ═══════════════════════════════════════════ */}
-        <section className="py-24 md:py-32 px-8 bg-[#0a0a0a] border-t border-white/5">
-          <div className="max-w-6xl mx-auto">
-
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-
-              {/* Left — Guest photo */}
-              <Link to="/journals/the-winter-ascent" className="group block">
-                <div className="aspect-[4/5] relative overflow-hidden">
-                  <img
-                    src="/images/guests/wagner/1.jpeg"
-                    alt="Wagner, Andreia & Helena — The Winter Ascent"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <span className="text-[9px] uppercase tracking-[0.3em] text-white/50 mb-2 block">February 2024</span>
-                    <p className="font-serif text-lg text-white/80 italic">"One weekend. A lifetime of memories."</p>
-                  </div>
-                </div>
-              </Link>
-
-              {/* Right — Story context */}
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6 block">
-                  From Our Journals
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 group-hover:text-white transition-colors">
+                  Enter Member Area
                 </span>
-
-                <h2 className="font-serif text-3xl md:text-4xl text-white/80 mb-6 leading-tight">
-                  The Winter Ascent
-                </h2>
-
-                <p className="text-white/50 text-base leading-relaxed mb-4">
-                  Wagner, Andreia & Helena. A seamless 48-hour condensed Grand Tour. From Geneva's urban elegance to the deep heart of the Bernese Oberland.
-                </p>
-
-                <p className="text-white/30 text-sm leading-relaxed mb-8">
-                  Lavaux vineyards. Grindelwald at dusk. Lauterbrunnen's 72 waterfalls. Blausee at dawn. Every detail curated, every moment intentional.
-                </p>
-
-                <Link
-                  to="/journals/the-winter-ascent"
-                  className="text-[11px] uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors border-b border-white/10 hover:border-white/30 pb-1"
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("request-quote");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="group px-10 py-4 bg-white text-black hover:bg-white/90 transition-all duration-500"
                 >
-                  Read the Full Story
-                </Link>
-
-                <div className="mt-12 pt-8 border-t border-white/10">
-                  <Link
-                    to="/journals"
-                    className="text-[11px] uppercase tracking-[0.2em] text-white/30 hover:text-white/60 transition-colors"
-                  >
-                    View All Journals →
-                  </Link>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════
-            4. THE HOST — Founder
-        ═══════════════════════════════════════════ */}
-        <Founder />
-
-        {/* ═══════════════════════════════════════════
-            5. FOR WHO — Audience alignment
-        ═══════════════════════════════════════════ */}
-        <section className="py-24 md:py-32 px-8 bg-[#0a0a0a]">
-          <div className="max-w-6xl mx-auto w-full">
-
-            <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
-
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6 block">
-                  For Those Who
-                </span>
-
-                <div className="space-y-4">
-                  <p className="text-white/70 text-lg md:text-xl leading-relaxed">
-                    Built empires but forgot how to rest.
-                  </p>
-                  <p className="text-white/50 text-lg md:text-xl leading-relaxed">
-                    Have all the dreams in the world.
-                  </p>
-                  <p className="text-white/30 text-lg md:text-xl leading-relaxed">
-                    Seek permission to do nothing.
-                  </p>
-                </div>
-
-                <div className="mt-12 pt-8 border-t border-white/10">
-                  <p className="text-white/40 text-sm leading-relaxed">
-                    {isLoggedIn
-                      ? "You're already part of this world. Your next escape is one message away."
-                      : "Membership is by application only. We review each request to ensure alignment with our community."}
-                  </p>
-                </div>
-              </div>
-
-              <div className="relative">
-                <div className="aspect-[4/5] bg-white/5 relative overflow-hidden">
-                  <img
-                    src="/images/villars-sunrise.jpg"
-                    alt="Dents du Midi at sunrise, sea of clouds"
-                    className="w-full h-full object-cover opacity-80"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
-                  <div className="absolute bottom-8 left-8 right-8">
-                    <span className="text-[9px] uppercase tracking-[0.3em] text-white/40">
-                      Villars-sur-Ollon, Switzerland
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════
-            6. THE NETWORK — Sanctuaries preview
-        ═══════════════════════════════════════════ */}
-        <section className="py-24 px-8 bg-[#0a0a0a] border-t border-white/5">
-          <div className="max-w-4xl mx-auto text-center">
-
-            <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6 block">
-              The Network
+                  <span className="text-[10px] uppercase tracking-[0.3em] font-medium">
+                    Request Your Stay
+                  </span>
+                </button>
+                <button
+                  onClick={() => navigate('/login')}
+                  className="group px-8 py-4 border border-white/15 hover:border-white/40 transition-all duration-500"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 group-hover:text-white/70 transition-colors">
+                    Sign In
+                  </span>
+                </button>
+              </>
+            )}
+            <span className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-white/20">
+              Private alpine club — Villars-sur-Ollon, 1,300m
             </span>
+          </div>
+        </div>
 
-            <h2 className="font-serif text-3xl md:text-4xl text-white/80 mb-12">
-              Three sanctuaries. <span className="text-white/40 italic">One philosophy.</span>
-            </h2>
+        {/* Scroll indicator */}
+        <div
+          className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 transition-all duration-[2000ms] delay-1500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+        >
+          <div className="w-px h-12 bg-gradient-to-b from-white/20 to-transparent" />
+        </div>
+      </section>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
+      {/* ════════════════════════════════════════
+          2. TRUST BAR
+      ════════════════════════════════════════ */}
+      <TrustBar />
 
-              <Link to="/sanctuaries/villars" className="text-left p-6 border border-white/10 hover:border-white/20 transition-colors block">
-                <span className="text-[9px] uppercase tracking-[0.3em] text-emerald-400/60 mb-2 block">
-                  Active
-                </span>
-                <h3 className="font-serif text-xl text-white/80 mb-2">Villars</h3>
-                <p className="text-white/40 text-sm">Swiss Alps, 1,300m</p>
+      {/* ════════════════════════════════════════
+          3. FULL-BLEED IMAGE — The Sanctuary
+      ════════════════════════════════════════ */}
+      <section
+        ref={s1.ref}
+        className={`relative transition-all duration-[1500ms] ease-out ${s1.visible ? 'opacity-100' : 'opacity-0'}`}
+      >
+        <div className="relative h-[70vh] md:h-screen overflow-hidden">
+          <img
+            src="/images/villars/loft-wide-interior.jpeg"
+            alt="The Villars Loft"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
+
+          {/* Asymmetric text overlay */}
+          <div className="absolute inset-0 flex items-end md:items-center px-8 md:px-16 lg:px-24 pb-16 md:pb-0">
+            <div className="max-w-lg">
+              <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-6">
+                The Sanctuary
+              </span>
+              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-[0.9] mb-6">
+                Above the<br />clouds.
+              </h2>
+              <p className="text-white/50 text-base md:text-lg font-light leading-relaxed mb-4 max-w-sm">
+                A private alpine loft at 1,300m. Fireplace. Balcony over the valley. Silence as a feature.
+              </p>
+              <p className="text-white/25 text-xs mb-8">
+                From CHF —/night · Members-only pricing
+              </p>
+              <div className="flex items-center gap-6">
+                <Link
+                  to="/sanctuaries/villars"
+                  className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-white transition-colors border-b border-white/20 hover:border-white/50 pb-1"
+                >
+                  Discover
+                </Link>
+                {!isLoggedIn && (
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById("request-quote");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="text-[10px] uppercase tracking-[0.3em] text-white/30 hover:text-white/60 transition-colors"
+                  >
+                    Request a Quote
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          4. STATEMENT
+      ════════════════════════════════════════ */}
+      <section
+        ref={s2.ref}
+        className={`py-32 md:py-48 px-8 md:px-16 bg-[#060606] transition-all duration-[1500ms] ease-out ${s2.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      >
+        <div className="max-w-5xl mx-auto">
+          <p className="font-serif text-3xl md:text-5xl lg:text-6xl text-white/80 leading-[1.1] tracking-tight">
+            We don't sell experiences.
+            <span className="text-white/30 italic"> We curate the art of doing nothing.</span>
+          </p>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          5. PACKAGES PREVIEW
+      ════════════════════════════════════════ */}
+      <PackagesPreview visible={s3.visible} sectionRef={s3.ref} />
+
+      {/* ════════════════════════════════════════
+          6. GUEST QUOTES
+      ════════════════════════════════════════ */}
+      <GuestQuotes visible={s4.visible} sectionRef={s4.ref} />
+
+      {/* ════════════════════════════════════════
+          7. REQUEST A QUOTE
+      ════════════════════════════════════════ */}
+      <RequestQuoteForm />
+
+      {/* ════════════════════════════════════════
+          8. JOURNAL — Editorial story feature
+      ════════════════════════════════════════ */}
+      <section
+        ref={s5.ref}
+        className={`py-24 md:py-40 px-8 md:px-16 lg:px-24 bg-[#060606] transition-all duration-[1500ms] ease-out ${s5.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-8 md:gap-16 items-center">
+
+            <Link to="/journals/the-winter-ascent" className="md:col-span-6 group block">
+              <div className="aspect-[3/4] relative overflow-hidden">
+                <img
+                  src="/images/guests/wagner/1.jpeg"
+                  alt="Wagner, Andreia & Helena"
+                  className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-[1200ms]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              </div>
+            </Link>
+
+            <div className="md:col-span-5 md:col-start-8">
+              <span className="text-[9px] uppercase tracking-[0.4em] text-white/30 block mb-8">
+                From the Journals
+              </span>
+
+              <h2 className="font-serif text-4xl md:text-5xl text-white/80 mb-6 leading-[0.95]">
+                The Winter<br />Ascent
+              </h2>
+
+              <p className="text-white/40 text-base leading-relaxed mb-4">
+                Wagner, Andreia & Helena. A 48-hour condensed Grand Tour — from Geneva to the Bernese Oberland.
+              </p>
+
+              <p className="text-white/25 text-sm leading-relaxed mb-10">
+                Lavaux. Grindelwald at dusk. Lauterbrunnen's waterfalls. Every detail curated.
+              </p>
+
+              <Link
+                to="/journals/the-winter-ascent"
+                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-white transition-colors border-b border-white/20 hover:border-white/50 pb-1"
+              >
+                Read the Story
               </Link>
 
-              <div className="text-left p-6 border border-white/5 opacity-50">
-                <span className="text-[9px] uppercase tracking-[0.3em] text-white/30 mb-2 block">
-                  2027
-                </span>
-                <h3 className="font-serif text-xl text-white/50 mb-2">Verbier</h3>
-                <p className="text-white/30 text-sm">Valais</p>
+              <div className="mt-16 pt-8 border-t border-white/5">
+                <Link
+                  to="/journals"
+                  className="text-[10px] uppercase tracking-[0.3em] text-white/20 hover:text-white/50 transition-colors"
+                >
+                  All Journals →
+                </Link>
               </div>
-
-              <div className="text-left p-6 border border-white/5 opacity-50">
-                <span className="text-[9px] uppercase tracking-[0.3em] text-white/30 mb-2 block">
-                  2028
-                </span>
-                <h3 className="font-serif text-xl text-white/50 mb-2">Zermatt</h3>
-                <p className="text-white/30 text-sm">Matterhorn</p>
-              </div>
-
             </div>
 
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ═══════════════════════════════════════════
-            7. FINAL CTA
-        ═══════════════════════════════════════════ */}
-        <section className="py-32 px-8 bg-[#0a0a0a] border-t border-white/5">
-          <div className="max-w-2xl mx-auto text-center">
+      {/* ════════════════════════════════════════
+          9. THE HOST — Founder
+      ════════════════════════════════════════ */}
+      <Founder />
 
-            <h2 className="font-serif text-4xl md:text-5xl text-white/90 mb-6">
-              {isLoggedIn ? "Your next escape starts here." : "The silence is waiting."}
-            </h2>
+      {/* ════════════════════════════════════════
+          10. FOR THOSE WHO — Manifesto
+      ════════════════════════════════════════ */}
+      <section
+        ref={s6.ref}
+        className={`relative py-32 md:py-48 overflow-hidden transition-all duration-[1500ms] ease-out ${s6.visible ? 'opacity-100' : 'opacity-0'}`}
+      >
+        <div className="absolute inset-0">
+          <img
+            src="/images/villars-sunrise.jpg"
+            alt="Sunrise over the Alps"
+            className="w-full h-full object-cover opacity-30"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#060606] via-[#060606]/80 to-[#060606]/60" />
+        </div>
 
-            <p className="text-white/40 text-lg mb-12">
-              {isLoggedIn
-                ? "Browse sanctuaries, plan experiences, and let us handle the rest."
-                : "Apply for membership. We'll be in touch within 48 hours."}
+        <div className="relative z-10 px-8 md:px-16 lg:px-24 max-w-4xl">
+          <span className="text-[9px] uppercase tracking-[0.4em] text-white/25 block mb-10">
+            For Those Who
+          </span>
+
+          <div className="space-y-6">
+            <p className="font-serif text-3xl md:text-5xl text-white/70 leading-[1.1]">
+              Built empires but forgot how to rest.
             </p>
-
-            <button
-              onClick={() => navigate(isLoggedIn ? '/members' : '/login')}
-              className="group relative px-16 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
-            >
-              <span className="text-[11px] uppercase tracking-[0.25em] font-medium">
-                {isLoggedIn ? "Go to Member Area" : "Request Your Stay"}
-              </span>
-            </button>
-
+            <p className="font-serif text-3xl md:text-5xl text-white/40 leading-[1.1]">
+              Have all the dreams in the world.
+            </p>
+            <p className="font-serif text-3xl md:text-5xl text-white/20 leading-[1.1]">
+              Seek permission to do nothing.
+            </p>
           </div>
-        </section>
 
-        <Footer />
+          <div className="mt-16 pt-8 border-t border-white/10 max-w-md">
+            <p className="text-white/30 text-sm leading-relaxed mb-6">
+              {isLoggedIn
+                ? "You're already part of this world. Your next escape is one message away."
+                : "Membership is by application only. We review each request to ensure alignment with our community."}
+            </p>
+            {!isLoggedIn && (
+              <Link
+                to="/login"
+                className="text-[10px] uppercase tracking-[0.3em] text-white/30 hover:text-white/60 transition-colors border-b border-white/10 hover:border-white/40 pb-1"
+              >
+                Apply for Membership
+              </Link>
+            )}
+          </div>
+        </div>
+      </section>
 
-      </main>
+      {/* ════════════════════════════════════════
+          11. FINAL CTA
+      ════════════════════════════════════════ */}
+      <section
+        ref={s7.ref}
+        className={`py-40 md:py-56 px-8 bg-[#060606] transition-all duration-[1500ms] ease-out ${s7.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      >
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="font-serif text-5xl md:text-7xl text-white/90 mb-8 leading-[0.9]">
+            {isLoggedIn ? "Your next escape." : "The silence is waiting."}
+          </h2>
 
+          <p className="text-white/30 text-lg mb-16 font-light">
+            {isLoggedIn
+              ? "Browse sanctuaries, plan experiences, and let us handle the rest."
+              : "Start with a question. We'll handle everything else."}
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+            {isLoggedIn ? (
+              <button
+                onClick={() => navigate('/members')}
+                className="group px-16 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
+              >
+                <span className="text-[11px] uppercase tracking-[0.3em] font-medium">
+                  Member Area
+                </span>
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("request-quote");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="group px-12 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
+                >
+                  <span className="text-[11px] uppercase tracking-[0.3em] font-medium">
+                    Start with a Question
+                  </span>
+                </button>
+                <button
+                  onClick={() => navigate('/login')}
+                  className="group px-10 py-5 border border-white/15 hover:border-white/40 transition-all duration-500"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 group-hover:text-white/70 transition-colors">
+                    Apply for Membership
+                  </span>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 };
