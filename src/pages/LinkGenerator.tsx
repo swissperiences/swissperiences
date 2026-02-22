@@ -64,7 +64,7 @@ export default function LinkGenerator() {
 
             <main className="max-w-2xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
                 <div className="mb-10">
-                    <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
+                    <span className="text-white/40 text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
                         Host Tools
                     </span>
                     <h1 className="text-4xl font-serif text-white mb-3">
@@ -84,7 +84,7 @@ export default function LinkGenerator() {
                             value={guestName}
                             onChange={(e) => setGuestName(e.target.value)}
                             placeholder="e.g. Marco Rossi"
-                            className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors"
+                            className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-white/30 focus:outline-none transition-colors"
                         />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -94,7 +94,7 @@ export default function LinkGenerator() {
                                 type="date"
                                 value={checkIn}
                                 onChange={(e) => setCheckIn(e.target.value)}
-                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm focus:border-switz-red focus:outline-none transition-colors"
+                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm focus:border-white/30 focus:outline-none transition-colors"
                             />
                         </div>
                         <div>
@@ -103,7 +103,7 @@ export default function LinkGenerator() {
                                 type="date"
                                 value={checkOut}
                                 onChange={(e) => setCheckOut(e.target.value)}
-                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm focus:border-switz-red focus:outline-none transition-colors"
+                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm focus:border-white/30 focus:outline-none transition-colors"
                             />
                         </div>
                     </div>
@@ -119,7 +119,7 @@ export default function LinkGenerator() {
                     <div className="bg-white/[0.03] border border-white/10 p-5 space-y-3">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                <Link2 size={14} className="text-switz-red" />
+                                <Link2 size={14} className="text-white/40" />
                                 <p className="text-[10px] uppercase tracking-widest text-white/40">Generated Link</p>
                             </div>
                             <button
@@ -144,7 +144,7 @@ export default function LinkGenerator() {
                         >
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                    <MessageSquare size={14} className="text-switz-red" />
+                                    <MessageSquare size={14} className="text-white/40" />
                                     <p className="text-[10px] uppercase tracking-widest text-white/40">Airbnb Message Template</p>
                                 </div>
                                 <button

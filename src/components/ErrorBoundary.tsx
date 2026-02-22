@@ -24,7 +24,7 @@ export default class ErrorBoundary extends Component<Props, State> {
             return (
                 <div className="min-h-screen bg-black flex items-center justify-center px-6">
                     <div className="text-center max-w-md space-y-6">
-                        <p className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em]">
+                        <p className="text-white/50 text-[10px] font-bold uppercase tracking-[0.4em]">
                             Something went wrong
                         </p>
                         <h1 className="text-3xl font-serif text-white">
@@ -36,7 +36,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                             <button
                                 onClick={() => window.location.reload()}
-                                className="bg-white text-black px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                                className="bg-white text-black px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-white/80 transition-all duration-500"
                             >
                                 Refresh
                             </button>
