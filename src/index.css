@@ -45,8 +45,8 @@
     --gradient-overlay: linear-gradient(to top, hsl(0 0% 0% / 0.9) 0%, hsl(0 0% 0% / 0.3) 50%, hsl(0 0% 0% / 0.6) 100%);
 
     /* Swiss-inspired tokens */
-    --swiss-red: 0 100% 50%;
-    --swiss-red-hover: 0 100% 45%;
+    --swiss-red: 0 0% 55%;
+    --swiss-red-hover: 0 0% 45%;
     --swiss-gold: 38 92% 50%;
     --glow-title: 0 0 60px hsl(0 0% 100% / 0.3), 0 0 120px hsl(0 0% 100% / 0.1);
 
