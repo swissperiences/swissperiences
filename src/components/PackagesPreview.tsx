@@ -48,7 +48,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
               <div className="relative aspect-[16/10] overflow-hidden">
                 <img
                   src={pkg.image}
-                  alt={pkg.name}
+                  alt={`${pkg.name} — ${pkg.tagline}`}
                   className={`w-full h-full object-cover brightness-[0.5] group-hover:brightness-[0.6] group-hover:scale-105 transition-all duration-700 ${pkg.imagePosition || ""}`}
                   loading="lazy"
                 />

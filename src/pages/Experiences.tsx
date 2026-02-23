@@ -3,12 +3,19 @@ import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import MembershipGate from "../components/MembershipGate";
 import { useAuth } from "@/hooks/use-auth";
 import { ArrowRight, Car, Camera, ChefHat, Mountain } from "lucide-react";
 
 export default function Experiences() {
     const { isLoggedIn } = useAuth();
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: "Home", href: "https://www.swissperiences.ch/" },
+        { label: "Experiences", href: "https://www.swissperiences.ch/experiences" },
+    ]);
+
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -72,7 +79,7 @@ export default function Experiences() {
                 description="Curated premium experiences in the Swiss Alps. Private road journeys, cinematic documentation, in-chalet dining, and guided alpine hikes."
                 keywords="swiss alps experiences, luxury experiences switzerland, private chef swiss alps, guided hike switzerland, luxury suv tour switzerland, drone photography alps"
                 canonical="https://www.swissperiences.ch/experiences"
-                structuredData={structuredData}
+                structuredData={[structuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 

@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import MembershipGate from "../components/MembershipGate";
 import { ArrowRight } from "lucide-react";
 
 export default function Sanctuaries() {
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: "Home", href: "https://www.swissperiences.ch/" },
+        { label: "Sanctuaries", href: "https://www.swissperiences.ch/sanctuaries" },
+    ]);
+
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -32,7 +38,7 @@ export default function Sanctuaries() {
                 description="Discover our network of curated alpine sanctuaries. Private residences in the Swiss Alps designed for those seeking silence and beauty."
                 keywords="swiss alpine sanctuary, private retreat switzerland, luxury chalet villars, exclusive swiss accommodation, alpine hideaway"
                 canonical="https://www.swissperiences.ch/sanctuaries"
-                structuredData={structuredData}
+                structuredData={[structuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 

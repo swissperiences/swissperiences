@@ -31,6 +31,10 @@ export default function SEO({
   const finalDescription = description || t("seo.defaultDescription", "A boutique alpine sanctuary in Villars-sur-Ollon. Curated Swiss experiences for those who seek silence.");
   const finalKeywords = keywords || t("seo.keywords", "swiss experiences, switzerland travel, alpine retreats");
 
+  // Build page-aware hreflang links from canonical
+  const canonicalPath = canonical
+    .replace("https://www.swissperiences.ch", "")
+    .replace(/^\/(en|pt)/, "") || "/";
 
   return (
     <Helmet
@@ -44,10 +48,10 @@ export default function SEO({
       <meta name="theme-color" content="#000000" />
       <link rel="canonical" href={canonical} />
 
-      {/* Multilingual SEO (Bidirectional & Self-referencing) */}
-      <link rel="alternate" hrefLang="en" href="https://www.swissperiences.ch/en" />
-      <link rel="alternate" hrefLang="pt" href="https://www.swissperiences.ch/pt" />
-      <link rel="alternate" hrefLang="x-default" href="https://www.swissperiences.ch/en" />
+      {/* Multilingual SEO (Bidirectional & Self-referencing, page-aware) */}
+      <link rel="alternate" hrefLang="en" href={`https://www.swissperiences.ch/en${canonicalPath === "/" ? "" : canonicalPath}`} />
+      <link rel="alternate" hrefLang="pt" href={`https://www.swissperiences.ch/pt${canonicalPath === "/" ? "" : canonicalPath}`} />
+      <link rel="alternate" hrefLang="x-default" href={`https://www.swissperiences.ch/en${canonicalPath === "/" ? "" : canonicalPath}`} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />

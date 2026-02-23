@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
+import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { packages } from "@/data/packages";
@@ -16,8 +18,36 @@ export default function Packages() {
     }
   }
 
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { label: "Home", href: "https://www.swissperiences.ch/" },
+    { label: "Packages", href: "https://www.swissperiences.ch/packages" },
+  ]);
+
+  const productsJsonLd = packages.map((pkg) => ({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: pkg.name,
+    description: pkg.description,
+    image: `https://www.swissperiences.ch${pkg.image}`,
+    brand: { "@type": "Brand", name: "Swissperiences" },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "CHF",
+      price: pkg.price.replace(/[^0-9]/g, ""),
+      availability: "https://schema.org/LimitedAvailability",
+      url: `https://www.swissperiences.ch/packages#${pkg.id}`,
+    },
+  }));
+
   return (
     <div className="min-h-screen bg-[#060606] text-white">
+      <SEO
+        title="Curated Alpine Packages | Swissperiences"
+        description="Complete curated stays in the Swiss Alps. From The Alpine Reset to The Grand Tour — each package includes The Sanctuary Loft, activities, and cinematic memories."
+        keywords="swiss alpine packages, switzerland holiday packages, luxury chalet stay, villars packages, curated swiss vacation"
+        canonical="https://www.swissperiences.ch/packages"
+        structuredData={[breadcrumbJsonLd, ...productsJsonLd]}
+      />
       <Navigation />
 
       {/* Hero */}
@@ -49,7 +79,7 @@ export default function Packages() {
               <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden mb-8 rounded-sm">
                 <img
                   src={pkg.image}
-                  alt={pkg.name}
+                  alt={`${pkg.name} — ${pkg.tagline}`}
                   className={`w-full h-full object-cover brightness-[0.55] ${pkg.imagePosition || ""}`}
                   loading={i === 0 ? "eager" : "lazy"}
                 />

@@ -2,9 +2,15 @@ import { motion } from "framer-motion";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { Founder } from "../components/Founder";
 
 export default function About() {
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: "Home", href: "https://www.swissperiences.ch/" },
+        { label: "About", href: "https://www.swissperiences.ch/about" },
+    ]);
+
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "AboutPage",
@@ -29,7 +35,7 @@ export default function About() {
                 description="Born in the Swiss Alps, Swissperiences curates silence for those who've earned it. Meet the founder, the philosophy, and the vision behind the brand."
                 keywords="about swissperiences, swiss luxury concierge, alpine experiences founder, switzerland premium travel"
                 canonical="https://www.swissperiences.ch/about"
-                structuredData={structuredData}
+                structuredData={[structuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 

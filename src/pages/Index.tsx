@@ -51,23 +51,53 @@ const Index = () => {
   const s6 = useScrollReveal(); // For Those Who
   const s7 = useScrollReveal(); // Final CTA
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Swissperiences",
-    "url": "https://www.swissperiences.ch",
-    "logo": "https://www.swissperiences.ch/favicon-512x512.png",
-    "description": "A private network of curated alpine sanctuaries for those seeking silence in a noisy world.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "CH",
-      "addressLocality": "Geneva"
-    }
-  };
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Swissperiences",
+      "url": "https://www.swissperiences.ch",
+      "logo": "https://www.swissperiences.ch/favicon-512x512.png",
+      "description": "A private network of curated alpine sanctuaries for those seeking silence in a noisy world.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CH",
+        "addressLocality": "Geneva",
+      },
+      "sameAs": [
+        "https://instagram.com/swissperiences",
+        "https://linkedin.com/company/swissperiences",
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Swissperiences",
+      "url": "https://www.swissperiences.ch",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "Swissperiences",
+      "url": "https://www.swissperiences.ch",
+      "priceRange": "CHF 1,500 – CHF 4,500",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Geneva",
+        "addressCountry": "CH",
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.2044,
+        "longitude": 6.1432,
+      },
+      "areaServed": "Switzerland",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-[#060606] text-white">
-      <SEO structuredData={structuredData} />
+      <SEO canonical="https://www.swissperiences.ch/en" structuredData={structuredData} />
 
       {/* ════════════════════════════════════════
           1. HERO — Full-screen video, editorial type
@@ -168,7 +198,7 @@ const Index = () => {
         <div className="relative h-[70vh] md:h-screen overflow-hidden">
           <img
             src="/images/villars/loft-wide-interior.jpeg"
-            alt="The Villars Loft"
+            alt="The Villars Loft — modern alpine designer living space at 1,300m"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/30" />

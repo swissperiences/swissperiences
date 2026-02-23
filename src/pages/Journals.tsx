@@ -4,6 +4,7 @@ import { ArrowLeft, Clock, Camera } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { cn } from "@/lib/utils";
 import { journals } from "@/data/journals";
 
@@ -11,6 +12,11 @@ export default function Journals() {
     const navigate = useNavigate();
 
     const BASE_URL = "https://www.swissperiences.ch";
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: "Home", href: `${BASE_URL}/` },
+        { label: "Journals", href: `${BASE_URL}/journals` },
+    ]);
 
     const collectionJsonLd = {
         "@context": "https://schema.org",
@@ -40,7 +46,7 @@ export default function Journals() {
                 title="Guest Journals | Real Alpine Stories | Swissperiences"
                 description="Real stories from real travelers. Explore our archive of curated Swiss journeys."
                 canonical={`${BASE_URL}/journals`}
-                structuredData={collectionJsonLd}
+                structuredData={[collectionJsonLd, breadcrumbJsonLd]}
             />
             <Navigation />
 

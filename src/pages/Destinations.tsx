@@ -5,11 +5,17 @@ import { ArrowRight } from "lucide-react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import MembershipGate from "../components/MembershipGate";
 import { cities } from "@/data/cities";
 
 export default function Destinations() {
     const { t } = useTranslation("common");
+
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: "Home", href: "https://www.swissperiences.ch/" },
+        { label: "Destinations", href: "https://www.swissperiences.ch/destinations" },
+    ]);
 
     const structuredData = {
         "@context": "https://schema.org",
@@ -34,7 +40,7 @@ export default function Destinations() {
                 description="Explore our curated network of Swiss destinations. From Geneva to Zermatt, each location handpicked for extraordinary alpine experiences."
                 keywords="swiss destinations, switzerland travel, alpine cities, geneva, zermatt, interlaken, villars, lauterbrunnen, luxury swiss travel"
                 canonical="https://www.swissperiences.ch/destinations"
-                structuredData={structuredData}
+                structuredData={[structuredData, breadcrumbJsonLd]}
             />
             <Navigation />
 

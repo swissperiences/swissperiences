@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import TeamsVideoBackground from "@/components/TeamsVideoBackground";
 import { CorporateInquiryForm } from "@/components/CorporateInquiryForm";
 import SEO from "@/components/SEO";
+import { buildBreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import {
     Accordion,
     AccordionContent,
@@ -12,6 +13,11 @@ import {
 } from "@/components/ui/accordion";
 
 const ForTeams = () => {
+    const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+        { label: "Home", href: "https://www.swissperiences.ch/" },
+        { label: "For Teams", href: "https://www.swissperiences.ch/for-teams" },
+    ]);
+
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "Service",
@@ -32,7 +38,7 @@ const ForTeams = () => {
                 description="Tailored corporate retreats and team experiences in the Swiss Alps. Strengthen team bonds through authentic Swiss experiences. Perfect for team building and corporate offsites."
                 keywords="corporate retreats switzerland, team building switzerland, swiss alps corporate events, company retreats switzerland, team offsites geneva, corporate team building"
                 canonical="https://www.swissperiences.ch/for-teams"
-                structuredData={structuredData}
+                structuredData={[structuredData, breadcrumbJsonLd]}
             />
             {/* Global video background for entire page */}
             <TeamsVideoBackground />
