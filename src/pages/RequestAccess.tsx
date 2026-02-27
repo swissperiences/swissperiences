@@ -176,6 +176,7 @@ const RequestAccess = () => {
             <SEO
                 title="Request Access | Swissperiences"
                 description="Apply for exclusive access to Swissperiences' curated alpine sanctuaries."
+                canonical="https://www.swissperiences.ch/request-access"
             />
 
             {/* Background subtle gradient */}

@@ -59,6 +59,8 @@ export default function SEO({
       <meta property="og:title" content={finalTitle} />
       <meta property="og:description" content={finalDescription} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content="Swissperiences" />
       <meta property="og:locale" content={ogLocale} />
 
