@@ -6,7 +6,8 @@ import SEO from "../components/SEO";
 import { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import MembershipGate from "../components/MembershipGate";
 import { useAuth } from "@/hooks/use-auth";
-import { ArrowRight, Car, Camera, ChefHat, Mountain } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Car, Camera, ChefHat, Mountain, Snowflake, Sun, Leaf, Flower2 } from "lucide-react";
 
 export default function Experiences() {
     const { isLoggedIn } = useAuth();
@@ -29,6 +30,34 @@ export default function Experiences() {
         ]
     };
 
+    const [activeSeason, setActiveSeason] = useState<string | null>(null);
+
+    const seasons = [
+        { id: "winter", label: "Winter", months: "Dec — Mar", icon: <Snowflake size={18} />, color: "text-blue-300" },
+        { id: "spring", label: "Spring", months: "Apr — Jun", icon: <Flower2 size={18} />, color: "text-pink-300" },
+        { id: "summer", label: "Summer", months: "Jul — Sep", icon: <Sun size={18} />, color: "text-amber-300" },
+        { id: "autumn", label: "Autumn", months: "Oct — Nov", icon: <Leaf size={18} />, color: "text-orange-300" },
+    ];
+
+    const seasonalSuggestions: Record<string, { tagline: string; interests: string[] }> = {
+        winter: {
+            tagline: "Snow-covered peaks, thermal baths, fondue by the fire.",
+            interests: ["Skiing & snowboarding", "Thermal spas", "Fondue & raclette", "Fireplace evenings", "Winter hiking"],
+        },
+        spring: {
+            tagline: "Wildflowers, lake swims, vineyard walks.",
+            interests: ["Lake swimming", "Vineyard tours", "Wildflower hikes", "Cycling", "Open-air markets"],
+        },
+        summer: {
+            tagline: "Alpine trails, glacier views, long golden evenings.",
+            interests: ["Mountain passes", "Glacier excursions", "Alpine picnics", "Paragliding", "Lake activities"],
+        },
+        autumn: {
+            tagline: "Wine harvest, misty valleys, golden forests.",
+            interests: ["Wine tasting", "Forest walks", "Photography", "Thermal baths", "Local gastronomy"],
+        },
+    };
+
     const experiences = [
         {
             icon: <Car size={24} />,
@@ -39,6 +68,7 @@ export default function Experiences() {
             image: "/images/alpine-road-villars.jpg",
             href: "/experiences/road-journey",
             available: true,
+            seasons: ["spring", "summer", "autumn"],
         },
         {
             icon: <Camera size={24} />,
@@ -49,6 +79,7 @@ export default function Experiences() {
             image: "/images/villars-drone.jpg",
             href: "/experiences/cinematic-memories",
             available: true,
+            seasons: ["spring", "summer", "autumn"],
         },
         {
             icon: <ChefHat size={24} />,
@@ -59,6 +90,7 @@ export default function Experiences() {
             image: "/images/loft/IMG_8759.jpg",
             href: "/experiences/private-chef",
             available: true,
+            seasons: ["winter", "spring", "summer", "autumn"],
         },
         {
             icon: <Mountain size={24} />,
@@ -69,8 +101,13 @@ export default function Experiences() {
             image: "/images/host-hiking.jpg",
             href: "/experiences/guided-hikes",
             available: true,
+            seasons: ["spring", "summer", "autumn"],
         },
     ];
+
+    const filteredExperiences = activeSeason
+        ? experiences.filter((exp) => exp.seasons.includes(activeSeason))
+        : experiences;
 
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
@@ -121,11 +158,73 @@ export default function Experiences() {
                     </div>
                 </section>
 
+                {/* Season Filter */}
+                <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+                    <div className="text-center mb-10">
+                        <span className="text-[9px] uppercase tracking-[0.4em] text-white/25 block mb-4">
+                            When are you visiting?
+                        </span>
+                        <p className="text-white/40 text-sm font-light">
+                            Select a season to see what's best for your trip.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+                        <button
+                            onClick={() => setActiveSeason(null)}
+                            className={`px-5 py-2.5 text-[10px] uppercase tracking-[0.2em] border transition-all duration-300 ${
+                                !activeSeason
+                                    ? "border-white/40 text-white bg-white/5"
+                                    : "border-white/10 text-white/30 hover:text-white/60 hover:border-white/20"
+                            }`}
+                        >
+                            All Seasons
+                        </button>
+                        {seasons.map((season) => (
+                            <button
+                                key={season.id}
+                                onClick={() => setActiveSeason(activeSeason === season.id ? null : season.id)}
+                                className={`flex items-center gap-2 px-5 py-2.5 text-[10px] uppercase tracking-[0.2em] border transition-all duration-300 ${
+                                    activeSeason === season.id
+                                        ? "border-white/40 text-white bg-white/5"
+                                        : "border-white/10 text-white/30 hover:text-white/60 hover:border-white/20"
+                                }`}
+                            >
+                                <span className={activeSeason === season.id ? season.color : ""}>{season.icon}</span>
+                                {season.label}
+                                <span className="text-white/15 font-normal normal-case tracking-normal">{season.months}</span>
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Seasonal suggestions */}
+                    {activeSeason && seasonalSuggestions[activeSeason] && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-10 text-center"
+                        >
+                            <p className="text-white/50 font-serif text-lg italic mb-4">
+                                {seasonalSuggestions[activeSeason].tagline}
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-2">
+                                {seasonalSuggestions[activeSeason].interests.map((interest) => (
+                                    <span
+                                        key={interest}
+                                        className="text-[10px] uppercase tracking-[0.15em] text-white/25 border border-white/5 px-3 py-1.5"
+                                    >
+                                        {interest}
+                                    </span>
+                                ))}
+                            </div>
+                        </motion.div>
+                    )}
+                </section>
+
                 <MembershipGate title="Your experience awaits." subtitle="Full details, pricing, and booking available exclusively to members.">
                 {/* Experience Cards */}
                 <section className="max-w-7xl mx-auto px-6 py-16 md:py-24">
                     <div className="space-y-24">
-                        {experiences.map((exp, idx) => (
+                        {filteredExperiences.map((exp, idx) => (
                             <div key={exp.title} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center ${idx % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
                                 {/* Image */}
                                 <Link
