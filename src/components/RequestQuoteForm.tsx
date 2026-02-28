@@ -149,7 +149,7 @@ export default function RequestQuoteForm() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={3}
-              placeholder="Dates, group size, anything you'd like us to know..."
+              placeholder="Dates, solo or with company, anything you'd like us to know..."
               className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-white/30 focus:outline-none transition-colors resize-none"
             />
           </div>

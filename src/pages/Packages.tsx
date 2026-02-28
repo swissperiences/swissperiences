@@ -33,7 +33,7 @@ export default function Packages() {
     offers: {
       "@type": "Offer",
       priceCurrency: "CHF",
-      price: pkg.price.replace(/[^0-9]/g, ""),
+      price: (pkg.soloPrice || pkg.price).replace(/[^0-9]/g, ""),
       availability: "https://schema.org/LimitedAvailability",
       url: `https://www.swissperiences.ch/packages#${pkg.id}`,
     },
@@ -138,12 +138,31 @@ export default function Packages() {
                   </div>
 
                   <div className="pt-6 mt-6 border-t border-white/5">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/25 block mb-1">
-                      Starting at
-                    </span>
-                    <span className="text-white/80 text-2xl font-serif block mb-6">
-                      {pkg.price.replace("From ", "")}
-                    </span>
+                    {pkg.soloPrice ? (
+                      <div className="grid grid-cols-3 gap-3 mb-6">
+                        <div>
+                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/30 block mb-1">Solo</span>
+                          <span className="text-white/80 text-lg font-serif">{pkg.soloPrice}</span>
+                        </div>
+                        <div>
+                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/30 block mb-1">Couple</span>
+                          <span className="text-white/50 text-lg font-serif">{pkg.couplePrice}</span>
+                        </div>
+                        <div>
+                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/30 block mb-1">Group</span>
+                          <span className="text-white/50 text-lg font-serif">{pkg.groupPrice}</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/25 block mb-1">
+                          Starting at
+                        </span>
+                        <span className="text-white/80 text-2xl font-serif block mb-6">
+                          {pkg.price.replace("From ", "")}
+                        </span>
+                      </>
+                    )}
                     <button
                       onClick={handleCTA}
                       className="w-full px-8 py-4 bg-white text-black text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-white/90 transition-all duration-300"

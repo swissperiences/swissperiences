@@ -365,7 +365,7 @@ const Index = () => {
               Built empires but forgot how to rest.
             </p>
             <p className="font-serif text-3xl md:text-5xl text-white/40 leading-[1.1]">
-              Have all the dreams in the world.
+              Travel alone but never feel lonely.
             </p>
             <p className="font-serif text-3xl md:text-5xl text-white/20 leading-[1.1]">
               Seek permission to do nothing.

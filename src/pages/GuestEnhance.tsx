@@ -281,7 +281,7 @@ export default function GuestEnhance() {
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                             rows={3}
-                            placeholder="Preferred dates for experiences, dietary requirements, group size..."
+                            placeholder="Preferred dates, dietary requirements, travelling solo or with company..."
                             className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors resize-none"
                         />
                     </div>

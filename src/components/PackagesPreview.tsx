@@ -83,11 +83,16 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                 <div className="flex items-end justify-between gap-4 pt-4 border-t border-white/5">
                   <div>
                     <span className="text-[10px] uppercase tracking-[0.2em] text-white/25 block mb-1">
-                      Starting at
+                      {pkg.soloPrice ? "Solo" : "Starting at"}
                     </span>
                     <span className="text-white/70 text-lg font-serif">
-                      {pkg.price.replace("From ", "")}
+                      {pkg.soloPrice || pkg.price.replace("From ", "")}
                     </span>
+                    {pkg.couplePrice && (
+                      <span className="text-white/30 text-xs block mt-1">
+                        Couple {pkg.couplePrice}
+                      </span>
+                    )}
                   </div>
                   <button
                     onClick={() => handleCTA()}
