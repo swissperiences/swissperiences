@@ -197,8 +197,8 @@ const Index = () => {
       >
         <div className="relative h-[70vh] md:h-screen overflow-hidden">
           <img
-            src="/images/villars/loft-wide-interior.jpeg"
-            alt="The Villars Loft — modern alpine designer living space at 1,300m"
+            src="/images/villars/loft-balcony-winter-evening.jpeg"
+            alt="The Villars Loft balcony at blue hour — snow-capped Alps at 1,300m"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/30" />

@@ -235,8 +235,8 @@ export default function VillarsRetreat() {
                         {/* Large Item */}
                         <div className="md:col-span-2 relative h-[300px] md:h-full overflow-hidden group">
                             <img
-                                src="/images/villars/loft-wide-interior.jpeg"
-                                alt="The Villars Loft — full living space"
+                                src="/images/villars/loft-balcony-daytime.jpeg"
+                                alt="The Villars Loft balcony — alpine panorama view"
                                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                 loading="lazy"
                             />
@@ -258,8 +258,8 @@ export default function VillarsRetreat() {
                             </div>
                             <div className="flex-1 relative overflow-hidden group">
                                 <img
-                                    src="/images/villars/sea-of-clouds-sunset.jpeg"
-                                    alt="Sea of clouds at sunset from the balcony"
+                                    src="/images/villars/loft-balcony-snow-night.jpeg"
+                                    alt="The Villars Loft balcony at night with snow-covered Alps"
                                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1]"
                                     loading="lazy"
                                 />

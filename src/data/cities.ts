@@ -297,7 +297,7 @@ export const cities: City[] = [
         canton: "Vaud",
         coordinates: "046° 26' N / 006° 54' E",
         elevation: "390m",
-        heroImage: "/images/montreux-lakeside.jpg",
+        heroImage: "/images/lake-geneva/sunset-golden.jpeg",
         heroPosition: "object-[center_40%]",
         tagline: "The Swiss Riviera.",
         description: "Montreux stretches along the eastern shore of Lac Léman, sheltered by the Alps and warmed by a microclimate that allows palm trees to grow at the foot of mountains. Home to the legendary Jazz Festival, the Château de Chillon, and the Lavaux UNESCO vineyards, it is the intersection of Mediterranean warmth and alpine grandeur.",
