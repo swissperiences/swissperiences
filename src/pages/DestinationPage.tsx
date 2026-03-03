@@ -12,6 +12,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import MembershipGate from "@/components/MembershipGate";
+import CuratedActivities from "@/components/CuratedActivities";
 import Breadcrumbs, { buildBreadcrumbJsonLd } from "@/components/Breadcrumbs";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -84,7 +85,7 @@ export default function DestinationPage() {
         { label: city.name },
     ];
 
-    const hasRelated = city.relatedExperiences.length > 0 || city.relatedSanctuaries.length > 0 || city.relatedJournals.length > 0;
+    const hasRelated = city.relatedExperiences.length > 0 || city.relatedSanctuaries.length > 0 || city.relatedJournals.length > 0 || (city.curatedActivities && city.curatedActivities.length > 0);
 
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
@@ -265,6 +266,10 @@ export default function DestinationPage() {
                                         ))}
                                     </div>
                                 </div>
+                            )}
+
+                            {city.curatedActivities && city.curatedActivities.length > 0 && (
+                                <CuratedActivities activities={city.curatedActivities} />
                             )}
                         </div>
                     </section>

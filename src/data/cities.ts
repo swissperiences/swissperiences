@@ -9,6 +9,13 @@ export interface RelatedLink {
     href: string;
 }
 
+export interface CuratedActivity {
+    title: string;
+    type: string;
+    href: string;
+    duration?: string;
+}
+
 export interface City {
     slug: string;
     name: string;
@@ -29,12 +36,18 @@ export interface City {
     relatedExperiences: RelatedLink[];
     relatedSanctuaries: RelatedLink[];
     relatedJournals: RelatedLink[];
+    curatedActivities?: CuratedActivity[];
 
     seo: {
         title: string;
         description: string;
         keywords: string;
     };
+}
+
+const GYG_PARTNER = "XJZ4DP0";
+function gyg(path: string, cmp: string) {
+    return `https://www.getyourguide.com${path}?partner_id=${GYG_PARTNER}&utm_medium=online_publisher&utm_source=swissperiences&cmp=${cmp}`;
 }
 
 export const cities: City[] = [
@@ -73,6 +86,11 @@ export const cities: City[] = [
         relatedJournals: [
             { title: "The Winter Ascent", href: "/journals/the-winter-ascent" },
             { title: "The Alpine Protocol", href: "/journals/the-alpine-protocol" }
+        ],
+        curatedActivities: [
+            { title: "Lake Geneva Cruise", type: "Cruise", duration: "50 min", href: gyg("/geneva-l54/geneva-50-minute-lake-geneva-cruise-t292285/", "geneva") },
+            { title: "Old Town, Chocolate & Lake Walking Tour", type: "Tour", duration: "3 hours", href: gyg("/geneva-l54/geneva-old-town-chocolate-lake-guided-walking-tour-t1033020/", "geneva") },
+            { title: "Best of Geneva City Tour", type: "Tour", duration: "3 hours", href: gyg("/geneva-l54/best-of-geneva-city-tour-international-area-and-old-town-t4825/", "geneva") },
         ],
         seo: {
             title: "Geneva | Gateway to the Swiss Alps | Swissperiences",
@@ -116,6 +134,11 @@ export const cities: City[] = [
             { title: "The Villars Loft", href: "/sanctuaries/villars" }
         ],
         relatedJournals: [],
+        curatedActivities: [
+            { title: "Glacier 3000 Cable Car", type: "Adventure", duration: "Full day", href: gyg("/bernese-oberland-l71/glacier-3000-cable-car-roundtrip-ticket-t204637/", "villars-sur-ollon") },
+            { title: "Glacier 3000 & Montreux Day Trip", type: "Day Trip", duration: "Full day", href: gyg("/geneva-l54/gold-tour-at-the-glacier-3000-and-montreux-t85871/", "villars-sur-ollon") },
+            { title: "Diablerets & Glacier 3000 Day Trip", type: "Day Trip", duration: "Full day", href: gyg("/montreux-l32355/diablerets-riviera-col-du-pillon-glacier-3000-day-trip-t137591/", "villars-sur-ollon") },
+        ],
         seo: {
             title: "Villars-sur-Ollon | Alpine Sanctuary | Swissperiences",
             description: "Villars-sur-Ollon is home to our first sanctuary — The Villars Loft. A designer alpine retreat at 1,300m in the Vaud Alps.",
@@ -156,6 +179,10 @@ export const cities: City[] = [
         ],
         relatedSanctuaries: [],
         relatedJournals: [],
+        curatedActivities: [
+            { title: "Private Ski Lessons — All Levels", type: "Skiing", duration: "Half day", href: gyg("/verbier-l189157/private-ski-lessons-for-all-levels-verbier-t1139721/", "verbier") },
+            { title: "Group Ski Lessons", type: "Skiing", duration: "Half day", href: gyg("/verbier-l189157/adult-group-lessons-verbier-t1140639/", "verbier") },
+        ],
         seo: {
             title: "Verbier | High-Altitude Alpine Village | Swissperiences",
             description: "Verbier — where powder meets prestige. Discover curated experiences in one of the world's most coveted alpine destinations.",
@@ -196,6 +223,11 @@ export const cities: City[] = [
         ],
         relatedSanctuaries: [],
         relatedJournals: [],
+        curatedActivities: [
+            { title: "Gornergrat Cogwheel Train", type: "Train", duration: "Half day", href: gyg("/zermatt-l1514/zermatt-gornergrat-railway-cogwheel-train-ticket-t262127/", "zermatt") },
+            { title: "Matterhorn Glacier Paradise", type: "Adventure", duration: "Half day", href: gyg("/zermatt-l1514/zermatt-discover-the-matterhorn-glacier-paradise-t394219/", "zermatt") },
+            { title: "Paragliding with Matterhorn Views", type: "Adventure", duration: "1 hour", href: gyg("/zermatt-l1514/zermatt-paragliding-passenger-flight-with-matterhorn-views-t969350/", "zermatt") },
+        ],
         seo: {
             title: "Zermatt | Matterhorn Village | Swissperiences",
             description: "Zermatt — the car-free alpine village beneath the Matterhorn. Discover curated experiences in Switzerland's most iconic mountain destination.",
@@ -238,6 +270,11 @@ export const cities: City[] = [
         relatedJournals: [
             { title: "The Winter Ascent", href: "/journals/the-winter-ascent" },
             { title: "The Return", href: "/journals/the-return" }
+        ],
+        curatedActivities: [
+            { title: "Jungfraujoch — Top of Europe", type: "Day Trip", duration: "Full day", href: gyg("/interlaken-l793/from-interlaken-day-trip-to-jungfraujoch-t111106/", "interlaken") },
+            { title: "Tandem Paragliding", type: "Adventure", duration: "1 hour", href: gyg("/interlaken-l793/interlaken-tandem-paragliding-flight-t780/", "interlaken") },
+            { title: "Lake Thun & Brienz Boat Cruise", type: "Cruise", duration: "Full day", href: gyg("/interlaken-l793/attraction-ticket-day-pass-for-lake-thunbrienz-boat-cruise-t477132/", "interlaken") },
         ],
         seo: {
             title: "Interlaken | Heart of the Bernese Oberland | Swissperiences",
@@ -284,6 +321,11 @@ export const cities: City[] = [
             { title: "The Winter Ascent", href: "/journals/the-winter-ascent" },
             { title: "The Return", href: "/journals/the-return" }
         ],
+        curatedActivities: [
+            { title: "Trümmelbach Falls & Mürren Hike", type: "Hiking", duration: "5 hours", href: gyg("/lauterbrunnen-l2863/hike-lauterbrunnen-murren-with-trummelbach-waterfalls-visit-t1043510/", "lauterbrunnen") },
+            { title: "Jungfraujoch Roundtrip Train", type: "Train", duration: "Full day", href: gyg("/lauterbrunnen-l2863/from-lauterbrunnen-roundtrip-train-and-jungfraujoch-ticket-t456289/", "lauterbrunnen") },
+            { title: "Schilthorn & Bond World 007", type: "Day Trip", duration: "Full day", href: gyg("/lausanne-l463/from-lausanne-spectacular-schilthorn-with-007-experience-t270077/", "lauterbrunnen") },
+        ],
         seo: {
             title: "Lauterbrunnen | Valley of 72 Waterfalls | Swissperiences",
             description: "Lauterbrunnen — the valley of 72 waterfalls that inspired Tolkien. Discover curated experiences in Switzerland's most dramatic glacial valley.",
@@ -325,6 +367,12 @@ export const cities: City[] = [
         relatedJournals: [
             { title: "The Winter Ascent", href: "/journals/the-winter-ascent" }
         ],
+        curatedActivities: [
+            { title: "Château de Chillon Entrance", type: "Culture", duration: "2 hours", href: gyg("/montreux-l32355/montreux-entrance-ticket-to-fort-de-chillon-t532516/", "montreux") },
+            { title: "Rochers-de-Naye Summit", type: "Train", duration: "Half day", href: gyg("/montreux-l32355/attraction-ticket-montreux-to-rochers-de-naye-t547366/", "montreux") },
+            { title: "Lavaux Wine Tour", type: "Tasting", duration: "4 hours", href: gyg("/montreux-l32355/wine-tour-in-the-canton-of-vaud-lavaux-vineyards-t718850/", "montreux") },
+            { title: "Freddie Mercury Walking Tour", type: "Tour", duration: "2 hours", href: gyg("/montreux-l32355/montreux-in-the-footsteps-of-freddie-mercury-t364460/", "montreux") },
+        ],
         seo: {
             title: "Montreux | The Swiss Riviera | Swissperiences",
             description: "Montreux — the Swiss Riviera on Lac Léman. Jazz, vineyards, and Château de Chillon at the foot of the Alps.",
@@ -364,6 +412,11 @@ export const cities: City[] = [
         ],
         relatedSanctuaries: [],
         relatedJournals: [],
+        curatedActivities: [
+            { title: "Olympic Museum", type: "Culture", duration: "2 hours", href: gyg("/lausanne-l463/switzerland-the-olympic-museum-entry-ticket-audio-guide-t409447/", "lausanne") },
+            { title: "Lavaux Vineyard Experience", type: "Tasting", duration: "3 hours", href: gyg("/lausanne-l463/lavaux-vineyard-experience-t799474/", "lausanne") },
+            { title: "Riviera & Lavaux Cruise", type: "Cruise", duration: "3 hours", href: gyg("/lausanne-l463/lausanne-3-hour-riviera-and-lavaux-region-cruise-t372775/", "lausanne") },
+        ],
         seo: {
             title: "Lausanne | Olympic Capital on Lac Léman | Swissperiences",
             description: "Lausanne — Olympic capital, university hub, and gateway to the Lavaux vineyards on the shores of Lac Léman.",
@@ -403,6 +456,11 @@ export const cities: City[] = [
         ],
         relatedSanctuaries: [],
         relatedJournals: [],
+        curatedActivities: [
+            { title: "Mt. Pilatus Golden Round Trip", type: "Day Trip", duration: "Full day", href: gyg("/lucerne-l867/mt-pilatus-cable-car-cog-rail-lake-cruise-from-lucerne-t123611/", "lucerne") },
+            { title: "Lake Lucerne Discovery Cruise", type: "Cruise", duration: "1 hour", href: gyg("/lucerne-l867/lucerne-lake-lucerne-1-hour-discovery-cruise-t1168411/", "lucerne") },
+            { title: "Classic Rigi Round Trip", type: "Train", duration: "Full day", href: gyg("/lucerne-l867/classic-rigi-round-trip-from-lucerne-t43859/", "lucerne") },
+        ],
         seo: {
             title: "Lucerne | Medieval Charm & Alpine Peaks | Swissperiences",
             description: "Lucerne — where medieval charm meets alpine grandeur. Chapel Bridge, Mount Pilatus, and Lake Lucerne in the heart of Switzerland.",
@@ -444,6 +502,11 @@ export const cities: City[] = [
         relatedSanctuaries: [],
         relatedJournals: [
             { title: "The Winter Ascent", href: "/journals/the-winter-ascent" }
+        ],
+        curatedActivities: [
+            { title: "First Cliff Walk & Cable Car", type: "Adventure", duration: "Half day", href: gyg("/grindelwald-l1613/attraction-ticket-grindelwald-first-cableway-cliff-walk-t468583/", "grindelwald") },
+            { title: "Mount First Adventure", type: "Adventure", duration: "Full day", href: gyg("/grindelwald-l1613/grindelwald-gondola-and-mount-first-adventure-t186681/", "grindelwald") },
+            { title: "Jungfraujoch Railway from Grindelwald", type: "Train", duration: "Full day", href: gyg("/grindelwald-l1613/from-grindelwald-jungfraujoch-round-trip-railway-ticket-t457803/", "grindelwald") },
         ],
         seo: {
             title: "Grindelwald | Eiger Village | Swissperiences",
