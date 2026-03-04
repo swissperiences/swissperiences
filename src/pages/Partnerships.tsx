@@ -239,8 +239,8 @@ export default function Partnerships() {
                                         We operate with intention, not scale. A
                                         small number of partnerships, each
                                         deeply integrated into the experience.
-                                        No banner ads. No affiliate links. Just
-                                        quiet, meaningful alignment.
+                                        No banner ads. No noise. Just quiet,
+                                        meaningful alignment.
                                     </p>
                                 </div>
                             </ScrollReveal>
