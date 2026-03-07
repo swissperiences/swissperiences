@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -58,6 +58,75 @@
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 20%;
     --sidebar-ring: 0 0% 100%;
+
+    /* ─── Design System Tokens ─── */
+
+    /* Stone — Alpine neutrals */
+    --ds-stone-50:  #FAFAF8;
+    --ds-stone-100: #F4F3EF;
+    --ds-stone-200: #E8E6DF;
+    --ds-stone-300: #D0CCC0;
+    --ds-stone-400: #A8A39A;
+    --ds-stone-500: #7A7470;
+    --ds-stone-600: #5A5550;
+    --ds-stone-700: #3D3A35;
+    --ds-stone-800: #252320;
+    --ds-stone-900: #131210;
+
+    /* Glacier — Accent teal */
+    --ds-glacier-50:  #F0F7F7;
+    --ds-glacier-100: #D6ECEC;
+    --ds-glacier-200: #AEDADA;
+    --ds-glacier-300: #7EC2C2;
+    --ds-glacier-400: #52ABAB;
+    --ds-glacier-500: #2E9090;
+    --ds-glacier-600: #1E7070;
+    --ds-glacier-700: #145252;
+    --ds-glacier-800: #0D3636;
+    --ds-glacier-900: #071C1C;
+
+    /* Gold — Alpine warmth */
+    --ds-gold-50:  #FBF8EF;
+    --ds-gold-100: #F4EDCC;
+    --ds-gold-200: #E8D98A;
+    --ds-gold-300: #D9C14A;
+    --ds-gold-400: #C4A820;
+    --ds-gold-500: #A68C10;
+    --ds-gold-600: #836E0C;
+    --ds-gold-700: #5E4F09;
+    --ds-gold-800: #3B3206;
+    --ds-gold-900: #1C1803;
+
+    /* Semantic */
+    --ds-success: #2A7A4B;
+    --ds-warning: #B87A0E;
+    --ds-error:   #9B3030;
+    --ds-info:    #1E5F8A;
+
+    /* Dark surfaces */
+    --ds-surface-1: #0E0D0C;
+    --ds-surface-2: #181714;
+    --ds-surface-3: #222019;
+    --ds-surface-4: #2C2A24;
+
+    /* Typography families */
+    --ds-font-display: 'Cormorant Garamond', Georgia, serif;
+    --ds-font-body:    'DM Sans', system-ui, sans-serif;
+    --ds-font-mono:    'JetBrains Mono', monospace;
+
+    /* Shadows */
+    --ds-shadow-sm:  0 1px 2px rgba(19,18,16,0.06), 0 1px 1px rgba(19,18,16,0.04);
+    --ds-shadow-md:  0 4px 12px rgba(19,18,16,0.08), 0 2px 4px rgba(19,18,16,0.04);
+    --ds-shadow-lg:  0 8px 32px rgba(19,18,16,0.12), 0 4px 8px rgba(19,18,16,0.06);
+    --ds-shadow-xl:  0 16px 64px rgba(19,18,16,0.16), 0 8px 16px rgba(19,18,16,0.08);
+    --ds-shadow-glow: 0 0 40px rgba(46,144,144,0.25);
+
+    /* Motion */
+    --ds-ease:   cubic-bezier(0.4, 0, 0.2, 1);
+    --ds-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ds-duration-fast:   120ms;
+    --ds-duration-normal: 250ms;
+    --ds-duration-slow:   450ms;
   }
 
   .dark {
