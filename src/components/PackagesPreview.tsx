@@ -27,13 +27,13 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 md:mb-20">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6 block">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-6 block">
             Curated Packages
           </span>
           <h2 className="font-serif text-3xl md:text-4xl text-white/80 mb-4">
             Choose your tempo.
           </h2>
-          <p className="text-white/40 text-base font-light max-w-xl mx-auto">
+          <p className="text-white/50 text-base font-light max-w-xl mx-auto">
             Each package is a complete stay — loft, activities, and cinematic memories, curated around a single idea.
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
           {packages.map((pkg) => (
             <div
               key={pkg.id}
-              className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-white/10 transition-colors duration-500"
+              className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-glacier-500/20 transition-colors duration-500"
             >
               {/* Image */}
               <div className="relative aspect-[16/10] overflow-hidden">
@@ -82,21 +82,21 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                 {/* Price + CTA */}
                 <div className="flex items-end justify-between gap-4 pt-4 border-t border-white/5">
                   <div>
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/25 block mb-1">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
                       {pkg.soloPrice ? "Solo" : "Starting at"}
                     </span>
                     <span className="text-white/70 text-lg font-serif">
                       {pkg.soloPrice || pkg.price.replace("From ", "")}
                     </span>
                     {pkg.couplePrice && (
-                      <span className="text-white/30 text-xs block mt-1">
+                      <span className="text-white/40 text-xs block mt-1">
                         Couple {pkg.couplePrice}
                       </span>
                     )}
                   </div>
                   <button
                     onClick={() => handleCTA()}
-                    className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-white/80 transition-colors border-b border-white/10 hover:border-white/40 pb-0.5"
+                    className="text-[10px] uppercase tracking-[0.2em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-0.5"
                   >
                     {isLoggedIn ? "Book Now" : "Request a Quote"}
                   </button>
@@ -110,7 +110,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
         <div className="text-center mt-12">
           <Link
             to="/packages"
-            className="text-[10px] uppercase tracking-[0.25em] text-white/30 hover:text-white/60 transition-colors border-b border-white/10 hover:border-white/30 pb-1"
+            className="text-[10px] uppercase tracking-[0.25em] text-white/40 hover:text-white/70 transition-colors border-b border-white/15 hover:border-glacier-500/30 pb-1"
           >
             View All Packages & Details
           </Link>

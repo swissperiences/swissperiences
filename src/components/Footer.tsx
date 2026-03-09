@@ -18,13 +18,13 @@ export default function Footer() {
             <span className="text-3xl font-serif italic text-white/95 lowercase tracking-tight block mb-8">
               {t('footer.tagline', 'swissperiences')}
             </span>
-            <p className="text-white/40 font-light text-sm leading-relaxed max-w-sm mb-8">
+            <p className="text-white/50 font-light text-sm leading-relaxed max-w-sm mb-8">
               {t('footer.description', 'Curating silence in a noisy world. We craft bespoke alpine journeys for those who seek to disconnect in order to reconnect.')}
             </p>
 
-            <div className="flex gap-6 text-white/30">
-              <a href="https://instagram.com/swissperiences" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors uppercase text-[10px] tracking-widest">Instagram</a>
-              <a href="https://linkedin.com/company/swissperiences" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors uppercase text-[10px] tracking-widest">LinkedIn</a>
+            <div className="flex gap-6 text-white/40">
+              <a href="https://instagram.com/swissperiences" target="_blank" rel="noopener noreferrer" className="hover:text-glacier-300 transition-colors uppercase text-[10px] tracking-widest">Instagram</a>
+              <a href="https://linkedin.com/company/swissperiences" target="_blank" rel="noopener noreferrer" className="hover:text-glacier-300 transition-colors uppercase text-[10px] tracking-widest">LinkedIn</a>
             </div>
           </div>
 
@@ -34,17 +34,18 @@ export default function Footer() {
           {/* LINKS */}
           <div className="lg:col-span-2">
             <h4 className="text-xs text-white uppercase tracking-[0.2em] mb-8 font-bold text-switz-red">Explore</h4>
-            <div className="flex flex-col gap-4 text-white/40">
-              <Link to="/sanctuaries" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Sanctuaries</Link>
-              <Link to="/packages" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Packages</Link>
-              <Link to="/experiences" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Experiences</Link>
-              <Link to="/destinations" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Destinations</Link>
-              <Link to="/journals" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Journals</Link>
-              <Link to="/about" className="text-xs hover:text-white transition-colors uppercase tracking-wide">About</Link>
-              <Link to="/contact" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Contact</Link>
-              <Link to="/for-teams" className="text-xs hover:text-white transition-colors uppercase tracking-wide">For Teams</Link>
-              <Link to="/partnerships" className="text-xs hover:text-white transition-colors uppercase tracking-wide">Partnerships</Link>
-              <Link to={isLoggedIn ? "/members" : "/login"} className="text-xs hover:text-white transition-colors uppercase tracking-wide">
+            <div className="flex flex-col gap-4 text-white/50">
+              <Link to="/sanctuaries" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Sanctuaries</Link>
+              <Link to="/packages" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Packages</Link>
+              <Link to="/experiences" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Experiences</Link>
+              <Link to="/destinations" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Destinations</Link>
+              <Link to="/journals" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Journals</Link>
+              <Link to="/about" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">About</Link>
+              <Link to="/contact" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Contact</Link>
+              <Link to="/for-teams" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">For Teams</Link>
+              <Link to="/partnerships" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Partnerships</Link>
+              <Link to="/list-your-experience" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">List Your Experience</Link>
+              <Link to={isLoggedIn ? "/members" : "/login"} className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">
                 {isLoggedIn ? "My Account" : "Members"}
               </Link>
             </div>
@@ -53,7 +54,7 @@ export default function Footer() {
           {/* NEWSLETTER */}
           <div className="lg:col-span-3">
             <h4 className="text-xs text-white uppercase tracking-[0.2em] mb-8 font-bold text-switz-red">The List</h4>
-            <p className="text-white/40 font-light text-xs leading-relaxed mb-6">
+            <p className="text-white/50 font-light text-xs leading-relaxed mb-6">
               Join our private list for early access to seasonal intakes and journal updates.
             </p>
             <NewsletterForm />
@@ -63,11 +64,11 @@ export default function Footer() {
 
 
         {/* BOTTOM */}
-        <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[9px] text-white/20 tracking-widest uppercase">
+        <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[9px] text-white/35 tracking-widest uppercase">
           <p>{t('footer.copyright', '© 2026 Swissperiences • Geneva, Switzerland')}</p>
           <div className="flex gap-6">
-            <Link to="/privacy" className="hover:text-white/40 transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-white/40 transition-colors">Terms & Conditions</Link>
+            <Link to="/privacy" className="hover:text-white/50 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-white/50 transition-colors">Terms & Conditions</Link>
           </div>
         </div>
       </div>

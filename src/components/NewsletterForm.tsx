@@ -54,12 +54,12 @@ export default function NewsletterForm() {
                     placeholder={t('newsletter.placeholder', { defaultValue: 'Enter your email' })}
                     required
                     disabled={isLoading}
-                    className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-switz-red transition-colors rounded-none disabled:opacity-50"
+                    className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors rounded-none disabled:opacity-50"
                 />
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-switz-red transition-colors disabled:opacity-50"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-glacier-400 transition-colors disabled:opacity-50"
                 >
                     {isLoading ? (
                         <Loader2 size={16} className="animate-spin" />

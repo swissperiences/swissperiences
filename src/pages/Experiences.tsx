@@ -161,10 +161,10 @@ export default function Experiences() {
                 {/* Season Filter */}
                 <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
                     <div className="text-center mb-10">
-                        <span className="text-[9px] uppercase tracking-[0.4em] text-white/25 block mb-4">
+                        <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-4">
                             When are you visiting?
                         </span>
-                        <p className="text-white/40 text-sm font-light">
+                        <p className="text-white/50 text-sm font-light">
                             Select a season to see what's best for your trip.
                         </p>
                     </div>
@@ -173,8 +173,8 @@ export default function Experiences() {
                             onClick={() => setActiveSeason(null)}
                             className={`px-5 py-2.5 text-[10px] uppercase tracking-[0.2em] border transition-all duration-300 ${
                                 !activeSeason
-                                    ? "border-white/40 text-white bg-white/5"
-                                    : "border-white/10 text-white/30 hover:text-white/60 hover:border-white/20"
+                                    ? "border-glacier-500/50 text-white bg-glacier-500/10"
+                                    : "border-white/10 text-white/40 hover:text-white/70 hover:border-glacier-500/30"
                             }`}
                         >
                             All Seasons
@@ -185,13 +185,13 @@ export default function Experiences() {
                                 onClick={() => setActiveSeason(activeSeason === season.id ? null : season.id)}
                                 className={`flex items-center gap-2 px-5 py-2.5 text-[10px] uppercase tracking-[0.2em] border transition-all duration-300 ${
                                     activeSeason === season.id
-                                        ? "border-white/40 text-white bg-white/5"
-                                        : "border-white/10 text-white/30 hover:text-white/60 hover:border-white/20"
+                                        ? "border-glacier-500/50 text-white bg-glacier-500/10"
+                                        : "border-white/10 text-white/40 hover:text-white/70 hover:border-glacier-500/30"
                                 }`}
                             >
                                 <span className={activeSeason === season.id ? season.color : ""}>{season.icon}</span>
                                 {season.label}
-                                <span className="text-white/15 font-normal normal-case tracking-normal">{season.months}</span>
+                                <span className="text-white/30 font-normal normal-case tracking-normal">{season.months}</span>
                             </button>
                         ))}
                     </div>
@@ -210,7 +210,7 @@ export default function Experiences() {
                                 {seasonalSuggestions[activeSeason].interests.map((interest) => (
                                     <span
                                         key={interest}
-                                        className="text-[10px] uppercase tracking-[0.15em] text-white/25 border border-white/5 px-3 py-1.5"
+                                        className="text-[10px] uppercase tracking-[0.15em] text-white/40 border border-white/10 px-3 py-1.5"
                                     >
                                         {interest}
                                     </span>
@@ -295,7 +295,7 @@ export default function Experiences() {
                         >
                             {isLoggedIn ? "Book Now" : "Become a Member"}
                         </a>
-                        {!isLoggedIn && <p className="text-white/30 text-xs mt-4">Membership required. Apply now for exclusive access to our curated alpine experiences.</p>}
+                        {!isLoggedIn && <p className="text-white/40 text-xs mt-4">Membership required. Apply now for exclusive access to our curated alpine experiences.</p>}
                     </div>
                 </section>
                 </MembershipGate>

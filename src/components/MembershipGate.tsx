@@ -71,7 +71,7 @@ export default function MembershipGate({ children, title, subtitle }: Membership
                     </Link>
                     <Link
                         to="/login"
-                        className="inline-block border border-white/20 text-white/60 px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:border-white/40 hover:text-white transition-all duration-500"
+                        className="inline-block border border-white/20 text-white/60 px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:border-glacier-500/40 hover:text-white hover:bg-white/5 transition-all duration-500"
                     >
                         Sign In
                     </Link>
@@ -79,7 +79,7 @@ export default function MembershipGate({ children, title, subtitle }: Membership
 
                 {/* Newsletter alternative */}
                 <div className="mt-16 pt-12 border-t border-white/5">
-                    <p className="text-white/30 text-xs uppercase tracking-[0.2em] mb-6">
+                    <p className="text-white/40 text-xs uppercase tracking-[0.2em] mb-6">
                         Not ready to apply?
                     </p>
                     {isSubscribed ? (
@@ -97,12 +97,12 @@ export default function MembershipGate({ children, title, subtitle }: Membership
                                     placeholder="Join our private list"
                                     required
                                     disabled={isLoading}
-                                    className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/20 focus:outline-none focus:border-switz-red transition-colors rounded-none disabled:opacity-50"
+                                    className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors rounded-none disabled:opacity-50"
                                 />
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-switz-red transition-colors disabled:opacity-50"
+                                    className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-glacier-400 transition-colors disabled:opacity-50"
                                 >
                                     {isLoading ? (
                                         <Loader2 size={16} className="animate-spin" />

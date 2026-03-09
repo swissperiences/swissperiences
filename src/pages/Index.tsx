@@ -80,7 +80,7 @@ const Index = () => {
       "@type": "TravelAgency",
       "name": "Swissperiences",
       "url": "https://www.swissperiences.ch",
-      "priceRange": "CHF 1,500 – CHF 4,500",
+      "priceRange": "CHF 950 – CHF 5,500",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Geneva",
@@ -161,15 +161,15 @@ const Index = () => {
                 </button>
                 <button
                   onClick={() => navigate('/login')}
-                  className="group px-8 py-4 border border-white/15 hover:border-white/40 transition-all duration-500"
+                  className="group px-8 py-4 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 group-hover:text-white/70 transition-colors">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
                     Sign In
                   </span>
                 </button>
               </>
             )}
-            <span className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-white/20">
+            <span className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-white/40">
               Private alpine club — Villars-sur-Ollon, 1,300m
             </span>
           </div>
@@ -216,8 +216,8 @@ const Index = () => {
               <p className="text-white/50 text-base md:text-lg font-light leading-relaxed mb-4 max-w-sm">
                 A private alpine loft at 1,300m. Fireplace. Balcony over the valley. Silence as a feature.
               </p>
-              <p className="text-white/25 text-xs mb-8">
-                From CHF —/night · Members-only pricing
+              <p className="text-white/40 text-xs mb-8">
+                Members-only pricing · By invitation
               </p>
               <div className="flex items-center gap-6">
                 <Link
@@ -232,7 +232,7 @@ const Index = () => {
                       const el = document.getElementById("request-quote");
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="text-[10px] uppercase tracking-[0.3em] text-white/30 hover:text-white/60 transition-colors"
+                    className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-white/50 pb-1"
                   >
                     Request a Quote
                   </button>
@@ -253,7 +253,7 @@ const Index = () => {
         <div className="max-w-5xl mx-auto">
           <p className="font-serif text-3xl md:text-5xl lg:text-6xl text-white/80 leading-[1.1] tracking-tight">
             We don't sell experiences.
-            <span className="text-white/30 italic"> We curate the art of doing nothing.</span>
+            <span className="text-white/40 italic"> We curate the art of doing nothing.</span>
           </p>
         </div>
       </section>
@@ -296,7 +296,7 @@ const Index = () => {
             </Link>
 
             <div className="md:col-span-5 md:col-start-8">
-              <span className="text-[9px] uppercase tracking-[0.4em] text-white/30 block mb-8">
+              <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-8">
                 From the Journals
               </span>
 
@@ -304,11 +304,11 @@ const Index = () => {
                 The Winter<br />Ascent
               </h2>
 
-              <p className="text-white/40 text-base leading-relaxed mb-4">
+              <p className="text-white/50 text-base leading-relaxed mb-4">
                 Wagner, Andreia & Helena. A 48-hour condensed Grand Tour — from Geneva to the Bernese Oberland.
               </p>
 
-              <p className="text-white/25 text-sm leading-relaxed mb-10">
+              <p className="text-white/40 text-sm leading-relaxed mb-10">
                 Lavaux. Grindelwald at dusk. Lauterbrunnen's waterfalls. Every detail curated.
               </p>
 
@@ -322,7 +322,7 @@ const Index = () => {
               <div className="mt-16 pt-8 border-t border-white/5">
                 <Link
                   to="/journals"
-                  className="text-[10px] uppercase tracking-[0.3em] text-white/20 hover:text-white/50 transition-colors"
+                  className="text-[10px] uppercase tracking-[0.3em] text-white/40 hover:text-white/60 transition-colors"
                 >
                   All Journals →
                 </Link>
@@ -356,7 +356,7 @@ const Index = () => {
         </div>
 
         <div className="relative z-10 px-8 md:px-16 lg:px-24 max-w-4xl">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-white/25 block mb-10">
+          <span className="text-[9px] uppercase tracking-[0.4em] text-white/35 block mb-10">
             For Those Who
           </span>
 
@@ -373,7 +373,7 @@ const Index = () => {
           </div>
 
           <div className="mt-16 pt-8 border-t border-white/10 max-w-md">
-            <p className="text-white/30 text-sm leading-relaxed mb-6">
+            <p className="text-white/40 text-sm leading-relaxed mb-6">
               {isLoggedIn
                 ? "You're already part of this world. Your next escape is one message away."
                 : "Membership is by application only. We review each request to ensure alignment with our community."}
@@ -381,7 +381,7 @@ const Index = () => {
             {!isLoggedIn && (
               <Link
                 to="/login"
-                className="text-[10px] uppercase tracking-[0.3em] text-white/30 hover:text-white/60 transition-colors border-b border-white/10 hover:border-white/40 pb-1"
+                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-white/50 pb-1"
               >
                 Apply for Membership
               </Link>
@@ -402,7 +402,7 @@ const Index = () => {
             {isLoggedIn ? "Your next escape." : "The silence is waiting."}
           </h2>
 
-          <p className="text-white/30 text-lg mb-16 font-light">
+          <p className="text-white/40 text-lg mb-16 font-light">
             {isLoggedIn
               ? "Browse sanctuaries, plan experiences, and let us handle the rest."
               : "Start with a question. We'll handle everything else."}
@@ -433,9 +433,9 @@ const Index = () => {
                 </button>
                 <button
                   onClick={() => navigate('/login')}
-                  className="group px-10 py-5 border border-white/15 hover:border-white/40 transition-all duration-500"
+                  className="group px-10 py-5 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
                 >
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 group-hover:text-white/70 transition-colors">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
                     Apply for Membership
                   </span>
                 </button>

@@ -50,7 +50,7 @@ export default function RequestQuoteForm() {
     return (
       <section id="request-quote" className="py-24 md:py-32 px-8 md:px-16 bg-[#0a0a0a] border-t border-white/5">
         <div className="max-w-xl mx-auto text-center">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-6">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-6">
             Request Received
           </span>
           <h3 className="font-serif text-2xl md:text-3xl text-white/80 mb-4">
@@ -68,7 +68,7 @@ export default function RequestQuoteForm() {
     <section id="request-quote" className="py-24 md:py-32 px-8 md:px-16 bg-[#0a0a0a] border-t border-white/5">
       <div className="max-w-xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-6">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-6">
             Start a Conversation
           </span>
           <h2 className="font-serif text-3xl md:text-4xl text-white/80 mb-4">
@@ -94,7 +94,7 @@ export default function RequestQuoteForm() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="quote-name" className="text-[10px] uppercase tracking-[0.2em] text-white/30 block mb-2">
+              <label htmlFor="quote-name" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
                 Name
               </label>
               <input
@@ -103,11 +103,11 @@ export default function RequestQuoteForm() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="First name"
-                className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-white/30 focus:outline-none transition-colors"
+                className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-glacier-500/40 focus:outline-none transition-colors"
               />
             </div>
             <div>
-              <label htmlFor="quote-email" className="text-[10px] uppercase tracking-[0.2em] text-white/30 block mb-2">
+              <label htmlFor="quote-email" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
                 Email <span className="text-white/20">*</span>
               </label>
               <input
@@ -117,20 +117,20 @@ export default function RequestQuoteForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-white/30 focus:outline-none transition-colors"
+                className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-glacier-500/40 focus:outline-none transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="quote-interest" className="text-[10px] uppercase tracking-[0.2em] text-white/30 block mb-2">
+            <label htmlFor="quote-interest" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
               I'm interested in
             </label>
             <select
               id="quote-interest"
               value={interest}
               onChange={(e) => setInterest(e.target.value)}
-              className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm focus:border-white/30 focus:outline-none transition-colors appearance-none cursor-pointer [&>option]:bg-[#111] [&>option]:text-white"
+              className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm focus:border-glacier-500/40 focus:outline-none transition-colors appearance-none cursor-pointer [&>option]:bg-[#111] [&>option]:text-white"
             >
               {interestOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -141,8 +141,8 @@ export default function RequestQuoteForm() {
           </div>
 
           <div>
-            <label htmlFor="quote-message" className="text-[10px] uppercase tracking-[0.2em] text-white/30 block mb-2">
-              Message <span className="text-white/15">optional</span>
+            <label htmlFor="quote-message" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
+              Message <span className="text-white/30">optional</span>
             </label>
             <textarea
               id="quote-message"
@@ -150,7 +150,7 @@ export default function RequestQuoteForm() {
               onChange={(e) => setMessage(e.target.value)}
               rows={3}
               placeholder="Dates, solo or with company, anything you'd like us to know..."
-              className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-white/30 focus:outline-none transition-colors resize-none"
+              className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-glacier-500/40 focus:outline-none transition-colors resize-none"
             />
           </div>
 

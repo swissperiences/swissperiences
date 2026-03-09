@@ -14,7 +14,7 @@ export default function TrustBar() {
         {trustItems.map((item, i) => (
           <Fragment key={i}>
             {i > 0 && <span className="hidden md:block w-px h-3 bg-white/10" />}
-            <span className="text-[10px] uppercase tracking-[0.3em] text-white/25">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">
               {item}
             </span>
           </Fragment>

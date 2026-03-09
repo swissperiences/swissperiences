@@ -96,7 +96,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                         onClick={() => handleNavClick(link.href)}
                         className={cn(
                           "group relative block py-2 duration-700 ease-swiss-luxury transition-all whitespace-nowrap",
-                          isActive ? "text-white" : "text-white/40 hover:text-white"
+                          isActive ? "text-white" : "text-white/50 hover:text-white"
                         )}
                       >
                         <span className="relative z-10">{link.label}</span>
