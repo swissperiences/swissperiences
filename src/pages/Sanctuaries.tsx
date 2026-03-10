@@ -157,11 +157,11 @@ export default function Sanctuaries() {
                             </div>
                             <div className="p-8">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-white/30 text-[9px] uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">2027</span>
+                                    <span className="text-white/40 text-[9px] uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">2027</span>
                                 </div>
                                 <h3 className="text-2xl font-serif text-white/70 mb-2">Verbier</h3>
                                 <p className="text-white/40 text-sm mb-4">Valais, Switzerland</p>
-                                <p className="text-white/30 font-light text-sm leading-relaxed">
+                                <p className="text-white/40 font-light text-sm leading-relaxed">
                                     A high-altitude sanctuary in one of the world's most coveted alpine villages. Designed for those who chase both powder and peace.
                                 </p>
                             </div>
@@ -181,11 +181,11 @@ export default function Sanctuaries() {
                             </div>
                             <div className="p-8">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-white/30 text-[9px] uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">2028</span>
+                                    <span className="text-white/40 text-[9px] uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">2028</span>
                                 </div>
                                 <h3 className="text-2xl font-serif text-white/70 mb-2">Zermatt</h3>
                                 <p className="text-white/40 text-sm mb-4">Matterhorn, Switzerland</p>
-                                <p className="text-white/30 font-light text-sm leading-relaxed">
+                                <p className="text-white/40 font-light text-sm leading-relaxed">
                                     At the foot of the most iconic mountain in the Alps. A sanctuary where grandeur meets solitude.
                                 </p>
                             </div>

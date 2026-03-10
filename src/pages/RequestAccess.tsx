@@ -247,7 +247,7 @@ const RequestAccess = () => {
                                 <span className="w-full border-t border-white/5"></span>
                             </div>
                             <div className="relative flex justify-center text-[10px] uppercase tracking-[0.3em]">
-                                <span className="bg-black px-4 text-white/30 italic">or apply manually</span>
+                                <span className="bg-black px-4 text-white/40 italic">or apply manually</span>
                             </div>
                         </div>
 
@@ -265,7 +265,7 @@ const RequestAccess = () => {
                                     required
                                     value={formData.fullName}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors placeholder:text-white/20"
+                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20"
                                     placeholder="Your name"
                                 />
                             </div>
@@ -283,7 +283,7 @@ const RequestAccess = () => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     readOnly={isLoggedIn}
-                                    className={`w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors placeholder:text-white/20 ${isLoggedIn ? 'opacity-60 cursor-not-allowed' : ''}`}
+                                    className={`w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20 ${isLoggedIn ? 'opacity-60 cursor-not-allowed' : ''}`}
                                     placeholder="your@email.com"
                                 />
                             </div>
@@ -300,7 +300,7 @@ const RequestAccess = () => {
                                         name="city"
                                         value={formData.city}
                                         onChange={handleChange}
-                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors placeholder:text-white/20"
+                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20"
                                         placeholder="London"
                                     />
                                 </div>
@@ -314,7 +314,7 @@ const RequestAccess = () => {
                                         name="country"
                                         value={formData.country}
                                         onChange={handleChange}
-                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors placeholder:text-white/20"
+                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20"
                                         placeholder="United Kingdom"
                                     />
                                 </div>
@@ -331,7 +331,7 @@ const RequestAccess = () => {
                                     rows={3}
                                     value={formData.reason}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors placeholder:text-white/20 resize-none"
+                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20 resize-none"
                                     placeholder="Tell us a bit about what you're seeking..."
                                 />
                             </div>
@@ -346,7 +346,7 @@ const RequestAccess = () => {
                                     name="referralSource"
                                     value={formData.referralSource}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors appearance-none cursor-pointer pr-8"
+                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors appearance-none cursor-pointer pr-8"
                                 >
                                     <option value="" className="bg-black">Select one...</option>
                                     <option value="linkedin" className="bg-black">LinkedIn</option>
@@ -373,7 +373,7 @@ const RequestAccess = () => {
                                         name="referralDetail"
                                         value={formData.referralDetail}
                                         onChange={handleChange}
-                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-white/60 transition-colors placeholder:text-white/20"
+                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20"
                                     />
                                 </div>
                             )}
@@ -393,14 +393,14 @@ const RequestAccess = () => {
                                     ) : "Submit Application"}
                                 </button>
 
-                                <p className="text-white/30 text-xs text-center mt-6">
+                                <p className="text-white/40 text-xs text-center mt-6">
                                     Applications reviewed within 48 hours
                                 </p>
                             </div>
                         </form>
 
                         <div className="text-center pt-4">
-                            <p className="text-white/30 text-xs mb-2">Already a member?</p>
+                            <p className="text-white/40 text-xs mb-2">Already a member?</p>
                             <a
                                 href="/login"
                                 className="text-white/50 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
@@ -411,7 +411,7 @@ const RequestAccess = () => {
 
                         {/* Newsletter alternative */}
                         <div className="mt-12 pt-8 border-t border-white/5 text-center">
-                            <p className="text-white/30 text-xs uppercase tracking-[0.2em] mb-6">
+                            <p className="text-white/40 text-xs uppercase tracking-[0.2em] mb-6">
                                 Not ready to apply? Join our private list.
                             </p>
                             {newsletterDone ? (
@@ -429,12 +429,12 @@ const RequestAccess = () => {
                                             placeholder="Enter your email"
                                             required
                                             disabled={newsletterLoading}
-                                            className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/20 focus:outline-none focus:border-switz-red transition-colors rounded-none disabled:opacity-50"
+                                            className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors rounded-none disabled:opacity-50"
                                         />
                                         <button
                                             type="submit"
                                             disabled={newsletterLoading}
-                                            className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-switz-red transition-colors disabled:opacity-50"
+                                            className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-glacier-400 transition-colors disabled:opacity-50"
                                         >
                                             {newsletterLoading ? (
                                                 <Loader2 size={16} className="animate-spin" />

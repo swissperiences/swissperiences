@@ -68,13 +68,13 @@ export default function Contact() {
                         {/* Email */}
                         <a
                             href="mailto:hello@swissperiences.ch"
-                            className="group bg-white/5 border border-white/10 hover:border-white/20 p-8 rounded-sm transition-all duration-500"
+                            className="group bg-white/5 border border-white/10 hover:border-glacier-500/30 p-8 rounded-sm transition-all duration-500"
                         >
                             <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-switz-red mb-6 group-hover:bg-switz-red group-hover:text-white transition-all duration-500">
                                 <Mail size={20} />
                             </div>
                             <h3 className="text-lg font-serif text-white mb-2">Email</h3>
-                            <p className="text-white/40 text-sm mb-4">For general inquiries and bookings.</p>
+                            <p className="text-white/50 text-sm mb-4">For general inquiries and bookings.</p>
                             <span className="text-switz-red text-xs uppercase tracking-widest">hello@swissperiences.ch</span>
                         </a>
 
@@ -83,13 +83,13 @@ export default function Contact() {
                             href="https://wa.me/41787002202"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group bg-white/5 border border-white/10 hover:border-white/20 p-8 rounded-sm transition-all duration-500"
+                            className="group bg-white/5 border border-white/10 hover:border-glacier-500/30 p-8 rounded-sm transition-all duration-500"
                         >
                             <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-switz-red mb-6 group-hover:bg-switz-red group-hover:text-white transition-all duration-500">
                                 <MessageCircle size={20} />
                             </div>
                             <h3 className="text-lg font-serif text-white mb-2">WhatsApp</h3>
-                            <p className="text-white/40 text-sm mb-4">Quick questions and real-time assistance.</p>
+                            <p className="text-white/50 text-sm mb-4">Quick questions and real-time assistance.</p>
                             <span className="text-switz-red text-xs uppercase tracking-widest">Message us →</span>
                         </a>
 
@@ -99,7 +99,7 @@ export default function Contact() {
                                 <MapPin size={20} />
                             </div>
                             <h3 className="text-lg font-serif text-white mb-2">Based in</h3>
-                            <p className="text-white/40 text-sm mb-4">Operating across the Swiss Alps.</p>
+                            <p className="text-white/50 text-sm mb-4">Operating across the Swiss Alps.</p>
                             <span className="text-white/60 text-xs uppercase tracking-widest">Geneva, Switzerland</span>
                         </div>
                     </div>

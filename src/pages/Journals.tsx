@@ -77,7 +77,7 @@ export default function Journals() {
                                 </p>
                             </div>
                             <div className="hidden md:block text-right">
-                                <div className="flex items-center gap-4 text-white/20 text-xs uppercase tracking-widest">
+                                <div className="flex items-center gap-4 text-white/40 text-xs uppercase tracking-widest">
                                     <div className="flex items-center gap-2"><Clock size={12} /> Real Time</div>
                                     <div className="flex items-center gap-2"><Camera size={12} /> Real Memories</div>
                                 </div>
@@ -105,7 +105,7 @@ export default function Journals() {
 
                                             <button
                                                 onClick={() => navigate(`/journals/${journal.slug}`)}
-                                                className="text-white text-xs uppercase tracking-[0.2em] border-b border-white/20 pb-1 hover:text-switz-red hover:border-switz-red transition-all"
+                                                className="text-white/50 text-xs uppercase tracking-[0.2em] border-b border-white/20 pb-1 hover:text-white hover:border-glacier-500/40 transition-all"
                                             >
                                                 Read Full Journal
                                             </button>

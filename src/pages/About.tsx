@@ -100,11 +100,11 @@ export default function About() {
                                 <img
                                     src="/images/drone/villars-winter-sunset.jpg"
                                     alt="Villars village at sunset in winter"
-                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 brightness-[0.85]"
+                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 brightness-[0.85] group-hover:brightness-100"
                                     loading="lazy"
                                 />
                             </div>
-                            <div className="absolute -bottom-6 -left-6 bg-neutral-950 border border-white/10 px-6 py-4">
+                            <div className="absolute -bottom-6 -left-6 bg-neutral-950 border border-white/10 hover:border-glacier-500/20 transition-colors px-6 py-4">
                                 <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] block mb-1">Founded</span>
                                 <span className="text-white font-serif text-lg">Villars, 2024</span>
                             </div>

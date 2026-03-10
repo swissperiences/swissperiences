@@ -53,7 +53,7 @@ export default function Packages() {
       {/* Hero */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-8 md:px-16">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-6">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-6">
             Curated Packages
           </span>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white/85 leading-[1.1] mb-6">
@@ -108,7 +108,7 @@ export default function Packages() {
                     {pkg.highlights.map((h) => (
                       <span
                         key={h}
-                        className="text-[9px] uppercase tracking-[0.2em] text-white/30 border border-white/10 px-3 py-1.5"
+                        className="text-[9px] uppercase tracking-[0.2em] text-white/40 border border-white/10 px-3 py-1.5"
                       >
                         {h}
                       </span>
@@ -118,7 +118,7 @@ export default function Packages() {
 
                 {/* Right column — inclusions + price */}
                 <div className="md:col-span-2">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-white/30 block mb-4">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-4">
                     What's Included
                   </span>
                   <div className="space-y-3 mb-8">
@@ -131,7 +131,7 @@ export default function Packages() {
                   </div>
 
                   <div className="flex items-center gap-4 mb-2">
-                    <span className="text-[9px] uppercase tracking-[0.2em] text-white/25">
+                    <span className="text-[9px] uppercase tracking-[0.2em] text-white/40">
                       Group Size
                     </span>
                     <span className="text-white/50 text-sm">{pkg.groupSize}</span>
@@ -141,21 +141,21 @@ export default function Packages() {
                     {pkg.soloPrice ? (
                       <div className="grid grid-cols-3 gap-3 mb-6">
                         <div>
-                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/30 block mb-1">Solo</span>
+                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/40 block mb-1">Solo</span>
                           <span className="text-white/80 text-lg font-serif">{pkg.soloPrice}</span>
                         </div>
                         <div>
-                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/30 block mb-1">Couple</span>
+                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/40 block mb-1">Couple</span>
                           <span className="text-white/50 text-lg font-serif">{pkg.couplePrice}</span>
                         </div>
                         <div>
-                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/30 block mb-1">Group</span>
+                          <span className="text-[9px] uppercase tracking-[0.15em] text-white/40 block mb-1">Group</span>
                           <span className="text-white/50 text-lg font-serif">{pkg.groupPrice}</span>
                         </div>
                       </div>
                     ) : (
                       <>
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/25 block mb-1">
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
                           Starting at
                         </span>
                         <span className="text-white/80 text-2xl font-serif block mb-6">
@@ -180,7 +180,7 @@ export default function Packages() {
       {/* Bottom CTA */}
       <section className="py-20 md:py-28 px-8 md:px-16 bg-[#0a0a0a] border-t border-white/5">
         <div className="max-w-2xl mx-auto text-center">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-6">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-6">
             Something Else in Mind?
           </span>
           <h3 className="font-serif text-2xl md:text-3xl text-white/80 mb-4">
