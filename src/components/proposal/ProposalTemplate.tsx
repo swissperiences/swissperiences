@@ -144,7 +144,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                     <span className="text-switz-red text-[10px] font-bold tracking-[0.4em] uppercase mb-2 block animate-pulse">Peak State</span>
                                     <h3 className="text-3xl md:text-4xl font-serif text-white italic">Glacier 3000.</h3>
                                 </div>
-                                <span className="text-[9px] uppercase tracking-widest text-white/30 hidden md:block">Real Swiss Peaks</span>
+                                <span className="text-[9px] uppercase tracking-widest text-white/40 hidden md:block">Real Swiss Peaks</span>
                             </div>
                         </div>
                     </section>
@@ -262,7 +262,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                                 "flex justify-between items-center p-6 rounded-sm border transition-all duration-500 cursor-pointer relative overflow-hidden group",
                                                 selectedTier === tier.total
                                                     ? "bg-switz-red/10 border-switz-red/50 shadow-[0_0_30px_rgba(255,46,46,0.1)]"
-                                                    : "bg-white/[0.03] border-white/5 hover:border-white/20 hover:bg-white/[0.05]"
+                                                    : "bg-white/[0.03] border-white/5 hover:border-glacier-500/20 hover:bg-white/[0.05]"
                                             )}
                                         >
                                             <div className="relative z-10 flex items-center gap-5">
@@ -320,7 +320,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                                 )}>{addon.label}</span>
                                                 <span className="text-base font-serif italic text-white tracking-tight ml-4">+ {currency}{addon.price}</span>
                                             </div>
-                                            <p className="text-[11px] text-white/30 font-light leading-relaxed relative z-10">{addon.description}</p>
+                                            <p className="text-[11px] text-white/40 font-light leading-relaxed relative z-10">{addon.description}</p>
                                             <div className={cn(
                                                 "absolute top-1/2 -translate-y-1/2 right-4 w-1.5 h-1.5 rounded-full transition-all duration-500",
                                                 selectedAddons.includes(addon.id) ? "bg-switz-red shadow-[0_0_10px_#FF2E2E]" : "bg-white/5"
@@ -328,7 +328,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                         </div>
                                     ))}
                                     <div className="mt-8 pt-8 border-t border-white/10 italic">
-                                        <p className="text-[10px] text-white/30 leading-relaxed font-light">
+                                        <p className="text-[10px] text-white/40 leading-relaxed font-light">
                                             *Protocolo de Ski e Instrutor Dedicado já inclusos na base.<br />
                                             *Capturas de Drone sujeitas a segurança meteorológica.
                                         </p>
@@ -364,7 +364,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                             {/* Day 1 */}
                             <div className="relative pl-0 md:pl-16 border-l-0 md:border-l border-white/5 group">
                                 <span className="hidden md:block absolute -left-[6px] top-0 w-[12px] h-[12px] rounded-full bg-switz-red shadow-[0_0_20px_rgba(255,46,46,0.5)] transition-all duration-700 group-hover:scale-150" />
-                                <span className="text-[10px] uppercase tracking-[0.4em] text-switz-red md:text-white/20 mb-6 block font-bold group-hover:text-switz-red transition-colors">Day 01 // The Reset</span>
+                                <span className="text-[10px] uppercase tracking-[0.4em] text-switz-red md:text-white/40 mb-6 block font-bold group-hover:text-switz-red transition-colors">Day 01 // The Reset</span>
                                 <h3 className="text-4xl md:text-5xl lg:text-7xl font-serif text-white mb-12 md:mb-20 italic tracking-tighter leading-[1.1] md:leading-[0.9]">
                                     {config.itinerary.day1.title}
                                 </h3>
@@ -414,7 +414,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                             {/* Day 2 */}
                             <div className="relative pl-16 border-l border-white/10 group">
                                 <span className="absolute -left-[6px] top-0 w-[12px] h-[12px] rounded-full bg-white/10 border border-white/20 group-hover:bg-switz-red transition-all duration-700 group-hover:shadow-[0_0_20px_rgba(255,46,46,0.5)]" />
-                                <span className="text-[11px] uppercase tracking-[0.4em] text-white/20 mb-6 block font-bold">Day 02 // The Peak State</span>
+                                <span className="text-[11px] uppercase tracking-[0.4em] text-white/40 mb-6 block font-bold">Day 02 // The Peak State</span>
                                 <h3 className="text-5xl font-serif text-white mb-12 italic border-b border-white/5 pb-8 tracking-tighter">
                                     {config.itinerary.day2.title}
                                 </h3>
@@ -495,7 +495,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                 "Não sou uma agência de viagens. Sou um arquiteto de experiências residente na Suíça. Eu cuido do backstage para que você foque apenas em respirar."
                             </p>
 
-                            <a href="https://instagram.com/caueh" target="_blank" className="inline-flex items-center gap-4 text-white/30 hover:text-switz-red transition-all duration-500 text-xs uppercase tracking-[0.3em] font-bold group">
+                            <a href="https://instagram.com/caueh" target="_blank" className="inline-flex items-center gap-4 text-white/40 hover:text-switz-red transition-all duration-500 text-xs uppercase tracking-[0.3em] font-bold group">
                                 <Instagram className="w-6 h-6 group-hover:scale-110 transition-transform" />
                                 @caueh
                             </a>
@@ -516,7 +516,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                 <div className="mb-12 md:mb-16">
                                     <div className="text-7xl md:text-9xl font-serif text-white tracking-tighter mb-4 italic break-all md:break-normal">{currency}{finalPrice}</div>
                                     <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-                                        {addonsTotal > 0 && <span className="text-white/20 text-2xl line-through font-serif italic">{currency}{selectedTier}</span>}
+                                        {addonsTotal > 0 && <span className="text-white/30 text-2xl line-through font-serif italic">{currency}{selectedTier}</span>}
                                         <span className="text-switz-red text-[9px] font-bold uppercase tracking-[0.3em] bg-switz-red/10 border border-switz-red/20 px-4 py-2 inline-flex items-center gap-3 w-fit">
                                             <div className="w-2 h-2 rounded-full bg-switz-red animate-pulse" /> Private Intake Confirmed
                                         </span>
@@ -550,7 +550,7 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                 </button>
 
                                 <div className="mt-10 flex flex-col items-center gap-6">
-                                    <p className="text-[11px] text-white/20 uppercase tracking-[0.3em] italic text-center leading-relaxed">A emissão da invoice formal ocorre após a <br /> reserva do depósito de compromisso.</p>
+                                    <p className="text-[11px] text-white/35 uppercase tracking-[0.3em] italic text-center leading-relaxed">A emissão da invoice formal ocorre após a <br /> reserva do depósito de compromisso.</p>
                                     <a
                                         href={config.contact.whatsapp}
                                         target="_blank"
@@ -567,13 +567,13 @@ export default function ProposalTemplate({ config }: { config: ProposalConfig })
                                     <div className="absolute top-0 left-0 w-1.5 h-full bg-switz-red opacity-30 group-hover:opacity-100 transition-all duration-1000" />
                                     <h3 className="text-4xl font-serif text-white mb-10 italic leading-tight tracking-tighter">A logística é nossa. <br /> O silêncio é seu.</h3>
                                     <ul className="space-y-8">
-                                        <li className="flex items-center gap-6 text-white/30 text-[11px] tracking-[0.3em] uppercase font-bold group-hover:text-white/60 transition-colors">
+                                        <li className="flex items-center gap-6 text-white/40 text-[11px] tracking-[0.3em] uppercase font-bold group-hover:text-white/60 transition-colors">
                                             <div className="w-4 h-[2px] bg-switz-red group-hover:w-8 transition-all" /> Sem burocracia de hotel
                                         </li>
-                                        <li className="flex items-center gap-6 text-white/30 text-[11px] tracking-[0.3em] uppercase font-bold group-hover:text-white/60 transition-colors">
+                                        <li className="flex items-center gap-6 text-white/40 text-[11px] tracking-[0.3em] uppercase font-bold group-hover:text-white/60 transition-colors">
                                             <div className="w-4 h-[2px] bg-switz-red group-hover:w-8 transition-all" /> Sem barreiras de idioma
                                         </li>
-                                        <li className="flex items-center gap-6 text-white/30 text-[11px] tracking-[0.3em] uppercase font-bold group-hover:text-white/60 transition-colors">
+                                        <li className="flex items-center gap-6 text-white/40 text-[11px] tracking-[0.3em] uppercase font-bold group-hover:text-white/60 transition-colors">
                                             <div className="w-4 h-[2px] bg-switz-red group-hover:w-8 transition-all" /> Sem stress de transporte
                                         </li>
                                     </ul>

@@ -103,7 +103,7 @@ export default function Sustainability() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                         {sdgs.map((sdg, index) => (
                             <ScrollReveal key={sdg.number} delay={index * 0.1}>
-                                <div className="group border border-white/5 hover:border-white/15 rounded-sm p-8 md:p-10 transition-all duration-500 h-full">
+                                <div className="group border border-white/5 hover:border-glacier-500/20 rounded-sm p-8 md:p-10 transition-all duration-500 h-full">
                                     <div className="flex items-center gap-4 mb-5">
                                         <span
                                             className="text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm"

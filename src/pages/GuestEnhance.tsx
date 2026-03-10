@@ -154,31 +154,31 @@ export default function GuestEnhance() {
                         <p className="text-[10px] uppercase tracking-widest text-white/40">Your Details</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label className="text-white/30 text-xs block mb-1">Name *</label>
+                                <label className="text-white/40 text-xs block mb-1">Name *</label>
                                 <input
                                     type="text"
                                     required
                                     value={guestName}
                                     onChange={(e) => setGuestName(e.target.value)}
                                     placeholder="Your name"
-                                    className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors"
+                                    className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/30 focus:border-switz-red focus:outline-none transition-colors"
                                 />
                             </div>
                             <div>
-                                <label className="text-white/30 text-xs block mb-1">Email *</label>
+                                <label className="text-white/40 text-xs block mb-1">Email *</label>
                                 <input
                                     type="email"
                                     required
                                     value={guestEmail}
                                     onChange={(e) => setGuestEmail(e.target.value)}
                                     placeholder="your@email.com"
-                                    className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors"
+                                    className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/30 focus:border-switz-red focus:outline-none transition-colors"
                                 />
                             </div>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label className="text-white/30 text-xs block mb-1">Check-in</label>
+                                <label className="text-white/40 text-xs block mb-1">Check-in</label>
                                 <input
                                     type="date"
                                     value={checkIn}
@@ -187,7 +187,7 @@ export default function GuestEnhance() {
                                 />
                             </div>
                             <div>
-                                <label className="text-white/30 text-xs block mb-1">Check-out</label>
+                                <label className="text-white/40 text-xs block mb-1">Check-out</label>
                                 <input
                                     type="date"
                                     value={checkOut}
@@ -201,7 +201,7 @@ export default function GuestEnhance() {
                     {/* Experiences */}
                     <div>
                         <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Curated Experiences</p>
-                        <p className="text-white/25 text-xs mb-4">Handpicked by our local hosts. Available during your stay.</p>
+                        <p className="text-white/40 text-xs mb-4">Handpicked by our local hosts. Available during your stay.</p>
                         <div className="space-y-3">
                             {experiences.map((item) => {
                                 const isSelected = selectedIds.includes(item.id);
@@ -215,7 +215,7 @@ export default function GuestEnhance() {
                                         className={`w-full flex items-start gap-4 p-5 rounded-sm border text-left transition-all duration-200 ${
                                             isSelected
                                                 ? "border-switz-red bg-switz-red/5"
-                                                : "border-white/10 hover:border-white/20 bg-white/[0.02]"
+                                                : "border-white/10 hover:border-glacier-500/20 bg-white/[0.02]"
                                         }`}
                                     >
                                         <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
@@ -225,7 +225,7 @@ export default function GuestEnhance() {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <span className="text-white text-sm font-medium block">{item.name}</span>
-                                            <span className="text-white/35 text-xs block mt-1">{item.description}</span>
+                                            <span className="text-white/40 text-xs block mt-1">{item.description}</span>
                                         </div>
                                         <div className="text-right shrink-0">
                                             <span className="text-white/70 text-sm">{formatCHF(item.price)}</span>
@@ -240,7 +240,7 @@ export default function GuestEnhance() {
                     {/* Extras */}
                     <div>
                         <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Extras</p>
-                        <p className="text-white/25 text-xs mb-4">Small touches that make a big difference.</p>
+                        <p className="text-white/40 text-xs mb-4">Small touches that make a big difference.</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {extras.map((item) => {
                                 const isSelected = selectedIds.includes(item.id);
@@ -254,7 +254,7 @@ export default function GuestEnhance() {
                                         className={`flex items-center gap-3 p-4 rounded-sm border text-left transition-all duration-200 ${
                                             isSelected
                                                 ? "border-switz-red bg-switz-red/5"
-                                                : "border-white/10 hover:border-white/20 bg-white/[0.02]"
+                                                : "border-white/10 hover:border-glacier-500/20 bg-white/[0.02]"
                                         }`}
                                     >
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
@@ -275,14 +275,14 @@ export default function GuestEnhance() {
                     {/* Notes */}
                     <div>
                         <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
-                            Anything else? <span className="text-white/20">(Optional)</span>
+                            Anything else? <span className="text-white/30">(Optional)</span>
                         </label>
                         <textarea
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                             rows={3}
                             placeholder="Preferred dates, dietary requirements, travelling solo or with company..."
-                            className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors resize-none"
+                            className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/30 focus:border-switz-red focus:outline-none transition-colors resize-none"
                         />
                     </div>
 
@@ -312,7 +312,7 @@ export default function GuestEnhance() {
                                         <span className="text-2xl font-serif text-white">{formatCHF(total)}</span>
                                     </div>
 
-                                    <p className="text-white/20 text-[10px]">Final pricing confirmed after we check availability.</p>
+                                    <p className="text-white/35 text-[10px]">Final pricing confirmed after we check availability.</p>
 
                                     <div className="flex items-start gap-2 pt-2 border-t border-white/5">
                                         <ShieldCheck size={14} className="text-emerald-500/70 shrink-0 mt-0.5" />
@@ -332,7 +332,7 @@ export default function GuestEnhance() {
                         {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={14} />}
                         Send Request
                     </button>
-                    <p className="text-white/30 text-[10px] text-center">
+                    <p className="text-white/40 text-[10px] text-center">
                         No payment now. We'll reach out to confirm details and arrange everything.
                     </p>
                 </form>

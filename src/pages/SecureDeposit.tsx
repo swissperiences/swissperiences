@@ -79,7 +79,7 @@ export default function SecureDeposit() {
                 className="relative z-10 w-full max-w-md"
             >
                 <div className="text-center mb-12">
-                    <span className="text-white/30 text-[10px] uppercase tracking-[0.4em] mb-4 block">
+                    <span className="text-white/40 text-[10px] uppercase tracking-[0.4em] mb-4 block">
                         Swissperiences Private
                     </span>
                     <h1 className="text-3xl md:text-4xl font-serif text-white mb-4">
@@ -101,7 +101,7 @@ export default function SecureDeposit() {
                                 placeholder="name@example.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="bg-black/20 border-white/10 text-white placeholder:text-white/20 h-12 focus:border-white/30 transition-all"
+                                className="bg-black/20 border-white/10 text-white placeholder:text-white/30 h-12 focus:border-glacier-500/40 transition-all"
                                 required
                                 disabled={isLoading}
                             />
@@ -114,7 +114,7 @@ export default function SecureDeposit() {
                                     id="marketing-deposit"
                                     checked={marketingOptIn}
                                     onChange={(e) => setMarketingOptIn(e.target.checked)}
-                                    className="w-4 h-4 mt-0.5 border-white/20 bg-white/5 rounded-sm focus:ring-white/20 accent-[#D8B58A]"
+                                    className="w-4 h-4 mt-0.5 border-white/30 bg-white/5 rounded-sm focus:ring-white/20 accent-[#D8B58A]"
                                 />
                                 <label htmlFor="marketing-deposit" className="text-[10px] text-white/50 uppercase tracking-widest font-light cursor-pointer select-none leading-relaxed">
                                     I would like to receive exclusive travel updates and mountain sanctuary discoveries from Swissperiences.
@@ -146,13 +146,13 @@ export default function SecureDeposit() {
                                     </span>
                                 )}
                             </Button>
-                            <p className="text-[9px] text-center text-white/20 tracking-widest uppercase font-light">
+                            <p className="text-[9px] text-center text-white/35 tracking-widest uppercase font-light">
                                 You can unsubscribe at any time.
                             </p>
                         </div>
                     </form>
 
-                    <div className="mt-6 flex flex-col items-center justify-center gap-2 text-[10px] text-white/30">
+                    <div className="mt-6 flex flex-col items-center justify-center gap-2 text-[10px] text-white/40">
                         <div className="flex items-center gap-2">
                             <Lock size={10} />
                             <span>Encrypted Transaction via Stripe</span>

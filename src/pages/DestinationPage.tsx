@@ -143,7 +143,7 @@ export default function DestinationPage() {
                             transition={{ delay: 0.5 }}
                             className="mt-8"
                         >
-                            <span className="text-[10px] text-white/30 uppercase tracking-[0.2em]">{city.coordinates}</span>
+                            <span className="text-[10px] text-white/40 uppercase tracking-[0.2em]">{city.coordinates}</span>
                         </motion.div>
                     </div>
                 </section>
@@ -165,15 +165,15 @@ export default function DestinationPage() {
                         </div>
                         <div className="space-y-6 border border-white/5 rounded-sm p-8 bg-white/[0.02]">
                             <div>
-                                <span className="text-white/30 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.elevation", "Elevation")}</span>
+                                <span className="text-white/40 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.elevation", "Elevation")}</span>
                                 <span className="text-white text-lg font-light">{city.elevation}</span>
                             </div>
                             <div className="border-t border-white/5 pt-4">
-                                <span className="text-white/30 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.canton", "Canton")}</span>
+                                <span className="text-white/40 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.canton", "Canton")}</span>
                                 <span className="text-white text-lg font-light">{city.canton}</span>
                             </div>
                             <div className="border-t border-white/5 pt-4">
-                                <span className="text-white/30 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.coordinates", "Coordinates")}</span>
+                                <span className="text-white/40 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.coordinates", "Coordinates")}</span>
                                 <span className="text-white/70 text-sm font-light">{city.coordinates}</span>
                             </div>
                         </div>
@@ -218,7 +218,7 @@ export default function DestinationPage() {
                                             <Link
                                                 key={i}
                                                 to={link.href}
-                                                className="group flex items-center justify-between border border-white/5 hover:border-white/20 rounded-sm p-6 transition-all duration-500"
+                                                className="group flex items-center justify-between border border-white/5 hover:border-glacier-500/20 rounded-sm p-6 transition-all duration-500"
                                             >
                                                 <span className="text-white/80 group-hover:text-white font-light transition-colors">{link.title}</span>
                                                 <ArrowRight size={14} className="text-white/20 group-hover:text-switz-red transition-colors" />
@@ -238,7 +238,7 @@ export default function DestinationPage() {
                                             <Link
                                                 key={i}
                                                 to={link.href}
-                                                className="group flex items-center justify-between border border-white/5 hover:border-white/20 rounded-sm p-6 transition-all duration-500"
+                                                className="group flex items-center justify-between border border-white/5 hover:border-glacier-500/20 rounded-sm p-6 transition-all duration-500"
                                             >
                                                 <span className="text-white/80 group-hover:text-white font-light transition-colors">{link.title}</span>
                                                 <ArrowRight size={14} className="text-white/20 group-hover:text-switz-red transition-colors" />
@@ -258,7 +258,7 @@ export default function DestinationPage() {
                                             <Link
                                                 key={i}
                                                 to={link.href}
-                                                className="group flex items-center justify-between border border-white/5 hover:border-white/20 rounded-sm p-6 transition-all duration-500"
+                                                className="group flex items-center justify-between border border-white/5 hover:border-glacier-500/20 rounded-sm p-6 transition-all duration-500"
                                             >
                                                 <span className="text-white/80 group-hover:text-white font-light transition-colors">{link.title}</span>
                                                 <ArrowRight size={14} className="text-white/20 group-hover:text-switz-red transition-colors" />

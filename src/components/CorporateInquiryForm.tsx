@@ -100,7 +100,7 @@ export function CorporateInquiryForm() {
                                 <FormItem>
                                     <FormLabel className="text-xs uppercase tracking-widest text-white/50">Company Organization</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Acme Inc." {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-glacier-500/50 transition-colors h-12" />
+                                        <Input placeholder="Acme Inc." {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-glacier-500/50 transition-colors h-12" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -113,7 +113,7 @@ export function CorporateInquiryForm() {
                                 <FormItem>
                                     <FormLabel className="text-xs uppercase tracking-widest text-white/50">Lead Contact</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Full Name" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-glacier-500/50 transition-colors h-12" />
+                                        <Input placeholder="Full Name" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-glacier-500/50 transition-colors h-12" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -129,7 +129,7 @@ export function CorporateInquiryForm() {
                                 <FormItem>
                                     <FormLabel className="text-xs uppercase tracking-widest text-white/50">Work Email</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="name@company.com" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-glacier-500/50 transition-colors h-12" />
+                                        <Input placeholder="name@company.com" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-glacier-500/50 transition-colors h-12" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -142,7 +142,7 @@ export function CorporateInquiryForm() {
                                 <FormItem>
                                     <FormLabel className="text-xs uppercase tracking-widest text-white/50">Phone / WhatsApp</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="+41 ..." {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-glacier-500/50 transition-colors h-12" />
+                                        <Input placeholder="+41 ..." {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-glacier-500/50 transition-colors h-12" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -181,7 +181,7 @@ export function CorporateInquiryForm() {
                                 <FormItem>
                                     <FormLabel className="text-xs uppercase tracking-widest text-white/50">Target Dates</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="e.g. Sept 2025" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-glacier-500/50 transition-colors h-12" />
+                                        <Input placeholder="e.g. Sept 2025" {...field} className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-glacier-500/50 transition-colors h-12" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -198,7 +198,7 @@ export function CorporateInquiryForm() {
                                 <FormControl>
                                     <Textarea
                                         placeholder="e.g. Strategic planning, Team bonding, deep work..."
-                                        className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-glacier-500/50 transition-colors min-h-[120px] resize-none"
+                                        className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus:border-glacier-500/50 transition-colors min-h-[120px] resize-none"
                                         {...field}
                                     />
                                 </FormControl>

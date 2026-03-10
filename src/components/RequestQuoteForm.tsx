@@ -103,12 +103,12 @@ export default function RequestQuoteForm() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="First name"
-                className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-glacier-500/40 focus:outline-none transition-colors"
+                className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/30 focus:border-glacier-500/40 focus:outline-none transition-colors"
               />
             </div>
             <div>
               <label htmlFor="quote-email" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
-                Email <span className="text-white/20">*</span>
+                Email <span className="text-white/30">*</span>
               </label>
               <input
                 id="quote-email"
@@ -117,7 +117,7 @@ export default function RequestQuoteForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-glacier-500/40 focus:outline-none transition-colors"
+                className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/30 focus:border-glacier-500/40 focus:outline-none transition-colors"
               />
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function RequestQuoteForm() {
               onChange={(e) => setMessage(e.target.value)}
               rows={3}
               placeholder="Dates, solo or with company, anything you'd like us to know..."
-              className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/20 focus:border-glacier-500/40 focus:outline-none transition-colors resize-none"
+              className="w-full bg-transparent border-b border-white/10 pb-3 text-white/80 text-sm placeholder:text-white/30 focus:border-glacier-500/40 focus:outline-none transition-colors resize-none"
             />
           </div>
 

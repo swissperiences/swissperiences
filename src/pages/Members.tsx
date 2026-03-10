@@ -173,7 +173,7 @@ const Members = () => {
                     </div>
                     <button
                         onClick={handleSignOut}
-                        className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest shrink-0"
+                        className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-xs uppercase tracking-widest shrink-0"
                         title="Sign Out"
                     >
                         <LogOut size={14} />
@@ -301,13 +301,13 @@ const Members = () => {
                             <div className="space-y-8">
                                 {upcoming.length > 0 && (
                                     <div>
-                                        <h3 className="text-xs uppercase tracking-widest text-white/30 mb-4">Upcoming</h3>
+                                        <h3 className="text-xs uppercase tracking-widest text-white/40 mb-4">Upcoming</h3>
                                         <div className="space-y-3">{upcoming.map(renderBooking)}</div>
                                     </div>
                                 )}
                                 {past.length > 0 && (
                                     <div>
-                                        <h3 className="text-xs uppercase tracking-widest text-white/30 mb-4">Past Journeys</h3>
+                                        <h3 className="text-xs uppercase tracking-widest text-white/40 mb-4">Past Journeys</h3>
                                         <div className="space-y-3">{past.map(renderBooking)}</div>
                                     </div>
                                 )}
@@ -343,7 +343,7 @@ const Members = () => {
                     <h2 className="text-2xl font-serif text-white mb-8">{t('members.sanctuaries')}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Villars */}
-                        <Link to="/sanctuaries/villars" className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/10 hover:border-white/20 transition-colors block">
+                        <Link to="/sanctuaries/villars" className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/10 hover:border-glacier-500/20 transition-colors block">
                             <div className="aspect-[4/3] overflow-hidden">
                                 <img
                                     src="/images/villars-hero.jpg"
@@ -431,7 +431,7 @@ const Members = () => {
                                 </>
                             );
                             return exp.href ? (
-                                <Link key={exp.name} to={exp.href} className="group bg-white/5 border border-white/10 p-4 sm:p-6 rounded-sm hover:border-white/20 transition-colors block overflow-hidden">
+                                <Link key={exp.name} to={exp.href} className="group bg-white/5 border border-white/10 p-4 sm:p-6 rounded-sm hover:border-glacier-500/20 transition-colors block overflow-hidden">
                                     {CardContent}
                                 </Link>
                             ) : (
@@ -459,7 +459,7 @@ const Members = () => {
                             <Link
                                 key={journal.id}
                                 to={`/journals/${journal.slug}`}
-                                className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/10 hover:border-white/20 transition-colors block"
+                                className="group relative overflow-hidden rounded-sm bg-white/5 border border-white/10 hover:border-glacier-500/20 transition-colors block"
                             >
                                 <div className="aspect-[16/9] overflow-hidden">
                                     <img

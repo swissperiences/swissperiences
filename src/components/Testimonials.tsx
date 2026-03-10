@@ -100,7 +100,7 @@ export const Testimonials = () => {
                     <div className="flex items-center gap-8 mt-12">
                         <button
                             onClick={prevTestimonial}
-                            className="p-3 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-all group"
+                            className="p-3 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-glacier-500/30 transition-all group"
                             aria-label="Previous testimonial"
                         >
                             <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
@@ -120,7 +120,7 @@ export const Testimonials = () => {
 
                         <button
                             onClick={nextTestimonial}
-                            className="p-3 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/30 transition-all group"
+                            className="p-3 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-glacier-500/30 transition-all group"
                             aria-label="Next testimonial"
                         >
                             <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />

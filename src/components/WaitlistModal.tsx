@@ -161,7 +161,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                   {/* Experience Selector (Hidden if intent is preset) */}
                   {!initialIntent && (
                     <motion.div variants={itemVariants} className="space-y-2">
-                      <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Select Experience</label>
+                      <label className="text-[10px] text-white/40 font-bold uppercase tracking-[0.25em]">Select Experience</label>
                       <Select value={intent} onValueChange={setIntent}>
                         <SelectTrigger className="bg-white/[0.03] border-white/5 h-12 text-sm focus:ring-white/10 hover:bg-white/[0.05] transition-all">
                           <SelectValue placeholder="Begin your journey..." />
@@ -188,7 +188,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {(intent === 'day-pass' || intent === 'retreat' || intent === 'stay') && (
                       <motion.div variants={itemVariants} className="space-y-2">
-                        <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Preferred Date</label>
+                        <label className="text-[10px] text-white/40 font-bold uppercase tracking-[0.25em]">Preferred Date</label>
                         <Popover>
                           <PopoverTrigger asChild>
                             <Button
@@ -226,7 +226,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                     )}
 
                     <motion.div variants={itemVariants} className="space-y-2">
-                      <label className="text-[10px] text-white/30 font-bold uppercase tracking-[0.25em]">Guests</label>
+                      <label className="text-[10px] text-white/40 font-bold uppercase tracking-[0.25em]">Guests</label>
                       <Select value={guests} onValueChange={setGuests}>
                         <SelectTrigger className="bg-white/[0.03] border-white/5 h-12 text-sm hover:bg-white/[0.05]">
                           <SelectValue placeholder="Count" />
@@ -243,7 +243,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                   {/* Contact Info */}
                   <div className="grid grid-cols-1 gap-6">
                     <motion.div variants={itemVariants} className="space-y-3">
-                      <label className="text-[10px] text-white/20 font-light uppercase tracking-[0.3em]">Name</label>
+                      <label className="text-[10px] text-white/40 font-light uppercase tracking-[0.3em]">Name</label>
                       <Input
                         type="text"
                         placeholder="e.g. Andreia Wager"
@@ -255,7 +255,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                     </motion.div>
 
                     <motion.div variants={itemVariants} className="space-y-3">
-                      <label className="text-[10px] text-white/20 font-light uppercase tracking-[0.3em]">Email</label>
+                      <label className="text-[10px] text-white/40 font-light uppercase tracking-[0.3em]">Email</label>
                       <Input
                         type="email"
                         placeholder="hello@world.com"
@@ -292,7 +292,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                         </span>
                       )}
                     </Button>
-                    <p className="text-[9px] text-center text-white/20 mt-4 tracking-widest uppercase font-light">
+                    <p className="text-[9px] text-center text-white/35 mt-4 tracking-widest uppercase font-light">
                       Response within 48h // Secure your priority with a refundable CHF 500 deposit
                     </p>
                   </motion.div>
@@ -328,7 +328,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                   </Button>
                   <Button
                     onClick={handleClose}
-                    className="bg-transparent border border-white/10 text-white/40 hover:text-white hover:border-white w-full h-12 uppercase tracking-[0.2em] text-[10px] rounded-none transition-all"
+                    className="bg-transparent border border-white/10 text-white/40 hover:text-glacier-300 hover:border-glacier-500/40 w-full h-12 uppercase tracking-[0.2em] text-[10px] rounded-none transition-all"
                   >
                     {t('buttons.close')}
                   </Button>

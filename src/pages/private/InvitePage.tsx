@@ -299,7 +299,7 @@ export default function InvitePage() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-white/20 text-[9px] uppercase tracking-[0.3em] mt-8 block"
+                            className="text-white/35 text-[9px] uppercase tracking-[0.3em] mt-8 block"
                         >
                             Private invitation · 1–4 guests · Villars-sur-Ollon, Switzerland
                         </motion.span>
@@ -458,7 +458,7 @@ export default function InvitePage() {
                     </div>
 
                     <ScrollReveal delay={0.3}>
-                        <p className="text-white/25 font-light text-xs italic mt-10 max-w-md">
+                        <p className="text-white/40 font-light text-xs italic mt-10 max-w-md">
                             You don't touch your luggage, you barely see a ticket. Just arrive. The rest happens in silence.
                         </p>
                     </ScrollReveal>
@@ -468,13 +468,13 @@ export default function InvitePage() {
                 <section className="max-w-4xl mx-auto px-6 pb-20 md:pb-28">
                     <ScrollReveal>
                         <div className="mb-8">
-                            <span className="text-white/20 text-[9px] uppercase tracking-[0.3em] block mb-3">
+                            <span className="text-white/40 text-[9px] uppercase tracking-[0.3em] block mb-3">
                                 Optional Add-Ons
                             </span>
                             <h3 className="text-2xl font-serif text-white/80 mb-2">
                                 Customize your escape<span className="text-switz-red">.</span>
                             </h3>
-                            <p className="text-white/30 text-xs font-light">
+                            <p className="text-white/40 text-xs font-light">
                                 Add what you want, skip what you don't.
                             </p>
                         </div>
@@ -485,7 +485,7 @@ export default function InvitePage() {
                             <div className="flex items-center justify-between py-4 border-b border-white/5">
                                 <div>
                                     <span className="text-white/60 font-light text-sm block">🎿 Ski Experience</span>
-                                    <span className="text-white/30 text-xs">Private instructor + equipment + ski pass</span>
+                                    <span className="text-white/40 text-xs">Private instructor + equipment + ski pass</span>
                                 </div>
                                 <span className="text-white/40 text-sm font-light">+CHF 350/person</span>
                             </div>
@@ -495,7 +495,7 @@ export default function InvitePage() {
                             <div className="flex items-center justify-between py-4 border-b border-white/5">
                                 <div>
                                     <span className="text-white/60 font-light text-sm block">🏔️ Snowshoeing</span>
-                                    <span className="text-white/30 text-xs">Guided hike with equipment included</span>
+                                    <span className="text-white/40 text-xs">Guided hike with equipment included</span>
                                 </div>
                                 <span className="text-white/40 text-sm font-light">+CHF 120/person</span>
                             </div>
@@ -505,7 +505,7 @@ export default function InvitePage() {
                             <div className="flex items-center justify-between py-4 border-b border-white/5">
                                 <div>
                                     <span className="text-white/60 font-light text-sm block">👨‍🍳 Private Chef Dinner</span>
-                                    <span className="text-white/30 text-xs">3-course meal at the loft</span>
+                                    <span className="text-white/40 text-xs">3-course meal at the loft</span>
                                 </div>
                                 <span className="text-white/40 text-sm font-light">+CHF 300</span>
                             </div>
@@ -515,7 +515,7 @@ export default function InvitePage() {
                             <div className="flex items-center justify-between py-4">
                                 <div>
                                     <span className="text-white/60 font-light text-sm block">🍷 Wine Tasting</span>
-                                    <span className="text-white/30 text-xs">Local Vaud winery visit</span>
+                                    <span className="text-white/40 text-xs">Local Vaud winery visit</span>
                                 </div>
                                 <span className="text-white/40 text-sm font-light">+CHF 80/person</span>
                             </div>
@@ -527,21 +527,21 @@ export default function InvitePage() {
                 <section className="max-w-3xl mx-auto px-6 pb-20 md:pb-28">
                     <ScrollReveal>
                         <div className="border border-white/5 rounded-sm p-8 md:p-12">
-                            <span className="text-white/20 text-[9px] uppercase tracking-[0.3em] block mb-6">
+                            <span className="text-white/40 text-[9px] uppercase tracking-[0.3em] block mb-6">
                                 For those who want more
                             </span>
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                                     <span className="text-white/40 font-light text-sm">Helicopter transfer from Geneva</span>
-                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">on request</span>
+                                    <span className="text-white/35 text-[10px] uppercase tracking-[0.15em]">on request</span>
                                 </div>
                                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                                     <span className="text-white/40 font-light text-sm">Private chef experience at the loft</span>
-                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">on request</span>
+                                    <span className="text-white/35 text-[10px] uppercase tracking-[0.15em]">on request</span>
                                 </div>
                                 <div className="flex items-center justify-between py-3">
                                     <span className="text-white/40 font-light text-sm">Sommelier-curated wine pairing</span>
-                                    <span className="text-white/20 text-[10px] uppercase tracking-[0.15em]">on request</span>
+                                    <span className="text-white/35 text-[10px] uppercase tracking-[0.15em]">on request</span>
                                 </div>
                             </div>
                         </div>
@@ -621,13 +621,13 @@ export default function InvitePage() {
                                     <BookOpen className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <span className="text-white/20 text-[9px] uppercase tracking-[0.3em] block mb-3">
+                                    <span className="text-white/40 text-[9px] uppercase tracking-[0.3em] block mb-3">
                                         The Journals
                                     </span>
                                     <h3 className="text-xl md:text-2xl font-serif text-white/80 group-hover:text-white transition-colors mb-3">
                                         Stories from the Alps<span className="text-switz-red">.</span>
                                     </h3>
-                                    <p className="text-white/30 font-light text-sm leading-relaxed max-w-lg">
+                                    <p className="text-white/40 font-light text-sm leading-relaxed max-w-lg">
                                         Real life in the Swiss Alps — the hidden trails, the quiet mornings, and what it's really like to call this place home.
                                     </p>
                                 </div>
@@ -640,7 +640,7 @@ export default function InvitePage() {
                 {/* ── Exclusivity note ────────────────────────────────── */}
                 <section className="max-w-3xl mx-auto px-6 pb-10 md:pb-14">
                     <ScrollReveal>
-                        <p className="text-white/25 font-light text-sm italic text-center leading-relaxed">
+                        <p className="text-white/40 font-light text-sm italic text-center leading-relaxed">
                             I only host a few weekends each season so I can be fully present with each guest.
                         </p>
                     </ScrollReveal>
@@ -655,20 +655,20 @@ export default function InvitePage() {
                                     {config.foundingPricing.badge[lang]}
                                 </span>
                                 <div className="mb-3">
-                                    <span className="text-white/25 text-lg md:text-xl font-serif line-through italic">
+                                    <span className="text-white/30 text-lg md:text-xl font-serif line-through italic">
                                         {config.foundingPricing.regularAmount}
                                     </span>
                                 </div>
                                 <div className="text-6xl md:text-8xl font-serif text-white italic tracking-tight mb-5">
                                     {config.foundingPricing.amount}
                                 </div>
-                                <p className="text-white/30 text-sm font-light mb-6">
+                                <p className="text-white/40 text-sm font-light mb-6">
                                     {config.foundingPricing.perPerson[lang]}
                                 </p>
                                 <p className="text-white/40 text-xs uppercase tracking-[0.15em] mb-3">
                                     {config.foundingPricing.note[lang]}
                                 </p>
-                                <p className="text-white/15 text-[10px] uppercase tracking-[0.2em]">
+                                <p className="text-white/30 text-[10px] uppercase tracking-[0.2em]">
                                     {config.foundingPricing.disclaimer[lang]}
                                 </p>
                             </ScrollReveal>
@@ -687,7 +687,7 @@ export default function InvitePage() {
                                 <div className="text-6xl md:text-8xl font-serif text-white italic tracking-tight mb-4">
                                     {config.pricing.amount}
                                 </div>
-                                <p className="text-white/30 text-sm font-light mb-2">
+                                <p className="text-white/40 text-sm font-light mb-2">
                                     {config.pricing.perPerson}
                                 </p>
                                 <p className="text-switz-red/70 text-xs uppercase tracking-[0.15em] font-bold mb-14">
@@ -709,7 +709,7 @@ export default function InvitePage() {
                                 </a>
                                 <a
                                     href={`mailto:${config.contact.email}`}
-                                    className="text-white/30 text-xs uppercase tracking-[0.15em] font-bold hover:text-white/60 transition-colors"
+                                    className="text-white/40 text-xs uppercase tracking-[0.15em] font-bold hover:text-white/60 transition-colors"
                                 >
                                     Or send an email →
                                 </a>
@@ -717,7 +717,7 @@ export default function InvitePage() {
                         </ScrollReveal>
 
                         <ScrollReveal delay={config.foundingPricing ? 0.1 : 0.2}>
-                            <p className="text-white/15 text-[10px] uppercase tracking-[0.2em] mt-14">
+                            <p className="text-white/30 text-[10px] uppercase tracking-[0.2em] mt-14">
                                 This is a private invitation. Please do not share this link.
                             </p>
                         </ScrollReveal>

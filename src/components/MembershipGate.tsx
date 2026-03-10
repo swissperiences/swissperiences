@@ -97,7 +97,7 @@ export default function MembershipGate({ children, title, subtitle }: Membership
                                     placeholder="Join our private list"
                                     required
                                     disabled={isLoading}
-                                    className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors rounded-none disabled:opacity-50"
+                                    className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/30 focus:outline-none focus:border-glacier-500/50 transition-colors rounded-none disabled:opacity-50"
                                 />
                                 <button
                                     type="submit"

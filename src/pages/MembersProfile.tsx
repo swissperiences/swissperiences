@@ -190,7 +190,7 @@ const MembersProfile = () => {
                     <p className="text-white/40 text-sm mb-2">
                         We use this to tailor your stays, hosts and experiences to you.
                     </p>
-                    <p className="text-white/30 text-xs">
+                    <p className="text-white/40 text-xs">
                         Member since{" "}
                         {new Date(profile.joined_at).toLocaleDateString("en-US", {
                             month: "long",
@@ -217,7 +217,7 @@ const MembersProfile = () => {
                     )}
                     <div>
                         <p className="text-white text-sm">{profile.email}</p>
-                        <p className="text-white/30 text-xs mt-0.5">
+                        <p className="text-white/40 text-xs mt-0.5">
                             Email cannot be changed here
                         </p>
                     </div>
@@ -234,7 +234,7 @@ const MembersProfile = () => {
                             type="text"
                             value={fullName}
                             onChange={(e) => setFullName(e.target.value)}
-                            className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors placeholder:text-white/20"
+                            className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30"
                             placeholder="Your full name"
                         />
                     </div>
@@ -249,7 +249,7 @@ const MembersProfile = () => {
                                 type="text"
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
-                                className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors placeholder:text-white/20"
+                                className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30"
                                 placeholder="e.g. Geneva"
                             />
                         </div>
@@ -261,7 +261,7 @@ const MembersProfile = () => {
                                 type="text"
                                 value={country}
                                 onChange={(e) => setCountry(e.target.value)}
-                                className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors placeholder:text-white/20"
+                                className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30"
                                 placeholder="e.g. Switzerland"
                             />
                         </div>
@@ -270,13 +270,13 @@ const MembersProfile = () => {
                     {/* Phone */}
                     <div>
                         <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
-                            Phone <span className="normal-case tracking-normal text-white/20">(for stay logistics only)</span>
+                            Phone <span className="normal-case tracking-normal text-white/30">(for stay logistics only)</span>
                         </label>
                         <input
                             type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors placeholder:text-white/20"
+                            className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30"
                             placeholder="+41 78 700 22 02"
                         />
                     </div>
@@ -290,7 +290,7 @@ const MembersProfile = () => {
                             value={bio}
                             onChange={(e) => setBio(e.target.value)}
                             rows={3}
-                            className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors resize-none placeholder:text-white/20"
+                            className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-glacier-500/50 transition-colors resize-none placeholder:text-white/30"
                             placeholder="Tell us how you like to travel, relax and disconnect..."
                         />
                     </div>
@@ -304,7 +304,7 @@ const MembersProfile = () => {
                             value={preferences}
                             onChange={(e) => setPreferences(e.target.value)}
                             rows={3}
-                            className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-white/30 transition-colors resize-none placeholder:text-white/20"
+                            className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-glacier-500/50 transition-colors resize-none placeholder:text-white/30"
                             placeholder="Dietary needs, preferred activities, energy levels, anything that helps us personalise your stay..."
                         />
                     </div>
@@ -336,7 +336,7 @@ const MembersProfile = () => {
                     </button>
                     <button
                         onClick={handleCancel}
-                        className="px-8 py-3.5 text-xs uppercase tracking-widest text-white/40 hover:text-white border border-white/10 hover:border-white/20 transition-colors"
+                        className="px-8 py-3.5 text-xs uppercase tracking-widest text-white/40 hover:text-white border border-white/10 hover:border-glacier-500/20 transition-colors"
                     >
                         Cancel
                     </button>

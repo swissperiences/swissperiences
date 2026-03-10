@@ -121,7 +121,7 @@ export function UpcomingRetreats({ onJoinWaitlist }: UpcomingRetreatsProps) {
                             transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0.3 }}
                             className="h-full"
                         >
-                            <Card className="h-full border-white/10 bg-card/50 backdrop-blur-sm hover:border-white/20 transition-all duration-500 hover:scale-[1.02] group flex flex-col">
+                            <Card className="h-full border-white/10 bg-card/50 backdrop-blur-sm hover:border-glacier-500/20 transition-all duration-500 hover:scale-[1.02] group flex flex-col">
                                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg pointer-events-none" />
 
                                 <CardHeader className="space-y-4">

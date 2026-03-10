@@ -374,7 +374,7 @@ export default function MembersBook() {
                                         className={`flex items-center gap-4 p-4 rounded-sm border cursor-pointer transition-all ${
                                             selectedSanctuary === s.id
                                                 ? "border-switz-red bg-switz-red/5"
-                                                : "border-white/10 hover:border-white/20"
+                                                : "border-white/10 hover:border-glacier-500/20"
                                         }`}
                                     >
                                         <input
@@ -430,7 +430,7 @@ export default function MembersBook() {
                         {/* Add-ons */}
                         <div>
                             <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-1">Enhance Your Stay</label>
-                            <p className="text-white/25 text-xs mb-4">Add curated experiences during your stay.</p>
+                            <p className="text-white/40 text-xs mb-4">Add curated experiences during your stay.</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {experiences.map((exp) => {
                                     const isSelected = selectedAddOns.includes(exp.id);
@@ -444,7 +444,7 @@ export default function MembersBook() {
                                             className={`flex items-center gap-3 p-4 rounded-sm border text-left transition-all duration-200 ${
                                                 isSelected
                                                     ? "border-switz-red bg-switz-red/5"
-                                                    : "border-white/10 hover:border-white/20"
+                                                    : "border-white/10 hover:border-glacier-500/20"
                                             }`}
                                         >
                                             <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
@@ -467,13 +467,13 @@ export default function MembersBook() {
 
                         {/* Special Requests */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/20">(Optional)</span></label>
+                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/30">(Optional)</span></label>
                             <textarea
                                 value={specialRequests}
                                 onChange={(e) => setSpecialRequests(e.target.value)}
                                 rows={3}
                                 placeholder="Dietary requirements, transfer needs, celebrations..."
-                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors resize-none"
+                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/30 focus:border-switz-red focus:outline-none transition-colors resize-none"
                             />
                         </div>
 
@@ -494,22 +494,22 @@ export default function MembersBook() {
                                             <img src={sanctuaryCalc.sanctuary.image} alt={sanctuaryCalc.sanctuary.name} className="w-12 h-9 object-cover rounded-sm" />
                                             <div>
                                                 <p className="text-white text-sm font-medium">{sanctuaryCalc.sanctuary.name}</p>
-                                                <p className="text-white/30 text-xs">{sanctuaryCalc.sanctuary.location}</p>
+                                                <p className="text-white/40 text-xs">{sanctuaryCalc.sanctuary.location}</p>
                                             </div>
                                         </div>
 
                                         {/* Details */}
                                         <div className="grid grid-cols-3 gap-4 py-3 border-t border-white/5">
                                             <div>
-                                                <p className="text-white/30 text-[10px] uppercase tracking-wider">Check-in</p>
+                                                <p className="text-white/40 text-[10px] uppercase tracking-wider">Check-in</p>
                                                 <p className="text-white text-xs mt-1">{formatDate(checkIn)}</p>
                                             </div>
                                             <div>
-                                                <p className="text-white/30 text-[10px] uppercase tracking-wider">Check-out</p>
+                                                <p className="text-white/40 text-[10px] uppercase tracking-wider">Check-out</p>
                                                 <p className="text-white text-xs mt-1">{formatDate(checkOut)}</p>
                                             </div>
                                             <div>
-                                                <p className="text-white/30 text-[10px] uppercase tracking-wider">Guests</p>
+                                                <p className="text-white/40 text-[10px] uppercase tracking-wider">Guests</p>
                                                 <p className="text-white text-xs mt-1">{guests} {guests === 1 ? "guest" : "guests"}</p>
                                             </div>
                                         </div>
@@ -535,7 +535,7 @@ export default function MembersBook() {
                                             <span className="text-2xl font-serif text-white">{formatCHF(sanctuaryCalc.total)}</span>
                                         </div>
 
-                                        <p className="text-white/20 text-[10px]">Final amount confirmed by our team before payment.</p>
+                                        <p className="text-white/35 text-[10px]">Final amount confirmed by our team before payment.</p>
 
                                         {/* Cancellation Policy */}
                                         <div className="flex items-start gap-2 pt-2 border-t border-white/5">
@@ -556,7 +556,7 @@ export default function MembersBook() {
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
                             Request This Stay
                         </button>
-                        <p className="text-white/30 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
+                        <p className="text-white/40 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
                     </motion.form>
                 )}
 
@@ -579,7 +579,7 @@ export default function MembersBook() {
                                         className={`flex items-center gap-3 p-4 rounded-sm border cursor-pointer transition-all ${
                                             selectedExperience === exp.id
                                                 ? "border-switz-red bg-switz-red/5"
-                                                : "border-white/10 hover:border-white/20"
+                                                : "border-white/10 hover:border-glacier-500/20"
                                         }`}
                                     >
                                         <input
@@ -629,13 +629,13 @@ export default function MembersBook() {
 
                         {/* Special Requests */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/20">(Optional)</span></label>
+                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/30">(Optional)</span></label>
                             <textarea
                                 value={expSpecialRequests}
                                 onChange={(e) => setExpSpecialRequests(e.target.value)}
                                 rows={3}
                                 placeholder="Any special requirements or preferences..."
-                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors resize-none"
+                                className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/30 focus:border-switz-red focus:outline-none transition-colors resize-none"
                             />
                         </div>
 
@@ -650,12 +650,12 @@ export default function MembersBook() {
                                         <span className="text-white/60">{exp.name}</span>
                                         <span className="text-white">{formatCHF(exp.basePrice)}</span>
                                     </div>
-                                    <p className="text-white/30 text-xs">{formatDate(preferredDate)} · {expGuests} {expGuests === 1 ? "person" : "people"}</p>
+                                    <p className="text-white/40 text-xs">{formatDate(preferredDate)} · {expGuests} {expGuests === 1 ? "person" : "people"}</p>
                                     <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
                                         <span className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</span>
                                         <span className="text-2xl font-serif text-white">{formatCHF(exp.basePrice)}</span>
                                     </div>
-                                    <p className="text-white/20 text-[10px]">Final amount confirmed by our team before payment.</p>
+                                    <p className="text-white/35 text-[10px]">Final amount confirmed by our team before payment.</p>
                                     <div className="flex items-start gap-2 pt-2 border-t border-white/5">
                                         <ShieldCheck size={14} className="text-emerald-500/70 shrink-0 mt-0.5" />
                                         <p className="text-emerald-400/60 text-xs">Free cancellation up to 7 days before the experience.</p>
@@ -673,7 +673,7 @@ export default function MembersBook() {
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
                             Request This Experience
                         </button>
-                        <p className="text-white/30 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
+                        <p className="text-white/40 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
                     </motion.form>
                 )}
             </main>

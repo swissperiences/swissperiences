@@ -84,7 +84,7 @@ export default function LinkGenerator() {
                             value={guestName}
                             onChange={(e) => setGuestName(e.target.value)}
                             placeholder="e.g. Marco Rossi"
-                            className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors"
+                            className="w-full bg-black/30 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/30 focus:border-switz-red focus:outline-none transition-colors"
                         />
                     </div>
                     <div className="grid grid-cols-2 gap-4">

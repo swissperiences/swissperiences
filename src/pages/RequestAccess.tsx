@@ -265,7 +265,7 @@ const RequestAccess = () => {
                                     required
                                     value={formData.fullName}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20"
+                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30"
                                     placeholder="Your name"
                                 />
                             </div>
@@ -283,7 +283,7 @@ const RequestAccess = () => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     readOnly={isLoggedIn}
-                                    className={`w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20 ${isLoggedIn ? 'opacity-60 cursor-not-allowed' : ''}`}
+                                    className={`w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30 ${isLoggedIn ? 'opacity-60 cursor-not-allowed' : ''}`}
                                     placeholder="your@email.com"
                                 />
                             </div>
@@ -300,7 +300,7 @@ const RequestAccess = () => {
                                         name="city"
                                         value={formData.city}
                                         onChange={handleChange}
-                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20"
+                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30"
                                         placeholder="London"
                                     />
                                 </div>
@@ -314,7 +314,7 @@ const RequestAccess = () => {
                                         name="country"
                                         value={formData.country}
                                         onChange={handleChange}
-                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20"
+                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30"
                                         placeholder="United Kingdom"
                                     />
                                 </div>
@@ -331,7 +331,7 @@ const RequestAccess = () => {
                                     rows={3}
                                     value={formData.reason}
                                     onChange={handleChange}
-                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20 resize-none"
+                                    className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30 resize-none"
                                     placeholder="Tell us a bit about what you're seeking..."
                                 />
                             </div>
@@ -373,7 +373,7 @@ const RequestAccess = () => {
                                         name="referralDetail"
                                         value={formData.referralDetail}
                                         onChange={handleChange}
-                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/20"
+                                        className="w-full bg-transparent border-b border-white/20 text-white py-3 focus:outline-none focus:border-glacier-500/50 transition-colors placeholder:text-white/30"
                                     />
                                 </div>
                             )}
@@ -429,7 +429,7 @@ const RequestAccess = () => {
                                             placeholder="Enter your email"
                                             required
                                             disabled={newsletterLoading}
-                                            className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors rounded-none disabled:opacity-50"
+                                            className="w-full bg-transparent border-b border-white/20 py-3 pr-12 text-sm text-white text-center placeholder:text-white/30 focus:outline-none focus:border-glacier-500/50 transition-colors rounded-none disabled:opacity-50"
                                         />
                                         <button
                                             type="submit"

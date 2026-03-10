@@ -140,9 +140,9 @@ const Index = () => {
             {isLoggedIn ? (
               <button
                 onClick={() => navigate('/members')}
-                className="group px-10 py-4 border border-white/20 hover:border-white/50 transition-all duration-500"
+                className="group px-10 py-4 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
               >
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 group-hover:text-white transition-colors">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
                   Enter Member Area
                 </span>
               </button>
@@ -222,7 +222,7 @@ const Index = () => {
               <div className="flex items-center gap-6">
                 <Link
                   to="/sanctuaries/villars"
-                  className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-white transition-colors border-b border-white/20 hover:border-white/50 pb-1"
+                  className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
                 >
                   Discover
                 </Link>
@@ -232,7 +232,7 @@ const Index = () => {
                       const el = document.getElementById("request-quote");
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-white/50 pb-1"
+                    className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
                   >
                     Request a Quote
                   </button>
@@ -314,7 +314,7 @@ const Index = () => {
 
               <Link
                 to="/journals/the-winter-ascent"
-                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-white transition-colors border-b border-white/20 hover:border-white/50 pb-1"
+                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
               >
                 Read the Story
               </Link>
@@ -322,7 +322,7 @@ const Index = () => {
               <div className="mt-16 pt-8 border-t border-white/5">
                 <Link
                   to="/journals"
-                  className="text-[10px] uppercase tracking-[0.3em] text-white/40 hover:text-white/60 transition-colors"
+                  className="text-[10px] uppercase tracking-[0.3em] text-white/40 hover:text-glacier-300 transition-colors"
                 >
                   All Journals →
                 </Link>
@@ -356,7 +356,7 @@ const Index = () => {
         </div>
 
         <div className="relative z-10 px-8 md:px-16 lg:px-24 max-w-4xl">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-white/35 block mb-10">
+          <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-10">
             For Those Who
           </span>
 
@@ -381,7 +381,7 @@ const Index = () => {
             {!isLoggedIn && (
               <Link
                 to="/login"
-                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-white/50 pb-1"
+                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
               >
                 Apply for Membership
               </Link>

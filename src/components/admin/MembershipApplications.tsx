@@ -408,7 +408,7 @@ export function MembershipApplications() {
                                             </span>
 
                                             {profileLoading ? (
-                                                <p className="text-white/20 text-xs animate-pulse">Loading profile...</p>
+                                                <p className="text-white/40 text-xs animate-pulse">Loading profile...</p>
                                             ) : memberProfile && (memberProfile.phone || memberProfile.bio || memberProfile.preferences) ? (
                                                 <div className="space-y-3">
                                                     {memberProfile.phone && (
@@ -441,7 +441,7 @@ export function MembershipApplications() {
                                                     )}
                                                 </div>
                                             ) : (
-                                                <p className="text-white/20 text-xs italic">Member hasn't filled in their profile yet.</p>
+                                                <p className="text-white/40 text-xs italic">Member hasn't filled in their profile yet.</p>
                                             )}
                                         </div>
                                     )}

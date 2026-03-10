@@ -128,7 +128,7 @@ export default function JournalPost() {
                 {/* CONTENT */}
                 <div className="max-w-3xl mx-auto px-6 relative">
                     {/* Share sidebar - hidden on mobile */}
-                    <div className="hidden lg:block absolute -left-32 top-0 text-white/20">
+                    <div className="hidden lg:block absolute -left-32 top-0 text-white/30">
                         <div className="sticky top-32 flex flex-col gap-8 items-center">
                             <span className="[writing-mode:vertical-rl] text-xs uppercase tracking-[0.3em] font-light">Share Experiment</span>
                             <button className="hover:text-white transition-colors"><Share2 size={16} /></button>

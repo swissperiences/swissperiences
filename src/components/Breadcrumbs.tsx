@@ -36,7 +36,7 @@ export default function Breadcrumbs({ items, className = "" }: BreadcrumbsProps)
                 const isLast = i === items.length - 1;
                 return (
                     <span key={i} className="flex items-center gap-2">
-                        {i > 0 && <ChevronRight size={10} className="text-white/20 shrink-0" />}
+                        {i > 0 && <ChevronRight size={10} className="text-white/30 shrink-0" />}
                         {item.href && !isLast ? (
                             <Link
                                 to={item.href}

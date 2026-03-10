@@ -265,7 +265,7 @@ const Login = () => {
                             required
                             disabled={isEmailLoading}
                             autoComplete="email"
-                            className="w-full bg-transparent border border-white/10 text-white py-3.5 px-4 text-sm placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors disabled:opacity-50"
+                            className="w-full bg-transparent border border-white/10 text-white py-3.5 px-4 text-sm placeholder:text-white/30 focus:outline-none focus:border-glacier-500/50 transition-colors disabled:opacity-50"
                         />
                         <input
                             type="password"
@@ -276,7 +276,7 @@ const Login = () => {
                             disabled={isEmailLoading}
                             autoComplete={emailMode === "sign-in" ? "current-password" : "new-password"}
                             minLength={6}
-                            className="w-full bg-transparent border border-white/10 text-white py-3.5 px-4 text-sm placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors disabled:opacity-50"
+                            className="w-full bg-transparent border border-white/10 text-white py-3.5 px-4 text-sm placeholder:text-white/30 focus:outline-none focus:border-glacier-500/50 transition-colors disabled:opacity-50"
                         />
 
                         <button

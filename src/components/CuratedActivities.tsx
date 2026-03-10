@@ -20,22 +20,22 @@ export default function CuratedActivities({ activities }: CuratedActivitiesProps
                         href={activity.href}
                         target="_blank"
                         rel="sponsored noopener noreferrer"
-                        className="group flex items-center justify-between border border-white/5 hover:border-white/20 rounded-sm p-6 transition-all duration-500"
+                        className="group flex items-center justify-between border border-white/5 hover:border-glacier-500/20 rounded-sm p-6 transition-all duration-500"
                     >
                         <div className="flex-1 min-w-0">
                             <span className="text-white/80 group-hover:text-white font-light transition-colors block truncate">
                                 {activity.title}
                             </span>
                             <div className="flex items-center gap-3 mt-2">
-                                <span className="text-[9px] uppercase tracking-[0.15em] text-white/25 border border-white/10 px-2 py-0.5">
+                                <span className="text-[9px] uppercase tracking-[0.15em] text-white/40 border border-white/10 px-2 py-0.5">
                                     {activity.type}
                                 </span>
                                 {activity.duration && (
-                                    <span className="text-[9px] text-white/20">{activity.duration}</span>
+                                    <span className="text-[9px] text-white/40">{activity.duration}</span>
                                 )}
                             </div>
                         </div>
-                        <ExternalLink size={12} className="text-white/15 group-hover:text-white/40 transition-colors ml-4 shrink-0" />
+                        <ExternalLink size={12} className="text-white/40 group-hover:text-glacier-300 transition-colors ml-4 shrink-0" />
                     </a>
                 ))}
             </div>

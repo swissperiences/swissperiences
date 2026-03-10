@@ -130,14 +130,14 @@ const Admin = () => {
                         <div className="w-6 h-6 border-2 border-white/10 border-t-white rounded-full animate-spin"></div>
                     </div>
                 ) : applications.length === 0 ? (
-                    <div className="h-64 border border-dashed border-white/10 flex flex-col items-center justify-center text-white/20">
+                    <div className="h-64 border border-dashed border-white/10 flex flex-col items-center justify-center text-white/40">
                         <Users className="w-12 h-12 mb-4 opacity-10" />
                         <p className="uppercase tracking-[0.2em] text-xs">No applications found</p>
                     </div>
                 ) : (
                     <div className="grid gap-6">
                         {applications.map((app) => (
-                            <div key={app.id} className="group bg-neutral-950 border border-white/5 p-8 flex flex-col lg:flex-row justify-between gap-8 hover:border-white/20 transition-all duration-500">
+                            <div key={app.id} className="group bg-neutral-950 border border-white/5 p-8 flex flex-col lg:flex-row justify-between gap-8 hover:border-glacier-500/20 transition-all duration-500">
                                 <div className="space-y-6 flex-1">
                                     <div className="flex items-start justify-between lg:justify-start lg:gap-6">
                                         <div>
@@ -157,18 +157,18 @@ const Admin = () => {
 
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs tracking-widest uppercase">
                                         <div className="space-y-1">
-                                            <span className="text-white/20 block text-[9px]">Location</span>
+                                            <span className="text-white/40 block text-[9px]">Location</span>
                                             <div className="flex items-center gap-1.5 text-white/60">
                                                 <MapPin className="w-3 h-3 opacity-30" />
                                                 <span>{app.city && app.country ? `${app.city}, ${app.country}` : 'Remote'}</span>
                                             </div>
                                         </div>
                                         <div className="space-y-1">
-                                            <span className="text-white/20 block text-[9px]">Source</span>
+                                            <span className="text-white/40 block text-[9px]">Source</span>
                                             <div className="text-white/60">{app.referral_source || 'Direct'}</div>
                                         </div>
                                         <div className="space-y-1">
-                                            <span className="text-white/20 block text-[9px]">Date</span>
+                                            <span className="text-white/40 block text-[9px]">Date</span>
                                             <div className="flex items-center gap-1.5 text-white/60">
                                                 <Calendar className="w-3 h-3 opacity-30" />
                                                 <span>{format(new Date(app.created_at), 'MMM dd, yyyy')}</span>
@@ -178,7 +178,7 @@ const Admin = () => {
 
                                     {app.reason && (
                                         <div className="bg-white/[0.02] p-4 border-l border-white/10">
-                                            <span className="text-white/20 block text-[9px] uppercase tracking-widest mb-2 font-bold">Motivation</span>
+                                            <span className="text-white/40 block text-[9px] uppercase tracking-widest mb-2 font-bold">Motivation</span>
                                             <p className="text-white/60 font-light italic leading-relaxed text-sm">
                                                 "{app.reason}"
                                             </p>
@@ -204,7 +204,7 @@ const Admin = () => {
                                         </>
                                     ) : (
                                         <button
-                                            className="w-full border border-white/5 text-white/20 text-[10px] py-3 uppercase tracking-widest font-bold flex items-center justify-center gap-2 cursor-default"
+                                            className="w-full border border-white/5 text-white/40 text-[10px] py-3 uppercase tracking-widest font-bold flex items-center justify-center gap-2 cursor-default"
                                         >
                                             <Check className="w-3 h-3 opacity-20" /> Processed
                                         </button>
@@ -217,7 +217,7 @@ const Admin = () => {
             </main>
 
             <footer className="mt-24 p-12 border-t border-white/5 text-center">
-                <p className="text-[10px] text-white/20 uppercase tracking-[0.4em]">Handcrafted for Swissperiences Excellence</p>
+                <p className="text-[10px] text-white/40 uppercase tracking-[0.4em]">Handcrafted for Swissperiences Excellence</p>
             </footer>
         </div>
     );

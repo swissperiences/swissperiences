@@ -693,7 +693,7 @@ export default function AdminGallery() {
                                             value={blockReason}
                                             onChange={(e) => setBlockReason(e.target.value)}
                                             placeholder="e.g. maintenance, holiday, owner use..."
-                                            className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm placeholder:text-white/20 focus:border-switz-red focus:outline-none transition-colors rounded-sm"
+                                            className="w-full bg-black/30 border border-white/10 text-white px-3 py-2.5 text-sm placeholder:text-white/30 focus:border-switz-red focus:outline-none transition-colors rounded-sm"
                                         />
                                     </div>
 
