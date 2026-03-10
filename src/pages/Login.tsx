@@ -185,14 +185,14 @@ const Login = () => {
                     <p className="text-white/80 font-medium text-sm mb-8">
                         {email}
                     </p>
-                    <p className="text-white/30 text-xs leading-relaxed mb-12">
+                    <p className="text-white/40 text-xs leading-relaxed mb-12">
                         Click the link in the email to activate your account.
                         Once confirmed, you'll be directed to complete your application.
                     </p>
 
                     <button
                         onClick={() => { setCheckInbox(false); setEmailMode("sign-in"); setPassword(""); }}
-                        className="text-white/30 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
+                        className="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
                     >
                         &larr; Back to Sign In
                     </button>
@@ -244,7 +244,7 @@ const Login = () => {
                     <div className="flex-1 h-px bg-white/5" />
                     <button
                         onClick={() => setShowEmail(!showEmail)}
-                        className="text-white/25 hover:text-white/50 transition-colors text-[10px] uppercase tracking-[0.2em] whitespace-nowrap"
+                        className="text-white/40 hover:text-white/60 transition-colors text-[10px] uppercase tracking-[0.2em] whitespace-nowrap"
                     >
                         {showEmail ? "Hide" : "Or sign in with email"}
                     </button>
@@ -265,7 +265,7 @@ const Login = () => {
                             required
                             disabled={isEmailLoading}
                             autoComplete="email"
-                            className="w-full bg-transparent border border-white/10 text-white py-3.5 px-4 text-sm placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-colors disabled:opacity-50"
+                            className="w-full bg-transparent border border-white/10 text-white py-3.5 px-4 text-sm placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors disabled:opacity-50"
                         />
                         <input
                             type="password"
@@ -276,7 +276,7 @@ const Login = () => {
                             disabled={isEmailLoading}
                             autoComplete={emailMode === "sign-in" ? "current-password" : "new-password"}
                             minLength={6}
-                            className="w-full bg-transparent border border-white/10 text-white py-3.5 px-4 text-sm placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-colors disabled:opacity-50"
+                            className="w-full bg-transparent border border-white/10 text-white py-3.5 px-4 text-sm placeholder:text-white/20 focus:outline-none focus:border-glacier-500/50 transition-colors disabled:opacity-50"
                         />
 
                         <button
@@ -296,7 +296,7 @@ const Login = () => {
                         <button
                             type="button"
                             onClick={() => setEmailMode(emailMode === "sign-in" ? "sign-up" : "sign-in")}
-                            className="text-white/25 hover:text-white/50 transition-colors text-[10px] uppercase tracking-[0.15em] mt-2"
+                            className="text-white/40 hover:text-white/60 transition-colors text-[10px] uppercase tracking-[0.15em] mt-2"
                         >
                             {emailMode === "sign-in"
                                 ? "Don't have an account? Create one"
@@ -309,7 +309,7 @@ const Login = () => {
                 <div className={showEmail ? "mt-10" : "mt-8"}>
                     <a
                         href="/"
-                        className="text-white/30 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
+                        className="text-white/40 hover:text-white transition-colors text-xs uppercase tracking-[0.2em]"
                     >
                         &larr; Back to Homepage
                     </a>
