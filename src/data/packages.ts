@@ -141,7 +141,7 @@ export const packages: PackageData[] = [
     highlights: ["Available April — June only", "Solo-friendly — no single supplements", "The Alps at their most vivid"],
     groupSize: "1 – 4 guests",
     availability: "April — June",
-    image: "/images/caueh-vidal-spring.jpg",
+    image: "/images/villars/dawn-fog-chalets.jpeg",
   },
   {
     id: "vineyard-valley",
