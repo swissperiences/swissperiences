@@ -2,6 +2,32 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { packages } from "@/data/packages";
 
+const MONTH_MAP: Record<string, number> = {
+  january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
+  july: 7, august: 8, september: 9, october: 10, november: 11, december: 12,
+};
+
+function getSeasonBadge(availability: string): { label: string; active: boolean } {
+  if (/year.?round/i.test(availability)) return { label: "Available year-round", active: true };
+
+  const match = availability.match(/(\w+)\s*[—–-]\s*(\w+)/i);
+  if (!match) return { label: availability, active: true };
+
+  const start = MONTH_MAP[match[1].toLowerCase()];
+  const end = MONTH_MAP[match[2].toLowerCase()];
+  const now = new Date().getMonth() + 1;
+
+  const inSeason = start <= end
+    ? now >= start && now <= end
+    : now >= start || now <= end;
+
+  if (inSeason) return { label: "In season now", active: true };
+
+  // Find next start month name
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return { label: `Opens ${monthNames[start - 1]}`, active: false };
+}
+
 interface PackagesPreviewProps {
   visible: boolean;
   sectionRef: React.RefObject<HTMLDivElement>;
@@ -53,7 +79,19 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
-                <div className="absolute top-4 right-4">
+                <div className="absolute top-4 right-4 flex items-center gap-2">
+                  {(() => {
+                    const badge = getSeasonBadge(pkg.availability);
+                    return (
+                      <span className={`text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border ${
+                        badge.active
+                          ? "text-emerald-300/70 bg-emerald-900/30 border-emerald-500/20"
+                          : "text-white/40 bg-black/40 border-white/10"
+                      }`}>
+                        {badge.label}
+                      </span>
+                    );
+                  })()}
                   <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 bg-black/40 backdrop-blur-sm px-3 py-1 border border-white/10">
                     {pkg.duration}
                   </span>
