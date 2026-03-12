@@ -197,7 +197,7 @@ const Index = () => {
       >
         <div className="relative h-[70vh] md:h-screen overflow-hidden">
           <img
-            src="/images/villars/sea-of-clouds-sunset.jpeg"
+            src="/images/villars/sea-of-clouds-hero.jpeg"
             alt="Sea of clouds at sunset from Villars — Dents du Midi at 1,300m"
             className="w-full h-full object-cover"
           />
