@@ -248,7 +248,7 @@ const Index = () => {
       ════════════════════════════════════════ */}
       <section
         ref={s2.ref}
-        className={`py-32 md:py-48 px-8 md:px-16 bg-[#060606] transition-all duration-[1500ms] ease-out ${s2.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        className={`py-20 md:py-32 px-8 md:px-16 bg-[#060606] transition-all duration-[1500ms] ease-out ${s2.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       >
         <div className="max-w-5xl mx-auto">
           <p className="font-serif text-3xl md:text-5xl lg:text-6xl text-white/80 leading-[1.1] tracking-tight">

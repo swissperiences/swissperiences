@@ -65,7 +65,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-          {packages.map((pkg) => (
+          {packages.slice(0, 6).map((pkg) => (
             <div
               key={pkg.id}
               className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-glacier-500/20 transition-colors duration-500"

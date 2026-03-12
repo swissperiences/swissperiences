@@ -290,12 +290,12 @@ export default function Experiences() {
                         <h2 className="text-3xl md:text-4xl font-serif mb-6">{isLoggedIn ? "Ready to plan your next escape?" : "Your experience awaits."}</h2>
                         <p className="text-white/50 font-light mb-8">{isLoggedIn ? "Browse our curated experiences and book directly from your member area." : "Become a member to unlock booking and exclusive pricing."}</p>
                         <a
-                            href={isLoggedIn ? "/members/book" : "/request-access"}
+                            href={isLoggedIn ? "/members/book" : "/#request-quote"}
                             className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
-                            {isLoggedIn ? "Book Now" : "Become a Member"}
+                            {isLoggedIn ? "Book Now" : "Request a Quote"}
                         </a>
-                        {!isLoggedIn && <p className="text-white/40 text-xs mt-4">Membership required. Apply now for exclusive access to our curated alpine experiences.</p>}
+                        {!isLoggedIn && <p className="text-white/40 text-xs mt-4">Tell us what you're looking for. We'll handle the rest.</p>}
                     </div>
                 </section>
                 </MembershipGate>
