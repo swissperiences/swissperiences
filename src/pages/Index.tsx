@@ -347,7 +347,7 @@ const Index = () => {
       >
         <div className="absolute inset-0">
           <img
-            src="/images/villars-sunrise.jpg"
+            src="/images/villars/manifesto-village-aerial.jpeg"
             alt="Sunrise over the Alps"
             className="w-full h-full object-cover opacity-30"
             loading="lazy"

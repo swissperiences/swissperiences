@@ -40,8 +40,7 @@ export const packages: PackageData[] = [
     highlights: ["Perfect for solo travellers & couples", "Available year-round", "Minimum altitude: 1,300m"],
     groupSize: "1 – 4 guests",
     availability: "Year-round",
-    image: "/images/caueh-vidal-spring.jpg",
-    imagePosition: "object-[center_25%]",
+    image: "/images/villars/alpine-reset-lake.jpeg",
   },
   {
     id: "winter-escape",
@@ -66,7 +65,7 @@ export const packages: PackageData[] = [
     highlights: ["Solo-friendly & great for couples", "Ski-in access", "Authentic, not resort-like"],
     groupSize: "1 – 4 guests",
     availability: "December — March",
-    image: "/images/villars/ski-villars-slopes.jpeg",
+    image: "/images/villars/winter-escape-ski-sunset.jpeg",
   },
   {
     id: "cinematic-weekend",
@@ -90,7 +89,7 @@ export const packages: PackageData[] = [
     highlights: ["Unique to Swissperiences", "Solo or duo — your story, your pace", "Professional 4K footage"],
     groupSize: "1 – 4 guests",
     availability: "April — November (weather dependent)",
-    image: "/images/drone/lake-brienz-aerial.jpg",
+    image: "/images/drone/cinematic-alpine-road.jpeg",
   },
   {
     id: "grand-tour",
