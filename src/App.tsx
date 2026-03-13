@@ -52,6 +52,9 @@ const Sustainability = lazy(() => import("./pages/Sustainability"));
 const GuestEnhance = lazy(() => import("./pages/GuestEnhance"));
 const LinkGenerator = lazy(() => import("./pages/LinkGenerator"));
 const Packages = lazy(() => import("./pages/Packages"));
+const ListYourExperience = lazy(() => import("./pages/ListYourExperience"));
+const Discovery = lazy(() => import("./pages/Discovery"));
+const DiscoveryDrafts = lazy(() => import("./pages/admin/DiscoveryDrafts"));
 
 const queryClient = new QueryClient();
 
@@ -111,6 +114,10 @@ const App = () => (
                 {/* Packages */}
                 <Route path="/packages" element={<LanguageWrapper><Packages /></LanguageWrapper>} />
 
+                {/* Discovery */}
+                <Route path="/discovery" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />
+                <Route path="/discovery/:slug" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />
+
                 {/* Content */}
                 <Route path="/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
                 <Route path="/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
@@ -126,6 +133,7 @@ const App = () => (
                 <Route path="/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
                 <Route path="/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
+                <Route path="/list-your-experience" element={<LanguageWrapper><ListYourExperience /></LanguageWrapper>} />
                 <Route path="/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/enhance" element={<GuestEnhance />} />
@@ -133,6 +141,8 @@ const App = () => (
                 <Route path="/invite/:code" element={<InvitePage />} />
                 <Route path="/admin" element={<Navigate to="/admin/gallery" replace />} />
                 <Route path="/admin/gallery" element={<AuthGuard requireAdmin><AdminGallery /></AuthGuard>} />
+                <Route path="/admin/discovery" element={<AuthGuard requireAdmin><DiscoveryDrafts /></AuthGuard>} />
+                {/* TODO: add centralized admin nav */}
                 <Route path="/request-access" element={<RequestAccess />} />
                 <Route path="/apply" element={<RequestAccess />} />
                 <Route path="/login" element={<Login />} />
@@ -155,6 +165,8 @@ const App = () => (
                 <Route path="/:lang/experiences/private-chef" element={<LanguageWrapper><PrivateChef /></LanguageWrapper>} />
                 <Route path="/:lang/experiences/guided-hikes" element={<LanguageWrapper><GuidedHikes /></LanguageWrapper>} />
                 <Route path="/:lang/packages" element={<LanguageWrapper><Packages /></LanguageWrapper>} />
+                <Route path="/:lang/discovery" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />
+                <Route path="/:lang/discovery/:slug" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />
                 <Route path="/:lang/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
                 <Route path="/:lang/journals/:slug" element={<LanguageWrapper><JournalPost /></LanguageWrapper>} />
                 <Route path="/:lang/destinations" element={<LanguageWrapper><Destinations /></LanguageWrapper>} />
@@ -166,6 +178,7 @@ const App = () => (
                 <Route path="/:lang/terms" element={<LanguageWrapper><Terms /></LanguageWrapper>} />
                 <Route path="/:lang/for-teams" element={<LanguageWrapper><ForTeams /></LanguageWrapper>} />
                 <Route path="/:lang/partnerships" element={<LanguageWrapper><Partnerships /></LanguageWrapper>} />
+                <Route path="/:lang/list-your-experience" element={<LanguageWrapper><ListYourExperience /></LanguageWrapper>} />
                 <Route path="/:lang/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/:lang/enhance" element={<LanguageWrapper><GuestEnhance /></LanguageWrapper>} />
