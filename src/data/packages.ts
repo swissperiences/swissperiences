@@ -116,6 +116,7 @@ export const packages: PackageData[] = [
     groupSize: "1 – 6 guests",
     availability: "Year-round (road journey: April — November)",
     image: "/images/drone/villars-autumn-sunset.jpg",
+    imagePosition: "object-[center_35%]",
   },
   {
     id: "alpine-bloom",

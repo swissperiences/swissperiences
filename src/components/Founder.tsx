@@ -16,13 +16,13 @@ export const Founder = () => {
                             <img
                                 src="/images/caueh-vidal-spring.jpg"
                                 alt="The Host — Swissperiences"
-                                className="w-full h-full object-cover object-[center_25%] grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out brightness-[0.85] contrast-[1.1] saturate-[0.9] hover:brightness-100"
+                                className="w-full h-full object-cover object-[center_25%] grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out brightness-[0.95] contrast-[1.05] hover:brightness-105"
                             />
 
                             {/* Visual Detail Badge */}
                             <div className="absolute bottom-6 left-6 z-20 flex flex-col gap-1">
                                 <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans">Location Log</span>
-                                <p className="text-white text-base font-serif italic">Geneva, Switzerland</p>
+                                <p className="text-white text-base font-serif italic">Villars-sur-Ollon, Switzerland</p>
                             </div>
                         </div>
                     </ScrollReveal>
