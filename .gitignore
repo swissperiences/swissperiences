@@ -29,3 +29,14 @@ dist-ssr
 *.sw?
 .vercel
 .env*.local
+
+# Claude Code / skills
+.agent/
+.agents/
+.claude/skills/
+
+# Test artifacts
+test-results/
+
+# Backups
+*.backup.tsx

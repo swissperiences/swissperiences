@@ -55,7 +55,7 @@ export default function Footer() {
           <div className="lg:col-span-3">
             <h4 className="text-xs text-white uppercase tracking-[0.2em] mb-8 font-bold text-switz-red">The List</h4>
             <p className="text-white/50 font-light text-xs leading-relaxed mb-6">
-              Join our private list for early access to seasonal intakes and journal updates.
+              First to know when seasonal spots open. Journals, quiet updates, no spam — ever.
             </p>
             <NewsletterForm />
           </div>

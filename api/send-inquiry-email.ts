@@ -62,7 +62,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         process.env.VITE_SUPABASE_URL!,
         process.env.VITE_SUPABASE_PUBLISHABLE_KEY!
     );
-    const isTestMode = process.env.EMAIL_TEST_MODE === 'true';
 
     console.log(`[CORPORATE API] 🚀 Processing corporate inquiry for: ${email} (${companyName})`);
     console.log(`[CORPORATE API] 📋 Newsletter opt-in: ${newsletter_opt_in}`);

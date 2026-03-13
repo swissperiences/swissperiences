@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "chatgpt-app-builder": {
+      "source": "mcp-use/mcp-use",
+      "sourceType": "github",
+      "computedHash": "0744bccf51017c8500a7a01fb24b5033dcd420d1ea7341a1c2e521bdbd9d4a2d"
+    },
+    "mcp-builder": {
+      "source": "mcp-use/mcp-use",
+      "sourceType": "github",
+      "computedHash": "fea3a515353df97e7fc2e3b8e5974f9a2dbc436c33cc2a51d40c539599ea67f0"
+    },
+    "nano-banana": {
+      "source": "kingbootoshi/nano-banana-2-skill",
+      "sourceType": "github",
+      "computedHash": "52227e4869035e53d9abef6017eb289196207a8eb9d341949eaf8e3d500cc562"
+    },
+    "nano-banana-pro-prompts-recommend-skill": {
+      "source": "youmind-openlab/nano-banana-pro-prompts-recommend-skill",
+      "sourceType": "github",
+      "computedHash": "608105b1e39a918a37282c1dc872563d429a622c64f14f7e2a7d3422ee409678"
+    }
+  }
+}

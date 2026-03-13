@@ -1,0 +1,32 @@
+# Large media/content folders (not part of the app)
+Instagram/
+Lautterbrunnen/
+Leo/
+Logos/
+NovasVillars/
+VillarsNew/
+To do /
+villars feb/
+ale and alex/
+
+# PDFs and large files
+*.pdf
+
+# Test results
+test-results/
+
+# Claude config
+.claude/
+
+# Documentation (not needed for deploy)
+docs/
+
+# Supabase temp
+supabase/.temp/
+
+# Git
+.git/
+
+# Editor
+.vscode/
+.idea/

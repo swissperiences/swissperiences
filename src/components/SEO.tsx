@@ -18,7 +18,7 @@ export default function SEO({
   keywords,
   canonical = "https://www.swissperiences.ch",
   ogType = "website",
-  ogImage = "https://www.swissperiences.ch/og-image.jpg",
+  ogImage = "https://www.swissperiences.ch/og-image.png",
   structuredData,
   noIndex = false,
 }: SEOProps) {

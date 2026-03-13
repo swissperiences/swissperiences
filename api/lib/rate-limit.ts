@@ -18,15 +18,22 @@ export const corporateRatelimit = new Ratelimit({
   prefix: '@swissperiences/corporate',
 });
 
+export const partnerRatelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(3, '10 m'),
+  analytics: true,
+  prefix: '@swissperiences/partner',
+});
+
 /**
  * Rate limit check helper
  * Returns { success: true } if allowed, { success: false, error: string } if rate limited
  */
 export async function checkRateLimit(
   identifier: string,
-  type: 'waitlist' | 'corporate'
+  type: 'waitlist' | 'corporate' | 'partner'
 ): Promise<{ success: boolean; error?: string }> {
-  const ratelimit = type === 'waitlist' ? waitlistRatelimit : corporateRatelimit;
+  const ratelimit = type === 'waitlist' ? waitlistRatelimit : type === 'corporate' ? corporateRatelimit : partnerRatelimit;
 
   const { success, reset } = await ratelimit.limit(identifier);
 

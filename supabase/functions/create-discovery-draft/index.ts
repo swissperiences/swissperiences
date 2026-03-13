@@ -119,6 +119,52 @@ serve(async (req) => {
       throw new Error(`Failed to insert includes: ${includesError.message}`)
     }
 
+    // Send notification email to admin
+    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY")
+    if (RESEND_API_KEY) {
+      const includesList = body.includes
+        .map((i) => `<li style="color:#aaa;padding:4px 0;">${i.icon_name} — ${i.label_en}</li>`)
+        .join("")
+
+      const seasonColors: Record<string, string> = {
+        spring: "#4ade80", summer: "#fbbf24", autumn: "#f97316", winter: "#38bdf8",
+      }
+      const seasonColor = seasonColors[body.season] || "#888"
+
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: "Swissperiences <hello@swissperiences.ch>",
+          to: ["hello@swissperiences.ch"],
+          subject: `[DISCOVERY DRAFT] ${body.title_en} — CHF ${body.price_chf}`,
+          html: `
+<div style="font-family:'Courier New',monospace;padding:30px;background:#111;color:#eee;line-height:1.6;">
+  <h2 style="color:#D8B58A;border-bottom:1px solid #333;padding-bottom:10px;">New Discovery Pack Draft</h2>
+  <p style="margin:12px 0;"><strong>Title (EN):</strong> ${body.title_en}</p>
+  <p style="margin:12px 0;"><strong>Title (PT):</strong> ${body.title_pt}</p>
+  <p style="margin:12px 0;"><strong>Season:</strong> <span style="color:${seasonColor};font-weight:bold;">${body.season}</span></p>
+  <p style="margin:12px 0;"><strong>Price:</strong> CHF ${body.price_chf}</p>
+  <p style="margin:12px 0;"><strong>Duration:</strong> ${body.duration_days} day${body.duration_days > 1 ? "s" : ""}</p>
+  <p style="margin:12px 0;"><strong>Max guests:</strong> ${body.max_guests}</p>
+  ${body.highlight_event ? `<p style="margin:12px 0;"><strong>Event:</strong> ${body.highlight_event}</p>` : ""}
+  ${body.event_dates ? `<p style="margin:12px 0;"><strong>Dates:</strong> ${body.event_dates.start} → ${body.event_dates.end}</p>` : ""}
+  <p style="margin:20px 0 8px;"><strong>Includes:</strong></p>
+  <ul style="list-style:none;padding-left:0;">${includesList}</ul>
+  <div style="margin-top:30px;padding-top:20px;border-top:1px solid #333;">
+    <a href="https://swissperiences.ch/admin/discovery" style="color:#D8B58A;font-size:14px;">Review in Admin Dashboard →</a>
+  </div>
+  <p style="margin-top:30px;font-size:10px;color:#555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
+</div>`,
+        }),
+      }).catch((emailErr) => {
+        console.error("Email notification failed (non-blocking):", emailErr)
+      })
+    }
+
     return new Response(
       JSON.stringify({ id: pack.id, slug: pack.slug }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }

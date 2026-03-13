@@ -4,6 +4,7 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { ScrollReveal } from "../components/ui/scroll-reveal";
+import { PartnershipInquiryForm } from "../components/PartnershipInquiryForm";
 
 const partnershipTypes = [
     {
@@ -22,11 +23,6 @@ const partnershipTypes = [
             "Connect international buyers with the Swiss lifestyle. Property tours interwoven with curated alpine experiences.",
     },
     {
-        title: "Hotels & Hospitality",
-        description:
-            "Extend your guest experience with seamless off-property adventures. Guided journeys, private chefs, cinematic documentation.",
-    },
-    {
         title: "Corporate & Team Experiences",
         description:
             "Integrate retreat programming into your leadership development offering. We handle the Alps, you handle the agenda.",
@@ -34,12 +30,7 @@ const partnershipTypes = [
     {
         title: "Lifestyle & Concierge Services",
         description:
-            "White-label access to our Swiss network for your most discerning clients. Discreet, seamless, and fully managed.",
-    },
-    {
-        title: "Private Chalets & Second Homes",
-        description:
-            "We partner with a select number of private owners whose homes naturally belong in this world. We help turn your chalet or second home into a quiet, quietly profitable alpine retreat — curating guest experience, handling operations and refining positioning, while you retain full ownership and control. We don't manage properties at scale; we choose a handful, and treat each one as if it were our own.",
+            "White-label access to our Swiss network for your most discerning clients. Seamless and fully managed.",
     },
 ];
 
@@ -47,9 +38,9 @@ export default function Partnerships() {
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Private Partnerships | Luxury Alpine Collaborations | Swissperiences",
+        name: "Brand Partnerships | Swissperiences",
         description:
-            "Strategic partnerships with luxury brands and organizations across Switzerland.",
+            "Strategic partnerships with premium brands and organizations across Switzerland.",
         provider: {
             "@type": "Organization",
             name: "Swissperiences",
@@ -61,8 +52,8 @@ export default function Partnerships() {
     return (
         <div className="bg-neutral-950 min-h-screen text-white">
             <SEO
-                title="Private Partnerships | Luxury Alpine Collaborations | Swissperiences"
-                description="We build discreet partnerships with those who serve the world's most discerning individuals. Private banking, luxury brands, real estate, and hospitality."
+                title="Brand Partnerships | Swissperiences"
+                description="We build strategic partnerships with brands that share our standards. Private banking, luxury brands, real estate, corporate, and concierge services."
                 keywords="swissperiences partnerships, luxury partnerships switzerland, private banking experiences, family office switzerland, luxury brand partnerships"
                 canonical="https://www.swissperiences.ch/partnerships"
                 structuredData={structuredData}
@@ -86,7 +77,7 @@ export default function Partnerships() {
                             animate={{ opacity: 1, y: 0 }}
                             className="text-switz-red text-xs font-bold tracking-[0.4em] uppercase mb-6"
                         >
-                            Private Partnerships
+                            Brand Partnerships
                         </motion.span>
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -104,8 +95,8 @@ export default function Partnerships() {
                             transition={{ delay: 0.2 }}
                             className="max-w-2xl mx-auto text-white/60 font-light text-lg"
                         >
-                            We build discreet partnerships with those who serve
-                            the world's most discerning individuals.
+                            We build strategic partnerships with brands that share
+                            our standards for quality and authenticity.
                         </motion.p>
                     </div>
                 </section>
@@ -119,34 +110,27 @@ export default function Partnerships() {
                                     Who We Are
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif mb-8 leading-tight">
-                                    A private network.
+                                    A curated platform.
                                     <br />
                                     <span className="text-white/50 italic">
-                                        By invitation.
+                                        By design.
                                     </span>
                                 </h2>
                                 <div className="space-y-6 text-white/60 font-light leading-relaxed">
                                     <p>
-                                        Swissperiences is a members-only network
-                                        of curated alpine sanctuaries and
-                                        experiences across Switzerland. We serve
-                                        a small, carefully selected clientele of
-                                        individuals and families who value
-                                        privacy, precision, and authenticity
-                                        above all else.
+                                        Swissperiences is a curated travel platform
+                                        connecting travellers with the best alpine
+                                        sanctuaries, experiences, and local experts
+                                        across Switzerland. We serve people who value
+                                        precision, authenticity, and beauty above
+                                        all else.
                                     </p>
                                     <p>
                                         Founded in Geneva, we operate at the
                                         intersection of hospitality, adventure,
-                                        and discretion. Every detail is
-                                        personal. Every experience is bespoke.
-                                        Every member is known by name.
-                                    </p>
-                                    <p>
-                                        We also partner with a handful of
-                                        private owners whose homes naturally
-                                        belong in this world — turning quiet
-                                        properties into curated sanctuaries.
+                                        and editorial curation. Every detail is
+                                        personal. Every experience is vetted.
+                                        Every partner is chosen with care.
                                     </p>
                                 </div>
                                 <Link
@@ -186,10 +170,10 @@ export default function Partnerships() {
                         <ScrollReveal>
                             <div className="text-center mb-16">
                                 <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
-                                    The Network
+                                    The Platform
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif">
-                                    Access a world that doesn't advertise.
+                                    Why brands partner with us.
                                 </h2>
                             </div>
                         </ScrollReveal>
@@ -200,14 +184,12 @@ export default function Partnerships() {
                                         01
                                     </div>
                                     <h3 className="text-xl font-serif">
-                                        Curated Clientele
+                                        Engaged Audience
                                     </h3>
                                     <p className="text-white/50 font-light text-sm leading-relaxed">
-                                        Our members are founders, executives,
-                                        and families who choose Switzerland for
-                                        its silence, not its scenery. They don't
-                                        search for luxury — it comes to them
-                                        through trusted recommendations.
+                                        Our travellers actively seek premium Swiss
+                                        experiences. They don't stumble in from ads —
+                                        they come with intent and trust our curation.
                                     </p>
                                 </div>
                             </ScrollReveal>
@@ -217,13 +199,12 @@ export default function Partnerships() {
                                         02
                                     </div>
                                     <h3 className="text-xl font-serif">
-                                        Invitation Only
+                                        Curated Quality
                                     </h3>
                                     <p className="text-white/50 font-light text-sm leading-relaxed">
-                                        Every member is personally vetted. There
-                                        is no public booking. No marketplace. No
-                                        algorithm. This means your brand is
-                                        presented only to those who belong.
+                                        Every experience and partner on our platform
+                                        is personally vetted. Your brand sits alongside
+                                        quality, never alongside noise.
                                     </p>
                                 </div>
                             </ScrollReveal>
@@ -233,14 +214,13 @@ export default function Partnerships() {
                                         03
                                     </div>
                                     <h3 className="text-xl font-serif">
-                                        High-Touch, Low-Volume
+                                        High Standards, Real Relationships
                                     </h3>
                                     <p className="text-white/50 font-light text-sm leading-relaxed">
-                                        We operate with intention, not scale. A
-                                        small number of partnerships, each
-                                        deeply integrated into the experience.
-                                        No banner ads. No noise. Just quiet,
-                                        meaningful alignment.
+                                        We operate with intention. A focused number
+                                        of brand partnerships, each deeply integrated
+                                        into the experience. Meaningful alignment
+                                        over empty impressions.
                                     </p>
                                 </div>
                             </ScrollReveal>
@@ -257,10 +237,10 @@ export default function Partnerships() {
                                     Collaboration
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif leading-tight">
-                                    Built for alignment,
+                                    Built for brands
                                     <br />
                                     <span className="text-white/50 italic">
-                                        not volume.
+                                        that belong.
                                     </span>
                                 </h2>
                             </div>
@@ -325,7 +305,7 @@ export default function Partnerships() {
                                     </h3>
                                     <p className="text-white/50 font-light text-sm leading-relaxed max-w-md mx-auto">
                                         We propose a collaboration framework
-                                        tailored to your brand and clientele. No
+                                        tailored to your brand and audience. No
                                         templates. No one-size-fits-all.
                                     </p>
                                 </div>
@@ -339,9 +319,9 @@ export default function Partnerships() {
                                         A Relationship
                                     </h3>
                                     <p className="text-white/50 font-light text-sm leading-relaxed max-w-md mx-auto">
-                                        The best partnerships are quiet and
-                                        long-lasting. We measure success in
-                                        trust, not transactions.
+                                        The best partnerships are built on trust
+                                        and grow over time. We measure success in
+                                        impact, not impressions.
                                     </p>
                                 </div>
                             </ScrollReveal>
@@ -349,33 +329,60 @@ export default function Partnerships() {
                     </div>
                 </section>
 
-                {/* CTA */}
-                <section className="py-24 px-6 text-center border-t border-white/5">
-                    <ScrollReveal>
-                        <div className="max-w-2xl mx-auto">
-                            <h2 className="text-3xl md:text-4xl font-serif mb-6">
-                                Let's explore this together.
-                            </h2>
-                            <p className="text-white/50 font-light mb-12">
-                                Partnerships begin with a conversation.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                                <a
-                                    href="mailto:hello@swissperiences.ch"
-                                    className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
-                                >
-                                    Get in Touch
-                                </a>
-                                <a
-                                    href="https://wa.me/41787002202"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-switz-red text-xs uppercase tracking-[0.2em] font-bold hover:text-white transition-colors duration-300"
-                                >
-                                    Message on WhatsApp →
-                                </a>
-                            </div>
+                {/* Inquiry Form */}
+                <section className="py-24 md:py-32 px-6">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-start">
+                            <ScrollReveal>
+                                <div className="lg:sticky lg:top-32">
+                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                        Get in Touch
+                                    </span>
+                                    <h2 className="text-3xl md:text-4xl font-serif mb-6 leading-tight">
+                                        Let's explore this
+                                        <br />
+                                        <span className="text-white/50 italic">together.</span>
+                                    </h2>
+                                    <p className="text-white/50 font-light leading-relaxed mb-8">
+                                        Partnerships begin with a conversation. Tell us about your brand and we'll get back to you with ideas.
+                                    </p>
+                                    <div className="space-y-4 text-sm">
+                                        <a
+                                            href="mailto:hello@swissperiences.ch"
+                                            className="text-white/40 hover:text-white transition-colors block"
+                                        >
+                                            hello@swissperiences.ch
+                                        </a>
+                                        <a
+                                            href="https://wa.me/41787002202"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-white/40 hover:text-white transition-colors block"
+                                        >
+                                            WhatsApp →
+                                        </a>
+                                    </div>
+                                </div>
+                            </ScrollReveal>
+                            <ScrollReveal delay={0.2}>
+                                <PartnershipInquiryForm />
+                            </ScrollReveal>
                         </div>
+                    </div>
+                </section>
+
+                {/* Cross-link to Listing */}
+                <section className="border-t border-white/5 py-16 px-6 text-center">
+                    <ScrollReveal>
+                        <p className="text-white/40 font-light text-sm mb-4">
+                            Own a property or run an activity in Switzerland?
+                        </p>
+                        <Link
+                            to="/list-your-experience"
+                            className="text-switz-red text-xs uppercase tracking-[0.2em] font-bold hover:text-white transition-colors duration-300"
+                        >
+                            List your experience on Swissperiences →
+                        </Link>
                     </ScrollReveal>
                 </section>
             </main>
