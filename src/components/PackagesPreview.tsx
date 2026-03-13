@@ -2,6 +2,20 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { packages } from "@/data/packages";
 
+/** Maps full-size image paths to 800px preview versions for card display */
+function getPreviewSrc(src: string): string | null {
+  const basename = src.split("/").pop();
+  if (!basename) return null;
+  // Only images that have generated previews
+  const previews = new Set([
+    "alpine-reset-lake.jpeg", "winter-escape-ski-sunset.jpeg",
+    "cinematic-alpine-road.jpeg", "loft-fireplace-night.jpeg",
+    "lavaux-vineyards-sunset.jpeg", "sea-of-clouds-sunset.jpeg",
+    "dawn-fog-chalets.jpeg",
+  ]);
+  return previews.has(basename) ? `/images/_preview/${basename}` : null;
+}
+
 const MONTH_MAP: Record<string, number> = {
   january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
   july: 7, august: 8, september: 9, october: 10, november: 11, december: 12,
@@ -73,7 +87,9 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
               {/* Image */}
               <div className="relative aspect-[16/10] overflow-hidden">
                 <img
-                  src={pkg.image}
+                  src={getPreviewSrc(pkg.image) || pkg.image}
+                  srcSet={getPreviewSrc(pkg.image) ? `${getPreviewSrc(pkg.image)} 800w, ${pkg.image} 2000w` : undefined}
+                  sizes="(max-width: 640px) 100vw, 50vw"
                   alt={`${pkg.name} — ${pkg.tagline}`}
                   className={`w-full h-full object-cover brightness-[0.5] group-hover:brightness-[0.6] group-hover:scale-105 transition-all duration-700 ${pkg.imagePosition || ""}`}
                   loading="lazy"

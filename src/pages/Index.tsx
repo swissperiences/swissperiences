@@ -197,7 +197,9 @@ const Index = () => {
       >
         <div className="relative h-[70vh] md:h-screen overflow-hidden">
           <img
-            src="/images/villars/sea-of-clouds-hero.jpeg"
+            src="/images/_preview/sea-of-clouds-hero.jpeg"
+            srcSet="/images/_preview/sea-of-clouds-hero.jpeg 800w, /images/villars/sea-of-clouds-hero.jpeg 5504w"
+            sizes="100vw"
             alt="Sea of clouds at sunset from Villars — Dents du Midi at 1,300m"
             className="w-full h-full object-cover"
           />
@@ -347,7 +349,9 @@ const Index = () => {
       >
         <div className="absolute inset-0">
           <img
-            src="/images/villars/manifesto-village-aerial.jpeg"
+            src="/images/_preview/manifesto-village-aerial.jpeg"
+            srcSet="/images/_preview/manifesto-village-aerial.jpeg 800w, /images/villars/manifesto-village-aerial.jpeg 3072w"
+            sizes="100vw"
             alt="Sunrise over the Alps"
             className="w-full h-full object-cover opacity-30"
             loading="lazy"
