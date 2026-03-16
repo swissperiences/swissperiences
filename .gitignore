@@ -40,3 +40,8 @@ test-results/
 
 # Backups
 *.backup.tsx
+
+# Reel Forge
+tools/reel-forge/output/
+tools/reel-forge/.venv/
+tools/reel-forge/assets/*.cube
