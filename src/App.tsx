@@ -54,6 +54,7 @@ const LinkGenerator = lazy(() => import("./pages/LinkGenerator"));
 const Packages = lazy(() => import("./pages/Packages"));
 const ListYourExperience = lazy(() => import("./pages/ListYourExperience"));
 const Discovery = lazy(() => import("./pages/Discovery"));
+const InsiderGuide = lazy(() => import("./pages/InsiderGuide"));
 const DiscoveryDrafts = lazy(() => import("./pages/admin/DiscoveryDrafts"));
 
 const queryClient = new QueryClient();
@@ -136,6 +137,7 @@ const App = () => (
                 <Route path="/list-your-experience" element={<LanguageWrapper><ListYourExperience /></LanguageWrapper>} />
                 <Route path="/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
+                <Route path="/insider-guide" element={<InsiderGuide />} />
                 <Route path="/enhance" element={<GuestEnhance />} />
                 <Route path="/private/alex-proposal" element={<AlexProposal />} />
                 <Route path="/invite/:code" element={<InvitePage />} />
@@ -181,6 +183,7 @@ const App = () => (
                 <Route path="/:lang/list-your-experience" element={<LanguageWrapper><ListYourExperience /></LanguageWrapper>} />
                 <Route path="/:lang/sustainability" element={<LanguageWrapper><Sustainability /></LanguageWrapper>} />
                 <Route path="/:lang/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
+                <Route path="/:lang/insider-guide" element={<LanguageWrapper><InsiderGuide /></LanguageWrapper>} />
                 <Route path="/:lang/enhance" element={<LanguageWrapper><GuestEnhance /></LanguageWrapper>} />
                 <Route path="/:lang/members/book" element={<AuthGuard><LanguageWrapper><MembersBook /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members/profile" element={<AuthGuard><LanguageWrapper><MembersProfile /></LanguageWrapper></AuthGuard>} />
