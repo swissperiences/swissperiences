@@ -55,7 +55,7 @@ const InsiderGuide = () => {
                     {/* Background image */}
                     <div
                         className="absolute inset-0 bg-cover bg-center"
-                        style={{ backgroundImage: "url('/images/villars/sea-of-clouds-sunset.jpeg')" }}
+                        style={{ backgroundImage: "url('/images/lake-geneva/lavaux-vineyards-sunset.jpeg')" }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
 
