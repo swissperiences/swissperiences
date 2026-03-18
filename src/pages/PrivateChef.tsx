@@ -23,7 +23,7 @@ export default function PrivateChef() {
         "@type": "FoodService",
         "name": "Private Chef — Bespoke In-Home Dining",
         "description": "A bespoke dining experience crafted around you. Seasonal ingredients, Swiss-French technique, available across Switzerland.",
-        "image": `${BASE_URL}/images/chef/crumble-caramel.jpg`,
+        "image": `${BASE_URL}/images/chef/private-chef-hero.jpeg`,
         "provider": {
             "@type": "Organization",
             "name": "Swissperiences",
@@ -53,7 +53,7 @@ export default function PrivateChef() {
         { src: "/images/chef/fish-elegant.jpg", alt: "Pan-seared fish with herb purée" },
         { src: "/images/chef/burrata-prosciutto.jpg", alt: "Burrata and prosciutto plates" },
         { src: "/images/chef/dessert-artistic.jpg", alt: "Artistic dessert presentation" },
-        { src: "/images/chef/crumble-caramel.jpg", alt: "Apple crumble with salted caramel" },
+        { src: "/images/chef/private-chef-hero.jpeg", alt: "Apple crumble with salted caramel" },
     ];
 
     const steps = [
@@ -81,7 +81,7 @@ export default function PrivateChef() {
                 description="A bespoke dining experience crafted around you. Seasonal ingredients, Swiss-French technique, from intimate dinners to celebrations. Available across Switzerland."
                 keywords="private chef switzerland, private chef geneva, in-home dining, bespoke dining experience, private dining swiss alps, luxury catering switzerland, personal chef service"
                 canonical="https://www.swissperiences.ch/experiences/private-chef"
-                ogImage={`${BASE_URL}/images/chef/crumble-caramel.jpg`}
+                ogImage={`${BASE_URL}/images/chef/private-chef-hero.jpeg`}
                 structuredData={[serviceStructuredData, breadcrumbJsonLd]}
             />
             <Navigation />
@@ -91,7 +91,7 @@ export default function PrivateChef() {
                 <section className="relative h-[70vh] w-full overflow-hidden">
                     <div className="absolute inset-0">
                         <img
-                            src="/images/chef/crumble-caramel.jpg"
+                            src="/images/chef/private-chef-hero.jpeg"
                             alt="Bespoke Private Chef Experience"
                             className="w-full h-full object-cover brightness-[0.5] contrast-[1.1] saturate-[0.9]"
                         />
