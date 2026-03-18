@@ -93,11 +93,11 @@ export default function PrivateChef() {
                         <img
                             src="/images/chef/private-chef-hero.jpeg"
                             alt="Bespoke Private Chef Experience"
-                            className="w-full h-full object-cover brightness-[0.5] contrast-[1.1] saturate-[0.9]"
+                            className="w-full h-full object-cover object-center brightness-[0.65] contrast-[1.05]"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-neutral-950" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-neutral-950" />
                     </div>
-                    <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 pt-20">
+                    <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
                         <motion.span
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
