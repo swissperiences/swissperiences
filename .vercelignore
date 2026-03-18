@@ -1,16 +1,15 @@
-# Large media/content folders (not part of the app)
-Instagram/
-Lautterbrunnen/
-Leo/
-Logos/
-NovasVillars/
-VillarsNew/
-To do /
-villars feb/
-ale and alex/
+# Large media/content folders (not part of the app — root level only)
+/Instagram/
+/Lautterbrunnen/
+/Logos/
+/NovasVillars/
+/VillarsNew/
+/To do /
+/villars feb/
+/ale and alex/
 
-# PDFs and large files
-*.pdf
+# Keep public/images/guests/leo/ (the Leo/ above was blocking it on case-insensitive macOS)
+# Keep *.pdf (insider-guide.pdf needs to be served)
 
 # Test results
 test-results/
