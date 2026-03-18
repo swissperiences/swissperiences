@@ -40,6 +40,7 @@ export default function Footer() {
               <Link to="/experiences" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Experiences</Link>
               <Link to="/destinations" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Destinations</Link>
               <Link to="/journals" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Journals</Link>
+              <Link to="/insider-guide" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Insider Guide</Link>
               <Link to="/about" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">About</Link>
               <Link to="/contact" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Contact</Link>
               <Link to="/for-teams" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">For Teams</Link>

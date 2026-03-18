@@ -117,7 +117,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               {isLoggedIn ? (
                 <Button
                   onClick={() => navigate('/members')}
-                  className="rounded-full px-5 py-1.5 h-9 font-bold tracking-[0.2em] uppercase text-[9px] border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
+                  className="rounded-full px-5 py-1.5 h-9 font-medium tracking-[0.2em] uppercase text-[9px] text-white/70 border border-white/15 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
                   variant="ghost"
                 >
                   My Account
@@ -125,7 +125,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               ) : (
                 <Button
                   onClick={() => navigate('/login')}
-                  className="rounded-full px-5 py-1.5 h-9 font-bold tracking-[0.2em] uppercase text-[9px] border border-white/20 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
+                  className="rounded-full px-5 py-1.5 h-9 font-medium tracking-[0.2em] uppercase text-[9px] text-white/70 border border-white/15 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
                   variant="ghost"
                 >
                   Sign In
