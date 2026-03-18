@@ -279,6 +279,40 @@ const Index = () => {
       <PackagesPreview visible={s3.visible} sectionRef={s3.ref} />
 
       {/* ════════════════════════════════════════
+          5b. INSIDER GUIDE CTA
+      ════════════════════════════════════════ */}
+      <section className="py-24 md:py-32 px-8 md:px-16 lg:px-24 bg-black border-t border-white/5">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
+          <div className="flex-1">
+            <p className="text-[10px] tracking-[0.3em] uppercase text-glacier-500/60 mb-4">Free guide</p>
+            <h3 className="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-4">
+              The Swiss<br />Insider Guide
+            </h3>
+            <p className="text-sm text-white/40 font-light leading-relaxed mb-6 max-w-sm">
+              8 places that don't show up on Google. Insider tips you'd only get from a local friend.
+            </p>
+            <Link
+              to="/insider-guide"
+              className="inline-flex items-center gap-2 text-sm text-glacier-400 hover:text-glacier-300 transition-colors font-medium"
+            >
+              Get the free guide
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </Link>
+          </div>
+          <Link to="/insider-guide" className="w-48 md:w-56 flex-shrink-0 group">
+            <div className="aspect-[3/4] rounded-lg overflow-hidden border border-white/10 group-hover:border-glacier-500/30 transition-colors">
+              <img
+                src="/images/lake-geneva/lavaux-vineyards-sunset.jpeg"
+                alt="Swiss Insider Guide"
+                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                loading="lazy"
+              />
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
           6. GUEST QUOTES
       ════════════════════════════════════════ */}
       <GuestQuotes visible={s4.visible} sectionRef={s4.ref} />
