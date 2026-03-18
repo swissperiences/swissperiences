@@ -48,12 +48,12 @@ export default function PrivateChef() {
     ];
 
     const galleryImages = [
-        { src: "/images/chef/scallops-caviar.jpg", alt: "Scallops with caviar and asparagus" },
-        { src: "/images/chef/ceviche.jpg", alt: "Fresh ceviche with seasonal vegetables" },
-        { src: "/images/chef/fish-elegant.jpg", alt: "Pan-seared fish with herb purée" },
-        { src: "/images/chef/burrata-prosciutto.jpg", alt: "Burrata and prosciutto plates" },
-        { src: "/images/chef/dessert-artistic.jpg", alt: "Artistic dessert presentation" },
-        { src: "/images/chef/crumble-caramel.jpg", alt: "Apple crumble with salted caramel" },
+        { src: "/images/chef/scallops-caviar-v2.jpeg", alt: "Seared scallops with caviar and asparagus" },
+        { src: "/images/chef/ceviche-v2.jpeg", alt: "Fresh ceviche with avocado and seasonal vegetables" },
+        { src: "/images/chef/fish-elegant-v2.jpeg", alt: "Pan-seared fish with herb purée and roasted tomatoes" },
+        { src: "/images/chef/burrata-v2.jpeg", alt: "Burrata and prosciutto group dinner service" },
+        { src: "/images/chef/dessert-v2.jpeg", alt: "Artistic matcha dessert with fruit gels" },
+        { src: "/images/chef/crumble-v2.jpeg", alt: "Apple crumble with vanilla ice cream and salted caramel" },
     ];
 
     const steps = [
