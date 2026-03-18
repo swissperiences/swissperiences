@@ -51,7 +51,7 @@ export default function PrivateChef() {
         { src: "/images/chef/scallops-caviar-v2.jpeg", alt: "Seared scallops with caviar and asparagus" },
         { src: "/images/chef/ceviche-v2.jpeg", alt: "Fresh ceviche with avocado and seasonal vegetables" },
         { src: "/images/chef/fish-elegant-v2.jpeg", alt: "Pan-seared fish with herb purée and roasted tomatoes" },
-        { src: "/images/chef/burrata-v2.jpeg", alt: "Burrata and prosciutto group dinner service" },
+        { src: "/images/chef/tartare-v2.jpeg", alt: "Beef tartare with quail egg and edible flowers" },
         { src: "/images/chef/dessert-v2.jpeg", alt: "Artistic matcha dessert with fruit gels" },
         { src: "/images/chef/crumble-v2.jpeg", alt: "Apple crumble with vanilla ice cream and salted caramel" },
     ];
