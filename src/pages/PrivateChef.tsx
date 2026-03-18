@@ -53,7 +53,7 @@ export default function PrivateChef() {
         { src: "/images/chef/fish-elegant.jpg", alt: "Pan-seared fish with herb purée" },
         { src: "/images/chef/burrata-prosciutto.jpg", alt: "Burrata and prosciutto plates" },
         { src: "/images/chef/dessert-artistic.jpg", alt: "Artistic dessert presentation" },
-        { src: "/images/chef/private-chef-hero.jpeg", alt: "Apple crumble with salted caramel" },
+        { src: "/images/chef/crumble-caramel.jpg", alt: "Apple crumble with salted caramel" },
     ];
 
     const steps = [
