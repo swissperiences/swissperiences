@@ -6,7 +6,11 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     // CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const allowedOrigins = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
+    const origin = req.headers.origin as string;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -19,7 +23,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Rate limit: 5 per hour per IP
     const clientIp = req.headers['x-forwarded-for'] as string || 'anonymous';
-    const rateLimitResult = await checkRateLimit(`guide:${clientIp}`, 5, '1h');
+    const rateLimitResult = await checkRateLimit(clientIp, 'guide');
     if (!rateLimitResult.success) {
         return res.status(429).json({ error: 'Too many requests. Please try again later.' });
     }

@@ -5,7 +5,7 @@ import { checkRateLimit } from './lib/rate-limit.js';
 
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL!,
-    process.env.VITE_SUPABASE_PUBLISHABLE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -32,7 +32,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ============================================================
     // CORS HEADERS - Allow requests from frontend
     // ============================================================
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const allowedOrigins = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
+    const origin = req.headers.origin as string;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -278,7 +282,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const err = error as Error;
         console.error('💥 WAITLIST ERROR:', err.message);
         return res.status(500).json({
-            error: err.message,
+            error: 'Internal server error',
             timestamp: new Date().toISOString()
         });
     }

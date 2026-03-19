@@ -7,21 +7,26 @@ export const config = {
     runtime: 'edge', // Using Edge Runtime for better performance/standard API compatibility
 };
 
-const corsHeaders = {
-    'Access-Control-Allow-Origin': '*', // Or specific allowed domain
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
+
+function getCorsHeaders(request: Request) {
+    const origin = request.headers.get('origin') || '';
+    return {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : '',
+        'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    };
+}
 
 export default async function handler(request: Request) {
     // Handle CORS preflight
     if (request.method === 'OPTIONS') {
-        return new Response('ok', { headers: corsHeaders });
+        return new Response('ok', { headers: getCorsHeaders(request) });
     }
 
     if (request.method !== 'POST') {
         return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
             status: 405,
-            headers: { 'Content-Type': 'application/json', ...corsHeaders }
+            headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
         });
     }
 
@@ -31,7 +36,7 @@ export default async function handler(request: Request) {
             console.error('CRITICAL: STRIPE_SECRET_KEY is missing from environment variables.');
             return new Response(JSON.stringify({ error: 'Server configuration error: Stripe key missing' }), {
                 status: 500,
-                headers: { 'Content-Type': 'application/json', ...corsHeaders }
+                headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
             });
         }
 
@@ -39,7 +44,7 @@ export default async function handler(request: Request) {
             console.error('CRITICAL: Supabase credentials missing from environment variables.');
             return new Response(JSON.stringify({ error: 'Server configuration error: Supabase credentials missing' }), {
                 status: 500,
-                headers: { 'Content-Type': 'application/json', ...corsHeaders }
+                headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
             });
         }
 
@@ -60,7 +65,7 @@ export default async function handler(request: Request) {
         if (!email) {
             return new Response(JSON.stringify({ error: 'Email is required' }), {
                 status: 400,
-                headers: { 'Content-Type': 'application/json', ...corsHeaders }
+                headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
             });
         }
 
@@ -87,7 +92,7 @@ export default async function handler(request: Request) {
                 // Decision: Fail gracefully with message
                 return new Response(JSON.stringify({ error: 'Email not found in waitlist. Please request access first.' }), {
                     status: 404,
-                    headers: { 'Content-Type': 'application/json', ...corsHeaders }
+                    headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
                 });
             }
         }
@@ -160,18 +165,17 @@ export default async function handler(request: Request) {
 
         return new Response(JSON.stringify({ url: session.url }), {
             status: 200,
-            headers: { 'Content-Type': 'application/json', ...corsHeaders },
+            headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) },
         });
 
     } catch (error: unknown) {
         const err = error as Error;
         console.error('Stripe Checkout Error:', err);
         return new Response(JSON.stringify({
-            error: err.message || 'Internal Server Error',
-            details: 'Check server logs for more information.'
+            error: 'Internal server error'
         }), {
             status: 500,
-            headers: { 'Content-Type': 'application/json', ...corsHeaders }
+            headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
         });
     }
 }
