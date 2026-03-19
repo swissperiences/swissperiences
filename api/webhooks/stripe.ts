@@ -47,7 +47,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } catch (err: unknown) {
         const error = err as Error;
         console.error(`Webhook signature verification failed.`, error.message);
-        return res.status(400).send(`Webhook Error: ${error.message}`);
+        return res.status(400).send('Webhook signature verification failed.');
     }
 
     // Handle the event

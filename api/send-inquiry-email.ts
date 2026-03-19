@@ -32,7 +32,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // ============================================================
     // CORS HEADERS - Allow requests from frontend
     // ============================================================
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const allowedOrigins = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
+    const origin = req.headers.origin as string;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -60,7 +64,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const supabase = createClient(
         process.env.VITE_SUPABASE_URL!,
-        process.env.VITE_SUPABASE_PUBLISHABLE_KEY!
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
     console.log(`[CORPORATE API] 🚀 Processing corporate inquiry for: ${email} (${companyName})`);
@@ -166,8 +170,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
             // CRITICAL: Return 500 to frontend so user knows it failed
             return res.status(500).json({
-                error: `Failed to send user email: ${userError.message}`,
-                details: userError
+                error: 'Failed to send confirmation email. Please try again.'
             });
         } else {
             console.log('[CORPORATE API] ✅ Step 2 complete: User email sent successfully');
@@ -211,8 +214,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
             // CRITICAL: Return 500 to frontend so user knows it failed
             return res.status(500).json({
-                error: `Failed to send admin notification: ${adminError.message}`,
-                details: adminError
+                error: 'Failed to send admin notification. Please try again.'
             });
         } else {
             console.log('[CORPORATE API] ✅ Step 3 complete: Admin email sent successfully');
@@ -257,8 +259,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 const err = syncError as Error;
                 console.error('[CORPORATE API] ❌ EXCEPTION during contact creation:', err);
                 return res.status(500).json({
-                    error: 'Exception during contact creation',
-                    details: err.message
+                    error: 'Internal server error'
                 });
             }
         } else {
@@ -288,11 +289,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.error('Error stack:', err.stack);
         console.error('='.repeat(60) + '\n');
 
-        // FORCE ERROR TO FRONTEND - NO MORE FALSE POSITIVES
         return res.status(500).json({
-            error: err.message,
-            stack: err.stack,
-            timestamp: new Date().toISOString()
+            error: 'Internal server error'
         });
     }
 }

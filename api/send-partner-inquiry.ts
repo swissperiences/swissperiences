@@ -13,7 +13,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(500).json({ error: 'Server configuration error: Missing RESEND_API_KEY' });
     }
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const allowedOrigins = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
+    const origin = req.headers.origin as string;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -102,7 +106,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         if (userError) {
             console.error('[PARTNER API] User email error:', userError);
-            return res.status(500).json({ error: `Failed to send confirmation: ${userError.message}` });
+            return res.status(500).json({ error: 'Failed to send confirmation email. Please try again.' });
         }
         console.log('[PARTNER API] Confirmation email sent:', userData?.id);
 
@@ -111,10 +115,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         // ============================================================
         await new Promise(resolve => setTimeout(resolve, 1100));
 
+        const esc = (s: string) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         const subjectPrefix = isPartnership ? '[PARTNERSHIP]' : '[LISTING APPLICATION]';
         const adminFields = Object.entries(fields)
             .filter(([_, v]) => v)
-            .map(([k, v]) => `<p style="margin: 10px 0;"><strong>${k}:</strong> ${v}</p>`)
+            .map(([k, v]) => `<p style="margin: 10px 0;"><strong>${esc(k)}:</strong> ${esc(String(v))}</p>`)
             .join('');
 
         const { data: adminData, error: adminError } = await resend.emails.send({
@@ -131,7 +136,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         if (adminError) {
             console.error('[PARTNER API] Admin email error:', adminError);
-            return res.status(500).json({ error: `Failed to send admin notification: ${adminError.message}` });
+            return res.status(500).json({ error: 'Internal server error' });
         }
         console.log('[PARTNER API] Admin notification sent:', adminData?.id);
 
@@ -143,6 +148,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } catch (error: unknown) {
         const err = error as Error;
         console.error('[PARTNER API] Error:', err.message);
-        return res.status(500).json({ error: err.message });
+        return res.status(500).json({ error: 'Internal server error' });
     }
 }
