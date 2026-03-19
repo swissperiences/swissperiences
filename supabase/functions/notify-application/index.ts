@@ -1,13 +1,95 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3"
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+/** Verify a Supabase JWT — supports both legacy HS256 and new ECC ES256 signing keys */
+async function verifyJWT(token: string): Promise<boolean> {
+    const parts = token.split('.')
+    if (parts.length !== 3) return false
+    const [headerB64, payloadB64, signatureB64] = parts
+
+    let header: { alg: string; kid?: string }
+    try {
+        header = JSON.parse(atob(headerB64.replace(/-/g, '+').replace(/_/g, '/')))
+    } catch {
+        return false
+    }
+
+    const data = new TextEncoder().encode(`${headerB64}.${payloadB64}`)
+    const signature = Uint8Array.from(
+        atob(signatureB64.replace(/-/g, '+').replace(/_/g, '/')),
+        (c) => c.charCodeAt(0)
+    )
+
+    // Legacy HS256 — verify with shared secret
+    if (header.alg === 'HS256') {
+        const secret = Deno.env.get('SUPABASE_JWT_SECRET')
+        if (!secret) return false
+        const key = await crypto.subtle.importKey(
+            'raw',
+            new TextEncoder().encode(secret),
+            { name: 'HMAC', hash: 'SHA-256' },
+            false,
+            ['verify']
+        )
+        return crypto.subtle.verify('HMAC', key, signature, data)
+    }
+
+    // ES256 — verify with JWKS (new JWT Signing Keys)
+    if (header.alg === 'ES256') {
+        const supabaseUrl = Deno.env.get('SUPABASE_URL')
+        if (!supabaseUrl) return false
+        try {
+            const jwksResp = await fetch(`${supabaseUrl}/auth/v1/.well-known/jwks.json`)
+            const { keys } = await jwksResp.json()
+            for (const jwk of keys) {
+                if (header.kid && jwk.kid !== header.kid) continue
+                try {
+                    const cryptoKey = await crypto.subtle.importKey(
+                        'jwk', jwk,
+                        { name: 'ECDSA', namedCurve: 'P-256' },
+                        false, ['verify']
+                    )
+                    const ok = await crypto.subtle.verify(
+                        { name: 'ECDSA', hash: 'SHA-256' },
+                        cryptoKey, signature, data
+                    )
+                    if (ok) return true
+                } catch { continue }
+            }
+        } catch { return false }
+        return false
+    }
+
+    return false
+}
+
 serve(async (req) => {
     if (req.method === 'OPTIONS') {
         return new Response('ok', { headers: corsHeaders })
+    }
+
+    // Verify JWT — only accept requests signed by our Supabase project
+    const authHeader = req.headers.get('Authorization')
+    const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null
+
+    if (!token) {
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+            status: 401,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        })
+    }
+
+    const valid = await verifyJWT(token).catch(() => false)
+    if (!valid) {
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+            status: 401,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        })
     }
 
     try {
@@ -18,6 +100,14 @@ serve(async (req) => {
 
         const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
         if (!RESEND_API_KEY) throw new Error('RESEND_API_KEY not set')
+
+        // Fetch admin recipients from DB (single source of truth)
+        const supabase = createClient(
+            Deno.env.get('SUPABASE_URL')!,
+            Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+        )
+        const { data: adminRows } = await supabase.from('admin_emails').select('email')
+        const adminEmails = adminRows?.map((r: { email: string }) => r.email) ?? ['hello@swissperiences.ch']
 
         // 1. Send "Thank You" email to the applicant
         console.log(`[NOTIFY] Sending Thank You email to: ${email}`)
@@ -92,7 +182,7 @@ serve(async (req) => {
             },
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
-                to: ['hello@swissperiences.ch'],
+                to: adminEmails,
                 subject: `[APPLICATION] ${full_name}${city ? ` — ${city}` : ''}`,
                 html: `
             <div style="font-family: 'Courier New', monospace; padding: 30px; background: #111; color: #eee; line-height: 1.6;">
@@ -119,9 +209,10 @@ serve(async (req) => {
             status: 200,
         })
     } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), {
+        console.error('[NOTIFY] Unexpected error:', error)
+        return new Response(JSON.stringify({ error: 'Internal server error' }), {
             headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-            status: 400,
+            status: 500,
         })
     }
 })
