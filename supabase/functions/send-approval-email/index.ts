@@ -2,10 +2,16 @@
 // Triggered when an application is approved
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3"
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+const ALLOWED_ORIGINS = ['https://swissperiences.ch', 'https://www.swissperiences.ch']
+
+function corsHeaders(origin: string | null) {
+  const allowed = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0]
+  return {
+    'Access-Control-Allow-Origin': allowed,
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  }
 }
 
 interface ApprovalRequest {
@@ -14,12 +20,48 @@ interface ApprovalRequest {
 }
 
 serve(async (req) => {
+  const origin = req.headers.get('origin')
+
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+    return new Response('ok', { headers: corsHeaders(origin) })
   }
 
   try {
+    // Verify the caller is an authenticated admin
+    const authHeader = req.headers.get('Authorization')
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), {
+        status: 401, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' }
+      })
+    }
+
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
+
+    const token = authHeader.replace('Bearer ', '')
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token)
+
+    if (authError || !user?.email) {
+      return new Response(JSON.stringify({ error: 'Invalid authentication' }), {
+        status: 401, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' }
+      })
+    }
+
+    // Check if the caller is an admin
+    const { data: adminRow } = await supabase
+      .from('admin_emails')
+      .select('email')
+      .eq('email', user.email)
+      .single()
+
+    if (!adminRow) {
+      return new Response(JSON.stringify({ error: 'Forbidden' }), {
+        status: 403, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' }
+      })
+    }
+
     const { email, fullName }: ApprovalRequest = await req.json()
 
     // Send email via Resend
@@ -28,8 +70,8 @@ serve(async (req) => {
     if (!RESEND_API_KEY) {
       console.error('RESEND_API_KEY is missing')
       return new Response(
-        JSON.stringify({ error: 'RESEND_API_KEY is not set' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Internal server error' }),
+        { status: 500, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' } }
       )
     }
 
@@ -101,21 +143,21 @@ serve(async (req) => {
       const errorData = await emailResponse.text()
       console.error('Resend error:', errorData)
       return new Response(
-        JSON.stringify({ error: `Resend failed: ${errorData}` }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: 'Failed to send approval email' }),
+        { status: 500, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' } }
       )
     }
 
     return new Response(
       JSON.stringify({ success: true, message: 'Approval email sent' }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' } }
     )
 
   } catch (error: any) {
     console.error('Error:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      JSON.stringify({ error: 'Internal server error' }),
+      { status: 500, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' } }
     )
   }
 })

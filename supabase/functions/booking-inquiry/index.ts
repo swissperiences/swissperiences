@@ -52,6 +52,8 @@ serve(async (req) => {
         const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
         if (!RESEND_API_KEY) throw new Error('RESEND_API_KEY not set')
 
+        const adminEmails = ['hello@swissperiences.ch']
+
         const fromDate = new Date(dateFrom).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
         const toDate = new Date(dateTo).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
         const nights = Math.ceil((new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / (1000 * 60 * 60 * 24))
@@ -103,7 +105,7 @@ serve(async (req) => {
             },
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
-                to: ['hello@swissperiences.ch'],
+                to: adminEmails,
                 subject: `[BOOKING] ${safeName} — ${safeSanctuary} — ${subjectDate}`,
                 html: `
             <div style="font-family: 'Courier New', monospace; padding: 30px; background: #111; color: #eee; line-height: 1.6;">
@@ -221,10 +223,10 @@ serve(async (req) => {
             { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
         )
     } catch (error) {
-        console.error('[BOOKING] Error:', error.message)
+        console.error('[BOOKING] Error:', error)
         return new Response(
-            JSON.stringify({ error: error.message }),
-            { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+            JSON.stringify({ error: 'Internal server error' }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
         )
     }
 })

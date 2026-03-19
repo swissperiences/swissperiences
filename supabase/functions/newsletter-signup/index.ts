@@ -150,12 +150,12 @@ serve(async (req) => {
             }
         )
     } catch (error) {
-        console.error(`[NEWSLETTER] Error:`, error.message)
+        console.error(`[NEWSLETTER] Error:`, error)
         return new Response(
-            JSON.stringify({ error: error.message }),
+            JSON.stringify({ error: 'Internal server error' }),
             {
                 headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-                status: 400,
+                status: 500,
             }
         )
     }
