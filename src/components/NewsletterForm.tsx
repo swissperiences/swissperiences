@@ -59,6 +59,7 @@ export default function NewsletterForm() {
                 <button
                     type="submit"
                     disabled={isLoading}
+                    aria-label="Subscribe to newsletter"
                     className="absolute right-0 top-1/2 -translate-y-1/2 text-white/40 hover:text-glacier-400 transition-colors disabled:opacity-50"
                 >
                     {isLoading ? (
