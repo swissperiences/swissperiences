@@ -9,6 +9,19 @@ import Breadcrumbs, { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import { Camera, Wind, Disc } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/** Maps full-size image paths to 800px preview versions */
+function getPreviewSrc(src: string): string | null {
+  const basename = src.split("/").pop();
+  if (!basename) return null;
+  const previews = new Set([
+    "lakeside-village-aerial.jpg", "villars-autumn-sunset.jpg",
+    "lake-brienz-aerial.jpg", "blausee-autumn-aerial.jpg",
+    "lake-alpine-serenity.jpg", "host-hiking.jpg",
+    "geneva-jet-deau-aerial.jpg", "villars-sunrise.jpg",
+  ]);
+  return previews.has(basename) ? `/images/_preview/${basename}` : null;
+}
+
 export default function CinematicMemories() {
     const { lang } = useParams();
     const { t, i18n } = useTranslation('home');
@@ -91,7 +104,9 @@ export default function CinematicMemories() {
                             initial={{ scale: 1.1 }}
                             animate={{ scale: 1 }}
                             transition={{ duration: 10, ease: "linear" }}
-                            src="/images/villars-sunrise.jpg"
+                            src="/images/_preview/villars-sunrise.jpg"
+                            srcSet="/images/_preview/villars-sunrise.jpg 800w, /images/villars-sunrise.jpg 2000w"
+                            sizes="100vw"
                             alt="Cinematic drone shot of Villars-sur-Ollon village at sunset"
                             className="w-full h-full object-cover brightness-[0.7] contrast-[1.1] saturate-[0.8]"
                         />
@@ -112,8 +127,8 @@ export default function CinematicMemories() {
                             transition={{ delay: 0.1 }}
                             className="text-5xl md:text-8xl font-serif text-white mb-8 leading-[1.1]"
                         >
-                            {t('cinematic.title').split(' ').slice(0, 2).join(' ')} <br />
-                            <span className="italic opacity-60">{t('cinematic.title').split(' ').slice(2).join(' ')}</span>
+                            {t('cinematic.titleMain')} <br />
+                            <span className="italic opacity-60">{t('cinematic.titleAccent')}</span>
                         </motion.h1>
                         <motion.div
                             initial={{ width: 0 }}
@@ -217,11 +232,14 @@ export default function CinematicMemories() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[300px]">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[300px]">
                             {galleryItems.map((item, idx) => (
                                 <div key={idx} className={cn("relative overflow-hidden group rounded-sm bg-neutral-900", item.span)}>
                                     <img
-                                        src={item.src}
+                                        src={getPreviewSrc(item.src) || item.src}
+                                        srcSet={getPreviewSrc(item.src) ? `${getPreviewSrc(item.src)} 800w, ${item.src} 2000w` : undefined}
+                                        sizes="(max-width: 768px) 50vw, 25vw"
+                                        loading="lazy"
                                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
                                         alt={item.label}
                                     />

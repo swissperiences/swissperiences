@@ -11,7 +11,8 @@ function getPreviewSrc(src: string): string | null {
     "alpine-reset-lake.jpeg", "winter-escape-ski-sunset.jpeg",
     "cinematic-alpine-road.jpeg", "loft-fireplace-night.jpeg",
     "lavaux-vineyards-sunset.jpeg", "sea-of-clouds-sunset.jpeg",
-    "dawn-fog-chalets.jpeg",
+    "dawn-fog-chalets.jpeg", "villars-autumn-sunset.jpg",
+    "sunset-golden.jpeg",
   ]);
   return previews.has(basename) ? `/images/_preview/${basename}` : null;
 }

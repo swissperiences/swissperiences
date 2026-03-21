@@ -6,6 +6,20 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { packages } from "@/data/packages";
 
+/** Maps full-size image paths to 800px preview versions */
+function getPreviewSrc(src: string): string | null {
+  const basename = src.split("/").pop();
+  if (!basename) return null;
+  const previews = new Set([
+    "alpine-reset-lake.jpeg", "winter-escape-ski-sunset.jpeg",
+    "cinematic-alpine-road.jpeg", "loft-fireplace-night.jpeg",
+    "lavaux-vineyards-sunset.jpeg", "sea-of-clouds-sunset.jpeg",
+    "dawn-fog-chalets.jpeg", "villars-autumn-sunset.jpg",
+    "sunset-golden.jpeg",
+  ]);
+  return previews.has(basename) ? `/images/_preview/${basename}` : null;
+}
+
 export default function Packages() {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -78,7 +92,9 @@ export default function Packages() {
               {/* Image */}
               <div className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden mb-8 rounded-sm">
                 <img
-                  src={pkg.image}
+                  src={getPreviewSrc(pkg.image) || pkg.image}
+                  srcSet={getPreviewSrc(pkg.image) ? `${getPreviewSrc(pkg.image)} 800w, ${pkg.image} 2000w` : undefined}
+                  sizes="(max-width: 768px) 100vw, 80vw"
                   alt={`${pkg.name} — ${pkg.tagline}`}
                   className={`w-full h-full object-cover brightness-[0.55] ${pkg.imagePosition || ""}`}
                   loading={i === 0 ? "eager" : "lazy"}
