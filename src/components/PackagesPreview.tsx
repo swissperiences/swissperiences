@@ -63,6 +63,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
 
   return (
     <section
+      id="packages"
       ref={sectionRef}
       className={`py-24 md:py-32 px-4 sm:px-8 bg-[#060606] border-t border-white/5 transition-all duration-[1500ms] ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
     >

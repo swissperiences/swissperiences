@@ -163,13 +163,13 @@ const Index = () => {
               <>
                 <button
                   onClick={() => {
-                    const el = document.getElementById("request-quote");
+                    const el = document.getElementById("packages");
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="group px-10 py-4 bg-white text-black hover:bg-white/90 transition-all duration-500"
                 >
                   <span className="text-[10px] uppercase tracking-[0.3em] font-medium">
-                    Request Your Stay
+                    Explore Packages
                   </span>
                 </button>
                 <button
