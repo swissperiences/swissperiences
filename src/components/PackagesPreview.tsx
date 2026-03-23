@@ -10,9 +10,9 @@ function getPreviewSrc(src: string): string | null {
   const previews = new Set([
     "alpine-reset-lake.jpeg", "winter-escape-ski-sunset.jpeg",
     "cinematic-alpine-road.jpeg", "loft-fireplace-night.jpeg",
-    "lavaux-vineyards-sunset.jpeg", "sea-of-clouds-sunset.jpeg",
-    "dawn-fog-chalets.jpeg", "villars-autumn-sunset.jpg",
-    "sunset-golden.jpeg",
+    "loft-fireplace-evening.jpeg", "lavaux-vineyards-sunset.jpeg",
+    "sea-of-clouds-sunset.jpeg", "dawn-fog-chalets.jpeg",
+    "villars-autumn-sunset.jpg", "sunset-golden.jpeg",
   ]);
   return previews.has(basename) ? `/images/_preview/${basename}` : null;
 }
@@ -81,7 +81,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-          {packages.slice(0, 6).map((pkg) => (
+          {packages.slice(0, 8).map((pkg) => (
             <div
               key={pkg.id}
               className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-glacier-500/20 transition-colors duration-500"
@@ -98,7 +98,11 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
                 <div className="absolute top-4 right-4 flex items-center gap-2">
-                  {(() => {
+                  {pkg.eventBadge ? (
+                    <span className="text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border text-fuchsia-300/80 bg-fuchsia-900/30 border-fuchsia-500/20">
+                      {pkg.eventBadge}
+                    </span>
+                  ) : (() => {
                     const badge = getSeasonBadge(pkg.availability);
                     return (
                       <span className={`text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border ${

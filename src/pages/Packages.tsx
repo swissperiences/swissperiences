@@ -13,9 +13,9 @@ function getPreviewSrc(src: string): string | null {
   const previews = new Set([
     "alpine-reset-lake.jpeg", "winter-escape-ski-sunset.jpeg",
     "cinematic-alpine-road.jpeg", "loft-fireplace-night.jpeg",
-    "lavaux-vineyards-sunset.jpeg", "sea-of-clouds-sunset.jpeg",
-    "dawn-fog-chalets.jpeg", "villars-autumn-sunset.jpg",
-    "sunset-golden.jpeg",
+    "loft-fireplace-evening.jpeg", "lavaux-vineyards-sunset.jpeg",
+    "sea-of-clouds-sunset.jpeg", "dawn-fog-chalets.jpeg",
+    "villars-autumn-sunset.jpg", "sunset-golden.jpeg",
   ]);
   return previews.has(basename) ? `/images/_preview/${basename}` : null;
 }
@@ -101,9 +101,16 @@ export default function Packages() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-black/30 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8">
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-2">
-                    {pkg.duration} · {pkg.availability}
-                  </span>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+                      {pkg.duration} · {pkg.availability}
+                    </span>
+                    {pkg.eventBadge && (
+                      <span className="text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border text-fuchsia-300/80 bg-fuchsia-900/30 border-fuchsia-500/20">
+                        {pkg.eventBadge}
+                      </span>
+                    )}
+                  </div>
                   <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white/90">
                     {pkg.name}
                   </h2>
