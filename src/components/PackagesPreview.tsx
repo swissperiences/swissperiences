@@ -81,7 +81,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-          {packages.slice(0, 8).map((pkg) => (
+          {packages.slice(0, 8).map((pkg, i) => (
             <div
               key={pkg.id}
               className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-glacier-500/20 transition-colors duration-500"
@@ -94,7 +94,8 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                   sizes="(max-width: 640px) 100vw, 50vw"
                   alt={`${pkg.name} — ${pkg.tagline}`}
                   className={`w-full h-full object-cover brightness-[0.5] group-hover:brightness-[0.6] group-hover:scale-105 transition-all duration-700 ${pkg.imagePosition || ""}`}
-                  loading="lazy"
+                  loading={i < 4 ? "eager" : "lazy"}
+                  {...(i < 2 ? { fetchPriority: "high" as const } : {})}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
                 <div className="absolute top-4 right-4 flex items-center gap-2">
