@@ -72,8 +72,11 @@ export default function MembersBook() {
         if (profileData) {
             setMember({ id: profileData.id, full_name: profileData.full_name, email: profileData.email });
             setIsLoading(false);
+        } else if (!profileLoading) {
+            // Profile loaded but null → redirect handled by provider
+            setIsLoading(false);
         }
-    }, [profileData]);
+    }, [profileData, profileLoading]);
 
     const toggleAddOn = (id: string) => {
         setSelectedAddOns((prev) =>
