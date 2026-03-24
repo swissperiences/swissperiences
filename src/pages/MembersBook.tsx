@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import MembersLayout from "@/components/members/MembersLayout";
-import { useMemberProfile } from "@/hooks/useMemberProfile";
 import AvailabilityCalendar from "@/components/AvailabilityCalendar";
 import { useBookedDates } from "@/hooks/useBookedDates";
 import { useBlockedDates } from "@/hooks/useBlockedDates";
@@ -65,18 +64,24 @@ export default function MembersBook() {
     const allDisabledDates = [...new Set([...bookedDates, ...sanctuaryBlockedDates])];
     const experienceDisabledDates = experienceBlockedDates;
 
-    const { member: profileData, isLoading: profileLoading } = useMemberProfile();
-
-    // Sync shared profile → local member state
     useEffect(() => {
-        if (profileData) {
-            setMember({ id: profileData.id, full_name: profileData.full_name, email: profileData.email });
-            setIsLoading(false);
-        } else if (!profileLoading) {
-            // Profile loaded but null → redirect handled by provider
+        loadMember();
+    }, []);
+
+    const loadMember = async () => {
+        try {
+            const { data: memberData, error } = await supabase.rpc("get_member_profile");
+            if (error) console.error("[Book] Profile load error:", error.message);
+            if (!memberData) { navigate("/login"); return; }
+            const m = memberData as Record<string, any>;
+            setMember({ id: m.id, full_name: m.full_name, email: m.email });
+        } catch (err) {
+            console.error("[Book] Failed to load profile:", err);
+            navigate("/login");
+        } finally {
             setIsLoading(false);
         }
-    }, [profileData, profileLoading]);
+    };
 
     const toggleAddOn = (id: string) => {
         setSelectedAddOns((prev) =>
