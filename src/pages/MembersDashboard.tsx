@@ -8,25 +8,15 @@
  * - Concierge CTA
  */
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import MembersLayout from "@/components/members/MembersLayout";
+import { useMemberProfile } from "@/hooks/useMemberProfile";
 import { ArrowRight, MapPin, Calendar, MessageCircle, Mail, X } from "lucide-react";
 import { packages } from "@/data/packages";
-import { journals } from "@/data/journals";
 import { BookingCalendar } from "@/components/BookingCalendar";
 import { toast } from "sonner";
-
-interface Member {
-  id: string;
-  full_name: string;
-  email: string;
-  avatar_url: string | null;
-  membership_tier: string;
-  membership_status: string;
-  joined_at: string;
-}
 
 interface Booking {
   id: string;
@@ -65,42 +55,29 @@ const statusStyles: Record<string, string> = {
 };
 
 export default function MembersDashboard() {
-  const navigate = useNavigate();
-  const [member, setMember] = useState<Member | null>(null);
+  const { member, isLoading } = useMemberProfile();
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [bookingsLoaded, setBookingsLoaded] = useState(false);
   const [bookingState, setBookingState] = useState({ isOpen: false, sanctuary: "" });
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (member?.id && !bookingsLoaded) {
+      loadBookings();
+    }
+  }, [member?.id]);
 
-  const loadData = async () => {
+  const loadBookings = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      const { data: memberData } = await supabase.rpc("get_member_profile");
-      if (!memberData) { navigate("/login"); return; }
-
-      const m = memberData as Record<string, any>;
-      setMember({
-        id: m.id || "",
-        full_name: m.full_name || "",
-        email: m.email || user?.email || "",
-        avatar_url: m.avatar_url || user?.user_metadata?.avatar_url || null,
-        membership_tier: m.membership_tier || "founding",
-        membership_status: m.membership_status || "active",
-        joined_at: m.joined_at || new Date().toISOString(),
-      });
-
-      const { data: bookingData } = await supabase
+      const { data, error } = await supabase
         .from("bookings")
         .select("*")
         .order("created_at", { ascending: false });
-      if (bookingData) setBookings(bookingData as Booking[]);
-    } catch {
-      navigate("/login");
+      if (error) console.error("[Dashboard] Bookings load error:", error.message);
+      if (data) setBookings(data as Booking[]);
+    } catch (err) {
+      console.error("[Dashboard] Failed to load bookings:", err);
     } finally {
-      setIsLoading(false);
+      setBookingsLoaded(true);
     }
   };
 

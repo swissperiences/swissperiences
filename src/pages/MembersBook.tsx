@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import MembersLayout from "@/components/members/MembersLayout";
+import { useMemberProfile } from "@/hooks/useMemberProfile";
 import AvailabilityCalendar from "@/components/AvailabilityCalendar";
 import { useBookedDates } from "@/hooks/useBookedDates";
 import { useBlockedDates } from "@/hooks/useBlockedDates";
@@ -65,25 +65,15 @@ export default function MembersBook() {
     const allDisabledDates = [...new Set([...bookedDates, ...sanctuaryBlockedDates])];
     const experienceDisabledDates = experienceBlockedDates;
 
-    useEffect(() => {
-        loadMember();
-    }, []);
+    const { member: profileData, isLoading: profileLoading } = useMemberProfile();
 
-    const loadMember = async () => {
-        try {
-            const { data: memberData } = await supabase.rpc("get_member_profile");
-            if (!memberData) {
-                navigate("/login");
-                return;
-            }
-            const m = memberData as Record<string, any>;
-            setMember({ id: m.id, full_name: m.full_name, email: m.email });
-        } catch {
-            navigate("/login");
-        } finally {
+    // Sync shared profile → local member state
+    useEffect(() => {
+        if (profileData) {
+            setMember({ id: profileData.id, full_name: profileData.full_name, email: profileData.email });
             setIsLoading(false);
         }
-    };
+    }, [profileData]);
 
     const toggleAddOn = (id: string) => {
         setSelectedAddOns((prev) =>
@@ -223,16 +213,17 @@ export default function MembersBook() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-black flex items-center justify-center">
-                <div className="w-6 h-6 border-2 border-white/10 border-t-white rounded-full animate-spin" />
-            </div>
+            <MembersLayout>
+                <div className="flex items-center justify-center h-screen">
+                    <div className="w-6 h-6 border-2 border-white/10 border-t-white rounded-full animate-spin" />
+                </div>
+            </MembersLayout>
         );
     }
 
     if (submitted) {
         return (
-            <div className="min-h-screen bg-black">
-                <Navigation />
+            <MembersLayout>
                 <div className="max-w-2xl mx-auto px-6 py-32 text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -297,17 +288,15 @@ export default function MembersBook() {
                         </div>
                     </motion.div>
                 </div>
-                <Footer />
-            </div>
+            </MembersLayout>
         );
     }
 
     const sanctuaryCalc = getSanctuaryTotal();
 
     return (
-        <div className="min-h-screen bg-black">
+        <MembersLayout>
             <SEO title="Book | Members Area | Swissperiences" />
-            <Navigation />
 
             <main className="max-w-3xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
                 {/* Header */}
@@ -677,8 +666,6 @@ export default function MembersBook() {
                     </motion.form>
                 )}
             </main>
-
-            <Footer />
-        </div>
+        </MembersLayout>
     );
 }

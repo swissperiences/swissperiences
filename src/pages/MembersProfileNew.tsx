@@ -5,32 +5,16 @@
  * Visual-first: keeps existing RPC calls, wraps in editorial design.
  */
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import MembersLayout from "@/components/members/MembersLayout";
+import { useMemberProfile } from "@/hooks/useMemberProfile";
 import { Save, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
-interface ProfileData {
-  full_name: string;
-  email: string;
-  avatar_url: string | null;
-  city: string;
-  country: string;
-  phone: string;
-  bio: string;
-  preferences: string;
-  membership_tier: string;
-  membership_status: string;
-  joined_at: string;
-}
-
 export default function MembersProfileNew() {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const { member: profile, isLoading, refresh } = useMemberProfile();
   const [isSaving, setIsSaving] = useState(false);
-  const [profile, setProfile] = useState<ProfileData | null>(null);
 
   const [fullName, setFullName] = useState("");
   const [city, setCity] = useState("");
@@ -38,43 +22,20 @@ export default function MembersProfileNew() {
   const [phone, setPhone] = useState("");
   const [bio, setBio] = useState("");
   const [preferences, setPreferences] = useState("");
+  const [formInitialized, setFormInitialized] = useState(false);
 
+  // Prefill form when profile loads
   useEffect(() => {
-    loadProfile();
-  }, []);
-
-  const loadProfile = async () => {
-    try {
-      const { data: memberData } = await supabase.rpc("get_member_profile");
-      if (!memberData) { navigate("/login"); return; }
-
-      const m = memberData as Record<string, any>;
-      const p: ProfileData = {
-        full_name: m.full_name || "",
-        email: m.email || "",
-        avatar_url: m.avatar_url || null,
-        city: m.city || "",
-        country: m.country || "",
-        phone: m.phone || "",
-        bio: m.bio || "",
-        preferences: m.preferences || "",
-        membership_tier: m.membership_tier || "founding",
-        membership_status: m.membership_status || "active",
-        joined_at: m.joined_at || new Date().toISOString(),
-      };
-      setProfile(p);
-      setFullName(p.full_name);
-      setCity(p.city);
-      setCountry(p.country);
-      setPhone(p.phone);
-      setBio(p.bio);
-      setPreferences(p.preferences);
-    } catch {
-      navigate("/login");
-    } finally {
-      setIsLoading(false);
+    if (profile && !formInitialized) {
+      setFullName(profile.full_name);
+      setCity(profile.city);
+      setCountry(profile.country);
+      setPhone(profile.phone);
+      setBio(profile.bio);
+      setPreferences(profile.preferences);
+      setFormInitialized(true);
     }
-  };
+  }, [profile, formInitialized]);
 
   const hasChanges = () => {
     if (!profile) return false;
@@ -107,10 +68,10 @@ export default function MembersProfileNew() {
       if (result?.error) { toast.error(result.error); return; }
 
       toast.success("Profile updated.");
-      setProfile((prev) =>
-        prev ? { ...prev, full_name: fullName.trim(), city: city.trim(), country: country.trim(), phone: phone.trim(), bio: bio.trim(), preferences: preferences.trim() } : prev
-      );
-    } catch {
+      await refresh();
+      setFormInitialized(false); // re-sync form with refreshed profile
+    } catch (err) {
+      console.error("[Profile] Failed to update:", err);
       toast.error("Failed to update profile.");
     } finally {
       setIsSaving(false);

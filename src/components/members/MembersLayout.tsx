@@ -7,44 +7,30 @@
  * - Tonal surface layering (no borders)
  * - Glassmorphic sidebar nav (desktop) / top bar (mobile)
  *
- * Architecture:
- *   Public site (Inter + Lora, 0.75rem radius)
- *     └─ login ──▶ MembersLayout (Newsreader + Manrope, 0px radius)
- *                    ├─ MembersDashboard
- *                    ├─ MembersExplore
- *                    ├─ MembersProfile
- *                    └─ JourneyDetails
+ * Uses MemberProfileProvider to load profile once for all child pages.
  */
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { LogOut, Compass, LayoutDashboard, User, Menu, X } from "lucide-react";
+import { MemberProfileProvider, useMemberProfile } from "@/hooks/useMemberProfile";
+import { LogOut, Compass, LayoutDashboard, User, Menu, X, CalendarDays } from "lucide-react";
 
 interface MembersLayoutProps {
   children: React.ReactNode;
 }
 
-interface MemberInfo {
-  full_name: string;
-  avatar_url: string | null;
-  membership_tier: string;
-}
-
 const navItems = [
   { label: "Dashboard", href: "/members", icon: LayoutDashboard },
   { label: "Curations", href: "/members/explore", icon: Compass },
+  { label: "Book", href: "/members/book", icon: CalendarDays },
   { label: "Profile", href: "/members/profile", icon: User },
 ];
 
-export default function MembersLayout({ children }: MembersLayoutProps) {
+function MembersLayoutInner({ children }: MembersLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [member, setMember] = useState<MemberInfo | null>(null);
+  const { member } = useMemberProfile();
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    loadMember();
-  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -62,22 +48,6 @@ export default function MembersLayout({ children }: MembersLayoutProps) {
       document.head.removeChild(link);
     };
   }, []);
-
-  const loadMember = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      const { data } = await supabase.rpc("get_member_profile");
-      if (!data) return;
-      const m = data as Record<string, any>;
-      setMember({
-        full_name: m.full_name || "",
-        avatar_url: m.avatar_url || user?.user_metadata?.avatar_url || null,
-        membership_tier: m.membership_tier || "founding",
-      });
-    } catch {
-      // AuthGuard handles redirect
-    }
-  };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -211,5 +181,13 @@ export default function MembersLayout({ children }: MembersLayoutProps) {
         {children}
       </main>
     </div>
+  );
+}
+
+export default function MembersLayout({ children }: MembersLayoutProps) {
+  return (
+    <MemberProfileProvider>
+      <MembersLayoutInner>{children}</MembersLayoutInner>
+    </MemberProfileProvider>
   );
 }
