@@ -221,11 +221,9 @@ export default function MembersBook() {
 
     if (isLoading) {
         return (
-            <MembersLayout>
-                <div className="flex items-center justify-center h-screen">
-                    <div className="w-6 h-6 border-2 border-white/10 border-t-white rounded-full animate-spin" />
-                </div>
-            </MembersLayout>
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="w-6 h-6 border-2 border-white/10 border-t-white rounded-full animate-spin" />
+            </div>
         );
     }
 
