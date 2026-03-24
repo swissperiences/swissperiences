@@ -2,19 +2,35 @@
  * MembersProfileNew — Alpine Silence member profile
  *
  * "Elite Member" card + aesthetic preferences form.
- * Visual-first: keeps existing RPC calls, wraps in editorial design.
+ * Uses own RPC call (useMemberProfile can't work here — provider is inside MembersLayout JSX).
  */
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
 import MembersLayout from "@/components/members/MembersLayout";
-import { useMemberProfile } from "@/hooks/useMemberProfile";
 import { Save, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
+interface ProfileData {
+  full_name: string;
+  email: string;
+  avatar_url: string | null;
+  city: string;
+  country: string;
+  phone: string;
+  bio: string;
+  preferences: string;
+  membership_tier: string;
+  membership_status: string;
+  joined_at: string;
+}
+
 export default function MembersProfileNew() {
-  const { member: profile, isLoading, refresh } = useMemberProfile();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [profile, setProfile] = useState<ProfileData | null>(null);
 
   const [fullName, setFullName] = useState("");
   const [city, setCity] = useState("");
@@ -22,20 +38,45 @@ export default function MembersProfileNew() {
   const [phone, setPhone] = useState("");
   const [bio, setBio] = useState("");
   const [preferences, setPreferences] = useState("");
-  const [formInitialized, setFormInitialized] = useState(false);
 
-  // Prefill form when profile loads
   useEffect(() => {
-    if (profile && !formInitialized) {
-      setFullName(profile.full_name);
-      setCity(profile.city);
-      setCountry(profile.country);
-      setPhone(profile.phone);
-      setBio(profile.bio);
-      setPreferences(profile.preferences);
-      setFormInitialized(true);
+    loadProfile();
+  }, []);
+
+  const loadProfile = async () => {
+    try {
+      const { data: memberData, error } = await supabase.rpc("get_member_profile");
+      if (error) console.error("[Profile] RPC error:", error.message);
+      if (!memberData) { navigate("/login"); return; }
+
+      const m = memberData as Record<string, any>;
+      const p: ProfileData = {
+        full_name: m.full_name || "",
+        email: m.email || "",
+        avatar_url: m.avatar_url || null,
+        city: m.city || "",
+        country: m.country || "",
+        phone: m.phone || "",
+        bio: m.bio || "",
+        preferences: m.preferences || "",
+        membership_tier: m.membership_tier || "founding",
+        membership_status: m.membership_status || "active",
+        joined_at: m.joined_at || new Date().toISOString(),
+      };
+      setProfile(p);
+      setFullName(p.full_name);
+      setCity(p.city);
+      setCountry(p.country);
+      setPhone(p.phone);
+      setBio(p.bio);
+      setPreferences(p.preferences);
+    } catch (err) {
+      console.error("[Profile] Failed to load:", err);
+      navigate("/login");
+    } finally {
+      setIsLoading(false);
     }
-  }, [profile, formInitialized]);
+  };
 
   const hasChanges = () => {
     if (!profile) return false;
@@ -68,8 +109,8 @@ export default function MembersProfileNew() {
       if (result?.error) { toast.error(result.error); return; }
 
       toast.success("Profile updated.");
-      await refresh();
-      setFormInitialized(false); // re-sync form with refreshed profile
+      // Refresh profile data
+      await loadProfile();
     } catch (err) {
       console.error("[Profile] Failed to update:", err);
       toast.error("Failed to update profile.");
@@ -149,7 +190,6 @@ export default function MembersProfileNew() {
           </p>
 
           <div className="space-y-8">
-            {/* Name */}
             <div>
               <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 Full Name
@@ -163,7 +203,6 @@ export default function MembersProfileNew() {
               />
             </div>
 
-            {/* Location */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
                 <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
@@ -191,7 +230,6 @@ export default function MembersProfileNew() {
               </div>
             </div>
 
-            {/* Phone */}
             <div>
               <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 Phone <span className="normal-case tracking-normal text-white/15">(for stay logistics only)</span>
@@ -205,7 +243,6 @@ export default function MembersProfileNew() {
               />
             </div>
 
-            {/* About */}
             <div>
               <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 About You
@@ -219,7 +256,6 @@ export default function MembersProfileNew() {
               />
             </div>
 
-            {/* Preferences */}
             <div>
               <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 Preferences
@@ -234,7 +270,6 @@ export default function MembersProfileNew() {
             </div>
           </div>
 
-          {/* Save */}
           <div className="mt-12 pt-8 border-t border-[#1F1F1F]">
             <button
               onClick={handleSave}
