@@ -178,7 +178,7 @@ export default function MembersExplore() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
               {/* Hero card — col-span-8, 16:9 */}
               {bentoHero && (
-                <div className="md:col-span-8 group relative overflow-hidden bg-[#1B1B1B]">
+                <Link to="/members/book" className="md:col-span-8 group relative overflow-hidden bg-[#1B1B1B] block">
                   <div className="aspect-[16/9] overflow-hidden">
                     <img
                       src={bentoHero.image}
@@ -195,20 +195,17 @@ export default function MembersExplore() {
                     <h3 className="font-[Newsreader,serif] text-2xl sm:text-4xl text-white mb-3">{bentoHero.name}</h3>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                       <p className="text-white/60 text-sm max-w-md hidden sm:block">{bentoHero.tagline}</p>
-                      <Link
-                        to="/packages"
-                        className="bg-white text-[#131313] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-medium hover:bg-white/90 transition-colors font-[Manrope,sans-serif] inline-block w-fit"
-                      >
-                        Explore
-                      </Link>
+                      <span className="bg-white text-[#131313] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-medium hover:bg-white/90 transition-colors font-[Manrope,sans-serif] inline-block w-fit">
+                        Book now
+                      </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               )}
 
               {/* Vertical card — col-span-4, 3:4 */}
               {bentoVertical && (
-                <div className="md:col-span-4 group relative overflow-hidden bg-[#1B1B1B]">
+                <Link to="/members/book" className="md:col-span-4 group relative overflow-hidden bg-[#1B1B1B] block">
                   <div className="aspect-[3/4] overflow-hidden">
                     <img
                       src={bentoVertical.image}
@@ -225,7 +222,7 @@ export default function MembersExplore() {
                     <h3 className="font-[Newsreader,serif] text-2xl text-white mb-2">{bentoVertical.name}</h3>
                     <p className="text-white/50 text-xs">{bentoVertical.tagline}</p>
                   </div>
-                </div>
+                </Link>
               )}
 
               {/* CTA card — col-span-4, square */}
@@ -249,7 +246,7 @@ export default function MembersExplore() {
 
               {/* Wide card — col-span-8, 21:9 */}
               {bentoWide && (
-                <div className="md:col-span-8 group relative overflow-hidden bg-[#1B1B1B]">
+                <Link to="/members/book" className="md:col-span-8 group relative overflow-hidden bg-[#1B1B1B] block">
                   <div className="aspect-[21/9] overflow-hidden">
                     <img
                       src={bentoWide.image}
@@ -266,14 +263,15 @@ export default function MembersExplore() {
                     <h3 className="font-[Newsreader,serif] text-2xl sm:text-3xl text-white mb-3">{bentoWide.name}</h3>
                     <p className="text-white/50 text-xs leading-relaxed">{bentoWide.tagline}</p>
                   </div>
-                </div>
+                </Link>
               )}
 
               {/* Remaining packages — 3-col grid */}
               {regularGrid.map((pkg) => (
-                <div
+                <Link
+                  to="/members/book"
                   key={pkg.id}
-                  className="md:col-span-4 group bg-[#1B1B1B] overflow-hidden hover:bg-[#1F1F1F] transition-colors duration-500"
+                  className="md:col-span-4 group bg-[#1B1B1B] overflow-hidden hover:bg-[#1F1F1F] transition-colors duration-500 block"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
                     <img
@@ -299,11 +297,11 @@ export default function MembersExplore() {
                     <div className="flex items-center justify-between">
                       <span className="text-white/20 text-xs font-[Manrope,sans-serif]">{pkg.price}</span>
                       <span className="text-[10px] tracking-[0.15em] uppercase text-white/15 group-hover:text-white/40 transition-colors font-[Manrope,sans-serif]">
-                        View details →
+                        Book now →
                       </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>
