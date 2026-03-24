@@ -33,7 +33,7 @@ const InvitePage = lazy(() => import("./pages/private/InvitePage"));
 const RequestAccess = lazy(() => import("./pages/RequestAccess"));
 const Login = lazy(() => import("./pages/Login"));
 const AuthCallback = lazy(() => import("./pages/AuthCallback"));
-const Members = lazy(() => import("./pages/Members"));
+const Members = lazy(() => import("./pages/MembersDashboard"));
 // const Admin = lazy(() => import("./pages/Admin")); // Deprecated: redirects to /admin/gallery
 const PendingApproval = lazy(() => import("./pages/PendingApproval"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -47,7 +47,8 @@ const Experiences = lazy(() => import("./pages/Experiences"));
 const PrivateChef = lazy(() => import("./pages/PrivateChef"));
 const GuidedHikes = lazy(() => import("./pages/GuidedHikes"));
 const MembersBook = lazy(() => import("./pages/MembersBook"));
-const MembersProfile = lazy(() => import("./pages/MembersProfile"));
+const MembersProfile = lazy(() => import("./pages/MembersProfileNew"));
+const MembersExplore = lazy(() => import("./pages/MembersExplore"));
 const Partnerships = lazy(() => import("./pages/Partnerships"));
 const Sustainability = lazy(() => import("./pages/Sustainability"));
 const GuestEnhance = lazy(() => import("./pages/GuestEnhance"));
@@ -154,6 +155,7 @@ const App = () => (
                 <Route path="/pending-approval" element={<PendingApproval />} />
                 <Route path="/members/book" element={<AuthGuard><MembersBook /></AuthGuard>} />
                 <Route path="/members/links" element={<AuthGuard requireAdmin><LinkGenerator /></AuthGuard>} />
+                <Route path="/members/explore" element={<AuthGuard><MembersExplore /></AuthGuard>} />
                 <Route path="/members/profile" element={<AuthGuard><MembersProfile /></AuthGuard>} />
                 <Route path="/members" element={<AuthGuard><Members /></AuthGuard>} />
 
@@ -188,6 +190,7 @@ const App = () => (
                 <Route path="/:lang/insider-guide" element={<LanguageWrapper><InsiderGuide /></LanguageWrapper>} />
                 <Route path="/:lang/enhance" element={<LanguageWrapper><GuestEnhance /></LanguageWrapper>} />
                 <Route path="/:lang/members/book" element={<AuthGuard><LanguageWrapper><MembersBook /></LanguageWrapper></AuthGuard>} />
+                <Route path="/:lang/members/explore" element={<AuthGuard><LanguageWrapper><MembersExplore /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members/profile" element={<AuthGuard><LanguageWrapper><MembersProfile /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members" element={<AuthGuard><LanguageWrapper><Members /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/request-access" element={<LanguageWrapper><RequestAccess /></LanguageWrapper>} />
