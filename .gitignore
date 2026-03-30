@@ -41,8 +41,12 @@ test-results/
 # Backups
 *.backup.tsx
 
-# Supabase functions env
+# Supabase local state
 supabase/functions/.env
+supabase/.temp/
+
+# QA reports cache
+.gstack/
 
 # Reel Forge
 tools/reel-forge/output/
