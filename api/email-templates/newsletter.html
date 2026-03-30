@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="supported-color-schemes" content="dark">
+  <title>Swissperiences</title>
+  <!--[if mso]>
+  <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+  <![endif]-->
+  <style>
+    /* ── Reset ── */
+    body, table, td, p, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
+
+    body {
+      margin: 0; padding: 0; width: 100% !important;
+      background-color: #0A0A08;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #E8E6DF;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .wrapper {
+      width: 100%; table-layout: fixed;
+      background-color: #0A0A08;
+      padding: 0;
+    }
+    .main {
+      background-color: #0D0D0B;
+      margin: 0 auto; width: 100%; max-width: 600px;
+      border-spacing: 0;
+    }
+
+    /* ── Preheader (hidden preview text) ── */
+    .preheader {
+      display: none !important;
+      max-height: 0; max-width: 0; overflow: hidden;
+      mso-hide: all; font-size: 1px; line-height: 1px; color: #0D0D0B;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 48px 50px 44px;
+      text-align: center;
+    }
+    .logo-text {
+      font-size: 13px; letter-spacing: 6px; text-transform: uppercase;
+      color: #D8B58A; font-weight: 300; margin: 0;
+    }
+    .edition-line {
+      width: 30px; height: 1px; background: #D8B58A;
+      margin: 18px auto 16px; border: none;
+    }
+    .edition-label {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: #5A5550; margin: 0;
+    }
+
+    /* ── Hero ── */
+    .hero-cell { padding: 0; }
+    .hero-image {
+      width: 100%; max-width: 600px; height: auto; display: block;
+      filter: brightness(0.85);
+    }
+    .hero-overlay {
+      position: relative; overflow: hidden;
+    }
+
+    /* ── Intro ── */
+    .intro {
+      padding: 52px 50px 36px;
+    }
+    .greeting {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 28px; font-weight: 400; font-style: italic;
+      line-height: 1.45; color: #FAFAF8; margin: 0 0 28px;
+    }
+    .body-text {
+      font-size: 15px; line-height: 1.9; color: #A8A39A;
+      margin: 0 0 20px; font-weight: 300;
+    }
+
+    /* ── Section ── */
+    .section-rule {
+      border: none; border-top: 1px solid #1E1D1A;
+      margin: 0 50px;
+    }
+    .section-header {
+      padding: 40px 50px 6px;
+    }
+    .section-number {
+      font-size: 10px; letter-spacing: 1px;
+      color: #3D3A35; display: inline;
+    }
+    .section-label {
+      font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+      color: #D8B58A; font-weight: 500; margin: 0;
+      display: inline; padding-left: 10px;
+    }
+
+    /* ── Featured Experience ── */
+    .feature {
+      padding: 28px 50px 44px;
+    }
+    .feature-image {
+      width: 100%; height: auto; display: block;
+      border-radius: 2px;
+      filter: brightness(0.9);
+    }
+    .feature-content {
+      padding-top: 28px;
+    }
+    .feature-location {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: #D8B58A; margin: 0 0 10px;
+    }
+    .feature-title {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 22px; font-weight: 400; color: #FAFAF8;
+      margin: 0 0 14px; line-height: 1.4;
+    }
+    .feature-desc {
+      font-size: 14px; line-height: 1.85; color: #7A7470;
+      margin: 0 0 26px; font-weight: 300;
+    }
+    .feature-cta {
+      display: inline-block; padding: 13px 30px;
+      background-color: transparent;
+      border: 1px solid #3D3A35;
+      color: #D8B58A !important;
+      text-decoration: none;
+      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 500;
+      transition: border-color 0.2s;
+    }
+
+    /* ── Dispatch / List ── */
+    .dispatch {
+      padding: 28px 50px 16px;
+    }
+    .dispatch-item {
+      padding: 22px 0;
+      border-bottom: 1px solid #1E1D1A;
+    }
+    .dispatch-item:last-child { border-bottom: none; }
+    .dispatch-tag {
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      color: #5A5550; margin: 0 0 8px;
+    }
+    .dispatch-title {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 17px; font-weight: 400; color: #E8E6DF;
+      margin: 0 0 6px; line-height: 1.45;
+    }
+    .dispatch-meta {
+      font-size: 12px; color: #5A5550; margin: 0; font-weight: 300;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Pull Quote ── */
+    .quote-section {
+      padding: 44px 50px 48px;
+      text-align: center;
+    }
+    .quote-mark {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 48px; color: #D8B58A; line-height: 1;
+      margin: 0 0 8px; opacity: 0.5;
+    }
+    .quote-text {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 18px; font-style: italic; line-height: 1.7;
+      color: #D0CCC0; margin: 0 auto 16px;
+      max-width: 440px;
+    }
+    .quote-attr {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: #5A5550; margin: 0;
+    }
+
+    /* ── Insider Tip ── */
+    .tip-card {
+      margin: 0 50px 44px;
+      padding: 32px;
+      background: #131210;
+      border: 1px solid #1E1D1A;
+      border-radius: 2px;
+    }
+    .tip-label {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: #D8B58A; margin: 0 0 14px;
+    }
+    .tip-text {
+      font-size: 14px; line-height: 1.85; color: #A8A39A;
+      margin: 0; font-weight: 300;
+    }
+
+    /* ── Primary CTA ── */
+    .cta-section {
+      text-align: center; padding: 8px 50px 56px;
+    }
+    .cta-button {
+      display: inline-block;
+      background-color: #D8B58A; color: #0D0D0B !important;
+      padding: 16px 44px; text-decoration: none;
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 600; border-radius: 0;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 44px 50px;
+      text-align: center;
+      border-top: 1px solid #1E1D1A;
+    }
+    .footer-wordmark {
+      font-size: 9px; letter-spacing: 5px; text-transform: uppercase;
+      color: #3D3A35; margin: 0 0 24px;
+    }
+    .footer-links { margin: 0 0 24px; }
+    .footer-links a {
+      display: inline-block; margin: 0 10px;
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: #5A5550; text-decoration: none;
+    }
+    .footer-fine {
+      font-size: 10px; color: #3D3A35; line-height: 2.2; margin: 0;
+    }
+    .footer-fine a { color: #5A5550; text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media only screen and (max-width: 620px) {
+      .main { width: 100% !important; }
+      .header, .intro, .feature, .dispatch,
+      .quote-section, .cta-section, .footer {
+        padding-left: 24px !important; padding-right: 24px !important;
+      }
+      .section-rule { margin-left: 24px !important; margin-right: 24px !important; }
+      .section-header { padding-left: 24px !important; padding-right: 24px !important; }
+      .tip-card { margin-left: 24px !important; margin-right: 24px !important; }
+      .greeting { font-size: 23px !important; }
+      .feature-title { font-size: 19px !important; }
+      .quote-text { font-size: 16px !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Preheader text (shows in inbox preview) -->
+  <span class="preheader">Spring is arriving in the valleys while the peaks hold their last good snow. Here is what caught our attention.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</span>
+
+  <center class="wrapper">
+    <table class="main" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+
+      <!-- ════════ HEADER ════════ -->
+      <tr>
+        <td class="header">
+          <p class="logo-text">Swissperiences</p>
+          <hr class="edition-line">
+          <p class="edition-label">Weekly Dispatch &mdash; 25 March 2026</p>
+        </td>
+      </tr>
+
+      <!-- ════════ HERO ════════ -->
+      <tr>
+        <td class="hero-cell">
+          <img
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=540&fit=crop&q=80"
+            alt="Swiss Alps — golden hour above the clouds"
+            class="hero-image"
+          >
+        </td>
+      </tr>
+
+      <!-- ════════ INTRO ════════ -->
+      <tr>
+        <td class="intro">
+          <p class="greeting">The space between seasons.</p>
+          <p class="body-text">
+            Spring is arriving in the valleys while the peaks hold their last
+            good snow. This is the rarest window&mdash;the weeks when
+            Switzerland belongs to both seasons at once.
+          </p>
+          <p class="body-text">
+            Here is what caught our attention.
+          </p>
+        </td>
+      </tr>
+
+      <!-- ════════ 01 — FEATURED ════════ -->
+      <tr><td><hr class="section-rule"></td></tr>
+      <tr>
+        <td class="section-header">
+          <span class="section-number">01</span>
+          <span class="section-label">Featured</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="feature">
+          <img
+            src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1100&h=520&fit=crop&q=80"
+            alt="Alpine chalet dining at altitude"
+            class="feature-image"
+          >
+          <div class="feature-content">
+            <p class="feature-location">Verbier, Valais</p>
+            <p class="feature-title">Private Chef Dinner at 2,200m</p>
+            <p class="feature-desc">
+              A five-course tasting menu in a restored alpine chalet,
+              paired with wines from the Lavaux terraces.
+              Six guests maximum. Available weekends through mid-April.
+            </p>
+            <a href="https://swissperiences.ch/experiences" class="feature-cta">View Experience</a>
+          </div>
+        </td>
+      </tr>
+
+      <!-- ════════ 02 — DISPATCH ════════ -->
+      <tr><td><hr class="section-rule"></td></tr>
+      <tr>
+        <td class="section-header">
+          <span class="section-number">02</span>
+          <span class="section-label">This Week</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="dispatch">
+          <div class="dispatch-item">
+            <p class="dispatch-tag">Event</p>
+            <p class="dispatch-title">Montreux Jazz Caf&eacute; &mdash; Spring Sessions</p>
+            <p class="dispatch-meta">28&ndash;30 March &bull; Montreux Palace</p>
+          </div>
+          <div class="dispatch-item">
+            <p class="dispatch-tag">Season</p>
+            <p class="dispatch-title">Last Ski Weekends &mdash; Zermatt &amp; Verbier</p>
+            <p class="dispatch-meta">Through 13 April &bull; Best conditions above 2,800m</p>
+          </div>
+          <div class="dispatch-item">
+            <p class="dispatch-tag">Discovery</p>
+            <p class="dispatch-title">Lavaux Vineyard Terraces &mdash; Spring Walks</p>
+            <p class="dispatch-meta">UNESCO Heritage &bull; Lutry to Saint-Saphorin</p>
+          </div>
+        </td>
+      </tr>
+
+      <!-- ════════ 03 — INSIDER TIP ════════ -->
+      <tr><td><hr class="section-rule"></td></tr>
+      <tr>
+        <td class="section-header">
+          <span class="section-number">03</span>
+          <span class="section-label">Insider Tip</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 28px 0 0;">
+          <div class="tip-card">
+            <p class="tip-label">Local Knowledge</p>
+            <p class="tip-text">
+              The <strong style="color: #D0CCC0;">Bains des P&acirc;quis</strong> in Geneva
+              reopens its outdoor section this weekend. Skip the crowds &mdash;
+              go on a Tuesday morning, order the fondue, and sit facing the jet d'eau.
+              The locals do.
+            </p>
+          </div>
+        </td>
+      </tr>
+
+      <!-- ════════ QUOTE ════════ -->
+      <tr><td><hr class="section-rule"></td></tr>
+      <tr>
+        <td class="quote-section">
+          <p class="quote-mark">&ldquo;</p>
+          <p class="quote-text">
+            The clearest way into the Universe<br>
+            is through a forest wilderness.
+          </p>
+          <p class="quote-attr">&mdash; John Muir</p>
+        </td>
+      </tr>
+
+      <!-- ════════ CTA ════════ -->
+      <tr>
+        <td class="cta-section">
+          <a href="https://swissperiences.ch/members" class="cta-button">Explore Experiences</a>
+        </td>
+      </tr>
+
+      <!-- ════════ FOOTER ════════ -->
+      <tr>
+        <td class="footer">
+          <p class="footer-wordmark">Swissperiences</p>
+          <p class="footer-links">
+            <a href="https://instagram.com/swissperiences">Instagram</a>
+            <a href="https://swissperiences.ch">Website</a>
+            <a href="mailto:hello@swissperiences.ch">Contact</a>
+          </p>
+          <p class="footer-fine">
+            &copy; 2026 Swissperiences &bull; Geneva, Switzerland<br>
+            You receive this as a Swissperiences member.<br>
+            <a href="{{unsubscribe_url}}">Unsubscribe</a> &bull;
+            <a href="{{preferences_url}}">Email preferences</a>
+          </p>
+        </td>
+      </tr>
+
+    </table>
+  </center>
+</body>
+</html>
