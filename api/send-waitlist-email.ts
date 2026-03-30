@@ -9,29 +9,12 @@ const supabase = createClient(
 );
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    // ============================================================
-    // AGGRESSIVE DEBUG - FUNCTION START
-    // ============================================================
-    console.log('\n' + '='.repeat(60));
-    console.log('--- API CALL STARTED (WAITLIST) ---');
-    console.log('Timestamp:', new Date().toISOString());
-    console.log('Method:', req.method);
-    console.log('='.repeat(60) + '\n');
-
-    // CRITICAL: Verify API key is loaded
-    console.log('🔑 CHAVE PRESENTE?', !!process.env.RESEND_API_KEY);
     if (!process.env.RESEND_API_KEY) {
-        console.error('❌ CRITICAL ERROR: RESEND_API_KEY is undefined!');
         return res.status(500).json({
-            error: 'Server configuration error: Missing RESEND_API_KEY',
-            hint: 'Check .env file and dotenv configuration'
+            error: 'Server configuration error'
         });
     }
-    console.log('✅ API Key loaded successfully\n');
 
-    // ============================================================
-    // CORS HEADERS - Allow requests from frontend
-    // ============================================================
     const allowedOrigins = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
     const origin = req.headers.origin as string;
     if (allowedOrigins.includes(origin)) {
@@ -42,7 +25,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Handle preflight OPTIONS request
     if (req.method === 'OPTIONS') {
-        console.log('✅ CORS preflight request handled');
         return res.status(200).end();
     }
 
@@ -51,7 +33,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // --- RATE LIMIT CHECK ---
-    const clientIp = req.headers['x-forwarded-for'] as string || 'anonymous';
+    const clientIp = (req.headers['x-real-ip'] as string) || (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 'anonymous';
     const { success, error: rateLimitError } = await checkRateLimit(clientIp, 'waitlist');
 
     if (!success) {
@@ -72,6 +54,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         message = null,
         language = 'en'
     } = req.body;
+
+    // Input validation
+    if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ error: 'Valid email is required' });
+    }
+
+    const esc = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const isTestMode = process.env.EMAIL_TEST_MODE === 'true';
@@ -159,13 +148,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     </body>
     </html>`;
 
-    console.log(`[API] Processing waitlist signup for: ${email} (${language})`);
-    if (intent) console.log(`[API] 🎯 Intent: ${intent}`);
-    if (season) console.log(`[API] 🏔️ Season: ${season}`);
-    if (start_date) console.log(`[API] 📅 Dates: ${start_date} to ${end_date}`);
-    if (num_guests) console.log(`[API] 👥 Guests: ${num_guests}`);
-    if (message) console.log(`[API] 💬 Message: ${message}`);
-
     try {
         // 1. Save to database first
         const insertData: Record<string, unknown> = {
@@ -236,12 +218,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             html: `
             <div style="font-family: 'Courier New', monospace; padding: 30px; background: #111; color: #eee; line-height: 1.6;">
                 <h2 style="color: #D8B58A; border-bottom: 1px solid #333; padding-bottom: 10px;">New Waitlist Signup</h2>
-                <p style="margin: 10px 0;"><strong>Email:</strong> ${email}</p>
-                <p style="margin: 10px 0;"><strong>Tier:</strong> ${tier}</p>
-                <p style="margin: 10px 0;"><strong>Intent:</strong> ${intent || '—'}</p>
-                <p style="margin: 10px 0;"><strong>Dates:</strong> ${start_date || '—'} — ${end_date || '—'}</p>
-                <p style="margin: 10px 0;"><strong>Guests:</strong> ${num_guests || '—'}</p>
-                <p style="margin: 10px 0;"><strong>Message:</strong> ${message || '—'}</p>
+                <p style="margin: 10px 0;"><strong>Email:</strong> ${esc(email)}</p>
+                <p style="margin: 10px 0;"><strong>Tier:</strong> ${esc(tier)}</p>
+                <p style="margin: 10px 0;"><strong>Intent:</strong> ${esc(intent) || '—'}</p>
+                <p style="margin: 10px 0;"><strong>Dates:</strong> ${esc(start_date) || '—'} — ${esc(end_date) || '—'}</p>
+                <p style="margin: 10px 0;"><strong>Guests:</strong> ${esc(String(num_guests)) || '—'}</p>
+                <p style="margin: 10px 0;"><strong>Message:</strong> ${esc(message) || '—'}</p>
                 <p style="margin: 10px 0;"><strong>Language:</strong> ${language}</p>
                 <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
             </div>

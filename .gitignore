@@ -41,6 +41,9 @@ test-results/
 # Backups
 *.backup.tsx
 
+# Supabase functions env
+supabase/functions/.env
+
 # Reel Forge
 tools/reel-forge/output/
 tools/reel-forge/.venv/

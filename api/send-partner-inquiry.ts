@@ -10,7 +10,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.log('[PARTNER API] Request received:', req.method);
 
     if (!process.env.RESEND_API_KEY) {
-        return res.status(500).json({ error: 'Server configuration error: Missing RESEND_API_KEY' });
+        return res.status(500).json({ error: 'Server configuration error' });
     }
 
     const allowedOrigins = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
@@ -24,7 +24,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method === 'OPTIONS') return res.status(200).end();
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-    const clientIp = req.headers['x-forwarded-for'] as string || 'anonymous';
+    const clientIp = (req.headers['x-real-ip'] as string) || (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 'anonymous';
     const { success, error: rateLimitError } = await checkRateLimit(clientIp, 'partner');
 
     if (!success) {
@@ -39,6 +39,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const esc = (s: string) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
     try {
         const isPartnership = type === 'partnership';
@@ -56,8 +58,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             : "We've received your listing application.";
 
         const confirmBody = isPartnership
-            ? `<p>We've received your partnership inquiry for <strong>${business}</strong>. Our team will review it and get back to you shortly.</p>`
-            : `<p>Thank you for applying to list <strong>${business}</strong> on Swissperiences. We'll review your application and reach out within a few days.</p>`;
+            ? `<p>We've received your partnership inquiry for <strong>${esc(business)}</strong>. Our team will review it and get back to you shortly.</p>`
+            : `<p>Thank you for applying to list <strong>${esc(business)}</strong> on Swissperiences. We'll review your application and reach out within a few days.</p>`;
 
         const { data: userData, error: userError } = await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
@@ -86,7 +88,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     <center class="wrapper">
         <div class="letter">
             <span class="logo">S W I S S P E R I E N C E S</span>
-            <h1>Thank you, ${name}.</h1>
+            <h1>Thank you, ${esc(name)}.</h1>
             ${confirmBody}
             <p>In the meantime, feel free to explore our platform at <a href="https://swissperiences.ch" style="color: #1A1D2E;">swissperiences.ch</a>.</p>
             <div class="signature">

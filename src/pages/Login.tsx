@@ -46,7 +46,9 @@ const Login = () => {
         const { data, error } = await supabase.rpc("get_or_create_member");
         const result = data as { status: string; member?: { membership_status: string } } | null;
 
-        console.log("[routeByMembership]", JSON.stringify(result), error?.message);
+        if (import.meta.env.DEV) {
+            console.log("[routeByMembership]", JSON.stringify(result), error?.message);
+        }
 
         if (result?.status === "found" || result?.status === "created") {
             if (result?.member?.membership_status === "active") {

@@ -37,7 +37,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
     // Rate limit: 5 requests per 10 minutes (reuse waitlist limiter)
-    const clientIp = req.headers['x-forwarded-for'] as string || 'anonymous';
+    const clientIp = (req.headers['x-real-ip'] as string) || (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 'anonymous';
     const { success: rateLimitOk, error: rateLimitError } = await checkRateLimit(clientIp, 'waitlist');
     if (!rateLimitOk) {
         return res.status(429).json({ error: rateLimitError });

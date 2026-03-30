@@ -18,11 +18,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
     if (!process.env.RESEND_API_KEY) {
-        return res.status(500).json({ error: 'Missing RESEND_API_KEY' });
+        return res.status(500).json({ error: 'Server configuration error' });
     }
 
     // Rate limit: 5 per hour per IP
-    const clientIp = req.headers['x-forwarded-for'] as string || 'anonymous';
+    const clientIp = (req.headers['x-real-ip'] as string) || (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 'anonymous';
     const rateLimitResult = await checkRateLimit(clientIp, 'guide');
     if (!rateLimitResult.success) {
         return res.status(429).json({ error: 'Too many requests. Please try again later.' });

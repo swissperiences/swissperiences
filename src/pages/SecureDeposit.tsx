@@ -51,10 +51,10 @@ export default function SecureDeposit() {
                 throw new Error(data.error || "Failed to initiate payment");
             }
 
-            if (data.url) {
+            if (data.url && (data.url.startsWith('https://checkout.stripe.com/') || data.url.startsWith('https://billing.stripe.com/'))) {
                 window.location.href = data.url;
             } else {
-                throw new Error("No checkout URL returned from server.");
+                throw new Error("Invalid or missing checkout URL.");
             }
         } catch (error: unknown) {
             const err = error as Error;

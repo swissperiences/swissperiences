@@ -1,12 +1,22 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3"
 
-const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+const ALLOWED_ORIGINS = [
+    'https://swissperiences.ch',
+    'https://www.swissperiences.ch',
+]
+
+function getCorsHeaders(req: Request) {
+    const origin = req.headers.get('origin') || ''
+    return {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+        'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    }
 }
 
 serve(async (req) => {
+    const corsHeaders = getCorsHeaders(req)
+
     if (req.method === 'OPTIONS') {
         return new Response('ok', { headers: corsHeaders })
     }
@@ -49,14 +59,29 @@ serve(async (req) => {
 
         const guestCount = guests || 1
 
+        // Validate estimatedTotal if provided
+        if (estimatedTotal !== undefined && (typeof estimatedTotal !== 'number' || estimatedTotal <= 0 || !isFinite(estimatedTotal))) {
+            throw new Error('Invalid estimated total')
+        }
+
         const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
         if (!RESEND_API_KEY) throw new Error('RESEND_API_KEY not set')
 
         const adminEmails = ['hello@swissperiences.ch']
 
-        const fromDate = new Date(dateFrom).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-        const toDate = new Date(dateTo).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-        const nights = Math.ceil((new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / (1000 * 60 * 60 * 24))
+        // Validate dates
+        const fromDateObj = new Date(dateFrom)
+        const toDateObj = new Date(dateTo)
+        if (isNaN(fromDateObj.getTime()) || isNaN(toDateObj.getTime())) {
+            throw new Error('Invalid date format')
+        }
+        if (toDateObj < fromDateObj) {
+            throw new Error('Check-out must be after check-in')
+        }
+
+        const fromDate = fromDateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+        const toDate = toDateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+        const nights = Math.ceil((toDateObj.getTime() - fromDateObj.getTime()) / (1000 * 60 * 60 * 24))
         const isExperience = sanctuary.startsWith('Experience:') || dateFrom === dateTo
 
         // Minimum 2 nights only applies to Sanctuary bookings

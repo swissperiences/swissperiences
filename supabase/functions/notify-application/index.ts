@@ -1,10 +1,20 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3"
 
-const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+const ALLOWED_ORIGINS = [
+    'https://swissperiences.ch',
+    'https://www.swissperiences.ch',
+]
+
+function getCorsHeaders(req: Request) {
+    const origin = req.headers.get('origin') || ''
+    return {
+        'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+        'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    }
 }
+
+const esc = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 /** Verify a Supabase JWT — supports both legacy HS256 and new ECC ES256 signing keys */
 async function verifyJWT(token: string): Promise<boolean> {
@@ -69,6 +79,8 @@ async function verifyJWT(token: string): Promise<boolean> {
 }
 
 serve(async (req) => {
+    const corsHeaders = getCorsHeaders(req)
+
     if (req.method === 'OPTIONS') {
         return new Response('ok', { headers: corsHeaders })
     }
@@ -146,7 +158,7 @@ serve(async (req) => {
                     <div class="letter">
                         <p style="font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; text-align: center;">Swissperiences</p>
 
-                        <h1>Thank you, ${full_name.split(' ')[0]}.</h1>
+                        <h1>Thank you, ${esc(full_name.split(' ')[0])}.</h1>
 
                         <p>We've received your application for membership. Every request is reviewed personally — this is how we keep our community intentional.</p>
                         <p>You can expect to hear from us within 48 hours.</p>
@@ -183,17 +195,17 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: adminEmails,
-                subject: `[APPLICATION] ${full_name}${city ? ` — ${city}` : ''}`,
+                subject: `[APPLICATION] ${esc(full_name)}${city ? ` — ${esc(city)}` : ''}`,
                 html: `
             <div style="font-family: 'Courier New', monospace; padding: 30px; background: #111; color: #eee; line-height: 1.6;">
                 <h2 style="color: #D8B58A; border-bottom: 1px solid #333; padding-bottom: 10px;">New Membership Application</h2>
-                <p style="margin: 10px 0;"><strong>Name:</strong> ${full_name}</p>
-                <p style="margin: 10px 0;"><strong>Email:</strong> ${email}</p>
-                <p style="margin: 10px 0;"><strong>Location:</strong> ${city}, ${country}</p>
-                <p style="margin: 10px 0;"><strong>Source:</strong> ${referral_source}${referral_detail ? ` (${referral_detail})` : ''}</p>
+                <p style="margin: 10px 0;"><strong>Name:</strong> ${esc(full_name)}</p>
+                <p style="margin: 10px 0;"><strong>Email:</strong> ${esc(email)}</p>
+                <p style="margin: 10px 0;"><strong>Location:</strong> ${esc(city)}, ${esc(country)}</p>
+                <p style="margin: 10px 0;"><strong>Source:</strong> ${esc(referral_source)}${referral_detail ? ` (${esc(referral_detail)})` : ''}</p>
                 <div style="margin-top: 20px; padding: 15px; background: #000; border-left: 2px solid #D8B58A;">
                     <p style="margin: 0; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px;">Reason for joining</p>
-                    <p style="margin: 10px 0 0 0;">${reason}</p>
+                    <p style="margin: 10px 0 0 0;">${esc(reason)}</p>
                 </div>
                 <a href="https://swissperiences.ch/admin" style="display: inline-block; margin-top: 25px; color: #D8B58A; text-decoration: none; border: 1px solid #D8B58A; padding: 8px 16px; font-size: 12px;">Open Admin Panel</a>
                 <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
@@ -204,7 +216,7 @@ serve(async (req) => {
         const adminData = await adminEmailResponse.json()
         console.log(`[NOTIFY] Admin notification status: ${adminEmailResponse.status}`, adminData)
 
-        return new Response(JSON.stringify({ success: true, userEmail: userData, adminEmail: adminData }), {
+        return new Response(JSON.stringify({ success: true }), {
             headers: { ...corsHeaders, 'Content-Type': 'application/json' },
             status: 200,
         })

@@ -2,10 +2,19 @@
 import Stripe from 'stripe';
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 
 export const config = {
     runtime: 'edge', // Using Edge Runtime for better performance/standard API compatibility
 };
+
+const checkoutRatelimit = new Ratelimit({
+    redis: Redis.fromEnv(),
+    limiter: Ratelimit.slidingWindow(5, '10 m'),
+    analytics: true,
+    prefix: '@swissperiences/checkout',
+});
 
 const ALLOWED_ORIGINS = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
 
@@ -26,6 +35,18 @@ export default async function handler(request: Request) {
     if (request.method !== 'POST') {
         return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
             status: 405,
+            headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
+        });
+    }
+
+    // Rate limit check
+    const clientIp = (request.headers.get('x-real-ip'))
+        || (request.headers.get('x-forwarded-for'))?.split(',')[0]?.trim()
+        || 'anonymous';
+    const { success: rateLimitOk } = await checkoutRatelimit.limit(clientIp);
+    if (!rateLimitOk) {
+        return new Response(JSON.stringify({ error: 'Too many requests. Please try again later.' }), {
+            status: 429,
             headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
         });
     }
@@ -69,7 +90,8 @@ export default async function handler(request: Request) {
             });
         }
 
-        const origin = request.headers.get('origin') || 'https://swissperiences.ch';
+        const rawOrigin = request.headers.get('origin') || '';
+        const origin = ALLOWED_ORIGINS.includes(rawOrigin) ? rawOrigin : 'https://swissperiences.ch';
 
         // Auto-resolve application_id if not provided
         if (!application_id) {
@@ -88,10 +110,9 @@ export default async function handler(request: Request) {
             if (applicants && applicants.length > 0) {
                 application_id = applicants[0].id;
             } else {
-                // If not found in waitlist, we could strict fail, OR allow deposit but we need an ID.
-                // Decision: Fail gracefully with message
-                return new Response(JSON.stringify({ error: 'Email not found in waitlist. Please request access first.' }), {
-                    status: 404,
+                // Generic error to prevent email enumeration
+                return new Response(JSON.stringify({ error: 'Unable to process request. Please ensure you have submitted an application.' }), {
+                    status: 400,
                     headers: { 'Content-Type': 'application/json', ...getCorsHeaders(request) }
                 });
             }
