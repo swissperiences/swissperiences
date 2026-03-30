@@ -37,6 +37,10 @@ export function MembershipApplications() {
     const sendApprovalEmail = async (app: Application) => {
         setSendingEmail(app.id);
         try {
+            // Refresh session to ensure valid JWT before calling edge function
+            const { error: refreshError } = await supabase.auth.refreshSession();
+            if (refreshError) throw new Error('Session expired. Please log in again.');
+
             const { data, error } = await supabase.functions.invoke('send-approval-email', {
                 body: {
                     applicationId: app.id,
@@ -48,9 +52,10 @@ export function MembershipApplications() {
             if (error) throw error;
 
             toast.success(`Welcome email sent to ${app.email}`);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error sending approval email:', error);
-            toast.error('Failed to send welcome email. Please try again.');
+            const msg = error?.message || error?.context?.body || 'Unknown error';
+            toast.error(`Failed to send welcome email: ${msg}`);
         } finally {
             setSendingEmail(null);
         }
