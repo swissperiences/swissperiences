@@ -17,7 +17,7 @@ import { packages } from "@/data/packages";
 import { journals } from "@/data/journals";
 import { cities } from "@/data/cities";
 import { UPCOMING_RETREATS } from "@/data/retreats";
-import { ArrowRight, Calendar, MapPin } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, MessageCircle } from "lucide-react";
 
 // ── Filter helpers ──
 
@@ -53,6 +53,12 @@ const categoryLabels: Record<string, string> = {
   "spring-reset": "Minimalism",
   "winter-escape": "Winter & Snow",
 };
+
+function getWhatsAppUrl(pkg: (typeof packages)[0]): string {
+  return `https://wa.me/41787002202?text=${encodeURIComponent(
+    `Hi, I'd like to inquire about "${pkg.name}".`
+  )}`;
+}
 
 export default function MembersExplore() {
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
@@ -178,51 +184,78 @@ export default function MembersExplore() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
               {/* Hero card — col-span-8, 16:9 */}
               {bentoHero && (
-                <Link to="/members/book" className="md:col-span-8 group relative overflow-hidden bg-[#1B1B1B] block">
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <img
-                      src={bentoHero.image}
-                      alt={bentoHero.name}
-                      className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
-                      style={bentoHero.imagePosition ? { objectPosition: bentoHero.imagePosition } : undefined}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#131313]/80 via-transparent to-transparent opacity-60" />
-                  </div>
-                  <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10">
+                <div className="md:col-span-8 group relative overflow-hidden bg-[#1B1B1B]">
+                  <a href={getWhatsAppUrl(bentoHero)} target="_blank" rel="noopener noreferrer" className="block">
+                    <div className="aspect-[16/9] overflow-hidden">
+                      <img
+                        src={bentoHero.image}
+                        alt={bentoHero.name}
+                        className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                        style={bentoHero.imagePosition ? { objectPosition: bentoHero.imagePosition } : undefined}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#131313]/80 via-transparent to-transparent opacity-60" />
+                    </div>
+                  </a>
+                  <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10 pointer-events-none">
                     <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
                       {categoryLabels[bentoHero.id] || "Experience"}
                     </span>
-                    <h3 className="font-[Newsreader,serif] text-2xl sm:text-4xl text-white mb-3">{bentoHero.name}</h3>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                      <p className="text-white/60 text-sm max-w-md hidden sm:block">{bentoHero.tagline}</p>
-                      <span className="bg-white text-[#131313] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-medium hover:bg-white/90 transition-colors font-[Manrope,sans-serif] inline-block w-fit">
-                        Book now
-                      </span>
+                    <h3 className="font-[Newsreader,serif] text-2xl sm:text-4xl text-white mb-1">{bentoHero.name}</h3>
+                    <p className="text-white/40 text-xs mb-3 font-[Manrope,sans-serif]">{bentoHero.price}</p>
+                    <div className="flex items-center gap-3 pointer-events-auto">
+                      <a
+                        href={getWhatsAppUrl(bentoHero)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-[#131313] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-medium hover:bg-white/90 transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-2"
+                      >
+                        <MessageCircle size={12} />
+                        Inquire
+                      </a>
+                      <Link
+                        to="/members/book"
+                        className="text-[10px] tracking-[0.15em] uppercase text-white/30 hover:text-white/60 transition-colors font-[Manrope,sans-serif]"
+                      >
+                        View stays →
+                      </Link>
                     </div>
                   </div>
-                </Link>
+                </div>
               )}
 
               {/* Vertical card — col-span-4, 3:4 */}
               {bentoVertical && (
-                <Link to="/members/book" className="md:col-span-4 group relative overflow-hidden bg-[#1B1B1B] block">
-                  <div className="aspect-[3/4] overflow-hidden">
-                    <img
-                      src={bentoVertical.image}
-                      alt={bentoVertical.name}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
-                      style={bentoVertical.imagePosition ? { objectPosition: bentoVertical.imagePosition } : undefined}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#131313]/80 via-transparent to-transparent" />
-                  </div>
-                  <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8">
+                <div className="md:col-span-4 group relative overflow-hidden bg-[#1B1B1B]">
+                  <a href={getWhatsAppUrl(bentoVertical)} target="_blank" rel="noopener noreferrer" className="block">
+                    <div className="aspect-[3/4] overflow-hidden">
+                      <img
+                        src={bentoVertical.image}
+                        alt={bentoVertical.name}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                        style={bentoVertical.imagePosition ? { objectPosition: bentoVertical.imagePosition } : undefined}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#131313]/80 via-transparent to-transparent" />
+                    </div>
+                  </a>
+                  <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 sm:right-8 pointer-events-none">
                     <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
                       {categoryLabels[bentoVertical.id] || "Experience"}
                     </span>
-                    <h3 className="font-[Newsreader,serif] text-2xl text-white mb-2">{bentoVertical.name}</h3>
-                    <p className="text-white/50 text-xs">{bentoVertical.tagline}</p>
+                    <h3 className="font-[Newsreader,serif] text-2xl text-white mb-1">{bentoVertical.name}</h3>
+                    <p className="text-white/40 text-xs mb-3 font-[Manrope,sans-serif]">{bentoVertical.price}</p>
+                    <div className="flex items-center gap-3 pointer-events-auto">
+                      <a
+                        href={getWhatsAppUrl(bentoVertical)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
+                      >
+                        <MessageCircle size={11} />
+                        Inquire →
+                      </a>
+                    </div>
                   </div>
-                </Link>
+                </div>
               )}
 
               {/* CTA card — col-span-4, square */}
@@ -246,41 +279,55 @@ export default function MembersExplore() {
 
               {/* Wide card — col-span-8, 21:9 */}
               {bentoWide && (
-                <Link to="/members/book" className="md:col-span-8 group relative overflow-hidden bg-[#1B1B1B] block">
-                  <div className="aspect-[21/9] overflow-hidden">
-                    <img
-                      src={bentoWide.image}
-                      alt={bentoWide.name}
-                      className="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
-                      style={bentoWide.imagePosition ? { objectPosition: bentoWide.imagePosition } : undefined}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#131313]/60 to-transparent" />
-                  </div>
-                  <div className="absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 max-w-xs">
+                <div className="md:col-span-8 group relative overflow-hidden bg-[#1B1B1B]">
+                  <a href={getWhatsAppUrl(bentoWide)} target="_blank" rel="noopener noreferrer" className="block">
+                    <div className="aspect-[21/9] overflow-hidden">
+                      <img
+                        src={bentoWide.image}
+                        alt={bentoWide.name}
+                        className="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                        style={bentoWide.imagePosition ? { objectPosition: bentoWide.imagePosition } : undefined}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#131313]/60 to-transparent" />
+                    </div>
+                  </a>
+                  <div className="absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 max-w-xs pointer-events-none">
                     <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
                       {categoryLabels[bentoWide.id] || "Experience"}
                     </span>
-                    <h3 className="font-[Newsreader,serif] text-2xl sm:text-3xl text-white mb-3">{bentoWide.name}</h3>
-                    <p className="text-white/50 text-xs leading-relaxed">{bentoWide.tagline}</p>
+                    <h3 className="font-[Newsreader,serif] text-2xl sm:text-3xl text-white mb-1">{bentoWide.name}</h3>
+                    <p className="text-white/40 text-xs mb-3 font-[Manrope,sans-serif]">{bentoWide.price}</p>
+                    <div className="flex items-center gap-3 pointer-events-auto">
+                      <a
+                        href={getWhatsAppUrl(bentoWide)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
+                      >
+                        <MessageCircle size={11} />
+                        Inquire →
+                      </a>
+                    </div>
                   </div>
-                </Link>
+                </div>
               )}
 
               {/* Remaining packages — 3-col grid */}
               {regularGrid.map((pkg) => (
-                <Link
-                  to="/members/book"
+                <div
                   key={pkg.id}
-                  className="md:col-span-4 group bg-[#1B1B1B] overflow-hidden hover:bg-[#1F1F1F] transition-colors duration-500 block"
+                  className="md:col-span-4 group bg-[#1B1B1B] overflow-hidden hover:bg-[#1F1F1F] transition-colors duration-500"
                 >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={pkg.image}
-                      alt={pkg.name}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                      style={pkg.imagePosition ? { objectPosition: pkg.imagePosition } : undefined}
-                    />
-                  </div>
+                  <a href={getWhatsAppUrl(pkg)} target="_blank" rel="noopener noreferrer" className="block">
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={pkg.image}
+                        alt={pkg.name}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                        style={pkg.imagePosition ? { objectPosition: pkg.imagePosition } : undefined}
+                      />
+                    </div>
+                  </a>
                   <div className="p-5 sm:p-6">
                     <div className="flex items-center gap-3 mb-2">
                       <span className="text-[10px] tracking-[0.3em] uppercase text-white/20 font-[Manrope,sans-serif]">
@@ -296,12 +343,18 @@ export default function MembersExplore() {
                     <p className="text-white/30 text-xs leading-relaxed line-clamp-2 mb-4">{pkg.tagline}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-white/20 text-xs font-[Manrope,sans-serif]">{pkg.price}</span>
-                      <span className="text-[10px] tracking-[0.15em] uppercase text-white/15 group-hover:text-white/40 transition-colors font-[Manrope,sans-serif]">
-                        Book now →
-                      </span>
+                      <a
+                        href={getWhatsAppUrl(pkg)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] tracking-[0.15em] uppercase text-white/15 group-hover:text-white/40 transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
+                      >
+                        <MessageCircle size={10} />
+                        Inquire →
+                      </a>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </section>
@@ -320,6 +373,8 @@ export default function MembersExplore() {
             </div>
             <Link
               to="/destinations"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[10px] tracking-[0.3em] uppercase text-white/25 hover:text-white transition-colors font-[Manrope,sans-serif] hidden sm:block"
             >
               All destinations →
@@ -331,6 +386,8 @@ export default function MembersExplore() {
               <Link
                 key={city.slug}
                 to={`/destinations/${city.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex-shrink-0 w-56 sm:w-64"
               >
                 <div className="aspect-[3/4] overflow-hidden bg-[#1B1B1B] mb-3">

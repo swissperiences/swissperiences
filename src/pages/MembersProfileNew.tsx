@@ -45,6 +45,7 @@ export default function MembersProfileNew() {
 
   const loadProfile = async () => {
     try {
+      const { data: { user } } = await supabase.auth.getUser();
       const { data: memberData, error } = await supabase.rpc("get_member_profile");
       if (error) console.error("[Profile] RPC error:", error.message);
       if (!memberData) { navigate("/login"); return; }
@@ -52,8 +53,8 @@ export default function MembersProfileNew() {
       const m = memberData as Record<string, any>;
       const p: ProfileData = {
         full_name: m.full_name || "",
-        email: m.email || "",
-        avatar_url: m.avatar_url || null,
+        email: m.email || user?.email || "",
+        avatar_url: m.avatar_url || user?.user_metadata?.avatar_url || null,
         city: m.city || "",
         country: m.country || "",
         phone: m.phone || "",
@@ -136,8 +137,6 @@ export default function MembersProfileNew() {
       ? "Member"
       : `${profile.membership_tier.charAt(0).toUpperCase()}${profile.membership_tier.slice(1)} Member`;
 
-  const joinedYear = new Date(profile.joined_at).getFullYear();
-
   return (
     <MembersLayout>
       <SEO title="Profile | Swissperiences" />
@@ -155,7 +154,7 @@ export default function MembersProfileNew() {
               </h1>
             </div>
             <p className="font-[Newsreader,serif] text-white/20 text-lg">
-              Est. {joinedYear}
+              Since {new Date(profile.joined_at).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
             </p>
           </div>
 
@@ -298,7 +297,7 @@ export default function MembersProfileNew() {
         {/* ── Membership info ── */}
         <section className="mb-16 bg-[#1B1B1B] p-6 sm:p-8">
           <h3 className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-4">Membership</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div className="grid grid-cols-3 gap-6">
             <div>
               <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Tier</p>
               <p className="text-white text-sm">{tierLabel}</p>
@@ -306,12 +305,6 @@ export default function MembersProfileNew() {
             <div>
               <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Status</p>
               <p className="text-emerald-400 text-sm capitalize">{profile.membership_status}</p>
-            </div>
-            <div>
-              <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Since</p>
-              <p className="text-white text-sm">
-                {new Date(profile.joined_at).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
-              </p>
             </div>
             <div>
               <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Contact</p>

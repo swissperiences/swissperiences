@@ -25,6 +25,8 @@ interface Member {
   membership_tier: string;
   membership_status: string;
   joined_at: string;
+  bio: string;
+  preferences: string;
 }
 
 interface Booking {
@@ -90,6 +92,8 @@ export default function MembersDashboard() {
         membership_tier: m.membership_tier || "founding",
         membership_status: m.membership_status || "active",
         joined_at: m.joined_at || new Date().toISOString(),
+        bio: m.bio || "",
+        preferences: m.preferences || "",
       });
 
       const { data: bookingData, error: bookErr } = await supabase
@@ -143,8 +147,50 @@ export default function MembersDashboard() {
       (!b.check_in && b.preferred_date && new Date(b.preferred_date) < now)
   );
 
-  // Pick 3 editorial curations from packages
-  const curations = packages.slice(0, 3);
+  // Personalized curations: score packages by keyword matches against preferences
+  const curations = (() => {
+    const prefs = (member.preferences + " " + member.bio).toLowerCase();
+    if (!prefs.trim()) return packages.slice(0, 3);
+
+    const stopwords = new Set([
+      "the", "and", "for", "that", "this", "with", "from", "have", "been",
+      "will", "would", "could", "should", "about", "into", "just", "like",
+      "some", "also", "very", "much", "more", "most", "than", "then",
+      "when", "what", "where", "which", "while", "your", "they", "their",
+      "there", "here", "want", "need", "love", "really", "enjoy",
+    ]);
+
+    const keywords = prefs
+      .split(/[\s,;.]+/)
+      .filter((w) => w.length > 3 && !stopwords.has(w));
+
+    if (keywords.length === 0) return packages.slice(0, 3);
+
+    const scored = packages.map((pkg) => {
+      const text = (pkg.name + " " + pkg.tagline + " " + pkg.description).toLowerCase();
+      const score = keywords.reduce((n, kw) => {
+        const re = new RegExp(`\\b${kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`, "i");
+        return n + (re.test(text) ? 1 : 0);
+      }, 0);
+      return { pkg, score };
+    });
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 3).map((s) => s.pkg);
+  })();
+
+  // First future event-tied package for seasonal nudge in empty state
+  const nearestEvent = packages.find((p) => {
+    if (!p.eventBadge) return false;
+    if (!p.eventDates) return true; // No dates = assume future
+    // Parse end date from formats like "3–4 Apr 2026", "27 Mar – 10 May 2026"
+    const match = p.eventDates.match(/(\d{1,2})\s+(\w+)\s+(\d{4})$/);
+    if (!match) return true;
+    const end = new Date(`${match[1]} ${match[2]} ${match[3]}`);
+    return end >= now;
+  });
+
+  // Profile completion check
+  const profileIncomplete = !member.bio || !member.preferences;
 
   return (
     <MembersLayout>
@@ -153,9 +199,6 @@ export default function MembersDashboard() {
       <div className="px-6 sm:px-10 lg:px-16 py-12 lg:py-20 max-w-5xl">
         {/* ── Hero greeting ── */}
         <section className="mb-20">
-          <p className="text-[10px] tracking-[0.4em] uppercase text-white/30 mb-4 font-[Manrope,sans-serif]">
-            Member Area
-          </p>
           <h1 className="font-[Newsreader,serif] text-4xl sm:text-5xl lg:text-6xl text-white font-light leading-[1.1] mb-4">
             Welcome back,
             <br />
@@ -166,29 +209,69 @@ export default function MembersDashboard() {
           </p>
         </section>
 
+        {/* ── Profile completion prompt ── */}
+        {profileIncomplete && (
+          <section className="mb-12">
+            <div className="bg-[#1B1B1B] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h3 className="font-[Newsreader,serif] text-lg text-white mb-1">
+                  Complete your aesthetic profile
+                </h3>
+                <p className="text-white/40 text-sm leading-relaxed max-w-md">
+                  {!member.bio && !member.preferences
+                    ? "Tell us how you travel and what you enjoy — we'll curate experiences around your preferences."
+                    : !member.preferences
+                    ? "Add your preferences so we can personalise your curations."
+                    : "Tell us a bit about yourself to fine-tune your experience."}
+                </p>
+              </div>
+              <Link
+                to="/members/profile"
+                className="inline-flex items-center gap-3 border border-[#2A2A2A] text-white/60 px-6 py-3 text-xs uppercase tracking-[0.2em] font-medium hover:text-white hover:border-[#474747] transition-colors shrink-0"
+              >
+                Complete profile
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </section>
+        )}
+
         {/* ── Upcoming Journeys ── */}
         <section className="mb-20">
-          <div className="flex items-end justify-between mb-8">
-            <h2 className="font-[Newsreader,serif] text-2xl text-white font-light">
-              Upcoming Journeys
-            </h2>
-            <Link
-              to="/members/book"
-              className="text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-white transition-colors font-[Manrope,sans-serif] hidden sm:block"
-            >
-              View all →
-            </Link>
-          </div>
+          <h2 className="font-[Newsreader,serif] text-2xl text-white font-light mb-8">
+            Upcoming Journeys
+          </h2>
 
           {upcoming.length === 0 ? (
             <div className="bg-[#1B1B1B] p-8 sm:p-12">
-              <div className="max-w-sm">
+              <div className="max-w-md">
                 <h3 className="font-[Newsreader,serif] text-xl text-white mb-3">
                   No journeys planned yet.
                 </h3>
                 <p className="text-white/40 text-sm mb-6 leading-relaxed">
                   Your first alpine escape is one message away. We'll design something around your schedule.
                 </p>
+                {nearestEvent && (
+                  <Link
+                    to="/members/explore"
+                    className="flex items-center gap-4 bg-[#131313] border border-[#2A2A2A] p-4 mb-6 hover:border-[#474747] transition-colors group"
+                  >
+                    <img
+                      src={nearestEvent.image}
+                      alt={nearestEvent.name}
+                      className="w-16 h-12 object-cover shrink-0"
+                      style={nearestEvent.imagePosition ? { objectPosition: nearestEvent.imagePosition } : undefined}
+                    />
+                    <div className="min-w-0">
+                      <p className="text-[9px] tracking-[0.2em] uppercase text-white/30 mb-0.5 font-[Manrope,sans-serif]">
+                        Coming up — {nearestEvent.eventDates || nearestEvent.availability}
+                      </p>
+                      <p className="text-white text-sm font-[Newsreader,serif] truncate">{nearestEvent.name}</p>
+                      <p className="text-white/30 text-xs">{nearestEvent.price}</p>
+                    </div>
+                    <ArrowRight size={14} className="text-white/20 group-hover:text-white/50 transition-colors shrink-0 ml-auto" />
+                  </Link>
+                )}
                 <Link
                   to="/members/book"
                   className="inline-flex items-center gap-3 bg-white text-[#131313] px-6 py-3 text-xs uppercase tracking-[0.2em] font-medium hover:bg-white/90 transition-colors"

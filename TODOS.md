@@ -32,6 +32,18 @@
 - **Why:** Transforms the dashboard from a booking list into an anticipation builder.
 - **How:** Query bookings table for next confirmed booking with `check_in > now()`, compute day diff.
 
+### 6. Extract WhatsApp Number to Shared Constant
+- **Priority:** P3 | **Size:** S (~10 min)
+- **What:** Move `+41787002202` to `src/lib/constants.ts` and import everywhere.
+- **Why:** Number is hardcoded in 6+ files. If it changes, find-and-replace is error-prone.
+- **How:** Create `export const WHATSAPP_NUMBER = "41787002202"` and `getWhatsAppUrl(text: string)` helper.
+
+### 7. Structured Package Tags for Personalization
+- **Priority:** P2 | **Size:** M (~1 hour)
+- **What:** Add `tags: string[]` to `PackageData` (e.g., `["music", "culture", "winter"]`). Use tags for curations scoring instead of free-text keyword matching.
+- **Why:** Current scoring matches preference text against descriptions via regex — works but fragile. Tags enable proper filtering on the Explore page too.
+- **How:** Add tags to each package in `packages.ts`. Update Dashboard scoring to match against tags. Optionally wire Explore filters to use tags instead of duration/availability heuristics.
+
 ---
 
 ## Future Vision (Phase 2+)

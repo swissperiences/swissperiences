@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import SEO from "@/components/SEO";
@@ -7,7 +7,7 @@ import MembersLayout from "@/components/members/MembersLayout";
 import AvailabilityCalendar from "@/components/AvailabilityCalendar";
 import { useBookedDates } from "@/hooks/useBookedDates";
 import { useBlockedDates } from "@/hooks/useBlockedDates";
-import { Calendar, MapPin, Mountain, Car, Camera, ChefHat, ArrowLeft, Loader2, Check, Plus, X, ShieldCheck, Sparkles } from "lucide-react";
+import { Calendar, MapPin, Mountain, Car, Camera, ChefHat, ArrowLeft, Loader2, Check, Plus, X, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
 interface MemberBasic {
@@ -35,11 +35,19 @@ const formatDate = (dateStr: string) =>
 
 export default function MembersBook() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const [member, setMember] = useState<MemberBasic | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const [tab, setTab] = useState<"sanctuary" | "experience">("sanctuary");
+
+    // Read URL params for pre-selection (e.g. /members/book?tab=experience&experience=guided_hike)
+    const initialTab = searchParams.get("tab") === "experience" ? "experience" : "sanctuary";
+    const initialExperience = experiences.some((e) => e.id === searchParams.get("experience"))
+        ? searchParams.get("experience")!
+        : "road_journey";
+
+    const [tab, setTab] = useState<"sanctuary" | "experience">(initialTab);
 
     // Sanctuary form
     const [selectedSanctuary, setSelectedSanctuary] = useState("villars");
@@ -50,7 +58,7 @@ export default function MembersBook() {
     const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
 
     // Experience form
-    const [selectedExperience, setSelectedExperience] = useState("road_journey");
+    const [selectedExperience, setSelectedExperience] = useState(initialExperience);
     const [preferredDate, setPreferredDate] = useState("");
     const [expGuests, setExpGuests] = useState(1);
     const [expSpecialRequests, setExpSpecialRequests] = useState("");
@@ -419,7 +427,24 @@ export default function MembersBook() {
                                 {[1, 2, 3, 4].map((n) => (
                                     <option key={n} value={n}>{n} {n === 1 ? "Guest" : "Guests"}</option>
                                 ))}
+                                <option value={5}>5+ Guests — Inquire</option>
                             </select>
+                            {guests >= 5 && (
+                                <div className="mt-3 flex items-start gap-3 bg-white/[0.03] border border-white/10 p-4">
+                                    <MessageCircle size={16} className="text-white/40 shrink-0 mt-0.5" />
+                                    <div>
+                                        <p className="text-white/60 text-sm mb-2">For groups of 5 or more, we arrange bespoke stays.</p>
+                                        <a
+                                            href="https://wa.me/41787002202?text=Hi%2C%20I'd%20like%20to%20book%20a%20sanctuary%20stay%20for%205%2B%20guests."
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[10px] tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] underline underline-offset-4"
+                                        >
+                                            Contact us on WhatsApp →
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {/* Add-ons */}
@@ -545,7 +570,7 @@ export default function MembersBook() {
                         {/* Submit */}
                         <button
                             type="submit"
-                            disabled={isSubmitting || !sanctuaryCalc}
+                            disabled={isSubmitting || !sanctuaryCalc || guests >= 5}
                             className="w-full bg-white text-black py-4 uppercase tracking-widest text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500 disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}

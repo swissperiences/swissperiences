@@ -43,7 +43,19 @@ export default function AvailabilityCalendar({
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>();
 
-  const tomorrow = addDays(new Date(), 1);
+  // Memoize date values — stable within a page session, prevents
+  // disabledMatcher from re-computing on every render
+  const tomorrow = useMemo(() => addDays(new Date(), 1), []);
+
+  // If fewer than 5 days remain in the current month, default to next month
+  const smartDefaultMonth = useMemo(() => {
+    const daysLeft =
+      new Date(tomorrow.getFullYear(), tomorrow.getMonth() + 1, 0).getDate() -
+      tomorrow.getDate();
+    return daysLeft < 5
+      ? new Date(tomorrow.getFullYear(), tomorrow.getMonth() + 1, 1)
+      : tomorrow;
+  }, [tomorrow]);
 
   // Convert ISO strings to Date objects for react-day-picker's disabled matcher
   const disabledDateObjects = useMemo(() => {
@@ -138,7 +150,7 @@ export default function AvailabilityCalendar({
             selected={selectedDate}
             onSelect={handleSingleSelect}
             disabled={disabledMatcher}
-            defaultMonth={tomorrow}
+            defaultMonth={smartDefaultMonth}
             numberOfMonths={1}
             showOutsideDays={false}
             className="mx-auto"
@@ -165,7 +177,7 @@ export default function AvailabilityCalendar({
             selected={selectedRange}
             onSelect={handleRangeSelect}
             disabled={disabledMatcher}
-            defaultMonth={tomorrow}
+            defaultMonth={smartDefaultMonth}
             numberOfMonths={1}
             showOutsideDays={false}
             className="mx-auto"
