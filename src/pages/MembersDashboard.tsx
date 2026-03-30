@@ -147,6 +147,21 @@ export default function MembersDashboard() {
       (!b.check_in && b.preferred_date && new Date(b.preferred_date) < now)
   );
 
+  // Next confirmed journey for countdown
+  const nextJourney = upcoming
+    .filter((b) => b.status === "confirmed")
+    .sort((a, b) => {
+      const dateA = a.check_in || a.preferred_date || "";
+      const dateB = b.check_in || b.preferred_date || "";
+      return dateA.localeCompare(dateB);
+    })[0];
+  const daysUntilNext = nextJourney
+    ? Math.ceil(
+        ((nextJourney.check_in ? new Date(nextJourney.check_in) : new Date(nextJourney.preferred_date!)).getTime() - now.getTime()) /
+          (1000 * 60 * 60 * 24)
+      )
+    : null;
+
   // Personalized curations: score packages by keyword matches against preferences
   const curations = (() => {
     const prefs = (member.preferences + " " + member.bio).toLowerCase();
@@ -192,21 +207,47 @@ export default function MembersDashboard() {
   // Profile completion check
   const profileIncomplete = !member.bio || !member.preferences;
 
+  // Time-aware greeting
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+
+  // Seasonal hero image + subtitle
+  const month = now.getMonth(); // 0-indexed
+  const season = month >= 3 && month <= 5
+    ? { image: "/images/caueh-vidal-spring.jpg", subtitle: "Spring has arrived in the Alps. Wildflowers, open trails, and longer days." }
+    : month >= 6 && month <= 8
+    ? { image: "/images/oeschinen-lake.jpg", subtitle: "Alpine summer at its purest. Lake swims, high passes, and golden light." }
+    : month >= 9 && month <= 10
+    ? { image: "/images/mountain-sunset.jpg", subtitle: "Golden larches and amber vineyards. The Alps at their most contemplative." }
+    : { image: "/images/villars-winter-aerial.jpg", subtitle: "Snow-covered silence. The mountains are waiting." };
+
   return (
     <MembersLayout>
       <SEO title="Dashboard | Swissperiences" />
 
       <div className="px-6 sm:px-10 lg:px-16 py-12 lg:py-20 max-w-5xl">
-        {/* ── Hero greeting ── */}
+        {/* ── Hero greeting with seasonal image ── */}
         <section className="mb-20">
-          <h1 className="font-[Newsreader,serif] text-4xl sm:text-5xl lg:text-6xl text-white font-light leading-[1.1] mb-4">
-            Welcome back,
-            <br />
-            <em className="italic">{firstName}</em>.
-          </h1>
-          <p className="text-white/40 text-sm max-w-md leading-relaxed font-[Manrope,sans-serif]">
-            Your private window into Switzerland's quietest corners. Curated with intention, designed for silence.
-          </p>
+          <div className="relative overflow-hidden bg-[#1B1B1B] -mx-6 sm:-mx-10 lg:-mx-16 mb-10">
+            <div className="aspect-[21/9] sm:aspect-[3/1]">
+              <img
+                src={season.image}
+                alt="Seasonal alpine landscape"
+                className="w-full h-full object-cover opacity-40"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#131313] via-[#131313]/60 to-transparent" />
+            </div>
+            <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 lg:left-16">
+              <h1 className="font-[Newsreader,serif] text-4xl sm:text-5xl lg:text-6xl text-white font-light leading-[1.1] mb-3">
+                {greeting},
+                <br />
+                <em className="italic">{firstName}</em>.
+              </h1>
+              <p className="text-white/40 text-sm max-w-md leading-relaxed font-[Manrope,sans-serif]">
+                {season.subtitle}
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* ── Profile completion prompt ── */}
@@ -232,6 +273,38 @@ export default function MembersDashboard() {
                 Complete profile
                 <ArrowRight size={14} />
               </Link>
+            </div>
+          </section>
+        )}
+
+        {/* ── Journey countdown ── */}
+        {nextJourney && daysUntilNext !== null && daysUntilNext > 0 && (
+          <section className="mb-12">
+            <div className="bg-[#1B1B1B] p-6 sm:p-8 flex items-center gap-6">
+              <div className="shrink-0 text-center">
+                <span className="font-[Newsreader,serif] text-4xl sm:text-5xl text-white font-light block leading-none">
+                  {daysUntilNext}
+                </span>
+                <span className="text-[9px] tracking-[0.3em] uppercase text-white/30 font-[Manrope,sans-serif] mt-1 block">
+                  {daysUntilNext === 1 ? "day" : "days"}
+                </span>
+              </div>
+              <div className="border-l border-[#2A2A2A] pl-6 min-w-0">
+                <p className="text-[9px] tracking-[0.2em] uppercase text-white/30 mb-1 font-[Manrope,sans-serif]">
+                  Your next journey
+                </p>
+                <p className="text-white font-[Newsreader,serif] text-lg truncate">
+                  {bookingLabels[nextJourney.sanctuary_id || nextJourney.experience_type || ""] || "Journey"}
+                </p>
+                <p className="text-white/30 text-xs mt-0.5 flex items-center gap-1.5">
+                  <Calendar size={11} />
+                  {nextJourney.check_in
+                    ? new Date(nextJourney.check_in).toLocaleDateString("en-GB", { day: "numeric", month: "long" })
+                    : nextJourney.preferred_date
+                    ? new Date(nextJourney.preferred_date).toLocaleDateString("en-GB", { day: "numeric", month: "long" })
+                    : ""}
+                </p>
+              </div>
             </div>
           </section>
         )}
