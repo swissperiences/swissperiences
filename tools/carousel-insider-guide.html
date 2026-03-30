@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swissperiences Carousel — Swiss Insider Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    gap: 40px;
+  }
+
+  .instructions {
+    max-width: 700px;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .instructions h1 {
+    font-family: 'Lora', serif;
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .instructions code {
+    background: #222;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  .slide-label {
+    color: #2E9090;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  /* Slides at 1080x1350 scaled 50% for preview */
+  .slide {
+    width: 1080px;
+    height: 1350px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    transform: scale(0.5);
+    transform-origin: top center;
+    margin-bottom: -675px;
+  }
+
+  .slide-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Dark gradient overlay for text readability */
+  .slide-overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ===== COVER ===== */
+  .slide-cover .slide-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.3) 0%,
+      rgba(0,0,0,0.1) 30%,
+      rgba(0,0,0,0.15) 50%,
+      rgba(0,0,0,0.7) 80%,
+      rgba(0,0,0,0.85) 100%
+    );
+  }
+  .cover-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cover-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 24px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 32px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.05);
+  }
+  .cover-title {
+    font-family: 'Lora', serif;
+    font-size: 82px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+  }
+  .cover-subtitle {
+    font-size: 28px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    margin-bottom: 40px;
+  }
+  .cover-line {
+    width: 50px;
+    height: 3px;
+    background: #2E9090;
+    margin-bottom: 24px;
+  }
+  .cover-logo {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .swipe-hint {
+    position: absolute;
+    bottom: 80px;
+    right: 80px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.5);
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .swipe-hint svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: rgba(255,255,255,0.5);
+    stroke-width: 2.5;
+  }
+
+  /* ===== CONTENT SLIDES ===== */
+  .slide-content .slide-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.05) 0%,
+      rgba(0,0,0,0.1) 35%,
+      rgba(0,0,0,0.6) 60%,
+      rgba(0,0,0,0.92) 80%,
+      rgba(0,0,0,0.96) 100%
+    );
+  }
+  .content-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 48px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .content-number-badge {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(46,144,144,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+  .content-region {
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+    padding: 8px 20px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+  }
+  .content-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 60px 70px 70px;
+  }
+  .content-title {
+    font-family: 'Lora', serif;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 24px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+  .content-divider {
+    width: 40px;
+    height: 3px;
+    background: #2E9090;
+    margin-bottom: 24px;
+  }
+  .content-body {
+    font-size: 24px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    margin-bottom: 28px;
+  }
+  .content-body strong {
+    color: #fff;
+    font-weight: 600;
+  }
+  .content-tip {
+    padding: 24px 28px;
+    background: rgba(46,144,144,0.12);
+    border-left: 3px solid #2E9090;
+    border-radius: 0 10px 10px 0;
+    font-size: 21px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+  }
+  .content-tip span {
+    color: #2E9090;
+    font-weight: 600;
+  }
+  .slide-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 70px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .footer-dots {
+    display: flex;
+    gap: 6px;
+  }
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+  .dot.active {
+    background: #2E9090;
+    width: 22px;
+    border-radius: 4px;
+  }
+
+  /* ===== CTA SLIDE ===== */
+  .slide-cta .slide-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.7) 0%,
+      rgba(0,0,0,0.85) 30%,
+      rgba(0,0,0,0.9) 100%
+    );
+  }
+  .cta-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px;
+  }
+  .cta-emoji {
+    font-size: 72px;
+    margin-bottom: 40px;
+  }
+  .cta-title {
+    font-family: 'Lora', serif;
+    font-size: 62px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 28px;
+  }
+  .cta-body {
+    font-size: 26px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    max-width: 700px;
+    margin-bottom: 56px;
+  }
+  .cta-box {
+    padding: 36px 56px;
+    border: 2px solid rgba(46,144,144,0.6);
+    border-radius: 16px;
+    background: rgba(46,144,144,0.08);
+    backdrop-filter: blur(20px);
+    margin-bottom: 48px;
+  }
+  .cta-action {
+    font-size: 34px;
+    color: #fff;
+    font-weight: 500;
+  }
+  .cta-action strong {
+    color: #2E9090;
+    font-weight: 700;
+  }
+  .cta-sub {
+    font-size: 20px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 10px;
+  }
+  .cta-steps {
+    display: flex;
+    gap: 50px;
+  }
+  .cta-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .cta-step-num {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(46,144,144,0.2);
+    color: #2E9090;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .cta-step-text {
+    font-size: 18px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 400;
+  }
+
+  @media print {
+    .slide { transform: none; margin-bottom: 0; page-break-after: always; }
+    .instructions, .slide-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="instructions">
+  <h1>Instagram Carousel — 8 Hidden Gems in Switzerland</h1>
+  Right-click each slide in Chrome DevTools → <code>Capture node screenshot</code> (1080x1350px)
+</div>
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<p class="slide-label">Slide 1 — Cover</p>
+<div class="slide slide-cover">
+  <div class="slide-bg" style="background-image: url('carousel-images/01-cover.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="cover-content">
+    <div class="cover-badge">Swissperiences</div>
+    <div class="cover-title">8 Hidden Gems<br>in Switzerland</div>
+    <div class="cover-subtitle">That Most Tourists Will Never Find</div>
+    <div class="cover-line"></div>
+    <div class="cover-logo">swissperiences.ch</div>
+  </div>
+  <div class="swipe-hint">
+    Swipe <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: Blausee ===== -->
+<p class="slide-label">Slide 2 — Blausee</p>
+<div class="slide slide-content">
+  <div class="slide-bg" style="background-image: url('carousel-images/02-blausee.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="content-top">
+    <div class="content-number-badge">01</div>
+    <div class="content-region">Bern Region</div>
+  </div>
+  <div class="content-bottom">
+    <div class="content-title">Blausee —<br>The Blue Lake</div>
+    <div class="content-divider"></div>
+    <div class="content-body">
+      A crystal-clear alpine lake hidden in the Kander Valley. The water is so transparent you can see <strong>15 meters to the bottom</strong>.
+    </div>
+    <div class="content-tip">
+      <span>Insider tip:</span> Visit in autumn when the forest turns golden and the crowds disappear.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: Bisse de Clavau ===== -->
+<p class="slide-label">Slide 3 — Bisse de Clavau</p>
+<div class="slide slide-content">
+  <div class="slide-bg" style="background-image: url('carousel-images/03-bisse-clavau.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="content-top">
+    <div class="content-number-badge">02</div>
+    <div class="content-region">Valais</div>
+  </div>
+  <div class="content-bottom">
+    <div class="content-title">Bisse de Clavau —<br>Vineyard Trail</div>
+    <div class="content-divider"></div>
+    <div class="content-body">
+      An ancient water channel trail through <strong>UNESCO-protected terraced vineyards</strong> of Sion. End the walk at a local cave for wine tasting.
+    </div>
+    <div class="content-tip">
+      <span>Insider tip:</span> Go at sunset. The light on the vineyards is unreal — and most caves stay open until 7pm.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: Seelisberg ===== -->
+<p class="slide-label">Slide 4 — Seelisberg</p>
+<div class="slide slide-content">
+  <div class="slide-bg" style="background-image: url('carousel-images/04-seelisberg.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="content-top">
+    <div class="content-number-badge">03</div>
+    <div class="content-region">Central Switzerland</div>
+  </div>
+  <div class="content-bottom">
+    <div class="content-title">Seelisberg —<br>Rütli Meadow</div>
+    <div class="content-divider"></div>
+    <div class="content-body">
+      The birthplace of Switzerland, accessible only by boat or foot. A <strong>sacred meadow overlooking Lake Lucerne</strong> where the Swiss Confederation was born in 1291.
+    </div>
+    <div class="content-tip">
+      <span>Insider tip:</span> Take the boat from Brunnen. The approach by water is the way the original Swiss did it.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: Carouge ===== -->
+<p class="slide-label">Slide 5 — Carouge</p>
+<div class="slide slide-content">
+  <div class="slide-bg" style="background-image: url('carousel-images/05-carouge.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="content-top">
+    <div class="content-number-badge">04</div>
+    <div class="content-region">Geneva</div>
+  </div>
+  <div class="content-bottom">
+    <div class="content-title">Carouge —<br>Little Italy</div>
+    <div class="content-divider"></div>
+    <div class="content-body">
+      A bohemian neighborhood that feels like <strong>Turin transplanted into Switzerland</strong>. Artisan workshops, the best aperitivo in the country — zero tour groups.
+    </div>
+    <div class="content-tip">
+      <span>Insider tip:</span> Wed & Sat mornings have an incredible market in Place du Marché. Arrive before 10am.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: Caumasee ===== -->
+<p class="slide-label">Slide 6 — Caumasee</p>
+<div class="slide slide-content">
+  <div class="slide-bg" style="background-image: url('carousel-images/06-caumasee.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="content-top">
+    <div class="content-number-badge">05</div>
+    <div class="content-region">Graubünden</div>
+  </div>
+  <div class="content-bottom">
+    <div class="content-title">Caumasee —<br>The Floating Lake</div>
+    <div class="content-divider"></div>
+    <div class="content-body">
+      A turquoise lake near Flims fed entirely by <strong>underground springs</strong>, giving it an otherworldly color. Locals swim here in summer; in winter, it freezes into a natural ice rink.
+    </div>
+    <div class="content-tip">
+      <span>Insider tip:</span> Walk from Flims through the forest. The reveal when you first see the water is worth it.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: Corippo ===== -->
+<p class="slide-label">Slide 7 — Corippo</p>
+<div class="slide slide-content">
+  <div class="slide-bg" style="background-image: url('carousel-images/07-corippo.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="content-top">
+    <div class="content-number-badge">06</div>
+    <div class="content-region">Ticino</div>
+  </div>
+  <div class="content-bottom">
+    <div class="content-title">Corippo —<br>Smallest Village</div>
+    <div class="content-divider"></div>
+    <div class="content-body">
+      Population: <strong>12 people</strong>. A medieval stone village in the Verzasca Valley, now converted into a single scattered hotel across the old stone houses.
+    </div>
+    <div class="content-tip">
+      <span>Insider tip:</span> Combine with a swim in the emerald Verzasca River pools. The James Bond dam is 20 min away.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: Creux du Van ===== -->
+<p class="slide-label">Slide 8 — Creux du Van</p>
+<div class="slide slide-content">
+  <div class="slide-bg" style="background-image: url('carousel-images/08-creux-du-van.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="content-top">
+    <div class="content-number-badge">07</div>
+    <div class="content-region">Vaud / Neuchâtel</div>
+  </div>
+  <div class="content-bottom">
+    <div class="content-title">Creux du Van —<br>Swiss Grand Canyon</div>
+    <div class="content-divider"></div>
+    <div class="content-body">
+      A <strong>160-meter vertical rock amphitheater</strong> in the Jura mountains. Wild ibex roam the cliff edges. A fraction of the people you'd find in the Alps.
+    </div>
+    <div class="content-tip">
+      <span>Insider tip:</span> Start from Noiraigue station. Pack a fondue kit and eat at the edge — the Swiss way.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 9: Hürlimann Spa ===== -->
+<p class="slide-label">Slide 9 — Hürlimann Spa</p>
+<div class="slide slide-content">
+  <div class="slide-bg" style="background-image: url('carousel-images/09-hurlimann-spa.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="content-top">
+    <div class="content-number-badge">08</div>
+    <div class="content-region">Zürich</div>
+  </div>
+  <div class="content-bottom">
+    <div class="content-title">Hürlimann Spa —<br>Rooftop Thermal Pool</div>
+    <div class="content-divider"></div>
+    <div class="content-body">
+      A <strong>rooftop infinity thermal pool</strong> in a converted brewery, overlooking the Zürich skyline. 36°C water while the city lights up below.
+    </div>
+    <div class="content-tip">
+      <span>Insider tip:</span> Book Monday evening — least crowded. Pair with dinner at Clouds (same building, 35th floor).
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 10: CTA ===== -->
+<p class="slide-label">Slide 10 — CTA</p>
+<div class="slide slide-cta">
+  <div class="slide-bg" style="background-image: url('carousel-images/10-cta.jpg')"></div>
+  <div class="slide-overlay"></div>
+  <div class="cta-content">
+    <div class="cta-emoji">🇨🇭</div>
+    <div class="cta-title">Want the Full<br>Insider Guide?</div>
+    <div class="cta-body">
+      We curate exclusive Swiss experiences for a private community of travelers. Get our free guide with 30+ hidden gems and local secrets.
+    </div>
+    <div class="cta-box">
+      <div class="cta-action">Comment <strong>"GUIDE"</strong> below</div>
+      <div class="cta-sub">and we'll DM it to you instantly</div>
+    </div>
+    <div class="cta-steps">
+      <div class="cta-step">
+        <div class="cta-step-num">1</div>
+        <div class="cta-step-text">Comment GUIDE</div>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-num">2</div>
+        <div class="cta-step-text">Check your DMs</div>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-num">3</div>
+        <div class="cta-step-text">Get the free PDF</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-logo">Swissperiences</div>
+    <div class="footer-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
