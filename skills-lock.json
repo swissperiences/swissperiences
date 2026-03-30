@@ -20,6 +20,11 @@
       "source": "youmind-openlab/nano-banana-pro-prompts-recommend-skill",
       "sourceType": "github",
       "computedHash": "608105b1e39a918a37282c1dc872563d429a622c64f14f7e2a7d3422ee409678"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "computedHash": "9851afb52e1b892c43b2af973bda1776ce01fedfdfe704e0cfd70069a3a9c300"
     }
   }
 }

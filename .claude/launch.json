@@ -12,6 +12,18 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["vercel", "dev"],
       "port": 3000
+    },
+    {
+      "name": "reel-studio",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd tools/reel-studio && npx remotion studio src/index.ts --port 3100"],
+      "port": 3100
+    },
+    {
+      "name": "static-tools",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "tools", "-l", "3200"],
+      "port": 3200
     }
   ]
 }
