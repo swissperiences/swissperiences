@@ -196,8 +196,8 @@ const RequestAccess = () => {
                         </span>
 
                         <h1 className="text-4xl md:text-5xl font-serif text-white leading-tight mb-8">
-                            Switzerland is boring.
-                            <span className="block text-white/40 italic mt-2">Thank god.</span>
+                            The art of doing nothing,
+                            <span className="block text-white/40 italic mt-2">beautifully.</span>
                         </h1>
 
                         <p className="text-white/60 font-light leading-relaxed mb-8">

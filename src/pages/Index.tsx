@@ -141,9 +141,9 @@ const Index = () => {
             className={`max-w-5xl transition-all duration-[2500ms] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
           >
             <h1 className="font-serif text-[clamp(3rem,8vw,9rem)] leading-[0.85] tracking-tight">
-              <span className="block text-white">Switzerland</span>
-              <span className="block text-white">is boring.</span>
-              <span className="block mt-2 text-white/40 italic text-[clamp(2.5rem,6vw,7rem)]">Beautifully so.</span>
+              <span className="block text-white">The art of</span>
+              <span className="block text-white">doing nothing,</span>
+              <span className="block mt-2 text-white/40 italic text-[clamp(2.5rem,6vw,7rem)]">beautifully.</span>
             </h1>
           </div>
 
