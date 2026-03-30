@@ -47,7 +47,7 @@ export default function MembersProfileNew() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       const { data: memberData, error } = await supabase.rpc("get_member_profile");
-      if (error) console.error("[Profile] RPC error:", error.message);
+      if (error && import.meta.env.DEV) console.error("[Profile] RPC error:", error.message);
       if (!memberData) { navigate("/login"); return; }
 
       const m = memberData as Record<string, any>;
@@ -72,7 +72,7 @@ export default function MembersProfileNew() {
       setBio(p.bio);
       setPreferences(p.preferences);
     } catch (err) {
-      console.error("[Profile] Failed to load:", err);
+      if (import.meta.env.DEV) console.error("[Profile] Failed to load:", err);
       navigate("/login");
     } finally {
       setIsLoading(false);
@@ -113,7 +113,7 @@ export default function MembersProfileNew() {
       // Refresh profile data
       await loadProfile();
     } catch (err) {
-      console.error("[Profile] Failed to update:", err);
+      if (import.meta.env.DEV) console.error("[Profile] Failed to update:", err);
       toast.error("Failed to update profile.");
     } finally {
       setIsSaving(false);

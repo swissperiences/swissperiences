@@ -79,12 +79,12 @@ export default function MembersBook() {
     const loadMember = async () => {
         try {
             const { data: memberData, error } = await supabase.rpc("get_member_profile");
-            if (error) console.error("[Book] Profile load error:", error.message);
+            if (error && import.meta.env.DEV) console.error("[Book] Profile load error:", error.message);
             if (!memberData) { navigate("/login"); return; }
             const m = memberData as Record<string, any>;
             setMember({ id: m.id, full_name: m.full_name, email: m.email });
         } catch (err) {
-            console.error("[Book] Failed to load profile:", err);
+            if (import.meta.env.DEV) console.error("[Book] Failed to load profile:", err);
             navigate("/login");
         } finally {
             setIsLoading(false);
@@ -114,7 +114,8 @@ export default function MembersBook() {
 
     const handleSanctuarySubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!member || !checkIn || !checkOut) return;
+        if (!member) return;
+        if (!checkIn || !checkOut) { toast.error("Please select your check-in and check-out dates."); return; }
 
         const calc = getSanctuaryTotal();
         if (!calc) return;
@@ -169,7 +170,7 @@ export default function MembersBook() {
             setSubmitted(true);
             toast.success("Booking request submitted! We'll confirm within 24-48 hours.");
         } catch (error) {
-            console.error("Booking error:", error);
+            if (import.meta.env.DEV) console.error("Booking error:", error);
             toast.error("Failed to submit booking. Please try again.");
         } finally {
             setIsSubmitting(false);
@@ -178,7 +179,8 @@ export default function MembersBook() {
 
     const handleExperienceSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!member || !preferredDate) return;
+        if (!member) return;
+        if (!preferredDate) { toast.error("Please select a preferred date."); return; }
 
         if (new Date(preferredDate) < new Date()) {
             toast.error("Preferred date must be in the future.");
@@ -220,7 +222,7 @@ export default function MembersBook() {
             setSubmitted(true);
             toast.success("Experience request submitted! We'll confirm within 24-48 hours.");
         } catch (error) {
-            console.error("Booking error:", error);
+            if (import.meta.env.DEV) console.error("Booking error:", error);
             toast.error("Failed to submit request. Please try again.");
         } finally {
             setIsSubmitting(false);
@@ -412,8 +414,8 @@ export default function MembersBook() {
                                     setCheckOut(co);
                                 }}
                             />
-                            <input type="hidden" value={checkIn} required />
-                            <input type="hidden" value={checkOut} required />
+                            <input type="hidden" value={checkIn} />
+                            <input type="hidden" value={checkOut} />
                         </div>
 
                         {/* Guests */}
@@ -630,7 +632,7 @@ export default function MembersBook() {
                                 mode="single"
                                 onSelectDate={(date) => setPreferredDate(date)}
                             />
-                            <input type="hidden" value={preferredDate} required />
+                            <input type="hidden" value={preferredDate} />
                         </div>
 
                         {/* Number of People */}

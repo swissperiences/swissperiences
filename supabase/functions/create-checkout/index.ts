@@ -12,7 +12,7 @@ const ALLOWED_ORIGINS = [
 function getCorsHeaders(req: Request) {
   const origin = req.headers.get('origin') || ''
   return {
-    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : '',
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
   }
 }
@@ -85,9 +85,9 @@ serve(async (req) => {
       if (applicants && applicants.length > 0) {
         application_id = applicants[0].id
       } else {
-        return new Response(JSON.stringify({ error: 'Email not found. Please submit an application first.' }), {
+        return new Response(JSON.stringify({ error: 'Unable to process request. Please ensure you have submitted an application.' }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 404,
+          status: 400,
         })
       }
     }

@@ -6,10 +6,18 @@ const ALLOWED_ORIGINS = [
     'https://www.swissperiences.ch',
 ]
 
+// Server-side add-on price catalog — source of truth for pricing
+const ADDON_CATALOG: Record<string, { name: string; price: number }> = {
+    road_journey: { name: 'Alps Road Journey', price: 850 },
+    guided_hike: { name: 'Guided Alpine Hike', price: 300 },
+    cinematic_memories: { name: 'Cinematic Memories', price: 600 },
+    private_chef: { name: 'Private Chef', price: 400 },
+}
+
 function getCorsHeaders(req: Request) {
     const origin = req.headers.get('origin') || ''
     return {
-        'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+        'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : '',
         'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
     }
 }
@@ -101,8 +109,16 @@ serve(async (req) => {
         const dateLabel = isExperience ? 'Preferred Date' : 'Dates'
         const typeLabel = isExperience ? 'Experience' : 'Sanctuary'
 
-        // Build add-ons HTML sections
-        const safeAddOns: Array<{ name: string; price: number }> = Array.isArray(addOns) ? addOns : []
+        // Validate add-ons against server-side catalog (never trust client prices)
+        const rawAddOns: Array<{ name: string; price?: number; id?: string }> = Array.isArray(addOns) ? addOns.slice(0, 20) : []
+        const safeAddOns = rawAddOns
+            .map(a => {
+                // Match by id or by name
+                const entry = (a.id && ADDON_CATALOG[a.id])
+                    || Object.values(ADDON_CATALOG).find(c => c.name === a.name)
+                return entry || null
+            })
+            .filter((a): a is { name: string; price: number } => a !== null)
         const formatCHF = (amount: number) => `CHF ${amount.toLocaleString('de-CH')}`
 
         const adminAddOnsHtml = safeAddOns.length > 0

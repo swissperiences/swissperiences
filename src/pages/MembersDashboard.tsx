@@ -80,7 +80,7 @@ export default function MembersDashboard() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       const { data: memberData, error } = await supabase.rpc("get_member_profile");
-      if (error) console.error("[Dashboard] Profile RPC error:", error.message);
+      if (error && import.meta.env.DEV) console.error("[Dashboard] Profile RPC error:", error.message);
       if (!memberData) { navigate("/login"); return; }
 
       const m = memberData as Record<string, any>;
@@ -100,10 +100,10 @@ export default function MembersDashboard() {
         .from("bookings")
         .select("*")
         .order("created_at", { ascending: false });
-      if (bookErr) console.error("[Dashboard] Bookings error:", bookErr.message);
+      if (bookErr && import.meta.env.DEV) console.error("[Dashboard] Bookings error:", bookErr.message);
       if (bookingData) setBookings(bookingData as Booking[]);
     } catch (err) {
-      console.error("[Dashboard] Failed to load:", err);
+      if (import.meta.env.DEV) console.error("[Dashboard] Failed to load:", err);
       navigate("/login");
     } finally {
       setIsLoading(false);
