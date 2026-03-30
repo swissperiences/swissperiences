@@ -46,6 +46,7 @@ const Sanctuaries = lazy(() => import("./pages/Sanctuaries"));
 const Experiences = lazy(() => import("./pages/Experiences"));
 const PrivateChef = lazy(() => import("./pages/PrivateChef"));
 const GuidedHikes = lazy(() => import("./pages/GuidedHikes"));
+const MountainCoaster = lazy(() => import("./pages/MountainCoaster"));
 const MembersBook = lazy(() => import("./pages/MembersBook"));
 const MembersProfile = lazy(() => import("./pages/MembersProfileNew"));
 const MembersExplore = lazy(() => import("./pages/MembersExplore"));
@@ -111,6 +112,7 @@ const App = () => (
                 <Route path="/experiences/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
                 <Route path="/experiences/private-chef" element={<LanguageWrapper><PrivateChef /></LanguageWrapper>} />
                 <Route path="/experiences/guided-hikes" element={<LanguageWrapper><GuidedHikes /></LanguageWrapper>} />
+                <Route path="/experiences/mountain-coaster" element={<LanguageWrapper><MountainCoaster /></LanguageWrapper>} />
                 {/* Legacy redirect support */}
                 <Route path="/road-journey" element={<LanguageWrapper><RoadJourney /></LanguageWrapper>} />
                 <Route path="/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
@@ -142,7 +144,7 @@ const App = () => (
                 <Route path="/secure-deposit" element={<LanguageWrapper><SecureDeposit /></LanguageWrapper>} />
                 <Route path="/insider-guide" element={<InsiderGuide />} />
                 <Route path="/enhance" element={<GuestEnhance />} />
-                <Route path="/private/alex-proposal" element={<AlexProposal />} />
+                <Route path="/private/alex-proposal" element={<AuthGuard requireAdmin><AlexProposal /></AuthGuard>} />
                 <Route path="/invite/:code" element={<InvitePage />} />
                 <Route path="/admin" element={<Navigate to="/admin/gallery" replace />} />
                 <Route path="/admin/gallery" element={<AuthGuard requireAdmin><AdminGallery /></AuthGuard>} />
@@ -170,6 +172,7 @@ const App = () => (
                 <Route path="/:lang/experiences/cinematic-memories" element={<LanguageWrapper><CinematicMemories /></LanguageWrapper>} />
                 <Route path="/:lang/experiences/private-chef" element={<LanguageWrapper><PrivateChef /></LanguageWrapper>} />
                 <Route path="/:lang/experiences/guided-hikes" element={<LanguageWrapper><GuidedHikes /></LanguageWrapper>} />
+                <Route path="/:lang/experiences/mountain-coaster" element={<LanguageWrapper><MountainCoaster /></LanguageWrapper>} />
                 <Route path="/:lang/packages" element={<LanguageWrapper><Packages /></LanguageWrapper>} />
                 <Route path="/:lang/discovery" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />
                 <Route path="/:lang/discovery/:slug" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />

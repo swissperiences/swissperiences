@@ -92,7 +92,7 @@ const Index = () => {
       "@type": "TravelAgency",
       "name": "Swissperiences",
       "url": "https://www.swissperiences.ch",
-      "priceRange": "CHF 490 – CHF 4,890",
+      "priceRange": "Contact for pricing",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Villars-sur-Ollon",

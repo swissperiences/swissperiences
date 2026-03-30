@@ -118,7 +118,7 @@ export default function Sanctuaries() {
                                     <span className="w-1.5 h-1.5 bg-switz-red rounded-full" /> Wood Fireplace
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <span className="w-1.5 h-1.5 bg-switz-red rounded-full" /> From CHF 1,200/night
+                                    <span className="w-1.5 h-1.5 bg-switz-red rounded-full" /> Pricing on request
                                 </div>
                             </div>
                             <Link

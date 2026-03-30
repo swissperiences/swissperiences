@@ -138,6 +138,7 @@ export const cities: City[] = [
             { title: "Glacier 3000 Cable Car", type: "Adventure", duration: "Full day", href: gyg("/bernese-oberland-l71/glacier-3000-cable-car-roundtrip-ticket-t204637/", "villars-sur-ollon") },
             { title: "Glacier 3000 & Montreux Day Trip", type: "Day Trip", duration: "Full day", href: gyg("/geneva-l54/gold-tour-at-the-glacier-3000-and-montreux-t85871/", "villars-sur-ollon") },
             { title: "Diablerets & Glacier 3000 Day Trip", type: "Day Trip", duration: "Full day", href: gyg("/montreux-l32355/diablerets-riviera-col-du-pillon-glacier-3000-day-trip-t137591/", "villars-sur-ollon") },
+            { title: "Glacier 3000 Alpine Coaster", type: "Adventure", duration: "Half day", href: "https://www.glacier3000.ch/activities/alpine-coaster" },
         ],
         seo: {
             title: "Villars-sur-Ollon | Alpine Sanctuary | Swissperiences",
@@ -275,6 +276,7 @@ export const cities: City[] = [
             { title: "Jungfraujoch — Top of Europe", type: "Day Trip", duration: "Full day", href: gyg("/interlaken-l793/from-interlaken-day-trip-to-jungfraujoch-t111106/", "interlaken") },
             { title: "Tandem Paragliding", type: "Adventure", duration: "1 hour", href: gyg("/interlaken-l793/interlaken-tandem-paragliding-flight-t780/", "interlaken") },
             { title: "Lake Thun & Brienz Boat Cruise", type: "Cruise", duration: "Full day", href: gyg("/interlaken-l793/attraction-ticket-day-pass-for-lake-thunbrienz-boat-cruise-t477132/", "interlaken") },
+            { title: "Oeschinensee Mountain Coaster", type: "Adventure", duration: "Half day", href: "https://www.oeschinensee.ch/en/summer/rodelbahn/" },
         ],
         seo: {
             title: "Interlaken | Heart of the Bernese Oberland | Swissperiences",

@@ -7,7 +7,7 @@ import { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import MembershipGate from "../components/MembershipGate";
 import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";
-import { ArrowRight, Car, Camera, ChefHat, Mountain, Snowflake, Sun, Leaf, Flower2 } from "lucide-react";
+import { ArrowRight, Car, Camera, ChefHat, Mountain, Snowflake, Sun, Leaf, Flower2, Zap } from "lucide-react";
 
 export default function Experiences() {
     const { isLoggedIn } = useAuth();
@@ -26,7 +26,8 @@ export default function Experiences() {
             { "@type": "ListItem", "position": 1, "name": "Alps Road Journey" },
             { "@type": "ListItem", "position": 2, "name": "Cinematic Memories" },
             { "@type": "ListItem", "position": 3, "name": "Private Chef" },
-            { "@type": "ListItem", "position": 4, "name": "Guided Hikes" }
+            { "@type": "ListItem", "position": 4, "name": "Guided Hikes" },
+            { "@type": "ListItem", "position": 5, "name": "Mountain Coaster" }
         ]
     };
 
@@ -100,6 +101,17 @@ export default function Experiences() {
             description: "Expert-led alpine adventures from gentle valley walks to challenging summit ascents. Every trail handpicked for beauty, safety, and solitude.",
             image: "/images/host-hiking.jpg",
             href: "/experiences/guided-hikes",
+            available: true,
+            seasons: ["spring", "summer", "autumn"],
+        },
+        {
+            icon: <Zap size={24} />,
+            title: "Mountain Coaster",
+            subtitle: "Alpine Adrenaline",
+            price: "From CHF TBD",
+            description: "Steel rails carved into the mountainside. Hairpin turns, panoramic drops, and pure adrenaline at altitude. Glacier 3000, Oeschinensee, and more.",
+            image: "/images/oeschinen-lake.jpg",
+            href: "/experiences/mountain-coaster",
             available: true,
             seasons: ["spring", "summer", "autumn"],
         },

@@ -143,15 +143,23 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                 {/* Price + CTA */}
                 <div className="flex items-end justify-between gap-4 pt-4 border-t border-white/5">
                   <div>
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
-                      {pkg.soloPrice ? "Solo" : "Starting at"}
-                    </span>
-                    <span className="text-white/70 text-lg font-serif">
-                      {pkg.soloPrice || pkg.price.replace("From ", "")}
-                    </span>
-                    {pkg.couplePrice && (
-                      <span className="text-white/40 text-xs block mt-1">
-                        Couple {pkg.couplePrice}
+                    {isLoggedIn ? (
+                      <>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
+                          {pkg.soloPrice ? "Solo" : "Starting at"}
+                        </span>
+                        <span className="text-white/70 text-lg font-serif">
+                          {pkg.soloPrice || pkg.price.replace("From ", "")}
+                        </span>
+                        {pkg.couplePrice && (
+                          <span className="text-white/40 text-xs block mt-1">
+                            Couple {pkg.couplePrice}
+                          </span>
+                        )}
+                      </>
+                    ) : (
+                      <span className="text-white/50 text-sm font-serif italic">
+                        Members only
                       </span>
                     )}
                   </div>
