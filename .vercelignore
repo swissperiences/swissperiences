@@ -11,6 +11,12 @@
 # Keep public/images/guests/leo/ (the Leo/ above was blocking it on case-insensitive macOS)
 # Keep *.pdf (insider-guide.pdf needs to be served)
 
+# Marketing tools (large binaries, videos, chrome headless)
+tools/
+
+# Podcasts
+podcasts/
+
 # Test results
 test-results/
 

@@ -22,6 +22,8 @@ export interface City {
     region: string;
     canton: string;
     coordinates: string;
+    lat: number;
+    lng: number;
     elevation: string;
 
     heroImage: string;
@@ -57,6 +59,8 @@ export const cities: City[] = [
         region: "Lake Geneva Region",
         canton: "Geneva",
         coordinates: "046° 12' N / 006° 09' E",
+        lat: 46.20,
+        lng: 6.15,
         elevation: "375m",
         heroImage: "/images/drone/geneva-jet-deau-aerial.jpg",
         heroPosition: "object-[center_25%]",
@@ -104,6 +108,8 @@ export const cities: City[] = [
         region: "Vaud Alps",
         canton: "Vaud",
         coordinates: "046° 17' N / 007° 05' E",
+        lat: 46.30,
+        lng: 7.05,
         elevation: "1,300m",
         heroImage: "/images/villars/sea-of-clouds-sunset.jpeg",
         heroPosition: "object-[center_60%]",
@@ -152,6 +158,8 @@ export const cities: City[] = [
         region: "Valais",
         canton: "Valais",
         coordinates: "046° 06' N / 007° 13' E",
+        lat: 46.10,
+        lng: 7.22,
         elevation: "1,500m",
         heroImage: "/images/verbier-mountains.jpg",
         heroPosition: "object-[center_40%]",
@@ -196,6 +204,8 @@ export const cities: City[] = [
         region: "Valais",
         canton: "Valais",
         coordinates: "046° 01' N / 007° 45' E",
+        lat: 46.02,
+        lng: 7.75,
         elevation: "1,620m",
         heroImage: "/images/zermatt-matterhorn.jpg",
         heroPosition: "object-[center_20%]",
@@ -241,6 +251,8 @@ export const cities: City[] = [
         region: "Bernese Oberland",
         canton: "Bern",
         coordinates: "046° 41' N / 007° 51' E",
+        lat: 46.68,
+        lng: 7.85,
         elevation: "568m",
         heroImage: "/images/drone/lake-brienz-aerial.jpg",
         heroPosition: "object-center",
@@ -290,6 +302,8 @@ export const cities: City[] = [
         region: "Bernese Oberland",
         canton: "Bern",
         coordinates: "046° 35' N / 007° 54' E",
+        lat: 46.59,
+        lng: 7.91,
         elevation: "795m",
         heroImage: "/images/lauterbrunnen-valley.jpg",
         heroPosition: "object-center",
@@ -340,6 +354,8 @@ export const cities: City[] = [
         region: "Lake Geneva Region",
         canton: "Vaud",
         coordinates: "046° 26' N / 006° 54' E",
+        lat: 46.43,
+        lng: 6.91,
         elevation: "390m",
         heroImage: "/images/lake-geneva/sunset-golden.jpeg",
         heroPosition: "object-[center_40%]",
@@ -387,6 +403,8 @@ export const cities: City[] = [
         region: "Lake Geneva Region",
         canton: "Vaud",
         coordinates: "046° 31' N / 006° 38' E",
+        lat: 46.52,
+        lng: 6.63,
         elevation: "495m",
         heroImage: "/images/lausanne-cathedral.jpg",
         heroPosition: "object-[center_60%]",
@@ -431,6 +449,8 @@ export const cities: City[] = [
         region: "Central Switzerland",
         canton: "Lucerne",
         coordinates: "047° 03' N / 008° 18' E",
+        lat: 47.05,
+        lng: 8.30,
         elevation: "436m",
         heroImage: "/images/lucerne-chapel-bridge.jpg",
         heroPosition: "object-[center_55%]",
@@ -475,6 +495,8 @@ export const cities: City[] = [
         region: "Bernese Oberland",
         canton: "Bern",
         coordinates: "046° 37' N / 008° 02' E",
+        lat: 46.62,
+        lng: 8.03,
         elevation: "1,034m",
         heroImage: "/images/grindelwald-eiger.jpg",
         heroPosition: "object-[center_35%]",

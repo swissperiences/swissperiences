@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -7,10 +8,14 @@ import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { buildBreadcrumbJsonLd } from "../components/Breadcrumbs";
 import MembershipGate from "../components/MembershipGate";
+import { useAuth } from "@/hooks/use-auth";
 import { cities } from "@/data/cities";
+
+const SwitzerlandMap = lazy(() => import("@/components/SwitzerlandMap"));
 
 export default function Destinations() {
     const { t } = useTranslation("common");
+    const { isLoggedIn } = useAuth();
 
     const breadcrumbJsonLd = buildBreadcrumbJsonLd([
         { label: "Home", href: "https://www.swissperiences.ch/" },
@@ -81,6 +86,17 @@ export default function Destinations() {
                         </motion.p>
                     </div>
                 </section>
+
+                {/* Interactive Map — public (hybrid: popups vary by membership) */}
+                <Suspense fallback={
+                    <div className="py-20 md:py-28 px-6">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="w-full h-[50vh] md:h-[60vh] lg:h-[65vh] max-h-[700px] rounded-sm bg-neutral-900 animate-pulse" />
+                        </div>
+                    </div>
+                }>
+                    <SwitzerlandMap cities={cities} isMember={isLoggedIn} />
+                </Suspense>
 
                 <MembershipGate title="Your destination awaits." subtitle="Explore our curated destinations. Apply for membership to unlock the full guide.">
                 {/* Destinations Grid */}
