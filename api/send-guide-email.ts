@@ -36,6 +36,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     try {
+        // Sync to Resend audience (fire-and-forget — don't block guide delivery)
+        if (process.env.RESEND_AUDIENCE_ID) {
+            resend.contacts.create({
+                email,
+                audienceId: process.env.RESEND_AUDIENCE_ID,
+                unsubscribed: false,
+            }).catch((err: unknown) => {
+                console.error('[GUIDE API] Audience sync failed (non-blocking):', err);
+            });
+        }
+
         await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
             to: email,

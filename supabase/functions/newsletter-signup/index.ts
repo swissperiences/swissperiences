@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3"
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -21,6 +22,21 @@ serve(async (req) => {
 
         const AUDIENCE_ID = Deno.env.get('RESEND_AUDIENCE_ID')
         if (!AUDIENCE_ID) throw new Error('RESEND_AUDIENCE_ID not set')
+
+        // 0. Save to waitlist table (source of truth — errors are non-fatal)
+        const supabaseUrl = Deno.env.get('SUPABASE_URL')
+        const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+        if (supabaseUrl && supabaseServiceKey) {
+            const supabase = createClient(supabaseUrl, supabaseServiceKey)
+            const { error: dbError } = await supabase
+                .from('waitlist')
+                .upsert({ email, newsletter_opt_in: true }, { onConflict: 'email' })
+            if (dbError) {
+                console.error(`[NEWSLETTER] Waitlist upsert failed (non-blocking):`, dbError)
+            } else {
+                console.log(`[NEWSLETTER] Saved to waitlist: ${email}`)
+            }
+        }
 
         // 1. Add contact to Resend Audience
         console.log(`[NEWSLETTER] Adding to audience: ${AUDIENCE_ID}`)
