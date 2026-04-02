@@ -59,6 +59,7 @@ serve(async (req) => {
 
     const { email, intent, tier, application_id: providedAppId, marketing_opt_in } = await req.json()
     let application_id = providedAppId
+    let applicantFullName: string | undefined
 
     if (!email) {
       return new Response(JSON.stringify({ error: 'Email is required' }), {
@@ -75,7 +76,7 @@ serve(async (req) => {
     if (!application_id) {
       const { data: applicants, error: fetchError } = await supabase
         .from('membership_applications')
-        .select('id')
+        .select('id, full_name')
         .eq('email', email)
         .order('created_at', { ascending: false })
         .limit(1)
@@ -84,6 +85,7 @@ serve(async (req) => {
 
       if (applicants && applicants.length > 0) {
         application_id = applicants[0].id
+        applicantFullName = applicants[0].full_name
       } else {
         return new Response(JSON.stringify({ error: 'Unable to process request. Please ensure you have submitted an application.' }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -137,19 +139,18 @@ serve(async (req) => {
         })
         .eq('id', application_id)
 
-      // 3. Sync to Resend
+      // 3. Sync to Resend (fire-and-forget — don't delay checkout URL)
       if (marketing_opt_in && RESEND_API_KEY && RESEND_AUDIENCE_ID) {
         const resend = new Resend(RESEND_API_KEY)
-        // Non-blocking sync attempt
-        try {
-          await resend.contacts.create({
-            email: email,
-            audienceId: RESEND_AUDIENCE_ID,
-            unsubscribed: false,
-          })
-        } catch (e) {
-          console.error('Resend Sync Error', e)
-        }
+        const contactFirstName = applicantFullName?.split(' ')[0]
+        resend.contacts.create({
+          email: email,
+          ...(contactFirstName ? { firstName: contactFirstName } : {}),
+          audienceId: RESEND_AUDIENCE_ID,
+          unsubscribed: false,
+        }).catch((e) => {
+          console.error('[create-checkout] Resend sync failed (non-blocking):', e)
+        })
       }
     }
 

@@ -175,30 +175,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             });
         }
 
+        // Sync to Resend audience (fire-and-forget — don't block form submission)
         if (newsletter_opt_in && process.env.RESEND_AUDIENCE_ID) {
-            await new Promise(resolve => setTimeout(resolve, 1100));
-
-            try {
-                const { data: contactData, error: contactError } = await resend.contacts.create({
-                    email: email,
-                    firstName: contactName,
-                    audienceId: process.env.RESEND_AUDIENCE_ID,
-                    unsubscribed: false,
-                });
-
-                if (contactError) {
-                    console.error('[CORPORATE API] Newsletter sync failed:', contactError);
-                    return res.status(500).json({
-                        error: 'Internal server error'
-                    });
-                }
-            } catch (syncError: unknown) {
-                const err = syncError as Error;
-                console.error('[CORPORATE API] ❌ EXCEPTION during contact creation:', err);
-                return res.status(500).json({
-                    error: 'Internal server error'
-                });
-            }
+            resend.contacts.create({
+                email: email,
+                firstName: contactName,
+                audienceId: process.env.RESEND_AUDIENCE_ID,
+                unsubscribed: false,
+            }).catch((err: unknown) => {
+                console.error('[CORPORATE API] Audience sync failed (non-blocking):', err);
+            });
         }
 
         return res.status(200).json({

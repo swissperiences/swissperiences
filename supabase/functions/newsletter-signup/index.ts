@@ -12,8 +12,9 @@ serve(async (req) => {
     }
 
     try {
-        const { email } = await req.json()
+        const { email, firstName: rawFirstName } = await req.json()
         if (!email) throw new Error('Email is required')
+        const firstName = typeof rawFirstName === 'string' ? rawFirstName.slice(0, 100) : undefined
 
         console.log(`[NEWSLETTER] Processing signup: ${email}`)
 
@@ -48,6 +49,7 @@ serve(async (req) => {
             },
             body: JSON.stringify({
                 email,
+                ...(firstName ? { first_name: firstName } : {}),
                 unsubscribed: false,
             }),
         })

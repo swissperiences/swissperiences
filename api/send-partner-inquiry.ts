@@ -1,6 +1,5 @@
 import { Resend } from 'resend';
 import * as dotenv from 'dotenv';
-
 dotenv.config();
 import { checkRateLimit } from './lib/rate-limit.js';
 
@@ -141,6 +140,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return res.status(500).json({ error: 'Internal server error' });
         }
         console.log('[PARTNER API] Admin notification sent:', adminData?.id);
+
+        // Sync to Resend audience (fire-and-forget — don't block response)
+        if (process.env.RESEND_AUDIENCE_ID) {
+            resend.contacts.create({
+                email,
+                firstName: name.split(' ')[0],
+                audienceId: process.env.RESEND_AUDIENCE_ID,
+                unsubscribed: false,
+            }).catch((err: unknown) => {
+                console.error('[PARTNER API] Audience sync failed (non-blocking):', err);
+            });
+        }
 
         return res.status(200).json({
             success: true,
