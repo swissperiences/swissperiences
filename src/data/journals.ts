@@ -185,5 +185,63 @@ export const journals: JournalEntry[] = [
             "Walking through the village below Staubbach Falls felt unhurried. No crowds, no rush. Just the sound of water hitting stone and the late afternoon light hitting the cliff face. The kind of moment this region does better than anywhere.",
             "The second morning was the simplest and maybe the best. A chalet in the mountains, coffee, conversation with a friend, and snow-capped peaks stretching to the horizon. No agenda. That's the point of coming back—you already know the highlights, so you can slow down and just be there."
         ]
+    },
+    {
+        id: "rapha",
+        slug: "the-lake-crossing",
+        title: "The Lake Crossing",
+        subtitle: "SUP, Secret Lakes & the Open Road",
+        guests: "Rapha & Pedro",
+        date: "August 2024",
+        quote: "Se você quer conhecer a Suíça de verdade, é com a Swissperiences.",
+        description: "A five-day summer odyssey across Switzerland by Range Rover—stand up paddle on the lakes of Geneva, Lucerne, and Zurich, with hidden alpine lakes and mountain encounters along the way.",
+        coverImage: "/images/guests/rapha/1.jpeg",
+        coverPosition: "object-center",
+        itinerary: [
+            {
+                day: "Day 01 // Geneva",
+                title: "Where the Water Glows",
+                description: "It started where it always starts—Lac Léman. SUP boards in the water, swans gliding past, the sun hitting the surface like scattered diamonds. Rapha jumped straight in. Pedro, fresh off the plane from Brazil, couldn't believe the color of the water.",
+                image: "/images/guests/rapha/1.jpeg",
+                position: "object-center"
+            },
+            {
+                day: "Day 02 // Lucerne",
+                title: "The Quiet Shore",
+                description: "Driving east in the Range Rover, no rush, windows down. Lake Lucerne appeared through the morning haze—Pilatus rising behind a lone sailboat. A different kind of Swiss lake: deeper, calmer, framed by peaks instead of vineyards.",
+                image: "/images/guests/rapha/2.jpeg",
+                position: "object-center"
+            },
+            {
+                day: "Day 03 // Grindelwald",
+                title: "Under the Eiger",
+                description: "The detour into the Bernese Oberland was non-negotiable. The Eiger's north face filled the windshield as we climbed towards Grindelwald. Green valleys, waterfalls in the distance, and the kind of silence that makes you stop mid-sentence.",
+                image: "/images/guests/rapha/3.jpeg",
+                position: "object-center"
+            },
+            {
+                day: "Day 03 // The Alps",
+                title: "The Welcome Committee",
+                description: "Hiking above Grindelwald, the trail opened into an alpine meadow. A Swiss cow, bell and all, walked straight up to Rapha. No fence, no fear—just a moment of pure, unscripted Switzerland. Pedro filmed the whole thing, laughing.",
+                image: "/images/guests/rapha/4.jpeg",
+                position: "object-center"
+            },
+            {
+                day: "Day 05 // Zurich",
+                title: "The Final Lake",
+                description: "The trip ended where the Rhine begins. Zurich's old town, cobblestones underfoot, the three of them walking without a map. Five days, three lakes, one Range Rover, and the kind of memories that only happen when you stop planning and start living.",
+                image: "/images/guests/rapha/5.jpeg",
+                position: "object-center"
+            }
+        ],
+        content: [
+            "Some trips are about the destination. This one was about the water.",
+            "Rapha had a simple brief: she wanted to paddle. Not in a pool, not on a river—on the great Swiss lakes, the ones that sit between mountains like liquid mirrors. We designed 'The Lake Crossing' as a five-day traverse from Geneva to Zurich, connecting three of Switzerland's most iconic lakes by road and by board.",
+            "The journey began on Lac Léman, where the water is so clear you can see the stones three meters below your feet. SUP here is meditative—the Jet d'Eau in the distance, the Alps on the horizon, swans cutting silent lines through the surface. Pedro, Rapha's friend visiting from Brazil, stood on the shore speechless. He'd expected mountains. He hadn't expected this.",
+            "We drove east in the Range Rover, taking the scenic routes, stopping wherever the view demanded it. Secret lakes appeared between passes—small, unnamed, impossibly turquoise. The kind of places that don't show up on Google Maps but stay in your memory forever.",
+            "Lake Lucerne was the emotional peak. Paddling at dawn, with Pilatus emerging from the mist, feels like entering a painting that hasn't been finished yet. The water is darker here, deeper. The mountains press closer. Every stroke of the paddle echoes off the rock.",
+            "The detour to Grindelwald wasn't planned, but the best things never are. Standing under the Eiger, watching the glaciers catch the afternoon light, Rapha met a Swiss cow on an alpine trail and decided it was the highlight of the trip. Pedro agreed.",
+            "By the time we reached Zurich, the SUP boards had been on three lakes and the Range Rover had crossed half the country. But the real distance traveled was internal. Five days of water, mountains, and open road had stripped away the noise. What remained was simple: friendship, nature, and the feeling that Switzerland had shown them something true."
+        ]
     }
 ];
