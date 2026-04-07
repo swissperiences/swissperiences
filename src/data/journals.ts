@@ -32,7 +32,7 @@ export const journals: JournalEntry[] = [
         quote: "Se você quer conhecer a Suíça de verdade, é com a Swissperiences.",
         description: "A five-day summer odyssey across Switzerland by Range Rover—stand up paddle on the lakes of Geneva, Lucerne, and Zurich, with hidden alpine lakes and mountain encounters along the way.",
         coverImage: "/images/guests/rapha/1.jpeg",
-        coverPosition: "object-center",
+        coverPosition: "object-[center_70%]",
         itinerary: [
             {
                 day: "Day 01 // Geneva",
