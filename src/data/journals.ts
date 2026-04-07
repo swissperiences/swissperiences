@@ -18,6 +18,7 @@ export interface JournalEntry {
         position?: string;
     }[];
     content: string[]; // Array of paragraphs for the full article
+    googleMapsUrl?: string; // Link to Google Maps review/location
 }
 
 export const journals: JournalEntry[] = [
@@ -77,7 +78,8 @@ export const journals: JournalEntry[] = [
             "Lake Lucerne was the emotional peak. Paddling at dawn, with Pilatus emerging from the mist, feels like entering a painting that hasn't been finished yet. The water is darker here, deeper. The mountains press closer. Every stroke of the paddle echoes off the rock.",
             "The detour to Grindelwald wasn't planned, but the best things never are. Standing under the Eiger, watching the glaciers catch the afternoon light, Rapha met a Swiss cow on an alpine trail and decided it was the highlight of the trip. Pedro agreed.",
             "By the time we reached Zurich, the SUP boards had been on three lakes and the Range Rover had crossed half the country. But the real distance traveled was internal. Five days of water, mountains, and open road had stripped away the noise. What remained was simple: friendship, nature, and the feeling that Switzerland had shown them something true."
-        ]
+        ],
+        googleMapsUrl: "https://maps.app.goo.gl/ag3S9m7pyMKP5R827",
     },
     {
         id: "wagner",

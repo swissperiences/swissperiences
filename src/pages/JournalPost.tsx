@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Share2 } from "lucide-react";
+import { Share2, MapPin, ExternalLink } from "lucide-react";
 import { journals } from "@/data/journals";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -178,6 +178,24 @@ export default function JournalPost() {
                     </div>
 
                 </div>
+
+                {/* GOOGLE MAPS SOCIAL PROOF */}
+                {journal.googleMapsUrl && (
+                    <div className="flex justify-center mb-16">
+                        <a
+                            href={journal.googleMapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group inline-flex items-center gap-3 px-6 py-3 border border-white/10 rounded-sm hover:border-switz-red/40 hover:bg-switz-red/5 transition-all duration-500 focus:outline-none focus:ring-1 focus:ring-switz-red/50 focus:border-switz-red/40"
+                        >
+                            <MapPin size={16} className="text-switz-red" />
+                            <span className="text-white/60 text-xs uppercase tracking-[0.2em] font-light group-hover:text-white/80 transition-colors">
+                                See this journey on Google Maps
+                            </span>
+                            <ExternalLink size={12} className="text-white/30 group-hover:text-white/60 transition-colors" />
+                        </a>
+                    </div>
+                )}
 
                 {/* NEXT CTA */}
                 <div className="text-center pt-24 pb-12 bg-neutral-900/30">
