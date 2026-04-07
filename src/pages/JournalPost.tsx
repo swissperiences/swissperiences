@@ -186,7 +186,7 @@ export default function JournalPost() {
                             href={journal.googleMapsUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group inline-flex items-center gap-3 px-6 py-3 border border-white/10 rounded-sm hover:border-switz-red/40 hover:bg-switz-red/5 transition-all duration-500 focus:outline-none focus:ring-1 focus:ring-switz-red/50 focus:border-switz-red/40"
+                            className="group inline-flex items-center gap-3 px-6 py-3 border border-white/20 rounded-sm hover:border-switz-red/40 hover:bg-switz-red/5 transition-all duration-500 focus:outline-none focus:ring-1 focus:ring-switz-red/50 focus:border-switz-red/40"
                         >
                             <MapPin size={16} className="text-switz-red" />
                             <span className="text-white/60 text-xs uppercase tracking-[0.2em] font-light group-hover:text-white/80 transition-colors">
