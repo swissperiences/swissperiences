@@ -431,7 +431,7 @@ const Index = () => {
             </p>
             {!isLoggedIn && (
               <Link
-                to="/login"
+                to="/request-access"
                 className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
               >
                 Apply for Membership
@@ -483,7 +483,7 @@ const Index = () => {
                   </span>
                 </button>
                 <button
-                  onClick={() => navigate('/login')}
+                  onClick={() => navigate('/request-access')}
                   className="group px-10 py-5 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
                 >
                   <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">

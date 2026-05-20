@@ -30,12 +30,13 @@ const InsiderGuide = () => {
             setIsSuccess(true);
             toast.success("Check your email.");
         } catch (error: any) {
-            setIsSuccess(true);
-            toast.success(
-                error?.message?.includes("already_subscribed")
-                    ? "Welcome back."
-                    : "Your guide is ready."
-            );
+            // Only treat "already subscribed" as success — real failures show error
+            if (error?.message?.includes("already_subscribed")) {
+                setIsSuccess(true);
+                toast.success("Welcome back.");
+            } else {
+                toast.error("Something went wrong. Email hello@swissperiences.ch and we'll send the guide.");
+            }
         } finally {
             setIsLoading(false);
         }

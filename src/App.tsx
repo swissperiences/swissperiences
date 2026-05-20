@@ -78,6 +78,10 @@ function LanguageWrapper({ children }: { children: React.ReactNode }) {
     if (i18n.language !== lang) {
       i18n.changeLanguage(lang);
     }
+    // Keep <html lang> attribute in sync — fixes accessibility (#8 audit)
+    if (typeof document !== 'undefined' && document.documentElement.lang !== lang) {
+      document.documentElement.lang = lang;
+    }
   }, [params.lang]);
 
   return <>{children}</>;

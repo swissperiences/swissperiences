@@ -116,7 +116,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         // ============================================================
         await new Promise(resolve => setTimeout(resolve, 1100));
 
-        const esc = (s: string) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         const subjectPrefix = isPartnership ? '[PARTNERSHIP]' : '[LISTING APPLICATION]';
         const adminFields = Object.entries(fields)
             .filter(([_, v]) => v)

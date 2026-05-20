@@ -150,9 +150,9 @@ export default function CorporateRetreats() {
           <span className="inline-block px-4 py-1.5 mb-6 text-xs uppercase tracking-[0.2em] text-white/80 bg-white/10 rounded-full border border-white/20">
             For Teams
           </span>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-light text-white mb-6 tracking-tight">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-light text-white mb-6 tracking-tight">
             Curated Team Experiences
-          </h2>
+          </h1>
           <p className="text-lg md:text-xl lg:text-2xl text-white/80 font-light max-w-xl mx-auto lg:mx-0">
             From focused offsites to immersive retreats, we design curated team experiences in Switzerland — tailored for clarity, trust, and human connection.
           </p>

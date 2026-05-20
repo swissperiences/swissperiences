@@ -47,7 +47,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         newsletter_opt_in = true,
         tier = 'General Waitlist',
         intent = null,
-        season = null,
         start_date = null,
         end_date = null,
         num_guests = null,

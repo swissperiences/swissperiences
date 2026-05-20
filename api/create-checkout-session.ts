@@ -2,19 +2,11 @@
 import Stripe from 'stripe';
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { checkRateLimit } from './lib/rate-limit.js';
 
 export const config = {
     runtime: 'edge', // Using Edge Runtime for better performance/standard API compatibility
 };
-
-const checkoutRatelimit = new Ratelimit({
-    redis: Redis.fromEnv(),
-    limiter: Ratelimit.slidingWindow(5, '10 m'),
-    analytics: true,
-    prefix: '@swissperiences/checkout',
-});
 
 const ALLOWED_ORIGINS = ['https://swissperiences.ch', 'https://www.swissperiences.ch'];
 
@@ -43,7 +35,8 @@ export default async function handler(request: Request) {
     const clientIp = (request.headers.get('x-real-ip'))
         || (request.headers.get('x-forwarded-for'))?.split(',')[0]?.trim()
         || 'anonymous';
-    const { success: rateLimitOk } = await checkoutRatelimit.limit(clientIp);
+    // Reuse 'corporate' bucket (3/10min) — checkout doesn't need its own limit type
+    const { success: rateLimitOk } = await checkRateLimit(clientIp, 'corporate');
     if (!rateLimitOk) {
         return new Response(JSON.stringify({ error: 'Too many requests. Please try again later.' }), {
             status: 429,
