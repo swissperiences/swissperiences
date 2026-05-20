@@ -1,58 +1,46 @@
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
-
-// Create a new ratelimiter that allows:
-// - 5 requests per 10 minutes for waitlist
-// - 3 requests per 10 minutes for corporate inquiries
-export const waitlistRatelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(5, '10 m'),
-  analytics: true,
-  prefix: '@swissperiences/waitlist',
-});
-
-export const corporateRatelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(3, '10 m'),
-  analytics: true,
-  prefix: '@swissperiences/corporate',
-});
-
-export const partnerRatelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(3, '10 m'),
-  analytics: true,
-  prefix: '@swissperiences/partner',
-});
-
-export const guideRatelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(5, '1 h'),
-  analytics: true,
-  prefix: '@swissperiences/guide',
-});
-
 /**
- * Rate limit check helper
- * Returns { success: true } if allowed, { success: false, error: string } if rate limited
+ * Simple in-memory rate limiter for Vercel serverless functions.
+ * No external dependencies (no Redis/Upstash needed).
+ *
+ * Note: Each Vercel function instance has its own memory, so this is
+ * per-instance, not global. It still blocks rapid-fire spam from the
+ * same IP within a single instance's lifetime (~5-15 min).
+ * For a solo-founder site with low traffic, this is sufficient.
  */
+
+const LIMITS: Record<string, { max: number; windowMs: number }> = {
+  waitlist:  { max: 5,  windowMs: 10 * 60 * 1000 },  // 5 per 10 min
+  corporate: { max: 3,  windowMs: 10 * 60 * 1000 },  // 3 per 10 min
+  partner:   { max: 3,  windowMs: 10 * 60 * 1000 },  // 3 per 10 min
+  guide:     { max: 5,  windowMs: 60 * 60 * 1000 },   // 5 per hour
+};
+
+const store = new Map<string, { count: number; resetAt: number }>();
+
 export async function checkRateLimit(
   identifier: string,
   type: 'waitlist' | 'corporate' | 'partner' | 'guide'
 ): Promise<{ success: boolean; error?: string }> {
-  const ratelimit = type === 'waitlist' ? waitlistRatelimit : type === 'corporate' ? corporateRatelimit : type === 'guide' ? guideRatelimit : partnerRatelimit;
+  const limit = LIMITS[type];
+  if (!limit) return { success: true };
 
-  const { success, reset } = await ratelimit.limit(identifier);
+  const key = `${type}:${identifier}`;
+  const now = Date.now();
+  const entry = store.get(key);
 
-  if (!success) {
-    const resetDate = new Date(reset);
-    const minutesUntilReset = Math.ceil((resetDate.getTime() - Date.now()) / 1000 / 60);
+  if (!entry || now > entry.resetAt) {
+    store.set(key, { count: 1, resetAt: now + limit.windowMs });
+    return { success: true };
+  }
 
+  if (entry.count >= limit.max) {
+    const minutesLeft = Math.ceil((entry.resetAt - now) / 1000 / 60);
     return {
       success: false,
-      error: `Too many requests. Please try again in ${minutesUntilReset} minute${minutesUntilReset > 1 ? 's' : ''}.`,
+      error: `Too many requests. Please try again in ${minutesLeft} minute${minutesLeft > 1 ? 's' : ''}.`,
     };
   }
 
+  entry.count++;
   return { success: true };
 }
