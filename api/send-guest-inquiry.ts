@@ -100,7 +100,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         await resend.emails.send({
             from: 'Swissperiences <hello@swissperiences.ch>',
-            to: ['hello@swissperiences.ch'],
+            to: ['hello@swissperiences.ch', 'cauehvidal@gmail.com'],
             subject: `[GUEST UPSELL] ${safeName} — ${formatCHF(total)}`,
             html: `
             <div style="font-family: 'Courier New', monospace; padding: 30px; background: #111; color: #eee; line-height: 1.6;">
