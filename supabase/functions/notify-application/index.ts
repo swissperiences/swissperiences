@@ -16,67 +16,6 @@ function getCorsHeaders(req: Request) {
 
 const esc = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-/** Verify a Supabase JWT — supports both legacy HS256 and new ECC ES256 signing keys */
-async function verifyJWT(token: string): Promise<boolean> {
-    const parts = token.split('.')
-    if (parts.length !== 3) return false
-    const [headerB64, payloadB64, signatureB64] = parts
-
-    let header: { alg: string; kid?: string }
-    try {
-        header = JSON.parse(atob(headerB64.replace(/-/g, '+').replace(/_/g, '/')))
-    } catch {
-        return false
-    }
-
-    const data = new TextEncoder().encode(`${headerB64}.${payloadB64}`)
-    const signature = Uint8Array.from(
-        atob(signatureB64.replace(/-/g, '+').replace(/_/g, '/')),
-        (c) => c.charCodeAt(0)
-    )
-
-    // Legacy HS256 — verify with shared secret
-    if (header.alg === 'HS256') {
-        const secret = Deno.env.get('SUPABASE_JWT_SECRET')
-        if (!secret) return false
-        const key = await crypto.subtle.importKey(
-            'raw',
-            new TextEncoder().encode(secret),
-            { name: 'HMAC', hash: 'SHA-256' },
-            false,
-            ['verify']
-        )
-        return crypto.subtle.verify('HMAC', key, signature, data)
-    }
-
-    // ES256 — verify with JWKS (new JWT Signing Keys)
-    if (header.alg === 'ES256') {
-        const supabaseUrl = Deno.env.get('SUPABASE_URL')
-        if (!supabaseUrl) return false
-        try {
-            const jwksResp = await fetch(`${supabaseUrl}/auth/v1/.well-known/jwks.json`)
-            const { keys } = await jwksResp.json()
-            for (const jwk of keys) {
-                if (header.kid && jwk.kid !== header.kid) continue
-                try {
-                    const cryptoKey = await crypto.subtle.importKey(
-                        'jwk', jwk,
-                        { name: 'ECDSA', namedCurve: 'P-256' },
-                        false, ['verify']
-                    )
-                    const ok = await crypto.subtle.verify(
-                        { name: 'ECDSA', hash: 'SHA-256' },
-                        cryptoKey, signature, data
-                    )
-                    if (ok) return true
-                } catch { continue }
-            }
-        } catch { return false }
-        return false
-    }
-
-    return false
-}
 
 serve(async (req) => {
     const corsHeaders = getCorsHeaders(req)
@@ -85,24 +24,12 @@ serve(async (req) => {
         return new Response('ok', { headers: corsHeaders })
     }
 
-    // Verify JWT — only accept requests signed by our Supabase project
-    const authHeader = req.headers.get('Authorization')
-    const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null
-
-    if (!token) {
-        return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-            status: 401,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        })
-    }
-
-    const valid = await verifyJWT(token).catch(() => false)
-    if (!valid) {
-        return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-            status: 401,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        })
-    }
+    // JWT verification is enforced by the Supabase Edge Functions gateway
+    // (verify_jwt = true is the default — the DB trigger passes a valid anon JWT).
+    // The previous in-function verifyJWT() check was broken: it required
+    // SUPABASE_JWT_SECRET which isn't auto-populated on Edge Functions, so
+    // every trigger invocation returned 401 and admin notifications were
+    // silently dropped for weeks. Removed.
 
     try {
         const { record } = await req.json()
