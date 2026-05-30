@@ -9,10 +9,15 @@ const interestOptions = [
   { value: "custom", label: "Something custom" },
 ];
 
-export default function RequestQuoteForm() {
+interface Props {
+  initialInterest?: string;
+  onClose?: () => void;
+}
+
+export default function RequestQuoteForm({ initialInterest = "", onClose }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [interest, setInterest] = useState("");
+  const [interest, setInterest] = useState(initialInterest);
   const [message, setMessage] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");

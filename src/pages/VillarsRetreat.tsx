@@ -99,10 +99,8 @@ export default function VillarsRetreat() {
                     </div>
                 </section>
 
-                <MembershipGate title="Discover the Villars Loft." subtitle="Floor plans, amenities, availability, and booking require membership.">
-                {/* Intro & Amenities */}
+                {/* Intro & Amenities — visible to all visitors */}
                 <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-
                     <div>
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
@@ -141,7 +139,7 @@ export default function VillarsRetreat() {
                         </div>
                     </div>
 
-                    {/* Highlight Image: Fireplace */}
+                    {/* Highlight Image: Swiss View */}
                     <div className="relative aspect-square md:aspect-[4/3] overflow-hidden rounded-sm group">
                         <img
                             src="/images/villars/swiss-flags-window.jpeg"
@@ -154,6 +152,9 @@ export default function VillarsRetreat() {
                         </div>
                     </div>
                 </section>
+
+                {/* Gallery & booking gated behind membership */}
+                <MembershipGate title="See Inside the Villars Loft." subtitle="Floor plans, full gallery, availability, and booking are exclusive to members.">
 
                 {/* Details & Atmosphere Section */}
                 <section className="bg-white/[0.02] border-y border-white/5 py-24">

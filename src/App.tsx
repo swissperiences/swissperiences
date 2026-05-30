@@ -12,25 +12,25 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import WhatsAppButton from "./components/WhatsAppButton";
 
 // Lazy load routes for code splitting
-const Index = lazy(() => import("./pages/Index"));
+import Index from "./pages/Index";
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
-const ForTeams = lazy(() => import("./pages/ForTeams"));
+import ForTeams from "./pages/ForTeams";
 const SecureDeposit = lazy(() => import("./pages/SecureDeposit"));
 const Ideas = lazy(() => import("./pages/Ideas"));
 const ToDo = lazy(() => import("./pages/ToDo"));
-const VillarsRetreat = lazy(() => import("./pages/VillarsRetreat"));
+import VillarsRetreat from "./pages/VillarsRetreat";
 const RoadJourney = lazy(() => import("./pages/RoadJourney"));
-const Journals = lazy(() => import("./pages/Journals"));
+import Journals from "./pages/Journals";
 const Success = lazy(() => import("./pages/Success"));
 const AdminGallery = lazy(() => import("./pages/AdminGallery"));
 const CinematicMemories = lazy(() => import("./pages/CinematicMemories"));
-const JournalPost = lazy(() => import("./pages/JournalPost"));
+import JournalPost from "./pages/JournalPost";
 const Destinations = lazy(() => import("./pages/Destinations"));
 const DestinationPage = lazy(() => import("./pages/DestinationPage"));
 const AlexProposal = lazy(() => import("./pages/private/AlexProposal"));
 const InvitePage = lazy(() => import("./pages/private/InvitePage"));
-const RequestAccess = lazy(() => import("./pages/RequestAccess"));
+import RequestAccess from "./pages/RequestAccess";
 const Login = lazy(() => import("./pages/Login"));
 const AuthCallback = lazy(() => import("./pages/AuthCallback"));
 const Members = lazy(() => import("./pages/MembersDashboard"));
@@ -40,10 +40,10 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const AuthGuard = lazy(() => import("./components/AuthGuard"));
 
 // New pages
-const About = lazy(() => import("./pages/About"));
+import About from "./pages/About";
 const Contact = lazy(() => import("./pages/Contact"));
-const Sanctuaries = lazy(() => import("./pages/Sanctuaries"));
-const Experiences = lazy(() => import("./pages/Experiences"));
+import Sanctuaries from "./pages/Sanctuaries";
+import Experiences from "./pages/Experiences";
 const PrivateChef = lazy(() => import("./pages/PrivateChef"));
 const GuidedHikes = lazy(() => import("./pages/GuidedHikes"));
 const MountainCoaster = lazy(() => import("./pages/MountainCoaster"));
@@ -54,18 +54,35 @@ const Partnerships = lazy(() => import("./pages/Partnerships"));
 const Sustainability = lazy(() => import("./pages/Sustainability"));
 const GuestEnhance = lazy(() => import("./pages/GuestEnhance"));
 const LinkGenerator = lazy(() => import("./pages/LinkGenerator"));
-const Packages = lazy(() => import("./pages/Packages"));
+import Packages from "./pages/Packages";
 const ListYourExperience = lazy(() => import("./pages/ListYourExperience"));
 const Discovery = lazy(() => import("./pages/Discovery"));
-const InsiderGuide = lazy(() => import("./pages/InsiderGuide"));
+import InsiderGuide from "./pages/InsiderGuide";
 const DiscoveryDrafts = lazy(() => import("./pages/admin/DiscoveryDrafts"));
 
 const queryClient = new QueryClient();
 
-// Loading fallback component
+// Loading fallback — skeleton with nav bar so the page doesn't flash pure black
 const PageLoader = () => (
-  <div className="min-h-screen bg-black flex items-center justify-center">
-    <div className="text-white/60 text-sm">Loading...</div>
+  <div className="min-h-screen bg-[#060606]">
+    {/* Nav skeleton */}
+    <div className="fixed top-0 left-0 right-0 z-50 px-8 py-5 flex items-center justify-between border-b border-white/5 bg-[#060606]/90 backdrop-blur-sm">
+      <div className="w-32 h-3 bg-white/10 rounded-sm animate-pulse" />
+      <div className="hidden md:flex gap-6">
+        {[80, 64, 72, 56, 48].map((w, i) => (
+          <div key={i} className="h-2.5 bg-white/8 rounded-sm animate-pulse" style={{ width: w }} />
+        ))}
+      </div>
+      <div className="w-16 h-3 bg-white/10 rounded-sm animate-pulse" />
+    </div>
+    {/* Content skeleton */}
+    <div className="pt-40 px-8 md:px-16 max-w-4xl mx-auto">
+      <div className="w-24 h-2 bg-white/8 rounded-sm animate-pulse mb-8" />
+      <div className="w-3/4 h-10 bg-white/10 rounded-sm animate-pulse mb-4" />
+      <div className="w-1/2 h-10 bg-white/8 rounded-sm animate-pulse mb-8" />
+      <div className="w-2/3 h-4 bg-white/6 rounded-sm animate-pulse mb-3" />
+      <div className="w-1/2 h-4 bg-white/5 rounded-sm animate-pulse" />
+    </div>
   </div>
 );
 

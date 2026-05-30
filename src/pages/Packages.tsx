@@ -1,10 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import SEO from "@/components/SEO";
 import { buildBreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { packages } from "@/data/packages";
+import RequestQuoteForm from "@/components/RequestQuoteForm";
 
 /** Maps full-size image paths to 800px preview versions */
 function getPreviewSrc(src: string): string | null {
@@ -22,13 +23,22 @@ function getPreviewSrc(src: string): string | null {
 
 export default function Packages() {
   const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const [quoteInterest, setQuoteInterest] = useState("");
 
-  function handleCTA() {
+  const INTEREST_MAP: Record<string, string> = {
+    "alpine-reset": "alpine-reset",
+    "winter-escape": "winter-escape",
+    "cinematic-weekend": "cinematic-weekend",
+    "grand-tour": "grand-tour",
+  };
+
+  function handleCTA(packageId?: string) {
     if (isLoggedIn) {
-      navigate("/members");
+      window.location.href = "/members";
     } else {
-      navigate("/#request-quote");
+      setQuoteInterest(packageId ? (INTEREST_MAP[packageId] ?? "custom") : "");
+      setQuoteOpen(true);
     }
   }
 
@@ -192,7 +202,7 @@ export default function Packages() {
                       </span>
                     )}
                     <button
-                      onClick={handleCTA}
+                      onClick={() => handleCTA(pkg.id)}
                       className="w-full px-8 py-4 bg-white text-black text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-white/90 transition-all duration-300"
                     >
                       {isLoggedIn ? "Book This Package" : "Request a Quote"}
@@ -219,13 +229,35 @@ export default function Packages() {
             Every stay starts as a conversation.
           </p>
           <button
-            onClick={handleCTA}
+            onClick={() => handleCTA()}
             className="px-12 py-4 bg-white text-black text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-white/90 transition-all duration-300"
           >
             {isLoggedIn ? "Contact Us" : "Start a Conversation"}
           </button>
         </div>
       </section>
+
+      {/* Request Quote Modal */}
+      {quoteOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+          onClick={(e) => { if (e.target === e.currentTarget) setQuoteOpen(false); }}
+        >
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#0a0a0a] border border-white/8">
+            <button
+              onClick={() => setQuoteOpen(false)}
+              className="absolute top-4 right-4 text-white/40 hover:text-white/80 transition-colors text-lg z-10"
+              aria-label="Close"
+            >
+              ✕
+            </button>
+            <RequestQuoteForm
+              initialInterest={quoteInterest}
+              onClose={() => setQuoteOpen(false)}
+            />
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
