@@ -1,9 +1,17 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3"
+import { handleSignup, type SignupDb } from "./handler.ts"
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
+
+function jsonResponse(status: number, body: Record<string, unknown>): Response {
+    return new Response(JSON.stringify(body), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status,
+    })
 }
 
 serve(async (req) => {
@@ -12,169 +20,63 @@ serve(async (req) => {
     }
 
     try {
-        const { email, firstName: rawFirstName } = await req.json()
-        if (!email) throw new Error('Email is required')
-        const firstName = typeof rawFirstName === 'string' ? rawFirstName.slice(0, 100) : undefined
-
-        console.log(`[NEWSLETTER] Processing signup: ${email}`)
+        const input = await req.json().catch(() => ({}))
 
         const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
-        if (!RESEND_API_KEY) throw new Error('RESEND_API_KEY not set')
-
         const AUDIENCE_ID = Deno.env.get('RESEND_AUDIENCE_ID')
-        if (!AUDIENCE_ID) throw new Error('RESEND_AUDIENCE_ID not set')
-
-        // 0. Save to waitlist table (source of truth — errors are non-fatal)
         const supabaseUrl = Deno.env.get('SUPABASE_URL')
         const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-        if (supabaseUrl && supabaseServiceKey) {
-            const supabase = createClient(supabaseUrl, supabaseServiceKey)
-            const { error: dbError } = await supabase
-                .from('waitlist')
-                .upsert({ email, newsletter_opt_in: true }, { onConflict: 'email' })
-            if (dbError) {
-                console.error(`[NEWSLETTER] Waitlist upsert failed (non-blocking):`, dbError)
-            } else {
-                console.log(`[NEWSLETTER] Saved to waitlist: ${email}`)
-            }
+        if (!RESEND_API_KEY || !AUDIENCE_ID || !supabaseUrl || !supabaseServiceKey) {
+            console.error('[NEWSLETTER][ALERT] missing required environment configuration')
+            return jsonResponse(500, { error: 'Internal server error' })
         }
 
-        // 1. Add contact to Resend Audience
-        console.log(`[NEWSLETTER] Adding to audience: ${AUDIENCE_ID}`)
-        const contactResponse = await fetch(`https://api.resend.com/audiences/${AUDIENCE_ID}/contacts`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${RESEND_API_KEY}`,
+        const supabase = createClient(supabaseUrl, supabaseServiceKey)
+        const db: SignupDb = {
+            async getSubscriber(email) {
+                const { data, error } = await supabase
+                    .from('waitlist')
+                    .select('email, welcome_email_status, welcome_email_attempts')
+                    .eq('email', email)
+                    .maybeSingle()
+                if (error) throw new Error(`waitlist select failed: ${error.message}`)
+                return data
             },
-            body: JSON.stringify({
-                email,
-                ...(firstName ? { first_name: firstName } : {}),
-                unsubscribed: false,
-            }),
-        })
-        const contactData = await contactResponse.json()
-        console.log(`[NEWSLETTER] Contact response: ${contactResponse.status}`, contactData)
-
-        // If contact already exists, Resend returns 200 — treat as success
-        const alreadySubscribed = contactData?.id === undefined && contactResponse.status === 409
-
-        // 2. Send welcome email (only for new subscribers)
-        if (!alreadySubscribed) {
-            console.log(`[NEWSLETTER] Sending welcome email to: ${email}`)
-            const emailResponse = await fetch('https://api.resend.com/emails', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${RESEND_API_KEY}`,
-                },
-                body: JSON.stringify({
-                    from: 'Swissperiences <hello@swissperiences.ch>',
-                    to: [email],
-                    subject: "You're on the Swissperiences list",
-                    html: `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <style>
-                    body { margin: 0; padding: 0; background-color: #F9F7F2; font-family: 'Times New Roman', Times, serif; color: #1A1D2E; }
-                    .wrapper { width: 100%; background-color: #F9F7F2; padding: 80px 0; }
-                    .letter { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 540px; padding: 100px 60px; text-align: left; box-shadow: 0 4px 30px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03); }
-                    .logo { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; display: block; text-align: center; }
-                    h1 { font-family: 'Times New Roman', Times, serif; font-size: 28px; font-weight: 400; font-style: italic; line-height: 1.4; margin-bottom: 40px; color: #1A1D2E; }
-                    p { font-size: 16px; line-height: 1.9; margin-bottom: 28px; color: #444; font-weight: 300; }
-                    .signature { margin-top: 60px; }
-                    .closing { font-style: italic; color: #1A1D2E; margin-bottom: 10px; }
-                    .host { font-size: 14px; letter-spacing: 1px; color: #888; text-transform: uppercase; }
-                    .cta-box { margin: 60px 0; padding: 40px 0; border-top: 1px solid #F0EFEA; border-bottom: 1px solid #F0EFEA; text-align: center; }
-                    .btn-primary { display: inline-block; background-color: #1A1D2E; color: #ffffff !important; padding: 18px 40px; text-decoration: none; text-transform: uppercase; letter-spacing: 3px; font-size: 10px; font-weight: bold; border-radius: 2px; }
-                    .footer { margin-top: 100px; font-size: 9px; color: #CCC; letter-spacing: 2px; text-transform: uppercase; text-align: center; }
-                    .footer a { color: #BBB; text-decoration: none; margin: 0 10px; }
-                </style>
-            </head>
-            <body>
-                <center class="wrapper">
-                    <div class="letter">
-                        <p style="font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; text-align: center;">Swissperiences</p>
-
-                        <h1>Welcome to Swissperiences.</h1>
-
-                        <p>Journey 001 — Stones &amp; Water is currently in final testing in Geneva.</p>
-                        <p>You'll be among the first to know when it becomes available on the App Store.</p>
-                        <p>Seven chapters. 1.9 kilometres. One city, heard where its stories happened.</p>
-
-                        <div class="cta-box">
-                            <a href="https://swissperiences.ch" class="btn-primary">Preview Journey 001</a>
-                        </div>
-
-                        <div class="signature">
-                            <p class="host">— Swissperiences</p>
-                        </div>
-
-                        <div class="footer">
-                            © 2026 Swissperiences • Geneva, Switzerland<br><br>
-                            <a href="https://swissperiences.ch">Website</a>
-                            <a href="mailto:hello@swissperiences.ch">Contact</a>
-                        </div>
-                    </div>
-                </center>
-            </body>
-            </html>
-                    `,
-                }),
-            })
-            const emailData = await emailResponse.json()
-            console.log(`[NEWSLETTER] Welcome email status: ${emailResponse.status}`, emailData)
-        }
-
-        // 3. Notify admin (delay only needed if we sent the welcome email above)
-        if (!alreadySubscribed) {
-            await new Promise((r) => setTimeout(r, 1100))
-        }
-        console.log(`[NEWSLETTER] Sending admin notification for: ${email}`)
-        const adminResponse = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${RESEND_API_KEY}`,
+            async upsertSubscriber(email, firstName) {
+                const { error } = await supabase
+                    .from('waitlist')
+                    .upsert(
+                        { email, newsletter_opt_in: true, ...(firstName ? { first_name: firstName } : {}) },
+                        { onConflict: 'email' },
+                    )
+                if (error) throw new Error(`waitlist upsert failed: ${error.message}`)
             },
-            body: JSON.stringify({
-                from: 'Swissperiences <hello@swissperiences.ch>',
-                to: ['hello@swissperiences.ch'],
-                subject: `[WAITLIST] ${email}`,
-                html: `
-            <div style="font-family: monospace; padding: 20px; background: #111; color: #eee;">
-                <h2 style="color: #D8B58A;">New Waitlist Signup</h2>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Already subscribed:</strong> ${alreadySubscribed ? 'Yes' : 'No'}</p>
-                <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
-            </div>
-                `,
-            }),
-        })
-        const adminData = await adminResponse.json()
-        console.log(`[NEWSLETTER] Admin notification status: ${adminResponse.status}`, adminData)
+            async setWelcomeStatus(email, status, errorDetail, attempts) {
+                const { error } = await supabase
+                    .from('waitlist')
+                    .update({
+                        welcome_email_status: status,
+                        welcome_email_error: errorDetail,
+                        welcome_email_attempts: attempts,
+                    })
+                    .eq('email', email)
+                if (error) throw new Error(`waitlist status update failed: ${error.message}`)
+            },
+        }
 
-        return new Response(
-            JSON.stringify({
-                success: true,
-                already_subscribed: alreadySubscribed,
-            }),
-            {
-                headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-                status: 200,
-            }
-        )
+        const result = await handleSignup(input, {
+            db,
+            fetchFn: fetch,
+            resendApiKey: RESEND_API_KEY,
+            audienceId: AUDIENCE_ID,
+            adminEmail: 'hello@swissperiences.ch',
+            log: console.log,
+            logError: console.error,
+            delayMs: (ms) => new Promise((r) => setTimeout(r, ms)),
+        })
+        return jsonResponse(result.status, result.body)
     } catch (error) {
         console.error(`[NEWSLETTER] Error:`, error)
-        return new Response(
-            JSON.stringify({ error: 'Internal server error' }),
-            {
-                headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-                status: 500,
-            }
-        )
+        return jsonResponse(500, { error: 'Internal server error' })
     }
 })
