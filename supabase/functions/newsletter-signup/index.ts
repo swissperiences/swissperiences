@@ -71,7 +71,7 @@ serve(async (req) => {
                 body: JSON.stringify({
                     from: 'Swissperiences <hello@swissperiences.ch>',
                     to: [email],
-                    subject: "You're on the list.",
+                    subject: "You're on the Swissperiences list",
                     html: `
             <!DOCTYPE html>
             <html>
@@ -99,17 +99,17 @@ serve(async (req) => {
                     <div class="letter">
                         <p style="font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; text-align: center;">Swissperiences</p>
 
-                        <h1>Consider this your quiet introduction.</h1>
+                        <h1>Welcome to Swissperiences.</h1>
 
-                        <p>You've joined our private list — a small circle that hears from us first. Seasonal intakes, hidden retreats, stories from the Alps. No noise. No spam. Just the essential.</p>
-                        <p>When you're ready to go further, membership unlocks the full experience: curated sanctuaries, private dining, guided journeys, and everything in between.</p>
+                        <p>Journey 001 — Stones &amp; Water is currently in final testing in Geneva.</p>
+                        <p>You'll be among the first to know when it becomes available on the App Store.</p>
+                        <p>Seven chapters. 1.9 kilometres. One city, heard where its stories happened.</p>
 
                         <div class="cta-box">
-                            <a href="https://swissperiences.ch/request-access" class="btn-primary">Apply for Membership</a>
+                            <a href="https://swissperiences.ch" class="btn-primary">Preview Journey 001</a>
                         </div>
 
                         <div class="signature">
-                            <p class="closing">Until then, the mountains will be here.</p>
                             <p class="host">— Swissperiences</p>
                         </div>
 
@@ -143,10 +143,10 @@ serve(async (req) => {
             body: JSON.stringify({
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: ['hello@swissperiences.ch'],
-                subject: `[THE LIST] ${email}`,
+                subject: `[WAITLIST] ${email}`,
                 html: `
             <div style="font-family: monospace; padding: 20px; background: #111; color: #eee;">
-                <h2 style="color: #D8B58A;">New Newsletter Subscriber</h2>
+                <h2 style="color: #D8B58A;">New Waitlist Signup</h2>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Already subscribed:</strong> ${alreadySubscribed ? 'Yes' : 'No'}</p>
                 <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
