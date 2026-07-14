@@ -21,9 +21,6 @@ interface NavigationProps {
 }
 
 const navLinksConfig = [
-  { key: "sanctuaries", href: "/sanctuaries" },
-  { key: "packages", href: "/packages" },
-  { key: "experiences", href: "/experiences" },
   { key: "journals", href: "/journals" },
   { key: "about", href: "/about" },
 ];
