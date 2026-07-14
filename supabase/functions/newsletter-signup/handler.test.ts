@@ -67,6 +67,10 @@ function welcomeCalls(calls: FakeCall[]) {
     )
 }
 
+function adminCalls(calls: FakeCall[]) {
+    return calls.filter((c) => Array.isArray(c.payload.to) && c.payload.to[0] === 'admin@test.ch')
+}
+
 function assertNoInternalLeak(body: Record<string, unknown>) {
     const s = JSON.stringify(body)
     assert.ok(!s.includes('re_FAKE_KEY_SHOULD_NEVER_LEAK'), 'API key leaked to browser')
@@ -86,6 +90,7 @@ test('full success: subscribed, welcome sent, status persisted as sent', async (
         already_subscribed: false,
     })
     assert.equal(welcomeCalls(calls).length, 1)
+    assert.equal(adminCalls(calls).length, 1, 'admin must be notified of a first signup')
     assert.deepEqual(statusWrites, [{ status: 'sent', error: null, attempts: 1 }])
     assertNoInternalLeak(res.body)
 })
@@ -150,7 +155,7 @@ test('duplicate email with welcome already sent: idempotent, no resend of welcom
         welcomeEmailSent: true,
         already_subscribed: true,
     })
-    assert.equal(welcomeCalls(calls).length, 0, 'welcome email must not be sent twice')
+    assert.equal(calls.length, 0, 'fully-processed duplicate must trigger no Resend call at all')
     assert.equal(statusWrites.length, 0)
 })
 
@@ -164,7 +169,23 @@ test('duplicate email after failed welcome: retries the send and increments atte
     assert.equal(res.body.welcomeEmailSent, true)
     assert.equal(res.body.already_subscribed, true)
     assert.equal(welcomeCalls(calls).length, 1, 'failed welcome must be retried')
+    assert.equal(adminCalls(calls).length, 0, 'retry must not notify the admin again')
     assert.deepEqual(statusWrites, [{ status: 'sent', error: null, attempts: 3 }])
+})
+
+test('logs never contain the raw subscriber address, only the masked form', async () => {
+    const { deps, logs, errors } = makeDeps({ welcomeStatus: 401 })
+    await handleSignup({ email: 'privacy-test@example.com' }, deps)
+
+    const all = [...logs, ...errors]
+    assert.ok(all.length > 0)
+    for (const line of all) {
+        assert.ok(!line.includes('privacy-test@example.com'), `raw address leaked in log: ${line}`)
+    }
+    assert.ok(
+        all.some((l) => l.includes('pr***@example.com')),
+        'masked address must appear in logs',
+    )
 })
 
 test('invalid email: 400 without touching db or Resend', async () => {

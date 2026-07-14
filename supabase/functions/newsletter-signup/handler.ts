@@ -5,9 +5,13 @@
 // - DB save fails            -> non-2xx, generic error, no emails attempted
 // - saved but Resend fails   -> 200 with welcomeEmailSent:false, failure
 //                               persisted on the row for retry, [ALERT] logged
-// - duplicate submission     -> idempotent; retries the welcome email only if
-//                               it was never successfully sent
+// - duplicate submission     -> idempotent; repeats ONLY what is still
+//                               pending (audience + welcome when the welcome
+//                               never went out). Admin is notified once, on
+//                               the first signup — never again on retries.
 // - Resend key / internal error details never reach the browser
+// - subscriber addresses are masked in every log line (full address lives
+//   only in the DB and in the admin notification itself)
 
 export interface SubscriberRecord {
     email: string
@@ -47,6 +51,13 @@ export interface SignupResult {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+/** ca***@gmail.com — safe for logs; never log the raw address. */
+export function maskEmail(email: string): string {
+    const at = email.indexOf('@')
+    if (at <= 0) return '***'
+    return `${email.slice(0, Math.min(2, at))}***@${email.slice(at + 1)}`
+}
 
 function welcomeEmailHtml(): string {
     return `
@@ -153,7 +164,8 @@ export async function handleSignup(
     }
     const firstName = typeof input.firstName === 'string' ? input.firstName.slice(0, 100) : undefined
 
-    deps.log(`[NEWSLETTER] Processing signup: ${email}`)
+    const masked = maskEmail(email)
+    deps.log(`[NEWSLETTER] Processing signup: ${masked}`)
 
     // 1. Database first — it is the source of truth. Failure here is the only
     //    case the browser should see as an error.
@@ -163,29 +175,30 @@ export async function handleSignup(
         await deps.db.upsertSubscriber(email, firstName)
     } catch (err) {
         deps.logError(
-            `[NEWSLETTER][ALERT] waitlist save failed for ${email}: ${err instanceof Error ? err.message : String(err)}`,
+            `[NEWSLETTER][ALERT] waitlist save failed for ${masked}: ${err instanceof Error ? err.message : String(err)}`,
         )
         return { status: 500, body: { error: 'Could not save your signup. Please try again.' } }
     }
-    deps.log(`[NEWSLETTER] Saved to waitlist: ${email}`)
+    deps.log(`[NEWSLETTER] Saved to waitlist: ${masked}`)
 
     const alreadySubscribed = existing !== null
     const welcomeAlreadySent = existing?.welcome_email_status === 'sent'
 
-    // 2. Resend audience — non-fatal, logged on failure.
-    await callResend(
-        deps,
-        'Resend audience add',
-        `https://api.resend.com/audiences/${deps.audienceId}/contacts`,
-        { email, ...(firstName ? { first_name: firstName } : {}), unsubscribed: false },
-    )
-
-    // 3. Welcome email — skipped only if a previous attempt succeeded, so a
-    //    duplicate submission doubles as the retry path for failed sends.
+    // 2 + 3. Audience add and welcome email — only while the welcome is still
+    //    pending, so a duplicate submission repeats just the unfinished work
+    //    (the audience call is grouped with the welcome: both fail together
+    //    when the key is bad, and re-adding an existing contact is a no-op).
+    //    Both are non-fatal for the signup itself.
     let welcomeEmailSent = welcomeAlreadySent
     let welcomeAttempted = false
     if (!welcomeAlreadySent) {
         welcomeAttempted = true
+        await callResend(
+            deps,
+            'Resend audience add',
+            `https://api.resend.com/audiences/${deps.audienceId}/contacts`,
+            { email, ...(firstName ? { first_name: firstName } : {}), unsubscribed: false },
+        )
         const attempts = (existing?.welcome_email_attempts ?? 0) + 1
         const result = await callResend(deps, 'Welcome email send', 'https://api.resend.com/emails', {
             from: 'Swissperiences <hello@swissperiences.ch>',
@@ -203,21 +216,24 @@ export async function handleSignup(
             )
         } catch (err) {
             deps.logError(
-                `[NEWSLETTER][ALERT] could not persist welcome email status for ${email}: ${err instanceof Error ? err.message : String(err)}`,
+                `[NEWSLETTER][ALERT] could not persist welcome email status for ${masked}: ${err instanceof Error ? err.message : String(err)}`,
             )
         }
     }
 
-    // 4. Admin notification — non-fatal, logged on failure. Delay keeps us
-    //    under Resend's 2 req/s limit when a welcome email was just sent.
-    if (welcomeAttempted) {
-        await deps.delayMs(1100)
-    }
-    await callResend(deps, 'Admin notification send', 'https://api.resend.com/emails', {
-        from: 'Swissperiences <hello@swissperiences.ch>',
-        to: [deps.adminEmail],
-        subject: `[WAITLIST] ${email}`,
-        html: `
+    // 4. Admin notification — first signup only, so welcome retries never
+    //    spam the admin (retry outcomes are visible via [ALERT] logs and the
+    //    welcome_email_* columns). Non-fatal, logged on failure. Delay keeps
+    //    us under Resend's 2 req/s limit right after the welcome send.
+    if (!alreadySubscribed) {
+        if (welcomeAttempted) {
+            await deps.delayMs(1100)
+        }
+        await callResend(deps, 'Admin notification send', 'https://api.resend.com/emails', {
+            from: 'Swissperiences <hello@swissperiences.ch>',
+            to: [deps.adminEmail],
+            subject: `[WAITLIST] ${email}`,
+            html: `
             <div style="font-family: monospace; padding: 20px; background: #111; color: #eee;">
                 <h2 style="color: #D8B58A;">New Waitlist Signup</h2>
                 <p><strong>Email:</strong> ${email}</p>
@@ -226,7 +242,8 @@ export async function handleSignup(
                 <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
             </div>
                 `,
-    })
+        })
+    }
 
     return {
         status: 200,
