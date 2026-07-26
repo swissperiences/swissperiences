@@ -9,7 +9,10 @@ import { checkRateLimit } from './lib/rate-limit.js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    if (!process.env.RESEND_API_KEY) {
+    // createClient below throws "supabaseKey is required" when the key is
+    // missing, which would surface as an opaque FUNCTION_INVOCATION_FAILED.
+    if (!process.env.RESEND_API_KEY || !process.env.SUPABASE_SERVICE_ROLE_KEY || !process.env.VITE_SUPABASE_URL) {
+        console.error('[CORPORATE API] Server configuration error: missing Resend or Supabase environment variables');
         return res.status(500).json({
             error: 'Server configuration error'
         });
@@ -74,9 +77,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             });
 
         if (dbError) {
+            // The inquiry row is the source of truth. Sending the emails and
+            // returning 200 on a failed insert made the form look successful
+            // while the lead was silently dropped — fail loudly instead so the
+            // visitor can retry and the failure shows up in the logs.
             console.error('[CORPORATE API] ❌ Database error:', dbError);
-            // We continue even if DB fails? ideally we should probably warn or throw. 
-            // For now, let's log heavily but try to send email so lead isn't lost.
+            return res.status(503).json({
+                error: 'Could not save your inquiry. Please try again.',
+            });
         }
 
         const { data: userData, error: userError } = await resend.emails.send({
