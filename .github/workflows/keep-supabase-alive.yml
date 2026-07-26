@@ -9,10 +9,16 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Supabase REST
+      # Must run a real query against Postgres. Hitting /rest/v1/ only wakes
+      # PostgREST, so the database still counted as idle and the project was
+      # paused on 2026-06-23 despite this workflow reporting success.
+      - name: Query Supabase (real database activity)
         run: |
           code=$(curl -s -o /dev/null -w "%{http_code}" \
-            "https://rhoxismvcalqppbnndew.supabase.co/rest/v1/" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}")
+            "https://rhoxismvcalqppbnndew.supabase.co/rest/v1/waitlist?select=email&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
           echo "Supabase responded: $code"
-          if [ "$code" = "200" ] || [ "$code" = "401" ]; then exit 0; else exit 1; fi
+          # 200 = query ran (RLS may return an empty set, which is still activity).
+          # 401/403 means the key is wrong — fail loudly instead of pretending to be alive.
+          if [ "$code" = "200" ]; then exit 0; else exit 1; fi
