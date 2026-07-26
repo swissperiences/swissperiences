@@ -19,7 +19,7 @@ export default function Footer() {
               {t('footer.tagline', 'swissperiences')}
             </span>
             <p className="text-white/50 font-light text-sm leading-relaxed max-w-sm mb-8">
-              {t('footer.description', "Cinematic audio journeys through Switzerland. Each city's story, told in the exact place it happened — starting with Geneva.")}
+              {t('footer.description', 'Curating silence in a noisy world. We craft bespoke alpine journeys for those who seek to disconnect in order to reconnect.')}
             </p>
 
             <div className="flex gap-6 text-white/40">
@@ -35,11 +35,17 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <h4 className="text-xs text-white uppercase tracking-[0.2em] mb-8 font-bold text-switz-red">Explore</h4>
             <div className="flex flex-col gap-4 text-white/50">
+              <Link to="/sanctuaries" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Sanctuaries</Link>
+              <Link to="/packages" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Packages</Link>
+              <Link to="/experiences" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Experiences</Link>
+              <Link to="/destinations" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Destinations</Link>
               <Link to="/journals" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Journals</Link>
               <Link to="/insider-guide" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Insider Guide</Link>
               <Link to="/about" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">About</Link>
               <Link to="/contact" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Contact</Link>
+              <Link to="/for-teams" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">For Teams</Link>
               <Link to="/partnerships" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">Partnerships</Link>
+              <Link to="/list-your-experience" className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">List Your Experience</Link>
               <Link to={isLoggedIn ? "/members" : "/login"} className="text-xs hover:text-glacier-300 transition-colors uppercase tracking-wide">
                 {isLoggedIn ? "My Account" : "Members"}
               </Link>
@@ -50,7 +56,7 @@ export default function Footer() {
           <div className="lg:col-span-3">
             <h4 className="text-xs text-white uppercase tracking-[0.2em] mb-8 font-bold text-switz-red">The List</h4>
             <p className="text-white/50 font-light text-xs leading-relaxed mb-6">
-              First to know when new journeys launch. Quiet updates, no spam — ever.
+              First to know when seasonal spots open. Journals, quiet updates, no spam — ever.
             </p>
             <NewsletterForm />
           </div>

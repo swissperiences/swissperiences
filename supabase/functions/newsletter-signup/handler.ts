@@ -87,17 +87,17 @@ function welcomeEmailHtml(): string {
                     <div class="letter">
                         <p style="font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #BBB; margin-bottom: 70px; text-align: center;">Swissperiences</p>
 
-                        <h1>Welcome to Swissperiences.</h1>
+                        <h1>Consider this your quiet introduction.</h1>
 
-                        <p>Journey 001 — Stones &amp; Water is currently in final testing in Geneva.</p>
-                        <p>You'll be among the first to know when it becomes available on the App Store.</p>
-                        <p>Seven chapters. 1.9 kilometres. One city, heard where its stories happened.</p>
+                        <p>You've joined our private list — a small circle that hears from us first. Seasonal intakes, hidden retreats, stories from the Alps. No noise. No spam. Just the essential.</p>
+                        <p>When you're ready to go further, membership unlocks the full experience: curated sanctuaries, private dining, guided journeys, and everything in between.</p>
 
                         <div class="cta-box">
-                            <a href="https://swissperiences.ch" class="btn-primary">Preview Journey 001</a>
+                            <a href="https://swissperiences.ch/request-access" class="btn-primary">Apply for Membership</a>
                         </div>
 
                         <div class="signature">
+                            <p class="closing">Until then, the mountains will be here.</p>
                             <p class="host">— Swissperiences</p>
                         </div>
 

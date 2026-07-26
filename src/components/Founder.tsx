@@ -22,7 +22,7 @@ export const Founder = () => {
                             {/* Visual Detail Badge */}
                             <div className="absolute bottom-6 left-6 z-20 flex flex-col gap-1">
                                 <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans">Location Log</span>
-                                <p className="text-white text-base font-serif italic">Geneva, Switzerland</p>
+                                <p className="text-white text-base font-serif italic">Villars-sur-Ollon, Switzerland</p>
                             </div>
                         </div>
                     </ScrollReveal>

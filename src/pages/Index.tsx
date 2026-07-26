@@ -1,116 +1,18 @@
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { Play, Pause } from "lucide-react";
 import SEO from "@/components/SEO";
 import { Founder } from "@/components/Founder";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import NewsletterForm from "@/components/NewsletterForm";
-
-const scrollToId = (id: string) => {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
-};
-
-/* Journey 001 — facts sourced from the app (lib/genevaJourney.ts) */
-const chapters = [
-  { n: "01", title: "The Flower Clock", place: "Jardin Anglais" },
-  { n: "02", title: "Place du Molard", place: "The harbour that became a square" },
-  { n: "03", title: "Place du Bourg-de-Four", place: "Geneva's oldest square" },
-  { n: "04", title: "Cathédrale Saint-Pierre", place: "Two thousand years underfoot" },
-  { n: "05", title: "Maison Tavel", place: "The oldest house in the city" },
-  { n: "06", title: "La Treille", place: "The world's longest wooden bench" },
-  { n: "07", title: "The Reformation Wall", place: "Parc des Bastions" },
-];
-
-/* Minimal audio player for the narration preview */
-const AudioPreview = () => {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [playing, setPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
-
-  const toggle = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    if (playing) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
-  };
-
-  const format = (s: number) => {
-    if (!isFinite(s)) return "0:00";
-    const m = Math.floor(s / 60);
-    const sec = Math.floor(s % 60);
-    return `${m}:${sec.toString().padStart(2, "0")}`;
-  };
-
-  const seek = (e: React.MouseEvent<HTMLDivElement>) => {
-    const audio = audioRef.current;
-    if (!audio || !duration) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    audio.currentTime = ((e.clientX - rect.left) / rect.width) * duration;
-  };
-
-  return (
-    <div className="border border-white/10 bg-white/[0.02] p-8 md:p-10">
-      <audio
-        ref={audioRef}
-        src="/audio/geneva-chapter-1-preview.mp3"
-        preload="metadata"
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={() => setPlaying(false)}
-        onTimeUpdate={(e) => setProgress(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
-      />
-      <div className="flex items-center gap-6">
-        <button
-          onClick={toggle}
-          aria-label={playing ? "Pause preview" : "Play preview"}
-          className="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 flex items-center justify-center flex-shrink-0 transition-all duration-500"
-        >
-          {playing
-            ? <Pause size={22} className="text-white" />
-            : <Play size={22} className="text-white ml-1" />}
-        </button>
-        <div className="flex-1 min-w-0">
-          <p className="text-[9px] uppercase tracking-[0.4em] text-glacier-500/60 mb-1">
-            Chapter 01 — Preview
-          </p>
-          <p className="font-serif text-xl md:text-2xl text-white/90 mb-4 truncate">
-            The Flower Clock
-          </p>
-          <div
-            className="h-px bg-white/10 relative cursor-pointer group py-2 -my-2 bg-clip-content"
-            onClick={seek}
-            role="slider"
-            aria-label="Seek preview audio"
-            aria-valuemin={0}
-            aria-valuemax={Math.floor(duration)}
-            aria-valuenow={Math.floor(progress)}
-          >
-            <div
-              className="absolute top-2 left-0 h-px bg-glacier-400 transition-[width] duration-200"
-              style={{ width: duration ? `${(progress / duration) * 100}%` : "0%" }}
-            />
-          </div>
-          <div className="flex justify-between mt-3 text-[10px] text-white/30 tracking-widest">
-            <span>{format(progress)}</span>
-            <span>{format(duration)}</span>
-          </div>
-        </div>
-      </div>
-      <p className="text-white/30 text-xs font-light leading-relaxed mt-8 max-w-md">
-        Recorded narration from the journey — this chapter plays as you stand
-        at the Horloge Fleurie, looking out at the Jet d'Eau.
-      </p>
-    </div>
-  );
-};
+import TrustBar from "@/components/TrustBar";
+import GuestQuotes from "@/components/GuestQuotes";
+import RequestQuoteForm from "@/components/RequestQuoteForm";
+import PackagesPreview from "@/components/PackagesPreview";
+import { useAuth } from "@/hooks/use-auth";
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
@@ -141,12 +43,12 @@ const Index = () => {
     return { ref, visible };
   };
 
-  const s1 = useScrollReveal(); // Statement
-  const s2 = useScrollReveal(); // Journey 001
-  const s3 = useScrollReveal(); // Chapters
-  const s4 = useScrollReveal(); // How it works
-  const s5 = useScrollReveal(); // Preview
-  const s6 = useScrollReveal(); // Waitlist
+  const s1 = useScrollReveal(); // Sanctuary full-bleed
+  const s2 = useScrollReveal(); // Statement
+  const s3 = useScrollReveal(); // Packages preview
+  const s4 = useScrollReveal(); // Guest quotes
+  const s5 = useScrollReveal(); // Journal
+  const s6 = useScrollReveal(); // For Those Who
   const s7 = useScrollReveal(); // Final CTA
 
   const structuredData = [
@@ -156,7 +58,7 @@ const Index = () => {
       "name": "Swissperiences",
       "url": "https://www.swissperiences.ch",
       "logo": "https://www.swissperiences.ch/favicon-512x512.png",
-      "description": "Cinematic audio journeys through Switzerland — GPS-guided walks that tell each city's story in the exact place it happened.",
+      "description": "A private network of curated alpine sanctuaries for those seeking silence in a noisy world.",
       "founder": {
         "@type": "Person",
         "name": "Cauêh Vidal",
@@ -165,12 +67,13 @@ const Index = () => {
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "CH",
-        "addressLocality": "Geneva",
+        "addressLocality": "Villars-sur-Ollon",
+        "addressRegion": "Vaud",
       },
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "hello@swissperiences.ch",
-        "contactType": "customer support",
+        "contactType": "reservations",
         "availableLanguage": ["English", "Portuguese", "French"],
       },
       "sameAs": [
@@ -186,23 +89,28 @@ const Index = () => {
     },
     {
       "@context": "https://schema.org",
-      "@type": "MobileApplication",
+      "@type": "TravelAgency",
       "name": "Swissperiences",
-      "operatingSystem": "iOS",
-      "applicationCategory": "TravelApplication",
-      "description": "GPS-guided cinematic audio journeys through Switzerland. First journey: Stones & Water — Geneva Old Town, seven chapters from the Flower Clock to the Reformation Wall.",
+      "url": "https://www.swissperiences.ch",
+      "priceRange": "Contact for pricing",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Villars-sur-Ollon",
+        "addressRegion": "Vaud",
+        "addressCountry": "CH",
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 46.3000,
+        "longitude": 7.0556,
+      },
+      "areaServed": "Switzerland",
     },
   ];
 
   return (
     <div className="min-h-screen bg-[#060606] text-white">
-      <SEO
-        title="Swissperiences | Cinematic Audio Journeys Through Switzerland"
-        description="GPS-guided audio walks that tell Switzerland's story where it happened. Journey 001: Stones & Water — Geneva Old Town. Seven chapters, 1.9 km, one hour."
-        keywords="audio guide Switzerland, Geneva walking tour, audio journey, GPS audio walk, Geneva old town, self-guided tour Switzerland"
-        canonical="https://www.swissperiences.ch/en"
-        structuredData={structuredData}
-      />
+      <SEO canonical="https://www.swissperiences.ch/en" structuredData={structuredData} />
 
       {/* ════════════════════════════════════════
           1. HERO — Full-screen video, editorial type
@@ -232,37 +140,50 @@ const Index = () => {
           <div
             className={`max-w-5xl transition-all duration-[2500ms] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
           >
-            <span className="text-[10px] uppercase tracking-[0.4em] text-white/40 block mb-8">
-              Cinematic audio journeys — Switzerland
-            </span>
             <h1 className="font-serif text-[clamp(3rem,8vw,9rem)] leading-[0.85] tracking-tight">
-              <span className="block text-white">Walk into</span>
-              <span className="block text-white">the story.</span>
-              <span className="block mt-2 text-white/40 italic text-[clamp(2rem,4.5vw,5rem)]">Told where it happened.</span>
+              <span className="block text-white">The art of</span>
+              <span className="block text-white">doing nothing,</span>
+              <span className="block mt-2 text-white/40 italic text-[clamp(2.5rem,6vw,7rem)]">beautifully.</span>
             </h1>
           </div>
 
           <div
             className={`mt-12 flex flex-wrap items-center gap-4 md:gap-8 transition-all duration-[2500ms] delay-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           >
-            <button
-              onClick={() => scrollToId("journey")}
-              className="group px-10 py-4 bg-white text-black hover:bg-white/90 transition-all duration-500"
-            >
-              <span className="text-[10px] uppercase tracking-[0.3em] font-medium">
-                Journey 001 — Geneva
-              </span>
-            </button>
-            <button
-              onClick={() => scrollToId("preview")}
-              className="group px-8 py-4 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
-            >
-              <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
-                Listen to a Preview
-              </span>
-            </button>
+            {isLoggedIn ? (
+              <button
+                onClick={() => navigate('/members')}
+                className="group px-10 py-4 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
+              >
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
+                  Enter Member Area
+                </span>
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("packages");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="group px-10 py-4 bg-white text-black hover:bg-white/90 transition-all duration-500"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.3em] font-medium">
+                    Explore Packages
+                  </span>
+                </button>
+                <button
+                  onClick={() => navigate('/login')}
+                  className="group px-8 py-4 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
+                    Sign In
+                  </span>
+                </button>
+              </>
+            )}
             <span className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-white/40">
-              GPS-guided walks — one story at a time
+              Private alpine club — Villars-sur-Ollon, 1,300m
             </span>
           </div>
         </div>
@@ -276,33 +197,23 @@ const Index = () => {
       </section>
 
       {/* ════════════════════════════════════════
-          2. STATEMENT
+          2. TRUST BAR
+      ════════════════════════════════════════ */}
+      <TrustBar />
+
+      {/* ════════════════════════════════════════
+          3. FULL-BLEED IMAGE — The Sanctuary
       ════════════════════════════════════════ */}
       <section
         ref={s1.ref}
-        className={`py-20 md:py-32 px-8 md:px-16 bg-[#060606] transition-all duration-[1500ms] ease-out ${s1.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      >
-        <div className="max-w-5xl mx-auto">
-          <p className="font-serif text-3xl md:text-5xl lg:text-6xl text-white/80 leading-[1.1] tracking-tight">
-            We don't do guided tours.
-            <span className="text-white/40 italic"> We tell the city's story — in the exact place it happened.</span>
-          </p>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════
-          3. JOURNEY 001 — Stones & Water
-      ════════════════════════════════════════ */}
-      <section
-        id="journey"
-        ref={s2.ref}
-        className={`relative transition-all duration-[1500ms] ease-out ${s2.visible ? 'opacity-100' : 'opacity-0'}`}
+        className={`relative transition-all duration-[1500ms] ease-out ${s1.visible ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="relative h-[70vh] md:h-screen overflow-hidden">
           <img
-            src="/images/drone/geneva-jet-deau-aerial.jpg"
+            src="/images/_preview/sea-of-clouds-hero.jpeg"
+            srcSet="/images/_preview/sea-of-clouds-hero.jpeg 800w, /images/villars/sea-of-clouds-hero.jpeg 5504w"
             sizes="100vw"
-            alt="Aerial view of the Jet d'Eau and Lake Geneva"
+            alt="Sea of clouds at sunset from Villars — Dents du Midi at 1,300m"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/30" />
@@ -312,32 +223,35 @@ const Index = () => {
           <div className="absolute inset-0 flex items-end md:items-center px-8 md:px-16 lg:px-24 pb-16 md:pb-0">
             <div className="max-w-lg">
               <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-6">
-                Journey 001 — Geneva Old Town
+                The Sanctuary
               </span>
               <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-[0.9] mb-6">
-                Stones &<br />Water.
+                Above the<br />clouds.
               </h2>
               <p className="text-white/50 text-base md:text-lg font-light leading-relaxed mb-4 max-w-sm">
-                From the Flower Clock to the Reformation Wall — seven chapters
-                through the old town. A harbour that became a square, a cathedral
-                hiding two thousand years underfoot, and the gentlest law in Europe.
+                A private alpine loft at 1,300m. Fireplace. Balcony over the valley. Silence as a feature.
               </p>
-              <p className="text-white/40 text-xs mb-8 tracking-wide">
-                7 chapters · 1.9 km · ~60 min · Starts at the Jardin Anglais
+              <p className="text-white/40 text-xs mb-8">
+                Members-only pricing · By invitation
               </p>
               <div className="flex items-center gap-6">
-                <button
-                  onClick={() => scrollToId("preview")}
+                <Link
+                  to="/sanctuaries/villars"
                   className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
                 >
-                  Listen to a Preview
-                </button>
-                <button
-                  onClick={() => scrollToId("waitlist")}
-                  className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
-                >
-                  Join the Waitlist
-                </button>
+                  Discover
+                </Link>
+                {!isLoggedIn && (
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById("request-quote");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
+                  >
+                    Request a Quote
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -345,109 +259,147 @@ const Index = () => {
       </section>
 
       {/* ════════════════════════════════════════
-          4. CHAPTERS
+          4. STATEMENT
       ════════════════════════════════════════ */}
       <section
-        ref={s3.ref}
-        className={`py-24 md:py-32 px-8 md:px-16 lg:px-24 bg-[#060606] transition-all duration-[1500ms] ease-out ${s3.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        ref={s2.ref}
+        className={`py-20 md:py-32 px-8 md:px-16 bg-[#060606] transition-all duration-[1500ms] ease-out ${s2.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       >
-        <div className="max-w-4xl mx-auto">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-12">
-            The Route
-          </span>
-          <div className="divide-y divide-white/5 border-y border-white/5">
-            {chapters.map((c) => (
-              <div key={c.n} className="flex items-baseline gap-6 md:gap-10 py-5 group">
-                <span className="text-[10px] tracking-[0.3em] text-glacier-500/60 font-medium w-8 flex-shrink-0">
-                  {c.n}
-                </span>
-                <span className="font-serif text-xl md:text-2xl text-white/80 group-hover:text-white transition-colors">
-                  {c.title}
-                </span>
-                <span className="hidden md:block ml-auto text-xs text-white/30 font-light text-right">
-                  {c.place}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="text-white/30 text-xs font-light mt-8">
-            Each chapter begins on its own — triggered by where you stand.
+        <div className="max-w-5xl mx-auto">
+          <p className="font-serif text-3xl md:text-5xl lg:text-6xl text-white/80 leading-[1.1] tracking-tight">
+            We don't sell experiences.
+            <span className="text-white/40 italic"> We curate the art of doing nothing.</span>
           </p>
         </div>
       </section>
 
       {/* ════════════════════════════════════════
-          5. HOW IT WORKS
+          5. PACKAGES PREVIEW
+      ════════════════════════════════════════ */}
+      <PackagesPreview visible={s3.visible} sectionRef={s3.ref} />
+
+      {/* ════════════════════════════════════════
+          5b. INSIDER GUIDE CTA
+      ════════════════════════════════════════ */}
+      <section className="py-24 md:py-32 px-8 md:px-16 lg:px-24 bg-black border-t border-white/5">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
+          <div className="flex-1">
+            <p className="text-[10px] tracking-[0.3em] uppercase text-glacier-500/60 mb-4">Free guide</p>
+            <h3 className="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-4">
+              The Swiss<br />Insider Guide
+            </h3>
+            <p className="text-sm text-white/40 font-light leading-relaxed mb-6 max-w-sm">
+              8 places that don't show up on Google. Insider tips you'd only get from a local friend.
+            </p>
+            <Link
+              to="/insider-guide"
+              className="inline-flex items-center gap-2 text-sm text-glacier-400 hover:text-glacier-300 transition-colors font-medium"
+            >
+              Get the free guide
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </Link>
+          </div>
+          <Link to="/insider-guide" className="w-48 md:w-56 flex-shrink-0 group">
+            <div className="aspect-[3/4] rounded-lg overflow-hidden border border-white/10 group-hover:border-glacier-500/30 transition-colors">
+              <img
+                src="/images/lake-geneva/lavaux-vineyards-sunset.jpeg"
+                alt="Swiss Insider Guide"
+                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                loading="lazy"
+              />
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          6. GUEST QUOTES
+      ════════════════════════════════════════ */}
+      <GuestQuotes visible={s4.visible} sectionRef={s4.ref} />
+
+      {/* ════════════════════════════════════════
+          7. REQUEST A QUOTE
+      ════════════════════════════════════════ */}
+      <RequestQuoteForm />
+
+      {/* ════════════════════════════════════════
+          8. JOURNAL — Editorial story feature
       ════════════════════════════════════════ */}
       <section
-        ref={s4.ref}
-        className={`py-24 md:py-40 px-8 md:px-16 lg:px-24 bg-black border-y border-white/5 transition-all duration-[1500ms] ease-out ${s4.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        ref={s5.ref}
+        className={`py-24 md:py-40 px-8 md:px-16 lg:px-24 bg-[#060606] transition-all duration-[1500ms] ease-out ${s5.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       >
-        <div className="max-w-6xl mx-auto">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-16">
-            How It Works
-          </span>
-          <div className="grid md:grid-cols-3 gap-12 md:gap-16">
-            <div>
-              <p className="text-[10px] tracking-[0.3em] text-glacier-500/60 mb-6">01</p>
-              <h3 className="font-serif text-2xl md:text-3xl text-white/90 mb-4">Choose a journey</h3>
-              <p className="text-sm text-white/40 font-light leading-relaxed">
-                Download it once. Everything works offline from there — no roaming,
-                no signal anxiety.
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-8 md:gap-16 items-center">
+
+            <Link to="/journals/the-winter-ascent" className="md:col-span-6 group block">
+              <div className="aspect-[3/4] relative overflow-hidden">
+                <img
+                  src="/images/guests/wagner/1.jpeg"
+                  alt="Wagner, Andreia & Helena"
+                  className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-[1200ms]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              </div>
+            </Link>
+
+            <div className="md:col-span-5 md:col-start-8">
+              <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-8">
+                From the Journals
+              </span>
+
+              <h2 className="font-serif text-4xl md:text-5xl text-white/80 mb-6 leading-[0.95]">
+                The Winter<br />Ascent
+              </h2>
+
+              <p className="text-white/50 text-base leading-relaxed mb-4">
+                Wagner, Andreia & Helena. A 48-hour condensed Grand Tour — from Geneva to the Bernese Oberland.
               </p>
-            </div>
-            <div>
-              <p className="text-[10px] tracking-[0.3em] text-glacier-500/60 mb-6">02</p>
-              <h3 className="font-serif text-2xl md:text-3xl text-white/90 mb-4">Walk at your own pace</h3>
-              <p className="text-sm text-white/40 font-light leading-relaxed">
-                No group, no schedule. Your position unlocks the next chapter as
-                you reach each place — phone in your pocket, screen off.
+
+              <p className="text-white/40 text-sm leading-relaxed mb-10">
+                Lavaux. Grindelwald at dusk. Lauterbrunnen's waterfalls. Every detail curated.
               </p>
+
+              <Link
+                to="/journals/the-winter-ascent"
+                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
+              >
+                Read the Story
+              </Link>
+
+              <div className="mt-16 pt-8 border-t border-white/5">
+                <Link
+                  to="/journals"
+                  className="text-[10px] uppercase tracking-[0.3em] text-white/40 hover:text-glacier-300 transition-colors"
+                >
+                  All Journals →
+                </Link>
+              </div>
             </div>
-            <div>
-              <p className="text-[10px] tracking-[0.3em] text-glacier-500/60 mb-6">03</p>
-              <h3 className="font-serif text-2xl md:text-3xl text-white/90 mb-4">Listen where it happened</h3>
-              <p className="text-sm text-white/40 font-light leading-relaxed">
-                The story of each place, told while you stand in it. Cinematic
-                narration, researched and produced in Switzerland.
-              </p>
-            </div>
+
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════
-          6. AUDIO PREVIEW
+          9. THE HOST — Founder
       ════════════════════════════════════════ */}
-      <section
-        id="preview"
-        ref={s5.ref}
-        className={`py-24 md:py-40 px-8 md:px-16 lg:px-24 bg-[#060606] transition-all duration-[1500ms] ease-out ${s5.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      >
-        <div className="max-w-3xl mx-auto">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-6">
-            Hear It
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-white/90 mb-12 leading-[0.95]">
-            One minute of Geneva.
-          </h2>
-          <AudioPreview />
-        </div>
-      </section>
+      <Founder />
 
       {/* ════════════════════════════════════════
-          7. WAITLIST — App status
+          10. FOR THOSE WHO — Manifesto
       ════════════════════════════════════════ */}
       <section
-        id="waitlist"
         ref={s6.ref}
         className={`relative py-32 md:py-48 overflow-hidden transition-all duration-[1500ms] ease-out ${s6.visible ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="absolute inset-0">
           <img
-            src="/images/geneva-jet.jpg"
+            src="/images/_preview/manifesto-village-aerial.jpeg"
+            srcSet="/images/_preview/manifesto-village-aerial.jpeg 800w, /images/villars/manifesto-village-aerial.jpeg 3072w"
             sizes="100vw"
-            alt="Jet d'Eau, Geneva"
+            alt="Sunrise over the Alps"
             className="w-full h-full object-cover opacity-30"
             loading="lazy"
           />
@@ -456,36 +408,41 @@ const Index = () => {
 
         <div className="relative z-10 px-8 md:px-16 lg:px-24 max-w-4xl">
           <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-10">
-            Coming to the App Store
+            For Those Who
           </span>
 
           <div className="space-y-6">
             <p className="font-serif text-3xl md:text-5xl text-white/70 leading-[1.1]">
-              Journey 001 is in final testing.
+              Built empires but forgot how to rest.
             </p>
             <p className="font-serif text-3xl md:text-5xl text-white/40 leading-[1.1]">
-              Geneva first. More cities follow.
+              Travel alone but never feel lonely.
+            </p>
+            <p className="font-serif text-3xl md:text-5xl text-white/20 leading-[1.1]">
+              Seek permission to do nothing.
             </p>
           </div>
 
           <div className="mt-16 pt-8 border-t border-white/10 max-w-md">
             <p className="text-white/40 text-sm leading-relaxed mb-6">
-              Join the list to be first through the door when it launches —
-              quiet updates only, no spam. Partner voucher codes will redeem
-              directly in the app.
+              {isLoggedIn
+                ? "You're already part of this world. Your next escape is one message away."
+                : "Membership is by application only. We review each request to ensure alignment with our community."}
             </p>
-            <NewsletterForm />
+            {!isLoggedIn && (
+              <Link
+                to="/request-access"
+                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
+              >
+                Apply for Membership
+              </Link>
+            )}
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════
-          8. THE MAKER — Founder
-      ════════════════════════════════════════ */}
-      <Founder />
-
-      {/* ════════════════════════════════════════
-          9. FINAL CTA
+          11. FINAL CTA
       ════════════════════════════════════════ */}
       <section
         ref={s7.ref}
@@ -493,30 +450,48 @@ const Index = () => {
       >
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-serif text-5xl md:text-7xl text-white/90 mb-8 leading-[0.9]">
-            The story is waiting.
+            {isLoggedIn ? "Your next escape." : "The silence is waiting."}
           </h2>
 
           <p className="text-white/40 text-lg mb-16 font-light">
-            Seven chapters through Geneva's old town — and that's just the first walk.
+            {isLoggedIn
+              ? "Browse sanctuaries, plan experiences, and let us handle the rest."
+              : "Start with a question. We'll handle everything else."}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-            <button
-              onClick={() => scrollToId("waitlist")}
-              className="group px-16 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
-            >
-              <span className="text-[11px] uppercase tracking-[0.3em] font-medium">
-                Join the Waitlist
-              </span>
-            </button>
-            <button
-              onClick={() => scrollToId("preview")}
-              className="group px-10 py-5 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
-            >
-              <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
-                Listen to a Preview
-              </span>
-            </button>
+            {isLoggedIn ? (
+              <button
+                onClick={() => navigate('/members')}
+                className="group px-16 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
+              >
+                <span className="text-[11px] uppercase tracking-[0.3em] font-medium">
+                  Member Area
+                </span>
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("request-quote");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="group px-12 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
+                >
+                  <span className="text-[11px] uppercase tracking-[0.3em] font-medium">
+                    Start with a Question
+                  </span>
+                </button>
+                <button
+                  onClick={() => navigate('/request-access')}
+                  className="group px-10 py-5 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
+                >
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
+                    Apply for Membership
+                  </span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </section>
