@@ -16,6 +16,32 @@ function getCorsHeaders(req: Request) {
 
 const esc = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+type NotificationType = 'applicant_ack' | 'admin_alert'
+
+function json(body: unknown, status: number, headers: Record<string, string>) {
+    return new Response(JSON.stringify(body), {
+        status,
+        headers: { ...headers, 'Content-Type': 'application/json' },
+    })
+}
+
+/** Compares in time independent of where the first difference falls, so the
+ *  response latency cannot be used to recover the secret byte by byte. */
+function timingSafeEqual(a: string, b: string): boolean {
+    const enc = new TextEncoder()
+    const x = enc.encode(a)
+    const y = enc.encode(b)
+    // Length alone is not secret; comparing anyway keeps the loop constant.
+    let diff = x.length ^ y.length
+    const len = Math.max(x.length, y.length)
+    for (let i = 0; i < len; i++) {
+        diff |= (x[i] ?? 0) ^ (y[i] ?? 0)
+    }
+    return diff === 0
+}
+
 
 serve(async (req) => {
     const corsHeaders = getCorsHeaders(req)
@@ -24,32 +50,107 @@ serve(async (req) => {
         return new Response('ok', { headers: corsHeaders })
     }
 
-    // JWT verification is enforced by the Supabase Edge Functions gateway
-    // (verify_jwt = true is the default — the DB trigger passes a valid anon JWT).
-    // The previous in-function verifyJWT() check was broken: it required
-    // SUPABASE_JWT_SECRET which isn't auto-populated on Edge Functions, so
-    // every trigger invocation returned 401 and admin notifications were
-    // silently dropped for weeks. Removed.
+    if (req.method !== 'POST') {
+        return json({ error: 'Method not allowed' }, 405, corsHeaders)
+    }
+
+    // The gateway (verify_jwt = true) only proves the caller holds *some* valid
+    // key, and the anon key is public. The shared secret is what proves the
+    // database trigger is the caller. Checked before the body is read and long
+    // before Resend is touched, so an unauthorized caller can neither send mail
+    // nor learn whether an application id exists.
+    const expectedSecret = Deno.env.get('NOTIFY_TRIGGER_SECRET')
+    if (!expectedSecret) {
+        console.error('[NOTIFY] NOTIFY_TRIGGER_SECRET is not configured')
+        return json({ error: 'Server configuration error' }, 503, corsHeaders)
+    }
+    if (!timingSafeEqual(req.headers.get('x-notify-secret') ?? '', expectedSecret)) {
+        console.warn('[NOTIFY] Rejected call with missing or invalid x-notify-secret')
+        return json({ error: 'Unauthorized' }, 401, corsHeaders)
+    }
 
     try {
-        const { record } = await req.json()
-        const { full_name, email, city, country, reason, referral_source, referral_detail } = record
-
-        console.log(`[NOTIFY] Processing application for: ${email}`)
-
         const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
-        if (!RESEND_API_KEY) throw new Error('RESEND_API_KEY not set')
+        if (!RESEND_API_KEY) {
+            console.error('[NOTIFY] RESEND_API_KEY is not configured')
+            return json({ error: 'Server configuration error' }, 503, corsHeaders)
+        }
 
-        // Fetch admin recipients from DB (single source of truth)
+        // The request carries an identifier and nothing else.
+        const body = await req.json().catch(() => null)
+        const applicationId = body?.application_id
+        if (typeof applicationId !== 'string' || !UUID_RE.test(applicationId)) {
+            return json({ error: 'application_id must be a UUID' }, 400, corsHeaders)
+        }
+
         const supabase = createClient(
             Deno.env.get('SUPABASE_URL')!,
             Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
         )
+
+        // Every value the emails contain is read back from the database, so the
+        // caller cannot choose the recipient or rewrite the content.
+        const { data: record, error: fetchError } = await supabase
+            .from('membership_applications')
+            .select('id, full_name, email, city, country, reason, referral_source, referral_detail')
+            .eq('id', applicationId)
+            .maybeSingle()
+
+        if (fetchError) {
+            console.error('[NOTIFY] Could not read application:', fetchError)
+            return json({ error: 'Could not read the application' }, 503, corsHeaders)
+        }
+        if (!record) {
+            return json({ error: 'Application not found' }, 404, corsHeaders)
+        }
+
+        const { full_name, email, city, country, reason, referral_source, referral_detail } = record
+
+        console.log(`[NOTIFY] Processing application ${applicationId}`)
+
+        // Fetch admin recipients from DB (single source of truth)
         const { data: adminRows } = await supabase.from('admin_emails').select('email')
         const adminEmails = adminRows?.map((r: { email: string }) => r.email) ?? ['hello@swissperiences.ch']
 
+        // Claim each notification before sending. The unique index on
+        // (application_id, notification_type) makes a replayed trigger a no-op
+        // instead of a second email. A claim that fails to send is released so
+        // the notification can still be retried.
+        const claim = async (type: NotificationType) => {
+            const { error } = await supabase
+                .from('notification_log')
+                .insert({ application_id: applicationId, notification_type: type })
+            if (error) {
+                console.log(`[NOTIFY] ${type} already recorded for ${applicationId} — skipping`)
+                return false
+            }
+            return true
+        }
+        const release = async (type: NotificationType) => {
+            await supabase.from('notification_log')
+                .delete()
+                .eq('application_id', applicationId)
+                .eq('notification_type', type)
+        }
+        const confirm = async (type: NotificationType, messageId: string | null) => {
+            await supabase.from('notification_log')
+                .update({ provider_message_id: messageId })
+                .eq('application_id', applicationId)
+                .eq('notification_type', type)
+        }
+
+        const sendApplicantAck = await claim('applicant_ack')
+        const sendAdminAlert = await claim('admin_alert')
+        if (!sendApplicantAck && !sendAdminAlert) {
+            return json({ success: true, skipped: 'already notified' }, 200, corsHeaders)
+        }
+
+        let applicantOk = !sendApplicantAck
+        let adminOk = !sendAdminAlert
+
         // 1. Send "Thank You" email to the applicant
-        console.log(`[NOTIFY] Sending Thank You email to: ${email}`)
+        if (sendApplicantAck) {
+        console.log(`[NOTIFY] Sending Thank You email for application ${applicationId}`)
         const userEmailResponse = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
@@ -108,11 +209,20 @@ serve(async (req) => {
             }),
         })
         const userData = await userEmailResponse.json()
-        console.log(`[NOTIFY] Thank You email status: ${userEmailResponse.status}`, userData)
+        console.log(`[NOTIFY] Thank You email status: ${userEmailResponse.status}`)
+        applicantOk = userEmailResponse.ok
+        if (applicantOk) {
+            await confirm('applicant_ack', userData?.id ?? null)
+        } else {
+            console.error(`[NOTIFY][ALERT] Thank You email failed: HTTP ${userEmailResponse.status}`)
+            await release('applicant_ack')
+        }
+        }
 
         // 2. Send "New Lead" notification to Admin (delay to avoid Resend 2 req/sec rate limit)
-        await new Promise((r) => setTimeout(r, 1100))
-        console.log(`[NOTIFY] Sending Admin notification for: ${full_name}`)
+        if (sendAdminAlert) {
+        if (sendApplicantAck) await new Promise((r) => setTimeout(r, 1100))
+        console.log(`[NOTIFY] Sending Admin notification for application ${applicationId}`)
         const adminEmailResponse = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
@@ -141,17 +251,25 @@ serve(async (req) => {
             }),
         })
         const adminData = await adminEmailResponse.json()
-        console.log(`[NOTIFY] Admin notification status: ${adminEmailResponse.status}`, adminData)
+        console.log(`[NOTIFY] Admin notification status: ${adminEmailResponse.status}`)
+        adminOk = adminEmailResponse.ok
+        if (adminOk) {
+            await confirm('admin_alert', adminData?.id ?? null)
+        } else {
+            console.error(`[NOTIFY][ALERT] Admin notification failed: HTTP ${adminEmailResponse.status}`)
+            await release('admin_alert')
+        }
+        }
 
-        return new Response(JSON.stringify({ success: true }), {
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-            status: 200,
-        })
+        // A partial failure must not read as success — the released claim means
+        // the trigger (or a manual replay) can retry just the missing email.
+        if (!applicantOk || !adminOk) {
+            return json({ error: 'Notification partially failed', applicantOk, adminOk }, 503, corsHeaders)
+        }
+
+        return json({ success: true, applicantOk, adminOk }, 200, corsHeaders)
     } catch (error) {
         console.error('[NOTIFY] Unexpected error:', error)
-        return new Response(JSON.stringify({ error: 'Internal server error' }), {
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-            status: 500,
-        })
+        return json({ error: 'Internal server error' }, 500, corsHeaders)
     }
 })
