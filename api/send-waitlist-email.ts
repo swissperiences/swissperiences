@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { checkRateLimit } from './lib/rate-limit.js';
+import { getSupabaseSecretKey } from './lib/supabase-key.js';
 
 // Built lazily. At module scope, createClient throws "supabaseKey is required"
 // when the env var is missing, which crashes the whole module and surfaces as
@@ -9,11 +10,11 @@ import { checkRateLimit } from './lib/rate-limit.js';
 let supabaseClient: ReturnType<typeof createClient> | null = null;
 const getSupabase = () => (supabaseClient ??= createClient(
     process.env.VITE_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    getSupabaseSecretKey()!
 ));
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    if (!process.env.RESEND_API_KEY || !process.env.SUPABASE_SERVICE_ROLE_KEY || !process.env.VITE_SUPABASE_URL) {
+    if (!process.env.RESEND_API_KEY || !getSupabaseSecretKey() || !process.env.VITE_SUPABASE_URL) {
         console.error('[API] Server configuration error: missing Resend or Supabase environment variables');
         return res.status(500).json({
             error: 'Server configuration error'

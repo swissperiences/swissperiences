@@ -5,13 +5,14 @@ import * as dotenv from 'dotenv';
 // Load environment variables from .env file (for local development)
 dotenv.config();
 import { checkRateLimit } from './lib/rate-limit.js';
+import { getSupabaseSecretKey } from './lib/supabase-key.js';
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     // createClient below throws "supabaseKey is required" when the key is
     // missing, which would surface as an opaque FUNCTION_INVOCATION_FAILED.
-    if (!process.env.RESEND_API_KEY || !process.env.SUPABASE_SERVICE_ROLE_KEY || !process.env.VITE_SUPABASE_URL) {
+    if (!process.env.RESEND_API_KEY || !getSupabaseSecretKey() || !process.env.VITE_SUPABASE_URL) {
         console.error('[CORPORATE API] Server configuration error: missing Resend or Supabase environment variables');
         return res.status(500).json({
             error: 'Server configuration error'
@@ -59,7 +60,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const supabase = createClient(
         process.env.VITE_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!
+        getSupabaseSecretKey()!
     );
 
     try {

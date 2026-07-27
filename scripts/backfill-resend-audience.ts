@@ -19,12 +19,12 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_KEY = process.env.SUPABASE_SECRET_KEY_NEXT || process.env.SUPABASE_SERVICE_ROLE_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID;
 
 if (!SUPABASE_URL || !SUPABASE_KEY || !RESEND_API_KEY || !AUDIENCE_ID) {
-  console.error('Missing env vars. Need: VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, RESEND_AUDIENCE_ID');
+  console.error('Missing env vars. Need: VITE_SUPABASE_URL, SUPABASE_SECRET_KEY_NEXT, RESEND_API_KEY, RESEND_AUDIENCE_ID');
   process.exit(1);
 }
 

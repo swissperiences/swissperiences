@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 import { checkRateLimit } from './lib/rate-limit.js';
+import { getSupabaseSecretKey } from './lib/supabase-key.js';
 
 export const config = {
     runtime: 'edge', // Using Edge Runtime for better performance/standard API compatibility
@@ -54,7 +55,7 @@ export default async function handler(request: Request) {
             });
         }
 
-        if (!process.env.VITE_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        if (!process.env.VITE_SUPABASE_URL || !getSupabaseSecretKey()) {
             console.error('CRITICAL: Supabase credentials missing from environment variables.');
             return new Response(JSON.stringify({ error: 'Server configuration error: Supabase credentials missing' }), {
                 status: 500,
@@ -69,7 +70,7 @@ export default async function handler(request: Request) {
 
         const supabase = createClient(
             process.env.VITE_SUPABASE_URL,
-            process.env.SUPABASE_SERVICE_ROLE_KEY
+            getSupabaseSecretKey()!
         );
 
         const body = await request.json();

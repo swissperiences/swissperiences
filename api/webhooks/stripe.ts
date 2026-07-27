@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { getSupabaseSecretKey } from '../lib/supabase-key.js';
 
 // Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -11,7 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 // Initialize Supabase (Admin client)
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    getSupabaseSecretKey()!
 );
 
 // Disable body parsing for this route (handled by Vercel/Next.js config usually, 
