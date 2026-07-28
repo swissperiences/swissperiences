@@ -54,16 +54,55 @@ measurement, not by eye.
 | 23 | Member tier surfacing | a second tier that means something |
 | 24 | Behavioural aesthetic profile | enough booking history to infer from |
 
-## Blocked — needs a decision, not engineering
+## Decisions taken — 2026-07-28
 
-1. **The umbrella headline.** Blocks P0 #2 and the whole flatplan. "The art of
-   doing nothing, beautifully" is a Sanctuary line, not a parent-brand line.
-2. **Is Audio Journeys advertisable?** Decides whether the homepage has 8 or 9
-   sections.
-3. **Is there a second sanctuary?** "Alpine Sanctuaries" is plural with one
-   location behind it.
-4. **`/enhance`: public or inside My Journey?** Do not maintain both.
-5. **`/members/links`** — purpose unknown; audit before keeping.
+All five blockers are resolved. Nothing in P0/P1 is waiting on a decision.
+
+1. **Umbrella headline** — "Switzerland, made personal.", kicker "PRIVATE SWISS
+   JOURNEYS", primary CTA "EXPLORE SWISSPERIENCES". Villars leaves the hero.
+2. **Audio Journeys** — not advertised until a person can discover, buy or
+   redeem, start, listen and finish. The homepage ships with **eight** sections.
+3. **"Sanctuaries" → singular**, pillar labelled **STAY**. Plural returns when a
+   second sanctuary is contractually real.
+4. **`/enhance`** — hybrid: conceptually inside My Journey, technically public by
+   link, absent from public navigation. The link must move to
+   `/enhance/<opaque-token>`; today it carries name, **email**, check-in and
+   check-out in the query string.
+5. **`/members/links` → `/admin/guest-links`** ("Guest Link Generator"), with a
+   temporary redirect. It is an admin tool, already `requireAdmin`-guarded.
+
+### New P0 — privacy
+
+| # | Item | Size |
+|---|---|---|
+| 0 | Replace `/enhance?guest=&email=&checkin=&checkout=` with `/enhance/<opaque-token>` | **M** |
+
+Personal data in a URL survives in browser history, forwarded messages,
+screenshots and access logs. `Referrer-Policy: strict-origin-when-cross-origin`
+already prevents leakage to third-party origins, so this is contained — but the
+link itself still travels. Independent of the dashboard work.
+
+## Sprint 1 — edit what exists, do not redesign
+
+Agreed order. Nothing here requires the nine-section rebuild.
+
+| Order | Item | Backlog ref | Size |
+|---|---|---|---|
+| 1 | Swap the brand hero | P0 #2 | S |
+| 2 | Remove or archive the four expired packages | P0 #1 | S |
+| 3 | Eight packages → three signature journeys | P1 #6 | M |
+| 4 | Nine "Request a Quote" → two | P0 #3 | S |
+| 5 | Mobile typography and touch targets | P0 #5 + P1 #9 | S |
+| 6 | Compress images | P0 #4 | M |
+| 7 | Rename `/members/links` → `/admin/guest-links` | new | S |
+| 8 | *Then* build the eight-section homepage | — | L |
+
+Steps 1–7 are content, CSS and routing. They should measurably move the numbers
+in the verification table below before any structural work starts.
+
+The authenticated homepage already demonstrates the target discipline: fewer
+choices, more context, one obvious action. The anonymous V2 should inherit that
+discipline — not necessarily the same content.
 
 ## Missing assets
 

@@ -81,11 +81,58 @@ See below.
 
 ## What to remove or rename
 
-- **`/members/links`** — unclear purpose, audit before keeping.
-- **"Members" → "My Swissperiences"** across nav and titles. "Members area"
-  is a portal; "My Swissperiences" is a possession.
-- **`/enhance` is public but guest-specific.** Decide: keep public for pre-booking
-  upsell, or move inside My Journey. Do not maintain both.
+**"Members" → "My Swissperiences"** across nav and titles. "Members area" is a
+portal; "My Swissperiences" is a possession.
+
+### `/members/links` → `/admin/guest-links` — decided
+
+Not a member surface at all. The route is
+`<AuthGuard requireAdmin><LinkGenerator /></AuthGuard>` — an operations tool that
+produces a personalised `/enhance` link, a ready-to-send message for an Airbnb
+guest, and a Villars Loft reference.
+
+Move it to `/admin/guest-links`, display name **Guest Link Generator**, and keep
+a temporary redirect from `/members/links` so existing bookmarks survive. It
+belongs to host operations, not to My Swissperiences.
+
+### `/enhance` — hybrid, and it needs a token
+
+Conceptually it belongs inside My Journey. Technically it must stay reachable by
+public link, because Airbnb guests are not members. It must not appear in the
+public brand navigation.
+
+**The current link design leaks personal data.** `GuestEnhance` reads four
+parameters straight from the query string:
+
+```ts
+searchParams.get("guest")     // name
+searchParams.get("email")     // direct personal identifier
+searchParams.get("checkin")
+searchParams.get("checkout")
+```
+
+So a real link carries a guest's name, email address and stay dates in the URL.
+That URL lands in browser history, in forwarded WhatsApp messages, in
+screenshots, and in Vercel access logs.
+
+One mitigation already exists and should be stated accurately rather than
+overstated: `vercel.json` sets `Referrer-Policy: strict-origin-when-cross-origin`,
+so cross-origin requests send only the origin. The query string does **not** leak
+to Mapbox, Plausible or image hosts. The exposure is the link itself, wherever it
+travels.
+
+Target design:
+
+```
+/enhance/<opaque-token>
+```
+
+The token resolves to the guest record server-side. No name, no email, no dates
+in the URL. Tokens should expire — a stay-scoped lifetime is the obvious bound —
+and be revocable.
+
+This is a privacy fix, not a feature. It should be scheduled independently of the
+dashboard work.
 
 ## Travel Profile
 

@@ -82,6 +82,14 @@ long. Nothing else in the stack is heavy: scripts are 131 KB. Convert to
 AVIF/WebP with responsive `srcset` and lazy-load everything below the second
 viewport.
 
+**4b. Personal data in `/enhance` URLs.** `GuestEnhance` reads `guest`, `email`,
+`checkin` and `checkout` from the query string, so a guest link carries a name,
+an email address and stay dates in plain sight. It persists in browser history,
+forwarded messages, screenshots and access logs.
+`Referrer-Policy: strict-origin-when-cross-origin` in `vercel.json` does prevent
+the query reaching Mapbox, Plausible or image hosts, so this is contained — but
+the link itself travels. Move to `/enhance/<opaque-token>`.
+
 ### P1 — structural
 
 **5. The page is 17 viewports long.** Nobody reaches the final CTA. The packages

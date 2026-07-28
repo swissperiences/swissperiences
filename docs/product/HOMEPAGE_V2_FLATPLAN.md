@@ -31,10 +31,23 @@ Recommendation: keep it, demote it. It becomes the headline of the Villars
 flagship section and of the Alpine Sanctuaries campaign. The parent brand needs
 a line that can hold stillness *and* motion.
 
-The umbrella hero has to answer "what is Swissperiences?" in five seconds. Not a
-slogan — a category. Something with the shape of *"Switzerland, hosted."* or
-*"A private way to see Switzerland."* Naming is out of scope here; the
-requirement is that it survive all five lines.
+### Decided — the umbrella hero
+
+```
+kicker      PRIVATE SWISS JOURNEYS
+headline    Switzerland, made personal.
+subtext     Alpine sanctuaries, private journeys and stories shaped
+            around the way you travel.
+primary     EXPLORE SWISSPERIENCES
+secondary   REQUEST A PRIVATE JOURNEY   (discreet)
+```
+
+Villars leaves the main hero entirely. "The art of doing nothing, beautifully"
+survives inside the Villars Loft section or page.
+
+The headline works because it names a category rather than a mood: *made
+personal* survives a chalet, a road journey, an audio walk and a drone session,
+where *doing nothing* survives only the first.
 
 ## Critique of the candidate flatplan
 
@@ -112,10 +125,23 @@ CTA budget: **one primary per section, maximum four on the page.** Today: 25.
 
 Nothing is deleted. It moves off the main spine.
 
-## Open questions
+## Decisions taken — 2026-07-28
 
-1. What is the umbrella headline? Blocks section 1.
-2. Is Audio Journeys ready to be advertised? Decides whether section 8 ships.
-3. Is there a second sanctuary to photograph? "Alpine Sanctuaries" is plural
-   today with a single location behind it.
-4. Do the four guest quotes have faces and dates available?
+**1. Umbrella headline.** Decided; see the hero block above. Villars is out of
+the main hero.
+
+**2. Audio Journeys — not on the homepage yet.** The bar is a complete path a
+person can walk: discover → buy or redeem → start → listen → finish. Until all
+five exist, it lives in the roadmap and may appear in the Journal, but never as
+a commercial pillar. A product announced without delivery weakens the brand more
+than its absence does. Section 8 does not ship.
+
+**3. "Sanctuaries" goes singular.** One real property means the plural promises
+a collection the visitor cannot find. Use **STAY** as the pillar label and
+**SANCTUARY** where a place is meant. The plural returns when a second sanctuary
+is contractually real, not merely intended.
+
+**4. Guest quote assets** — still open; needs guest permission for faces and dates.
+
+With Audio Journeys deferred and the headline fixed, the shipping flatplan is
+**eight sections**, not nine. Target remains 8–9 viewports.
