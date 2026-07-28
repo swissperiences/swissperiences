@@ -19,6 +19,16 @@ const esc = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 type NotificationType = 'applicant_ack' | 'admin_alert'
+type Outcome = 'sent' | 'failed' | 'needs_review'
+
+// Must stay comfortably below the lease taken by claim_notification (120s), so
+// a request can never still be running once another run may claim the row.
+const SEND_TIMEOUT_MS = 30_000
+
+async function sha256(input: string): Promise<string> {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input))
+    return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, '0')).join('')
+}
 
 function json(body: unknown, status: number, headers: Record<string, string>) {
     return new Response(JSON.stringify(body), {
@@ -92,7 +102,7 @@ serve(async (req) => {
         // caller cannot choose the recipient or rewrite the content.
         const { data: record, error: fetchError } = await supabase
             .from('membership_applications')
-            .select('id, full_name, email, city, country, reason, referral_source, referral_detail')
+            .select('id, full_name, email, city, country, reason, referral_source, referral_detail, created_at')
             .eq('id', applicationId)
             .maybeSingle()
 
@@ -104,7 +114,7 @@ serve(async (req) => {
             return json({ error: 'Application not found' }, 404, corsHeaders)
         }
 
-        const { full_name, email, city, country, reason, referral_source, referral_detail } = record
+        const { full_name, email, city, country, reason, referral_source, referral_detail, created_at } = record
 
         console.log(`[NOTIFY] Processing application ${applicationId}`)
 
@@ -114,10 +124,10 @@ serve(async (req) => {
 
         // Claiming takes a lease, which is what makes it exclusive — atomicity
         // of the upsert alone guaranteed one row, not one claimant, and let two
-        // concurrent runs both send. Taking the claim returns a lease token. A
-        // NULL token means the
-        // notification is already sent, still leased by another run, or out of
-        // attempts — in every case this run must not send.
+        // concurrent runs both send. A NULL token means the notification is
+        // already sent, under review, still leased by another run, out of
+        // attempts, or past its idempotency window. In every case this run must
+        // not send.
         const claim = async (type: NotificationType): Promise<string | null> => {
             const { data, error } = await supabase.rpc('claim_notification', {
                 p_application_id: applicationId,
@@ -133,22 +143,26 @@ serve(async (req) => {
 
         // Resolution is refused unless this run still owns the lease, so a slow
         // run cannot report an outcome for work a newer run has taken over.
-        const resolve = async (type: NotificationType, token: string, sent: boolean, messageId: string | null, error: string | null) => {
+        const resolve = async (
+            type: NotificationType, token: string, outcome: Outcome,
+            messageId: string | null, error: string | null, payloadHash: string | null,
+        ) => {
             const { data, error: rpcError } = await supabase.rpc('resolve_notification', {
                 p_application_id: applicationId,
                 p_notification_type: type,
                 p_claim_token: token,
-                p_sent: sent,
+                p_outcome: outcome,
                 p_provider_message_id: messageId,
                 p_error: error,
+                p_payload_hash: payloadHash,
             })
             if (rpcError) {
                 // The provider may already have accepted the message. The row
                 // stays 'pending' and a retry inside Resend's 24h idempotency
                 // window is deduplicated rather than duplicated.
-                console.error(`[NOTIFY][ALERT] Could not record ${type} outcome (sent=${sent}):`, rpcError)
+                console.error(`[NOTIFY][ALERT] Could not record ${type} outcome (${outcome}):`, rpcError)
             } else if (data !== true) {
-                console.warn(`[NOTIFY][ALERT] Lease lost for ${type} on ${applicationId} — outcome discarded`)
+                console.error(`[NOTIFY][ALERT] ownership_lost: ${type} on ${applicationId} — the lease expired and a newer run owns it; outcome "${outcome}" discarded`)
             }
         }
 
@@ -158,6 +172,15 @@ serve(async (req) => {
          *  notification type, so a retry cannot produce a second email. */
         const send = async (type: NotificationType, token: string, payload: Record<string, unknown>) => {
             const idempotencyKey = `membership-application/${applicationId}/${type.replace('_', '-')}`
+            const body = JSON.stringify(payload)
+            const hash = await sha256(body)
+
+            // The request must not outlive the lease. If it did, a newer run
+            // could claim the row while this one is still in flight, and the
+            // late success would be discarded as ownership_lost while the email
+            // had in fact gone out.
+            const abort = new AbortController()
+            const timer = setTimeout(() => abort.abort(), SEND_TIMEOUT_MS)
             try {
                 const res = await fetch('https://api.resend.com/emails', {
                     method: 'POST',
@@ -166,29 +189,44 @@ serve(async (req) => {
                         'Authorization': `Bearer ${RESEND_API_KEY}`,
                         'Idempotency-Key': idempotencyKey,
                     },
-                    body: JSON.stringify(payload),
+                    body,
+                    signal: abort.signal,
                 })
                 const data = await res.json().catch(() => ({}))
                 console.log(`[NOTIFY] ${type} status: ${res.status}`)
                 if (res.ok) {
-                    await resolve(type, token, true, data?.id ?? null, null)
+                    await resolve(type, token, 'sent', data?.id ?? null, null, hash)
                     return true
                 }
-                // 409 means a concurrent request holds the same idempotency key.
-                // The other run owns delivery; leave this one retryable.
                 if (res.status === 409) {
-                    console.warn(`[NOTIFY] ${type} in flight under the same idempotency key — leaving retryable`)
-                    await resolve(type, token, false, null, 'HTTP 409 idempotency conflict')
+                    const name = typeof data?.name === 'string' ? data.name : ''
+                    if (name === 'invalid_idempotent_request') {
+                        // Same key, different payload — the admin list, subject,
+                        // template or an application field changed between
+                        // attempts. Retrying cannot fix it.
+                        console.error(`[NOTIFY][ALERT] ${type} reused idempotency key ${idempotencyKey} with a different payload (hash ${hash.slice(0, 12)}) — needs review`)
+                        await resolve(type, token, 'needs_review', null, 'invalid_idempotent_request: same key, different payload', hash)
+                        return false
+                    }
+                    // concurrent_idempotent_requests: another delivery is in
+                    // flight and owns it. Retryable.
+                    console.warn(`[NOTIFY] ${type} conflict (${name || 'concurrent'}) — another delivery is in flight, leaving retryable`)
+                    await resolve(type, token, 'failed', null, `HTTP 409 ${name || 'concurrent_idempotent_requests'}`, hash)
                     return false
                 }
                 console.error(`[NOTIFY][ALERT] ${type} rejected: HTTP ${res.status}`)
-                await resolve(type, token, false, null, `HTTP ${res.status}`)
+                await resolve(type, token, 'failed', null, `HTTP ${res.status}`, hash)
                 return false
             } catch (err) {
-                const detail = err instanceof Error ? err.message : String(err)
-                console.error(`[NOTIFY][ALERT] ${type} threw: ${detail}`)
-                await resolve(type, token, false, null, `network error: ${detail}`)
+                const aborted = err instanceof Error && err.name === 'AbortError'
+                const detail = aborted
+                    ? `timed out after ${SEND_TIMEOUT_MS}ms`
+                    : (err instanceof Error ? err.message : String(err))
+                console.error(`[NOTIFY][ALERT] ${type} ${aborted ? 'timed out' : 'threw'}: ${detail}`)
+                await resolve(type, token, 'failed', null, `network error: ${detail}`, hash)
                 return false
+            } finally {
+                clearTimeout(timer)
             }
         }
 
@@ -278,7 +316,7 @@ serve(async (req) => {
                     <p style="margin: 10px 0 0 0;">${esc(reason)}</p>
                 </div>
                 <a href="https://swissperiences.ch/admin" style="display: inline-block; margin-top: 25px; color: #D8B58A; text-decoration: none; border: 1px solid #D8B58A; padding: 8px 16px; font-size: 12px;">Open Admin Panel</a>
-                <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
+                <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${esc(created_at)}</p>
             </div>
         `,
         })
