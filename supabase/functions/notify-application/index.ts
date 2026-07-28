@@ -112,67 +112,90 @@ serve(async (req) => {
         const { data: adminRows } = await supabase.from('admin_emails').select('email')
         const adminEmails = adminRows?.map((r: { email: string }) => r.email) ?? ['hello@swissperiences.ch']
 
-        // Claim each notification before sending. claim_notification is a single
-        // atomic upsert, so two concurrent runs cannot both win the same one.
-        // Only a 'sent' row blocks a retry — a run that dies mid-flight leaves
-        // the row 'pending', which stays reclaimable.
-        const claim = async (type: NotificationType) => {
+        // Claiming takes a lease, which is what makes it exclusive — atomicity
+        // of the upsert alone guaranteed one row, not one claimant, and let two
+        // concurrent runs both send. Taking the claim returns a lease token. A
+        // NULL token means the
+        // notification is already sent, still leased by another run, or out of
+        // attempts — in every case this run must not send.
+        const claim = async (type: NotificationType): Promise<string | null> => {
             const { data, error } = await supabase.rpc('claim_notification', {
                 p_application_id: applicationId,
                 p_notification_type: type,
             })
             if (error) {
                 console.error(`[NOTIFY][ALERT] Could not claim ${type}:`, error)
-                return false
+                return null
             }
-            if (!data) console.log(`[NOTIFY] ${type} already sent or out of attempts for ${applicationId} — skipping`)
-            return data === true
+            if (!data) console.log(`[NOTIFY] ${type} not claimable for ${applicationId} (sent, leased, or out of attempts) — skipping`)
+            return (data as string) ?? null
         }
-        const resolve = async (type: NotificationType, sent: boolean, messageId: string | null, error: string | null) => {
-            const { error: rpcError } = await supabase.rpc('resolve_notification', {
+
+        // Resolution is refused unless this run still owns the lease, so a slow
+        // run cannot report an outcome for work a newer run has taken over.
+        const resolve = async (type: NotificationType, token: string, sent: boolean, messageId: string | null, error: string | null) => {
+            const { data, error: rpcError } = await supabase.rpc('resolve_notification', {
                 p_application_id: applicationId,
                 p_notification_type: type,
+                p_claim_token: token,
                 p_sent: sent,
                 p_provider_message_id: messageId,
                 p_error: error,
             })
-            // A send that succeeded but could not be recorded must not be resent:
-            // the row stays 'pending' and the operator sees this alert.
-            if (rpcError) console.error(`[NOTIFY][ALERT] Could not record ${type} outcome (sent=${sent}):`, rpcError)
+            if (rpcError) {
+                // The provider may already have accepted the message. The row
+                // stays 'pending' and a retry inside Resend's 24h idempotency
+                // window is deduplicated rather than duplicated.
+                console.error(`[NOTIFY][ALERT] Could not record ${type} outcome (sent=${sent}):`, rpcError)
+            } else if (data !== true) {
+                console.warn(`[NOTIFY][ALERT] Lease lost for ${type} on ${applicationId} — outcome discarded`)
+            }
         }
 
         /** Sends and records the outcome. A thrown fetch marks the row 'failed'
          *  rather than leaving a phantom claim that would suppress the email
-         *  forever. */
-        const send = async (type: NotificationType, payload: Record<string, unknown>) => {
+         *  forever. The idempotency key is derived from the application and the
+         *  notification type, so a retry cannot produce a second email. */
+        const send = async (type: NotificationType, token: string, payload: Record<string, unknown>) => {
+            const idempotencyKey = `membership-application/${applicationId}/${type.replace('_', '-')}`
             try {
                 const res = await fetch('https://api.resend.com/emails', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${RESEND_API_KEY}`,
+                        'Idempotency-Key': idempotencyKey,
                     },
                     body: JSON.stringify(payload),
                 })
                 const data = await res.json().catch(() => ({}))
                 console.log(`[NOTIFY] ${type} status: ${res.status}`)
                 if (res.ok) {
-                    await resolve(type, true, data?.id ?? null, null)
+                    await resolve(type, token, true, data?.id ?? null, null)
                     return true
                 }
+                // 409 means a concurrent request holds the same idempotency key.
+                // The other run owns delivery; leave this one retryable.
+                if (res.status === 409) {
+                    console.warn(`[NOTIFY] ${type} in flight under the same idempotency key — leaving retryable`)
+                    await resolve(type, token, false, null, 'HTTP 409 idempotency conflict')
+                    return false
+                }
                 console.error(`[NOTIFY][ALERT] ${type} rejected: HTTP ${res.status}`)
-                await resolve(type, false, null, `HTTP ${res.status}`)
+                await resolve(type, token, false, null, `HTTP ${res.status}`)
                 return false
             } catch (err) {
                 const detail = err instanceof Error ? err.message : String(err)
                 console.error(`[NOTIFY][ALERT] ${type} threw: ${detail}`)
-                await resolve(type, false, null, `network error: ${detail}`)
+                await resolve(type, token, false, null, `network error: ${detail}`)
                 return false
             }
         }
 
-        const sendApplicantAck = await claim('applicant_ack')
-        const sendAdminAlert = await claim('admin_alert')
+        const applicantToken = await claim('applicant_ack')
+        const adminToken = await claim('admin_alert')
+        const sendApplicantAck = applicantToken !== null
+        const sendAdminAlert = adminToken !== null
         if (!sendApplicantAck && !sendAdminAlert) {
             return json({ success: true, skipped: 'already notified' }, 200, corsHeaders)
         }
@@ -183,7 +206,7 @@ serve(async (req) => {
         // 1. Send "Thank You" email to the applicant
         if (sendApplicantAck) {
         console.log(`[NOTIFY] Sending Thank You email for application ${applicationId}`)
-        applicantOk = await send('applicant_ack', {
+        applicantOk = await send('applicant_ack', applicantToken!, {
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: [email],
                 subject: "We've received your application.",
@@ -239,7 +262,7 @@ serve(async (req) => {
         if (sendAdminAlert) {
         if (sendApplicantAck) await new Promise((r) => setTimeout(r, 1100))
         console.log(`[NOTIFY] Sending Admin notification for application ${applicationId}`)
-        adminOk = await send('admin_alert', {
+        adminOk = await send('admin_alert', adminToken!, {
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: adminEmails,
                 subject: `[APPLICATION] ${esc(full_name)}${city ? ` — ${esc(city)}` : ''}`,
