@@ -1,3 +1,22 @@
+// ============================================================
+// DEPRECATED — not the canonical Stripe webhook. Do not extend.
+//
+// The Supabase Edge Function `supabase/functions/stripe-webhook` is the single
+// canonical webhook for this project. It holds the Stripe credentials, sits
+// next to the tables it updates, verifies the signature over the raw body and
+// deduplicates by event id through `stripe_webhook_events`.
+//
+// This route has never processed an event: no STRIPE_SECRET_KEY or
+// STRIPE_WEBHOOK_SECRET exists in any Vercel environment, so the Stripe client
+// below cannot even be constructed. Its Stripe endpoint
+// (https://www.swissperiences.ch/api/webhooks/stripe) is being disabled rather
+// than deleted, for an observation window.
+//
+// Do not add STRIPE_* variables to Vercel to "fix" this: two live webhooks for
+// checkout.session.completed means duplicated fulfillment. Removal of this file
+// is deferred until the Supabase architecture has been validated end to end.
+// ============================================================
+
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';

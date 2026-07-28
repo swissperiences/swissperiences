@@ -1,4 +1,14 @@
 project_id = "rhoxismvcalqppbnndew"
+
+# Stripe signs its deliveries with its own scheme and never sends a Supabase
+# JWT, so the gateway rejected every one of them. Authorization for this
+# function is the Stripe signature, verified over the raw body before anything
+# reaches the database. This applies to stripe-webhook only — every other
+# function keeps the default verify_jwt = true.
+[functions.stripe-webhook]
+enabled = true
+verify_jwt = false
+
 [functions.create-checkout]
 enabled = true
 verify_jwt = true
