@@ -112,31 +112,63 @@ serve(async (req) => {
         const { data: adminRows } = await supabase.from('admin_emails').select('email')
         const adminEmails = adminRows?.map((r: { email: string }) => r.email) ?? ['hello@swissperiences.ch']
 
-        // Claim each notification before sending. The unique index on
-        // (application_id, notification_type) makes a replayed trigger a no-op
-        // instead of a second email. A claim that fails to send is released so
-        // the notification can still be retried.
+        // Claim each notification before sending. claim_notification is a single
+        // atomic upsert, so two concurrent runs cannot both win the same one.
+        // Only a 'sent' row blocks a retry — a run that dies mid-flight leaves
+        // the row 'pending', which stays reclaimable.
         const claim = async (type: NotificationType) => {
-            const { error } = await supabase
-                .from('notification_log')
-                .insert({ application_id: applicationId, notification_type: type })
+            const { data, error } = await supabase.rpc('claim_notification', {
+                p_application_id: applicationId,
+                p_notification_type: type,
+            })
             if (error) {
-                console.log(`[NOTIFY] ${type} already recorded for ${applicationId} — skipping`)
+                console.error(`[NOTIFY][ALERT] Could not claim ${type}:`, error)
                 return false
             }
-            return true
+            if (!data) console.log(`[NOTIFY] ${type} already sent or out of attempts for ${applicationId} — skipping`)
+            return data === true
         }
-        const release = async (type: NotificationType) => {
-            await supabase.from('notification_log')
-                .delete()
-                .eq('application_id', applicationId)
-                .eq('notification_type', type)
+        const resolve = async (type: NotificationType, sent: boolean, messageId: string | null, error: string | null) => {
+            const { error: rpcError } = await supabase.rpc('resolve_notification', {
+                p_application_id: applicationId,
+                p_notification_type: type,
+                p_sent: sent,
+                p_provider_message_id: messageId,
+                p_error: error,
+            })
+            // A send that succeeded but could not be recorded must not be resent:
+            // the row stays 'pending' and the operator sees this alert.
+            if (rpcError) console.error(`[NOTIFY][ALERT] Could not record ${type} outcome (sent=${sent}):`, rpcError)
         }
-        const confirm = async (type: NotificationType, messageId: string | null) => {
-            await supabase.from('notification_log')
-                .update({ provider_message_id: messageId })
-                .eq('application_id', applicationId)
-                .eq('notification_type', type)
+
+        /** Sends and records the outcome. A thrown fetch marks the row 'failed'
+         *  rather than leaving a phantom claim that would suppress the email
+         *  forever. */
+        const send = async (type: NotificationType, payload: Record<string, unknown>) => {
+            try {
+                const res = await fetch('https://api.resend.com/emails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${RESEND_API_KEY}`,
+                    },
+                    body: JSON.stringify(payload),
+                })
+                const data = await res.json().catch(() => ({}))
+                console.log(`[NOTIFY] ${type} status: ${res.status}`)
+                if (res.ok) {
+                    await resolve(type, true, data?.id ?? null, null)
+                    return true
+                }
+                console.error(`[NOTIFY][ALERT] ${type} rejected: HTTP ${res.status}`)
+                await resolve(type, false, null, `HTTP ${res.status}`)
+                return false
+            } catch (err) {
+                const detail = err instanceof Error ? err.message : String(err)
+                console.error(`[NOTIFY][ALERT] ${type} threw: ${detail}`)
+                await resolve(type, false, null, `network error: ${detail}`)
+                return false
+            }
         }
 
         const sendApplicantAck = await claim('applicant_ack')
@@ -151,13 +183,7 @@ serve(async (req) => {
         // 1. Send "Thank You" email to the applicant
         if (sendApplicantAck) {
         console.log(`[NOTIFY] Sending Thank You email for application ${applicationId}`)
-        const userEmailResponse = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${RESEND_API_KEY}`,
-            },
-            body: JSON.stringify({
+        applicantOk = await send('applicant_ack', {
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: [email],
                 subject: "We've received your application.",
@@ -206,30 +232,14 @@ serve(async (req) => {
             </body>
             </html>
         `,
-            }),
         })
-        const userData = await userEmailResponse.json()
-        console.log(`[NOTIFY] Thank You email status: ${userEmailResponse.status}`)
-        applicantOk = userEmailResponse.ok
-        if (applicantOk) {
-            await confirm('applicant_ack', userData?.id ?? null)
-        } else {
-            console.error(`[NOTIFY][ALERT] Thank You email failed: HTTP ${userEmailResponse.status}`)
-            await release('applicant_ack')
-        }
         }
 
         // 2. Send "New Lead" notification to Admin (delay to avoid Resend 2 req/sec rate limit)
         if (sendAdminAlert) {
         if (sendApplicantAck) await new Promise((r) => setTimeout(r, 1100))
         console.log(`[NOTIFY] Sending Admin notification for application ${applicationId}`)
-        const adminEmailResponse = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${RESEND_API_KEY}`,
-            },
-            body: JSON.stringify({
+        adminOk = await send('admin_alert', {
                 from: 'Swissperiences <hello@swissperiences.ch>',
                 to: adminEmails,
                 subject: `[APPLICATION] ${esc(full_name)}${city ? ` — ${esc(city)}` : ''}`,
@@ -248,17 +258,7 @@ serve(async (req) => {
                 <p style="margin-top: 30px; font-size: 10px; color: #555;">SWISSPERIENCES // ${new Date().toISOString()}</p>
             </div>
         `,
-            }),
         })
-        const adminData = await adminEmailResponse.json()
-        console.log(`[NOTIFY] Admin notification status: ${adminEmailResponse.status}`)
-        adminOk = adminEmailResponse.ok
-        if (adminOk) {
-            await confirm('admin_alert', adminData?.id ?? null)
-        } else {
-            console.error(`[NOTIFY][ALERT] Admin notification failed: HTTP ${adminEmailResponse.status}`)
-            await release('admin_alert')
-        }
         }
 
         // A partial failure must not read as success — the released claim means
