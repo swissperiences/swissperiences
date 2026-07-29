@@ -5,6 +5,7 @@ import { buildBreadcrumbJsonLd } from "@/components/Breadcrumbs";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { packages } from "@/data/packages";
+import { getPackageStatus, getSeasonBadge, isBookableNow } from "@/lib/packageStatus";
 import RequestQuoteForm from "@/components/RequestQuoteForm";
 
 /** Maps full-size image paths to 800px preview versions */
@@ -25,6 +26,12 @@ export default function Packages() {
   const { isLoggedIn } = useAuth();
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [quoteInterest, setQuoteInterest] = useState("");
+
+  // Bookable packages first; past editions sink to the end of the index.
+  // Stable sort preserves the editorial order within each group.
+  const orderedPackages = [...packages].sort(
+    (a, b) => Number(isBookableNow(b)) - Number(isBookableNow(a))
+  );
 
   const INTEREST_MAP: Record<string, string> = {
     "alpine-reset": "alpine-reset",
@@ -92,7 +99,11 @@ export default function Packages() {
       {/* Packages */}
       <section className="px-4 sm:px-8 md:px-16 pb-24 md:pb-32">
         <div className="max-w-5xl mx-auto space-y-20 md:space-y-32">
-          {packages.map((pkg, i) => (
+          {orderedPackages.map((pkg, i) => {
+            const status = getPackageStatus(pkg);
+            const badge = getSeasonBadge(pkg);
+            const expired = status === "expired-event";
+            return (
             <article
               key={pkg.id}
               id={pkg.id}
@@ -105,18 +116,23 @@ export default function Packages() {
                   srcSet={getPreviewSrc(pkg.image) ? `${getPreviewSrc(pkg.image)} 800w, ${pkg.image} 2000w` : undefined}
                   sizes="(max-width: 768px) 100vw, 80vw"
                   alt={`${pkg.name} — ${pkg.tagline}`}
-                  className={`w-full h-full object-cover brightness-[0.55] ${pkg.imagePosition || ""}`}
+                  className={`w-full h-full object-cover ${expired ? "brightness-[0.4] saturate-[0.6]" : "brightness-[0.55]"} ${pkg.imagePosition || ""}`}
                   loading={i === 0 ? "eager" : "lazy"}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-black/30 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8">
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
                     <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">
                       {pkg.duration} · {pkg.availability}
                     </span>
-                    {pkg.eventBadge && (
+                    {pkg.eventBadge && !expired && (
                       <span className="text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border text-fuchsia-300/80 bg-fuchsia-900/30 border-fuchsia-500/20">
                         {pkg.eventBadge}
+                      </span>
+                    )}
+                    {expired && (
+                      <span className="text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border text-white/45 bg-black/40 border-white/15">
+                        {badge.label}
                       </span>
                     )}
                   </div>
@@ -201,17 +217,27 @@ export default function Packages() {
                         Members only
                       </span>
                     )}
-                    <button
-                      onClick={() => handleCTA(pkg.id)}
-                      className="w-full px-8 py-4 bg-white text-black text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-white/90 transition-all duration-300"
-                    >
-                      {isLoggedIn ? "Book This Package" : "Request a Quote"}
-                    </button>
+                    {expired ? (
+                      <button
+                        onClick={() => handleCTA()}
+                        className="w-full px-8 py-4 border border-white/20 text-white/60 text-[11px] uppercase tracking-[0.25em] font-medium hover:border-white/40 hover:text-white/80 transition-all duration-300"
+                      >
+                        Ask About the Next Edition
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleCTA(pkg.id)}
+                        className="w-full px-8 py-4 bg-white text-black text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-white/90 transition-all duration-300"
+                      >
+                        {isLoggedIn ? "Book This Package" : "Request a Quote"}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </section>
 
