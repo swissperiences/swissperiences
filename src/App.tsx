@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
+import { MotionConfig } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -48,6 +49,8 @@ const PrivateChef = lazy(() => import("./pages/PrivateChef"));
 const GuidedHikes = lazy(() => import("./pages/GuidedHikes"));
 const MountainCoaster = lazy(() => import("./pages/MountainCoaster"));
 const MembersBook = lazy(() => import("./pages/MembersBook"));
+const MembersJourney = lazy(() => import("./pages/MembersJourney"));
+const MembersConcierge = lazy(() => import("./pages/MembersConcierge"));
 const MembersProfile = lazy(() => import("./pages/MembersProfileNew"));
 const MembersExplore = lazy(() => import("./pages/MembersExplore"));
 const Partnerships = lazy(() => import("./pages/Partnerships"));
@@ -57,6 +60,7 @@ const LinkGenerator = lazy(() => import("./pages/LinkGenerator"));
 import Packages from "./pages/Packages";
 const ListYourExperience = lazy(() => import("./pages/ListYourExperience"));
 const Discovery = lazy(() => import("./pages/Discovery"));
+const AudioJourneys = lazy(() => import("./pages/AudioJourneys"));
 import InsiderGuide from "./pages/InsiderGuide";
 const DiscoveryDrafts = lazy(() => import("./pages/admin/DiscoveryDrafts"));
 
@@ -108,6 +112,8 @@ const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        {/* reducedMotion="user" makes every framer-motion animation respect prefers-reduced-motion */}
+        <MotionConfig reducedMotion="user">
         <I18nextProvider i18n={i18n}>
           <Toaster />
           <Sonner duration={4000} position="top-right" />
@@ -140,6 +146,9 @@ const App = () => (
 
                 {/* Packages */}
                 <Route path="/packages" element={<LanguageWrapper><Packages /></LanguageWrapper>} />
+
+                {/* Audio Journeys */}
+                <Route path="/audio" element={<LanguageWrapper><AudioJourneys /></LanguageWrapper>} />
 
                 {/* Discovery */}
                 <Route path="/discovery" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />
@@ -177,6 +186,8 @@ const App = () => (
                 <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/pending-approval" element={<PendingApproval />} />
                 <Route path="/members/book" element={<AuthGuard><MembersBook /></AuthGuard>} />
+                <Route path="/members/journey" element={<AuthGuard><MembersJourney /></AuthGuard>} />
+                <Route path="/members/concierge" element={<AuthGuard><MembersConcierge /></AuthGuard>} />
                 <Route path="/members/links" element={<AuthGuard requireAdmin><LinkGenerator /></AuthGuard>} />
                 <Route path="/members/explore" element={<AuthGuard><MembersExplore /></AuthGuard>} />
                 <Route path="/members/profile" element={<AuthGuard><MembersProfile /></AuthGuard>} />
@@ -195,6 +206,7 @@ const App = () => (
                 <Route path="/:lang/experiences/guided-hikes" element={<LanguageWrapper><GuidedHikes /></LanguageWrapper>} />
                 <Route path="/:lang/experiences/mountain-coaster" element={<LanguageWrapper><MountainCoaster /></LanguageWrapper>} />
                 <Route path="/:lang/packages" element={<LanguageWrapper><Packages /></LanguageWrapper>} />
+                <Route path="/:lang/audio" element={<LanguageWrapper><AudioJourneys /></LanguageWrapper>} />
                 <Route path="/:lang/discovery" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />
                 <Route path="/:lang/discovery/:slug" element={<LanguageWrapper><Discovery /></LanguageWrapper>} />
                 <Route path="/:lang/journals" element={<LanguageWrapper><Journals /></LanguageWrapper>} />
@@ -214,6 +226,8 @@ const App = () => (
                 <Route path="/:lang/insider-guide" element={<LanguageWrapper><InsiderGuide /></LanguageWrapper>} />
                 <Route path="/:lang/enhance" element={<LanguageWrapper><GuestEnhance /></LanguageWrapper>} />
                 <Route path="/:lang/members/book" element={<AuthGuard><LanguageWrapper><MembersBook /></LanguageWrapper></AuthGuard>} />
+                <Route path="/:lang/members/journey" element={<AuthGuard><LanguageWrapper><MembersJourney /></LanguageWrapper></AuthGuard>} />
+                <Route path="/:lang/members/concierge" element={<AuthGuard><LanguageWrapper><MembersConcierge /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members/explore" element={<AuthGuard><LanguageWrapper><MembersExplore /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members/profile" element={<AuthGuard><LanguageWrapper><MembersProfile /></LanguageWrapper></AuthGuard>} />
                 <Route path="/:lang/members" element={<AuthGuard><LanguageWrapper><Members /></LanguageWrapper></AuthGuard>} />
@@ -227,6 +241,7 @@ const App = () => (
             </ErrorBoundary>
           </BrowserRouter>
         </I18nextProvider>
+        </MotionConfig>
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>

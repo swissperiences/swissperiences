@@ -148,6 +148,37 @@ export default function About() {
                     </div>
                 </section>
 
+                {/* For Those Who — manifesto, relocated from the homepage spine */}
+                <section className="relative py-24 md:py-36 overflow-hidden">
+                    <div className="absolute inset-0">
+                        <img
+                            src="/images/_preview/manifesto-village-aerial.jpeg"
+                            srcSet="/images/_preview/manifesto-village-aerial.jpeg 800w, /images/villars/manifesto-village-aerial.jpeg 3072w"
+                            sizes="100vw"
+                            alt="Sunrise over the Alps"
+                            className="w-full h-full object-cover opacity-30"
+                            loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/80 to-neutral-950/60" />
+                    </div>
+                    <div className="relative z-10 px-6 md:px-16 lg:px-24 max-w-4xl mx-auto md:mx-0">
+                        <span className="text-[11px] uppercase tracking-[0.4em] text-white/40 block mb-10">
+                            For Those Who
+                        </span>
+                        <div className="space-y-6">
+                            <p className="font-serif text-3xl md:text-5xl text-white/70 leading-[1.1]">
+                                Built empires but forgot how to rest.
+                            </p>
+                            <p className="font-serif text-3xl md:text-5xl text-white/40 leading-[1.1]">
+                                Travel alone but never feel lonely.
+                            </p>
+                            <p className="font-serif text-3xl md:text-5xl text-white/25 leading-[1.1]">
+                                Seek permission to do nothing.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Vision Section */}
                 <section className="py-24 md:py-32 px-6">
                     <div className="max-w-3xl mx-auto text-center">

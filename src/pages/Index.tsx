@@ -1,55 +1,59 @@
-import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { Founder } from "@/components/Founder";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import TrustBar from "@/components/TrustBar";
-import GuestQuotes from "@/components/GuestQuotes";
 import RequestQuoteForm from "@/components/RequestQuoteForm";
-import PackagesPreview from "@/components/PackagesPreview";
+import WorldsSection from "@/components/home/WorldsSection";
+import FlagshipSanctuary from "@/components/home/FlagshipSanctuary";
+import SignatureJourneys from "@/components/home/SignatureJourneys";
+import AudioJourneysPreview from "@/components/home/AudioJourneysPreview";
+import GuestStories from "@/components/home/GuestStories";
+import MySwissperiencesPreview from "@/components/home/MySwissperiencesPreview";
+import SectionEyebrow from "@/components/home/SectionEyebrow";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { useAuth } from "@/hooks/use-auth";
+import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 
+/**
+ * Homepage v2 — the umbrella-brand flatplan (docs/product/HOMEPAGE_V2_FLATPLAN.md):
+ * 1 hero · 2 worlds · 3 flagship sanctuary · 4 signature journeys · 5 audio
+ * journeys · 6 guest stories · 7 My Swissperiences · 8 the host · 9 final CTA.
+ */
 const Index = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation("home");
   const { isLoggedIn } = useAuth();
+  const prefersReducedMotion = usePrefersReducedMotion();
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [quoteInterest, setQuoteInterest] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
+    if (prefersReducedMotion) return () => clearTimeout(timer);
     const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
-  // Scroll-triggered fade-in
-  const useScrollReveal = () => {
-    const ref = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-      const el = ref.current;
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-        { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
-      );
-      observer.observe(el);
-      return () => observer.disconnect();
-    }, []);
-    return { ref, visible };
-  };
+  function scrollToQuote(packageId?: string) {
+    if (packageId) setQuoteInterest(packageId);
+    document.getElementById("request-quote")?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  }
 
-  const s1 = useScrollReveal(); // Sanctuary full-bleed
-  const s2 = useScrollReveal(); // Statement
-  const s3 = useScrollReveal(); // Packages preview
-  const s4 = useScrollReveal(); // Guest quotes
-  const s5 = useScrollReveal(); // Journal
-  const s6 = useScrollReveal(); // For Those Who
-  const s7 = useScrollReveal(); // Final CTA
+  function scrollToWorlds() {
+    document.getElementById("worlds")?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+  }
 
   const structuredData = [
     {
@@ -58,7 +62,7 @@ const Index = () => {
       "name": "Swissperiences",
       "url": "https://www.swissperiences.ch",
       "logo": "https://www.swissperiences.ch/favicon-512x512.png",
-      "description": "A private network of curated alpine sanctuaries for those seeking silence in a noisy world.",
+      "description": "Private stays, alpine journeys, local stories and experiences across Switzerland — personally curated and personally hosted.",
       "founder": {
         "@type": "Person",
         "name": "Cauêh Vidal",
@@ -113,387 +117,141 @@ const Index = () => {
       <SEO canonical="https://www.swissperiences.ch/en" structuredData={structuredData} />
 
       {/* ════════════════════════════════════════
-          1. HERO — Full-screen video, editorial type
+          1. HERO — Umbrella brand, full-screen video
       ════════════════════════════════════════ */}
       <section className="relative h-screen overflow-hidden">
-        {/* Video background */}
         <div
           className="absolute inset-0"
-          style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+          style={prefersReducedMotion ? undefined : { transform: `translateY(${scrollY * 0.2}px)` }}
         >
-          <video
-            autoPlay muted loop playsInline
-            className="w-full h-full object-cover"
-            poster="/videos/hero-poster.jpg"
-          >
-            <source src="/videos/hero-optimized.webm" type="video/webm" />
-            <source src="/videos/hero-final.mp4" type="video/mp4" />
-          </video>
+          {prefersReducedMotion ? (
+            <img
+              src="/videos/hero-poster.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <video
+              autoPlay muted loop playsInline
+              className="w-full h-full object-cover"
+              poster="/videos/hero-poster.jpg"
+            >
+              <source src="/videos/hero-optimized.webm" type="video/webm" />
+              <source src="/videos/hero-final.mp4" type="video/mp4" />
+            </video>
+          )}
           <div className="absolute inset-0 bg-black/50" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#060606]" />
         </div>
 
         <Navigation />
 
-        {/* Hero content */}
         <div className="relative z-10 h-full flex flex-col justify-end pb-24 md:pb-32 px-8 md:px-16 lg:px-24">
           <div
-            className={`max-w-5xl transition-all duration-[2500ms] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+            className={`max-w-5xl transition-all duration-1000 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
           >
-            <h1 className="font-serif text-[clamp(3rem,8vw,9rem)] leading-[0.85] tracking-tight">
-              <span className="block text-white">The art of</span>
-              <span className="block text-white">doing nothing,</span>
-              <span className="block mt-2 text-white/40 italic text-[clamp(2.5rem,6vw,7rem)]">beautifully.</span>
+            <SectionEyebrow className="mb-6 text-white/60">
+              {t("umbrellaHero.eyebrow")}
+            </SectionEyebrow>
+            <h1 className="font-serif text-[clamp(2.75rem,7vw,8rem)] leading-[0.9] tracking-tight">
+              <span className="block text-white">{t("umbrellaHero.title1")}</span>
+              <span className="block text-white italic">{t("umbrellaHero.title2")}</span>
             </h1>
+            <p className="mt-6 text-white/60 text-base md:text-lg font-light max-w-md">
+              {t("umbrellaHero.support")}
+            </p>
           </div>
 
           <div
-            className={`mt-12 flex flex-wrap items-center gap-4 md:gap-8 transition-all duration-[2500ms] delay-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            className={`mt-10 flex flex-wrap items-center gap-4 md:gap-6 transition-all duration-1000 delay-300 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           >
-            {isLoggedIn ? (
-              <button
-                onClick={() => navigate('/members')}
-                className="group px-10 py-4 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
-              >
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
-                  Enter Member Area
-                </span>
-              </button>
-            ) : (
-              <>
-                <button
-                  onClick={() => {
-                    const el = document.getElementById("packages");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="group px-10 py-4 bg-white text-black hover:bg-white/90 transition-all duration-500"
-                >
-                  <span className="text-[10px] uppercase tracking-[0.3em] font-medium">
-                    Explore Packages
-                  </span>
-                </button>
-                <button
-                  onClick={() => navigate('/login')}
-                  className="group px-8 py-4 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
-                >
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
-                    Sign In
-                  </span>
-                </button>
-              </>
-            )}
-            <span className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-white/40">
-              Private alpine club — Villars-sur-Ollon, 1,300m
-            </span>
+            <button
+              onClick={scrollToWorlds}
+              className="px-10 py-4 bg-white text-black hover:bg-white/90 transition-all duration-500"
+            >
+              <span className="text-xs uppercase tracking-[0.25em] font-medium">
+                {t("umbrellaHero.primaryCta")}
+              </span>
+            </button>
+            <button
+              onClick={() => navigate(isLoggedIn ? "/members" : "/login")}
+              className="group px-8 py-4 border border-white/25 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
+            >
+              <span className="text-xs uppercase tracking-[0.25em] text-white/60 group-hover:text-glacier-300 transition-colors">
+                {t("umbrellaHero.secondaryCta")}
+              </span>
+            </button>
           </div>
         </div>
 
         {/* Scroll indicator */}
         <div
-          className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 transition-all duration-[2000ms] delay-1500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-10 transition-all duration-1000 delay-700 ${isVisible ? "opacity-100" : "opacity-0"}`}
         >
           <div className="w-px h-12 bg-gradient-to-b from-white/20 to-transparent" />
         </div>
       </section>
 
       {/* ════════════════════════════════════════
-          2. TRUST BAR
+          2. THE SWISSPERIENCES WORLDS
       ════════════════════════════════════════ */}
-      <TrustBar />
+      <WorldsSection />
 
       {/* ════════════════════════════════════════
-          3. FULL-BLEED IMAGE — The Sanctuary
+          3. FLAGSHIP SANCTUARY — Villars
       ════════════════════════════════════════ */}
-      <section
-        ref={s1.ref}
-        className={`relative transition-all duration-[1500ms] ease-out ${s1.visible ? 'opacity-100' : 'opacity-0'}`}
-      >
-        <div className="relative h-[70vh] md:h-screen overflow-hidden">
-          <img
-            src="/images/_preview/sea-of-clouds-hero.jpeg"
-            srcSet="/images/_preview/sea-of-clouds-hero.jpeg 800w, /images/villars/sea-of-clouds-hero.jpeg 5504w"
-            sizes="100vw"
-            alt="Sea of clouds at sunset from Villars — Dents du Midi at 1,300m"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
-
-          {/* Asymmetric text overlay */}
-          <div className="absolute inset-0 flex items-end md:items-center px-8 md:px-16 lg:px-24 pb-16 md:pb-0">
-            <div className="max-w-lg">
-              <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-6">
-                The Sanctuary
-              </span>
-              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-[0.9] mb-6">
-                Above the<br />clouds.
-              </h2>
-              <p className="text-white/50 text-base md:text-lg font-light leading-relaxed mb-4 max-w-sm">
-                A private alpine loft at 1,300m. Fireplace. Balcony over the valley. Silence as a feature.
-              </p>
-              <p className="text-white/40 text-xs mb-8">
-                Members-only pricing · By invitation
-              </p>
-              <div className="flex items-center gap-6">
-                <Link
-                  to="/sanctuaries/villars"
-                  className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
-                >
-                  Discover
-                </Link>
-                {!isLoggedIn && (
-                  <button
-                    onClick={() => {
-                      const el = document.getElementById("request-quote");
-                      if (el) el.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
-                  >
-                    Request a Quote
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <FlagshipSanctuary onPlanStay={() => scrollToQuote()} />
 
       {/* ════════════════════════════════════════
-          4. STATEMENT
+          4. THREE SIGNATURE JOURNEYS
       ════════════════════════════════════════ */}
-      <section
-        ref={s2.ref}
-        className={`py-20 md:py-32 px-8 md:px-16 bg-[#060606] transition-all duration-[1500ms] ease-out ${s2.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      >
-        <div className="max-w-5xl mx-auto">
-          <p className="font-serif text-3xl md:text-5xl lg:text-6xl text-white/80 leading-[1.1] tracking-tight">
-            We don't sell experiences.
-            <span className="text-white/40 italic"> We curate the art of doing nothing.</span>
-          </p>
-        </div>
-      </section>
+      <SignatureJourneys onRequestJourney={(id) => scrollToQuote(id)} />
 
       {/* ════════════════════════════════════════
-          5. PACKAGES PREVIEW
+          5. AUDIO JOURNEYS — Stones & Water preview
       ════════════════════════════════════════ */}
-      <PackagesPreview visible={s3.visible} sectionRef={s3.ref} />
+      <AudioJourneysPreview />
 
       {/* ════════════════════════════════════════
-          5b. INSIDER GUIDE CTA
+          6. GUEST STORIES
       ════════════════════════════════════════ */}
-      <section className="py-24 md:py-32 px-8 md:px-16 lg:px-24 bg-black border-t border-white/5">
-        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
-          <div className="flex-1">
-            <p className="text-[10px] tracking-[0.3em] uppercase text-glacier-500/60 mb-4">Free guide</p>
-            <h3 className="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-4">
-              The Swiss<br />Insider Guide
-            </h3>
-            <p className="text-sm text-white/40 font-light leading-relaxed mb-6 max-w-sm">
-              8 places that don't show up on Google. Insider tips you'd only get from a local friend.
-            </p>
-            <Link
-              to="/insider-guide"
-              className="inline-flex items-center gap-2 text-sm text-glacier-400 hover:text-glacier-300 transition-colors font-medium"
-            >
-              Get the free guide
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </Link>
-          </div>
-          <Link to="/insider-guide" className="w-48 md:w-56 flex-shrink-0 group">
-            <div className="aspect-[3/4] rounded-lg overflow-hidden border border-white/10 group-hover:border-glacier-500/30 transition-colors">
-              <img
-                src="/images/lake-geneva/lavaux-vineyards-sunset.jpeg"
-                alt="Swiss Insider Guide"
-                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-                loading="lazy"
-              />
-            </div>
-          </Link>
-        </div>
-      </section>
+      <GuestStories />
 
       {/* ════════════════════════════════════════
-          6. GUEST QUOTES
+          7. MY SWISSPERIENCES
       ════════════════════════════════════════ */}
-      <GuestQuotes visible={s4.visible} sectionRef={s4.ref} />
+      <MySwissperiencesPreview />
 
       {/* ════════════════════════════════════════
-          7. REQUEST A QUOTE
-      ════════════════════════════════════════ */}
-      <RequestQuoteForm />
-
-      {/* ════════════════════════════════════════
-          8. JOURNAL — Editorial story feature
-      ════════════════════════════════════════ */}
-      <section
-        ref={s5.ref}
-        className={`py-24 md:py-40 px-8 md:px-16 lg:px-24 bg-[#060606] transition-all duration-[1500ms] ease-out ${s5.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-12 gap-8 md:gap-16 items-center">
-
-            <Link to="/journals/the-winter-ascent" className="md:col-span-6 group block">
-              <div className="aspect-[3/4] relative overflow-hidden">
-                <img
-                  src="/images/guests/wagner/1.jpeg"
-                  alt="Wagner, Andreia & Helena"
-                  className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-[1200ms]"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              </div>
-            </Link>
-
-            <div className="md:col-span-5 md:col-start-8">
-              <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-8">
-                From the Journals
-              </span>
-
-              <h2 className="font-serif text-4xl md:text-5xl text-white/80 mb-6 leading-[0.95]">
-                The Winter<br />Ascent
-              </h2>
-
-              <p className="text-white/50 text-base leading-relaxed mb-4">
-                Wagner, Andreia & Helena. A 48-hour condensed Grand Tour — from Geneva to the Bernese Oberland.
-              </p>
-
-              <p className="text-white/40 text-sm leading-relaxed mb-10">
-                Lavaux. Grindelwald at dusk. Lauterbrunnen's waterfalls. Every detail curated.
-              </p>
-
-              <Link
-                to="/journals/the-winter-ascent"
-                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
-              >
-                Read the Story
-              </Link>
-
-              <div className="mt-16 pt-8 border-t border-white/5">
-                <Link
-                  to="/journals"
-                  className="text-[10px] uppercase tracking-[0.3em] text-white/40 hover:text-glacier-300 transition-colors"
-                >
-                  All Journals →
-                </Link>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════
-          9. THE HOST — Founder
+          8. THE HOST
       ════════════════════════════════════════ */}
       <Founder />
 
       {/* ════════════════════════════════════════
-          10. FOR THOSE WHO — Manifesto
+          9. FINAL CTA — the conversation
       ════════════════════════════════════════ */}
-      <section
-        ref={s6.ref}
-        className={`relative py-32 md:py-48 overflow-hidden transition-all duration-[1500ms] ease-out ${s6.visible ? 'opacity-100' : 'opacity-0'}`}
-      >
-        <div className="absolute inset-0">
-          <img
-            src="/images/_preview/manifesto-village-aerial.jpeg"
-            srcSet="/images/_preview/manifesto-village-aerial.jpeg 800w, /images/villars/manifesto-village-aerial.jpeg 3072w"
-            sizes="100vw"
-            alt="Sunrise over the Alps"
-            className="w-full h-full object-cover opacity-30"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#060606] via-[#060606]/80 to-[#060606]/60" />
+      <section className="py-24 md:py-36 px-8 md:px-16 bg-[#0a0a0a] border-t border-white/5">
+        <div className="max-w-xl mx-auto text-center mb-14">
+          <ScrollReveal variant="fade">
+            <h2 className="font-serif text-4xl md:text-5xl text-white/90 leading-[1.05] mb-5">
+              {t("finalCta.heading")}
+            </h2>
+            <p className="text-white/50 text-base md:text-lg font-light">
+              {t("finalCta.support")}
+            </p>
+          </ScrollReveal>
         </div>
-
-        <div className="relative z-10 px-8 md:px-16 lg:px-24 max-w-4xl">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-10">
-            For Those Who
-          </span>
-
-          <div className="space-y-6">
-            <p className="font-serif text-3xl md:text-5xl text-white/70 leading-[1.1]">
-              Built empires but forgot how to rest.
-            </p>
-            <p className="font-serif text-3xl md:text-5xl text-white/40 leading-[1.1]">
-              Travel alone but never feel lonely.
-            </p>
-            <p className="font-serif text-3xl md:text-5xl text-white/20 leading-[1.1]">
-              Seek permission to do nothing.
-            </p>
-          </div>
-
-          <div className="mt-16 pt-8 border-t border-white/10 max-w-md">
-            <p className="text-white/40 text-sm leading-relaxed mb-6">
-              {isLoggedIn
-                ? "You're already part of this world. Your next escape is one message away."
-                : "Membership is by application only. We review each request to ensure alignment with our community."}
-            </p>
-            {!isLoggedIn && (
-              <Link
-                to="/request-access"
-                className="text-[10px] uppercase tracking-[0.3em] text-white/50 hover:text-glacier-300 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-1"
-              >
-                Apply for Membership
-              </Link>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════
-          11. FINAL CTA
-      ════════════════════════════════════════ */}
-      <section
-        ref={s7.ref}
-        className={`py-40 md:py-56 px-8 bg-[#060606] transition-all duration-[1500ms] ease-out ${s7.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-      >
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-serif text-5xl md:text-7xl text-white/90 mb-8 leading-[0.9]">
-            {isLoggedIn ? "Your next escape." : "The silence is waiting."}
-          </h2>
-
-          <p className="text-white/40 text-lg mb-16 font-light">
-            {isLoggedIn
-              ? "Browse sanctuaries, plan experiences, and let us handle the rest."
-              : "Start with a question. We'll handle everything else."}
+        <RequestQuoteForm embedded initialInterest={quoteInterest} />
+        {!isLoggedIn && (
+          <p className="text-center mt-12">
+            <button
+              onClick={() => navigate("/login")}
+              className="inline-block py-3 text-xs uppercase tracking-[0.25em] text-white/35 hover:text-white/60 transition-colors"
+            >
+              {t("finalCta.signIn")}
+            </button>
           </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-            {isLoggedIn ? (
-              <button
-                onClick={() => navigate('/members')}
-                className="group px-16 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
-              >
-                <span className="text-[11px] uppercase tracking-[0.3em] font-medium">
-                  Member Area
-                </span>
-              </button>
-            ) : (
-              <>
-                <button
-                  onClick={() => {
-                    const el = document.getElementById("request-quote");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="group px-12 py-5 bg-white text-black hover:bg-white/90 transition-all duration-500"
-                >
-                  <span className="text-[11px] uppercase tracking-[0.3em] font-medium">
-                    Start with a Question
-                  </span>
-                </button>
-                <button
-                  onClick={() => navigate('/request-access')}
-                  className="group px-10 py-5 border border-white/20 hover:border-glacier-500/40 hover:bg-white/5 transition-all duration-500"
-                >
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 group-hover:text-glacier-300 transition-colors">
-                    Apply for Membership
-                  </span>
-                </button>
-              </>
-            )}
-          </div>
-        </div>
+        )}
       </section>
 
       <Footer />

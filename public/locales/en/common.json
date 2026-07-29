@@ -1,5 +1,9 @@
 {
   "nav": {
+    "stay": "Stay",
+    "audio": "Audio",
+    "mySwissperiences": "My Swissperiences",
+    "signIn": "Sign In",
     "sanctuaries": "Sanctuaries",
     "packages": "Packages",
     "experiences": "Experiences",

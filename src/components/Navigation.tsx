@@ -21,12 +21,17 @@ interface NavigationProps {
 }
 
 const navLinksConfig = [
-  { key: "sanctuaries", href: "/sanctuaries" },
-  { key: "packages", href: "/packages" },
+  { key: "stay", href: "/sanctuaries" },
   { key: "experiences", href: "/experiences" },
+  { key: "audio", href: "/audio" },
   { key: "journals", href: "/journals" },
   { key: "about", href: "/about" },
 ];
+
+/** Strips an /en or /pt prefix so active states survive language-prefixed routes. */
+function stripLangPrefix(pathname: string): string {
+  return pathname.replace(/^\/(en|pt)(?=\/|$)/, "") || "/";
+}
 
 export default function Navigation({ onWaitlistClick }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -85,11 +90,10 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
 
             {/* Desktop Navigation Links - More Compact & Active State Support */}
             <div className="hidden lg:block border-l border-white/10 pl-8">
-              <ul className="flex gap-6 text-[9px] font-bold uppercase tracking-[0.2em]">
+              <ul className="flex gap-6 text-[11px] font-bold uppercase tracking-[0.2em]">
                 {navLinks.map((link) => {
-                  const isActive = location.pathname === link.href ||
-                    location.hash === link.href ||
-                    (link.href.startsWith('#') && location.hash === link.href);
+                  const path = stripLangPrefix(location.pathname);
+                  const isActive = path === link.href || path.startsWith(`${link.href}/`);
                   return (
                     <li key={link.href}>
                       <button
@@ -117,18 +121,18 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
               {isLoggedIn ? (
                 <Button
                   onClick={() => navigate('/members')}
-                  className="rounded-full px-5 py-1.5 h-9 font-medium tracking-[0.2em] uppercase text-[9px] text-white/70 border border-white/15 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
+                  className="rounded-full px-5 py-1.5 h-9 font-medium tracking-[0.15em] uppercase text-[10px] text-white/70 border border-white/15 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
                   variant="ghost"
                 >
-                  My Account
+                  {t('nav.mySwissperiences', 'My Swissperiences')}
                 </Button>
               ) : (
                 <Button
                   onClick={() => navigate('/login')}
-                  className="rounded-full px-5 py-1.5 h-9 font-medium tracking-[0.2em] uppercase text-[9px] text-white/70 border border-white/15 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
+                  className="rounded-full px-5 py-1.5 h-9 font-medium tracking-[0.2em] uppercase text-[10px] text-white/70 border border-white/15 bg-white/5 hover:bg-white hover:text-black transition-all duration-500"
                   variant="ghost"
                 >
-                  Sign In
+                  {t('nav.signIn', 'Sign In')}
                 </Button>
               )}
             </div>
@@ -184,7 +188,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                   className="rounded-full w-full mt-7 font-light tracking-widest bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all"
                   variant="ghost"
                 >
-                  My Account
+                  {t('nav.mySwissperiences', 'My Swissperiences')}
                 </Button>
               ) : (
                 <Button
@@ -195,7 +199,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
                   className="rounded-full w-full mt-7 font-light tracking-widest bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all"
                   variant="ghost"
                 >
-                  Sign In
+                  {t('nav.signIn', 'Sign In')}
                 </Button>
               )}
             </div>

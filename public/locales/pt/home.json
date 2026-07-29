@@ -1,4 +1,128 @@
 {
+  "umbrellaHero": {
+    "eyebrow": "Suíça privada, hospedada pessoalmente",
+    "title1": "Suíça,",
+    "title2": "curada pessoalmente.",
+    "support": "Estadias privadas, jornadas alpinas, histórias locais e experiências desenhadas em torno de você.",
+    "primaryCta": "Explore a Swissperiences",
+    "secondaryCta": "My Swissperiences"
+  },
+  "worlds": {
+    "eyebrow": "Os Mundos Swissperiences",
+    "heading": "Uma Suíça. Quatro portas de entrada.",
+    "support": "Tudo o que fazemos vive em um de quatro mundos — unidos por um único fio privado.",
+    "stay": {
+      "label": "Stay",
+      "name": "Santuários Alpinos",
+      "description": "Casas alpinas privadas, cuidadas pessoalmente. Villars-sur-Ollon é o primeiro flagship.",
+      "cta": "O Santuário"
+    },
+    "experience": {
+      "label": "Experience",
+      "name": "Jornadas Privadas",
+      "description": "Experiências suíças curadas pessoalmente — do lago aos passos de montanha.",
+      "cta": "As Jornadas"
+    },
+    "listen": {
+      "label": "Listen",
+      "name": "Audio Journeys",
+      "description": "A Suíça, narrada enquanto você caminha. A primeira: Stones & Water, no centro histórico de Genebra.",
+      "cta": "Conheça Stones & Water"
+    },
+    "remember": {
+      "label": "Remember",
+      "name": "Diários & Memórias Cinematográficas",
+      "description": "Hóspedes reais, histórias reais — documentadas como merecem.",
+      "cta": "Os Diários"
+    }
+  },
+  "flagship": {
+    "statement1": "Não vendemos experiências.",
+    "statement2": "Curamos a arte de não fazer nada.",
+    "eyebrow": "O Santuário Flagship — Villars-sur-Ollon",
+    "title1": "A arte de não fazer nada,",
+    "title2": "lindamente.",
+    "support": "Um loft alpino privado a 1.300m. Lareira. Varanda sobre o vale. O silêncio como diferencial.",
+    "note": "O primeiro santuário Swissperiences · Preços exclusivos para membros",
+    "cta": "Descubra o Santuário",
+    "secondaryCta": "Planejar uma estadia"
+  },
+  "journeys": {
+    "eyebrow": "Jornadas Assinatura",
+    "heading": "Três jornadas, curadas para agora.",
+    "support": "Não é um catálogo — é um ponto de partida. Cada jornada é uma estadia completa, construída em torno de uma única ideia.",
+    "seasonality": "Disponibilidade sazonal",
+    "duration": "Duração",
+    "includes": "O que a sustenta",
+    "cta": "Ver todas as jornadas",
+    "itemCta": "Solicitar esta jornada"
+  },
+  "listen": {
+    "eyebrow": "Listen — Audio Journeys",
+    "heading": "Stones & Water.",
+    "support": "Uma caminhada narrada pelo centro histórico de Genebra — sete capítulos, começando no Jardin Anglais e terminando no coração da cidade velha.",
+    "status": "Em produção — a primeira Audio Journey da Swissperiences",
+    "location": "Centro histórico de Genebra",
+    "chapters": "7 capítulos",
+    "distance": "1,9 km",
+    "durationValue": "≈ 60 minutos",
+    "start": "Começa no Jardin Anglais",
+    "cta": "Conheça a jornada",
+    "page": {
+      "walkEyebrow": "A Caminhada",
+      "chaptersNote": "Os títulos dos capítulos serão revelados no lançamento.",
+      "firstListenEyebrow": "Primeira Escuta",
+      "firstListenHeading": "Seja o primeiro a ouvir.",
+      "firstListenBody": "Apenas atualizações discretas — escreveremos quando Stones & Water estiver pronta para caminhar."
+    }
+  },
+  "stories": {
+    "eyebrow": "Histórias de Hóspedes",
+    "heading": "Nas palavras deles.",
+    "featuredCta": "Leia a história",
+    "allCta": "Todos os Diários"
+  },
+  "myswissperiences": {
+    "eyebrow": "My Swissperiences",
+    "heading": "Toda a sua viagem, em um único lugar privado.",
+    "support": "Antes de você chegar, seu anfitrião já preparou tudo: o roteiro, a chegada, a linha direta com o concierge — e depois, as memórias.",
+    "items": {
+      "itinerary": "Seu roteiro, dia a dia",
+      "arrival": "Chegada organizada e no horário",
+      "concierge": "Linha direta com seu anfitrião",
+      "experiences": "Experiências escolhidas para você",
+      "audio": "Audio Journeys para o caminho",
+      "profile": "Um Travel Profile que lembra de você",
+      "memories": "Suas memórias privadas, guardadas"
+    },
+    "cta": "Entrar no My Swissperiences"
+  },
+  "finalCta": {
+    "heading": "Comece pela Suíça. Nós curamos o resto.",
+    "support": "Conte o que você procura. Sem compromisso, sem pressa — uma conversa tranquila sobre a sua viagem ideal.",
+    "signIn": "Já é hóspede? Entrar"
+  },
+  "quoteForm": {
+    "eyebrow": "Comece uma Conversa",
+    "heading": "Solicite uma Proposta",
+    "support": "Conte o que você procura. Sem compromisso, sem pressa — apenas uma conversa tranquila sobre a sua estadia ideal.",
+    "name": "Nome",
+    "namePlaceholder": "Primeiro nome",
+    "email": "Email",
+    "emailPlaceholder": "seu@email.com",
+    "interest": "Tenho interesse em",
+    "interestDefault": "Selecione seu interesse",
+    "interestCustom": "Algo sob medida",
+    "message": "Mensagem",
+    "messageOptional": "opcional",
+    "messagePlaceholder": "Datas, sozinho ou acompanhado, qualquer coisa que queira nos contar...",
+    "error": "Algo deu errado. Tente novamente ou escreva direto para hello@swissperiences.ch",
+    "submit": "Começar uma conversa",
+    "sending": "Enviando...",
+    "successEyebrow": "Solicitação Recebida",
+    "successHeading": "Entraremos em contato em até 48 horas.",
+    "successBody": "Recebemos sua solicitação com total discrição. Confira seu email para a confirmação."
+  },
   "hero": {
     "title": "Suíça.",
     "subtitle": "Um estado de espírito.",

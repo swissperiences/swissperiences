@@ -1,4 +1,128 @@
 {
+  "umbrellaHero": {
+    "eyebrow": "Private Switzerland, personally hosted",
+    "title1": "Switzerland,",
+    "title2": "personally curated.",
+    "support": "Private stays, alpine journeys, local stories and experiences designed around you.",
+    "primaryCta": "Explore Swissperiences",
+    "secondaryCta": "My Swissperiences"
+  },
+  "worlds": {
+    "eyebrow": "The Swissperiences Worlds",
+    "heading": "One Switzerland. Four ways in.",
+    "support": "Everything we do lives in one of four worlds — held together by a single private thread.",
+    "stay": {
+      "label": "Stay",
+      "name": "Alpine Sanctuaries",
+      "description": "Private alpine homes, personally kept. Villars-sur-Ollon is the first flagship.",
+      "cta": "The Sanctuary"
+    },
+    "experience": {
+      "label": "Experience",
+      "name": "Private Journeys",
+      "description": "Personally curated Swiss experiences — from the lakeshore to the passes.",
+      "cta": "The Journeys"
+    },
+    "listen": {
+      "label": "Listen",
+      "name": "Audio Journeys",
+      "description": "Switzerland, narrated as you walk it. The first: Stones & Water, Geneva Old Town.",
+      "cta": "Preview Stones & Water"
+    },
+    "remember": {
+      "label": "Remember",
+      "name": "Journals & Cinematic Memories",
+      "description": "Real guests, real stories — documented the way they deserve.",
+      "cta": "The Journals"
+    }
+  },
+  "flagship": {
+    "statement1": "We don't sell experiences.",
+    "statement2": "We curate the art of doing nothing.",
+    "eyebrow": "The Flagship Sanctuary — Villars-sur-Ollon",
+    "title1": "The art of doing nothing,",
+    "title2": "beautifully.",
+    "support": "A private alpine loft at 1,300m. Fireplace. Balcony over the valley. Silence as a feature.",
+    "note": "The first Swissperiences sanctuary · Members-only pricing",
+    "cta": "Discover the Sanctuary",
+    "secondaryCta": "Plan a stay"
+  },
+  "journeys": {
+    "eyebrow": "Signature Journeys",
+    "heading": "Three journeys, curated for now.",
+    "support": "Not a catalogue — a starting point. Each journey is a complete stay, built around a single idea.",
+    "seasonality": "Seasonal availability",
+    "duration": "Duration",
+    "includes": "What carries it",
+    "cta": "View all journeys",
+    "itemCta": "Request this journey"
+  },
+  "listen": {
+    "eyebrow": "Listen — Audio Journeys",
+    "heading": "Stones & Water.",
+    "support": "A narrated walk through Geneva's Old Town — seven chapters, beginning at the Jardin Anglais and ending in the heart of the old city.",
+    "status": "In production — the first Swissperiences Audio Journey",
+    "location": "Geneva Old Town",
+    "chapters": "7 chapters",
+    "distance": "1.9 km",
+    "durationValue": "≈ 60 minutes",
+    "start": "Begins at Jardin Anglais",
+    "cta": "Preview the journey",
+    "page": {
+      "walkEyebrow": "The Walk",
+      "chaptersNote": "Chapter titles will be revealed with the release.",
+      "firstListenEyebrow": "First Listen",
+      "firstListenHeading": "Be the first to hear it.",
+      "firstListenBody": "Quiet updates only — we'll write when Stones & Water is ready to walk."
+    }
+  },
+  "stories": {
+    "eyebrow": "Guest Stories",
+    "heading": "In their words.",
+    "featuredCta": "Read the story",
+    "allCta": "All Journals"
+  },
+  "myswissperiences": {
+    "eyebrow": "My Swissperiences",
+    "heading": "Your entire journey, in one private place.",
+    "support": "Before you arrive, your host has already prepared it: the itinerary, the arrival, the concierge line — and afterwards, the memories.",
+    "items": {
+      "itinerary": "Your itinerary, day by day",
+      "arrival": "Arrival, timed and arranged",
+      "concierge": "A direct line to your host",
+      "experiences": "Experiences chosen for you",
+      "audio": "Audio Journeys for the road",
+      "profile": "A Travel Profile that remembers",
+      "memories": "Your private memories, kept"
+    },
+    "cta": "Enter My Swissperiences"
+  },
+  "finalCta": {
+    "heading": "Start with Switzerland. We'll curate the rest.",
+    "support": "Tell us what you're looking for. No commitment, no rush — a quiet conversation about your ideal journey.",
+    "signIn": "Already a guest? Sign in"
+  },
+  "quoteForm": {
+    "eyebrow": "Start a Conversation",
+    "heading": "Request a Quote",
+    "support": "Tell us what you're looking for. No commitment, no rush — just a quiet conversation about your ideal stay.",
+    "name": "Name",
+    "namePlaceholder": "First name",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "interest": "I'm interested in",
+    "interestDefault": "Select your interest",
+    "interestCustom": "Something custom",
+    "message": "Message",
+    "messageOptional": "optional",
+    "messagePlaceholder": "Dates, solo or with company, anything you'd like us to know...",
+    "error": "Something went wrong. Please try again or email us directly at hello@swissperiences.ch",
+    "submit": "Start a conversation",
+    "sending": "Sending...",
+    "successEyebrow": "Request Received",
+    "successHeading": "We'll be in touch within 48 hours.",
+    "successBody": "We've received your request with complete discretion. Check your inbox for a confirmation."
+  },
   "hero": {
     "title": "Switzerland.",
     "subtitle": "A state of mind.",
@@ -24,7 +148,7 @@
       "description": "Professional Drone & Content Session. CHF 600 (Includes edited social media reel).",
       "audience": "Cinematic Documentation"
     },
-    "footer": "Atendimento multilíngue (EN/PT/ES). Cada experiência é curada pessoalmente."
+    "footer": "Multilingual hosting (EN/PT/ES). Every experience personally curated."
   },
   "howItWorks": {
     "heading": "How It Works",
