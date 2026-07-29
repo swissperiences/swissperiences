@@ -24,7 +24,7 @@ export default class ErrorBoundary extends Component<Props, State> {
             return (
                 <div className="min-h-screen bg-black flex items-center justify-center px-6">
                     <div className="text-center max-w-md space-y-6">
-                        <p className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em]">
+                        <p className="text-switz-red text-xs font-bold uppercase tracking-[0.4em]">
                             Something went wrong
                         </p>
                         <h1 className="text-3xl font-serif text-white">

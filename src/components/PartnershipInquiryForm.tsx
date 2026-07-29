@@ -74,7 +74,7 @@ export function PartnershipInquiryForm() {
     return (
         <div className="bg-black/40 backdrop-blur-md p-8 md:p-12 border border-white/10 rounded-sm">
             <div className="mb-10">
-                <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.3em] block mb-3">
+                <span className="text-switz-red text-xs font-bold uppercase tracking-[0.3em] block mb-3">
                     Partnership Inquiry
                 </span>
                 <h3 className="text-3xl font-serif text-white italic">

@@ -13,7 +13,7 @@ export default function GuestQuotes({ visible, sectionRef }: GuestQuotesProps) {
       className={`py-32 md:py-48 px-8 md:px-16 lg:px-24 bg-[#060606] transition-all duration-[1500ms] ease-out ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
     >
       <div className="max-w-5xl mx-auto">
-        <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block text-center mb-20 md:mb-28">
+        <span className="text-xs uppercase tracking-[0.4em] text-white/40 block text-center mb-20 md:mb-28">
           In Their Words
         </span>
 
@@ -47,7 +47,7 @@ export default function GuestQuotes({ visible, sectionRef }: GuestQuotesProps) {
                   <span className="w-1 h-1 rounded-full bg-white/20" />
                   <Link
                     to={`/journals/${j.slug}`}
-                    className="text-[10px] uppercase tracking-[0.2em] text-white/40 hover:text-glacier-300 transition-colors border-b border-transparent hover:border-glacier-500/30 pb-0.5"
+                    className="text-xs uppercase tracking-[0.2em] text-white/40 hover:text-glacier-300 transition-colors border-b border-transparent hover:border-glacier-500/30 pb-0.5"
                   >
                     Read Story
                   </Link>

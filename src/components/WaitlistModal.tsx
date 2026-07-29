@@ -161,7 +161,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                   {/* Experience Selector (Hidden if intent is preset) */}
                   {!initialIntent && (
                     <motion.div variants={itemVariants} className="space-y-2">
-                      <label className="text-[10px] text-white/40 font-bold uppercase tracking-[0.25em]">Select Experience</label>
+                      <label className="text-xs text-white/40 font-bold uppercase tracking-[0.25em]">Select Experience</label>
                       <Select value={intent} onValueChange={setIntent}>
                         <SelectTrigger className="bg-white/[0.03] border-white/5 h-12 text-sm focus:ring-white/10 hover:bg-white/[0.05] transition-all">
                           <SelectValue placeholder="Begin your journey..." />
@@ -188,7 +188,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {(intent === 'day-pass' || intent === 'retreat' || intent === 'stay') && (
                       <motion.div variants={itemVariants} className="space-y-2">
-                        <label className="text-[10px] text-white/40 font-bold uppercase tracking-[0.25em]">Preferred Date</label>
+                        <label className="text-xs text-white/40 font-bold uppercase tracking-[0.25em]">Preferred Date</label>
                         <Popover>
                           <PopoverTrigger asChild>
                             <Button
@@ -226,7 +226,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                     )}
 
                     <motion.div variants={itemVariants} className="space-y-2">
-                      <label className="text-[10px] text-white/40 font-bold uppercase tracking-[0.25em]">Guests</label>
+                      <label className="text-xs text-white/40 font-bold uppercase tracking-[0.25em]">Guests</label>
                       <Select value={guests} onValueChange={setGuests}>
                         <SelectTrigger className="bg-white/[0.03] border-white/5 h-12 text-sm hover:bg-white/[0.05]">
                           <SelectValue placeholder="Count" />
@@ -243,7 +243,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                   {/* Contact Info */}
                   <div className="grid grid-cols-1 gap-6">
                     <motion.div variants={itemVariants} className="space-y-3">
-                      <label className="text-[10px] text-white/40 font-light uppercase tracking-[0.3em]">Name</label>
+                      <label className="text-xs text-white/40 font-light uppercase tracking-[0.3em]">Name</label>
                       <Input
                         type="text"
                         placeholder="e.g. Andreia Wager"
@@ -255,7 +255,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                     </motion.div>
 
                     <motion.div variants={itemVariants} className="space-y-3">
-                      <label className="text-[10px] text-white/40 font-light uppercase tracking-[0.3em]">Email</label>
+                      <label className="text-xs text-white/40 font-light uppercase tracking-[0.3em]">Email</label>
                       <Input
                         type="email"
                         placeholder="hello@world.com"
@@ -274,7 +274,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                       required
                       className="w-4 h-4 border-white/20 bg-white/5 rounded-sm focus:ring-white/20 accent-[#D8B58A]"
                     />
-                    <label htmlFor="terms" className="text-[10px] text-white/50 uppercase tracking-widest font-light cursor-pointer select-none">
+                    <label htmlFor="terms" className="text-xs text-white/50 uppercase tracking-widest font-light cursor-pointer select-none">
                       I agree to the <a href="/terms" target="_blank" className="underline hover:text-white transition-colors">Terms & Conditions</a>
                     </label>
                   </motion.div>
@@ -282,7 +282,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                   <motion.div variants={itemVariants} className="pt-4">
                     <Button
                       type="submit"
-                      className="w-full bg-white text-black hover:bg-switz-red hover:text-white h-14 uppercase tracking-[0.3em] text-[10px] font-bold transition-all duration-500 rounded-none group"
+                      className="w-full bg-white text-black hover:bg-switz-red hover:text-white h-14 uppercase tracking-[0.3em] text-xs font-bold transition-all duration-500 rounded-none group"
                       disabled={isLoading}
                     >
                       {isLoading ? "Consulting Archives..." : (
@@ -292,7 +292,7 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                         </span>
                       )}
                     </Button>
-                    <p className="text-[9px] text-center text-white/35 mt-4 tracking-widest uppercase font-light">
+                    <p className="text-xs text-center text-white/35 mt-4 tracking-widest uppercase font-light">
                       Response within 48h // Secure your priority with a refundable CHF 500 deposit
                     </p>
                   </motion.div>
@@ -322,13 +322,13 @@ export function WaitlistModal({ open, onOpenChange, selectedTier = 'General Wait
                       });
                       window.location.href = `/secure-deposit?${params.toString()}`;
                     }}
-                    className="w-full bg-[#D8B58A] text-black hover:bg-[#D8B58A]/90 h-14 uppercase tracking-[0.2em] text-[10px] font-bold rounded-none transition-all"
+                    className="w-full bg-[#D8B58A] text-black hover:bg-[#D8B58A]/90 h-14 uppercase tracking-[0.2em] text-xs font-bold rounded-none transition-all"
                   >
                     Secure Priority (CHF 500)
                   </Button>
                   <Button
                     onClick={handleClose}
-                    className="bg-transparent border border-white/10 text-white/40 hover:text-glacier-300 hover:border-glacier-500/40 w-full h-12 uppercase tracking-[0.2em] text-[10px] rounded-none transition-all"
+                    className="bg-transparent border border-white/10 text-white/40 hover:text-glacier-300 hover:border-glacier-500/40 w-full h-12 uppercase tracking-[0.2em] text-xs rounded-none transition-all"
                   >
                     {t('buttons.close')}
                   </Button>

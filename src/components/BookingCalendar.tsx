@@ -97,7 +97,7 @@ export function BookingCalendar({ sanctuaryName, isOpen, onClose }: BookingCalen
                 <div className="space-y-4">
                     {date?.from && (
                         <div className="text-sm border-t border-white/5 pt-4">
-                            <span className="text-white/40 block mb-1 uppercase tracking-widest text-[10px]">Your Selection</span>
+                            <span className="text-white/40 block mb-1 uppercase tracking-widest text-xs">Your Selection</span>
                             <p className="text-white font-medium">
                                 {format(date.from, "LLL dd, y")}
                                 {date.to && <> &mdash; {format(date.to, "LLL dd, y")}</>}
@@ -122,7 +122,7 @@ export function BookingCalendar({ sanctuaryName, isOpen, onClose }: BookingCalen
                     <Button
                         onClick={handleRequest}
                         disabled={isSubmitting || !date?.to}
-                        className="bg-white text-black hover:bg-white/90 font-medium uppercase tracking-widest text-[11px] h-12 px-8"
+                        className="bg-white text-black hover:bg-white/90 font-medium uppercase tracking-widest text-xs h-12 px-8"
                     >
                         {isSubmitting ? (
                             <>

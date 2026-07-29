@@ -259,7 +259,7 @@ export function MembershipApplications() {
                                                 <TableCell className="text-white/40 text-xs capitalize">
                                                     {app.referral_source || '-'}
                                                 </TableCell>
-                                                <TableCell className="text-white/40 text-[10px] font-mono">
+                                                <TableCell className="text-white/40 text-xs font-mono">
                                                     {new Date(app.created_at).toLocaleDateString()}
                                                 </TableCell>
                                                 <TableCell className="text-right">

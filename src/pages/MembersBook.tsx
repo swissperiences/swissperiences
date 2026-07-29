@@ -323,7 +323,7 @@ export default function MembersBook() {
                     >
                         <ArrowLeft size={14} /> Back to Dashboard
                     </button>
-                    <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
+                    <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-4">
                         Member Booking
                     </span>
                     <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">
@@ -371,7 +371,7 @@ export default function MembersBook() {
                     >
                         {/* Sanctuary Selection */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-3">Select Sanctuary</label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-3">Select Sanctuary</label>
                             <div className="space-y-3">
                                 {sanctuaries.map((s) => (
                                     <label
@@ -403,7 +403,7 @@ export default function MembersBook() {
 
                         {/* Dates — Availability Calendar */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-3">Select Dates</label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-3">Select Dates</label>
                             <AvailabilityCalendar
                                 disabledDates={allDisabledDates}
                                 mode="range"
@@ -420,7 +420,7 @@ export default function MembersBook() {
 
                         {/* Guests */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Guests</label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">Guests</label>
                             <select
                                 value={guests}
                                 onChange={(e) => setGuests(Number(e.target.value))}
@@ -440,7 +440,7 @@ export default function MembersBook() {
                                             href="https://wa.me/41787002202?text=Hi%2C%20I'd%20like%20to%20book%20a%20sanctuary%20stay%20for%205%2B%20guests."
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-[10px] tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] underline underline-offset-4"
+                                            className="text-xs tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] underline underline-offset-4"
                                         >
                                             Contact us on WhatsApp →
                                         </a>
@@ -451,7 +451,7 @@ export default function MembersBook() {
 
                         {/* Add-ons */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-1">Enhance Your Stay</label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-1">Enhance Your Stay</label>
                             <p className="text-white/40 text-xs mb-4">Add curated experiences during your stay.</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {experiences.map((exp) => {
@@ -489,7 +489,7 @@ export default function MembersBook() {
 
                         {/* Special Requests */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/30">(Optional)</span></label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/30">(Optional)</span></label>
                             <textarea
                                 value={specialRequests}
                                 onChange={(e) => setSpecialRequests(e.target.value)}
@@ -509,7 +509,7 @@ export default function MembersBook() {
                                     className="overflow-hidden"
                                 >
                                     <div className="bg-white/[0.03] border border-white/10 p-6 space-y-4">
-                                        <p className="text-[10px] uppercase tracking-widest text-white/40">Booking Summary</p>
+                                        <p className="text-xs uppercase tracking-widest text-white/40">Booking Summary</p>
 
                                         {/* Property */}
                                         <div className="flex items-center gap-3">
@@ -523,15 +523,15 @@ export default function MembersBook() {
                                         {/* Details */}
                                         <div className="grid grid-cols-3 gap-4 py-3 border-t border-white/5">
                                             <div>
-                                                <p className="text-white/40 text-[10px] uppercase tracking-wider">Check-in</p>
+                                                <p className="text-white/40 text-xs uppercase tracking-wider">Check-in</p>
                                                 <p className="text-white text-xs mt-1">{formatDate(checkIn)}</p>
                                             </div>
                                             <div>
-                                                <p className="text-white/40 text-[10px] uppercase tracking-wider">Check-out</p>
+                                                <p className="text-white/40 text-xs uppercase tracking-wider">Check-out</p>
                                                 <p className="text-white text-xs mt-1">{formatDate(checkOut)}</p>
                                             </div>
                                             <div>
-                                                <p className="text-white/40 text-[10px] uppercase tracking-wider">Guests</p>
+                                                <p className="text-white/40 text-xs uppercase tracking-wider">Guests</p>
                                                 <p className="text-white text-xs mt-1">{guests} {guests === 1 ? "guest" : "guests"}</p>
                                             </div>
                                         </div>
@@ -553,11 +553,11 @@ export default function MembersBook() {
 
                                         {/* Total */}
                                         <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
-                                            <span className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</span>
+                                            <span className="text-xs uppercase tracking-widest text-white/40">Estimated Total</span>
                                             <span className="text-2xl font-serif text-white">{formatCHF(sanctuaryCalc.total)}</span>
                                         </div>
 
-                                        <p className="text-white/35 text-[10px]">Final amount confirmed by our team before payment.</p>
+                                        <p className="text-white/35 text-xs">Final amount confirmed by our team before payment.</p>
 
                                         {/* Cancellation Policy */}
                                         <div className="flex items-start gap-2 pt-2 border-t border-white/5">
@@ -578,7 +578,7 @@ export default function MembersBook() {
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
                             Request This Stay
                         </button>
-                        <p className="text-white/40 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
+                        <p className="text-white/40 text-xs text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
                     </motion.form>
                 )}
 
@@ -593,7 +593,7 @@ export default function MembersBook() {
                     >
                         {/* Experience Selection */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-3">Select Experience</label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-3">Select Experience</label>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {experiences.map((exp) => (
                                     <label
@@ -626,7 +626,7 @@ export default function MembersBook() {
 
                         {/* Date — Availability Calendar (single mode for experiences) */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-3">Preferred Date</label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-3">Preferred Date</label>
                             <AvailabilityCalendar
                                 disabledDates={experienceDisabledDates}
                                 mode="single"
@@ -637,7 +637,7 @@ export default function MembersBook() {
 
                         {/* Number of People */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Number of People</label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">Number of People</label>
                             <select
                                 value={expGuests}
                                 onChange={(e) => setExpGuests(Number(e.target.value))}
@@ -651,7 +651,7 @@ export default function MembersBook() {
 
                         {/* Special Requests */}
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/30">(Optional)</span></label>
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">Special Requests <span className="text-white/30">(Optional)</span></label>
                             <textarea
                                 value={expSpecialRequests}
                                 onChange={(e) => setExpSpecialRequests(e.target.value)}
@@ -667,17 +667,17 @@ export default function MembersBook() {
                             if (!exp) return null;
                             return (
                                 <div className="bg-white/[0.03] border border-white/10 p-5 space-y-3">
-                                    <p className="text-[10px] uppercase tracking-widest text-white/40">Booking Summary</p>
+                                    <p className="text-xs uppercase tracking-widest text-white/40">Booking Summary</p>
                                     <div className="flex justify-between text-sm">
                                         <span className="text-white/60">{exp.name}</span>
                                         <span className="text-white">{formatCHF(exp.basePrice)}</span>
                                     </div>
                                     <p className="text-white/40 text-xs">{formatDate(preferredDate)} · {expGuests} {expGuests === 1 ? "person" : "people"}</p>
                                     <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
-                                        <span className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</span>
+                                        <span className="text-xs uppercase tracking-widest text-white/40">Estimated Total</span>
                                         <span className="text-2xl font-serif text-white">{formatCHF(exp.basePrice)}</span>
                                     </div>
-                                    <p className="text-white/35 text-[10px]">Final amount confirmed by our team before payment.</p>
+                                    <p className="text-white/35 text-xs">Final amount confirmed by our team before payment.</p>
                                     <div className="flex items-start gap-2 pt-2 border-t border-white/5">
                                         <ShieldCheck size={14} className="text-emerald-500/70 shrink-0 mt-0.5" />
                                         <p className="text-emerald-400/60 text-xs">Free cancellation up to 7 days before the experience.</p>
@@ -695,7 +695,7 @@ export default function MembersBook() {
                             {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : null}
                             Request This Experience
                         </button>
-                        <p className="text-white/40 text-[10px] text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
+                        <p className="text-white/40 text-xs text-center">You won't be charged now. We'll confirm availability and final price within 24-48 hours.</p>
                     </motion.form>
                 )}
             </main>

@@ -128,16 +128,16 @@ export default function AvailabilityCalendar({
       <div className="flex items-center gap-4 mb-3 px-1">
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-white/10 border border-white/20" />
-          <span className="text-[10px] text-white/40 uppercase tracking-wider">Available</span>
+          <span className="text-xs text-white/40 uppercase tracking-wider">Available</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-red-500/30 border border-red-500/40" />
-          <span className="text-[10px] text-white/40 uppercase tracking-wider">Booked</span>
+          <span className="text-xs text-white/40 uppercase tracking-wider">Booked</span>
         </div>
         {mode === "range" && (
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-sm bg-switz-red" />
-            <span className="text-[10px] text-white/40 uppercase tracking-wider">Selected</span>
+            <span className="text-xs text-white/40 uppercase tracking-wider">Selected</span>
           </div>
         )}
       </div>
@@ -160,7 +160,7 @@ export default function AvailabilityCalendar({
               day_disabled: "text-white/15 opacity-100 cursor-not-allowed line-through",
               caption_label: "text-white text-sm font-medium",
               nav_button: "text-white/40 hover:text-white hover:bg-white/10 border-white/10",
-              head_cell: "text-white/30 font-normal text-[11px] w-9",
+              head_cell: "text-white/30 font-normal text-xs w-9",
               cell: "h-9 w-9 text-center text-sm p-0 relative",
               day: "h-9 w-9 p-0 font-normal text-white/70 hover:bg-white/10 hover:text-white rounded-sm transition-colors aria-selected:opacity-100",
             }}
@@ -189,7 +189,7 @@ export default function AvailabilityCalendar({
               day_disabled: "text-white/15 opacity-100 cursor-not-allowed line-through",
               caption_label: "text-white text-sm font-medium",
               nav_button: "text-white/40 hover:text-white hover:bg-white/10 border-white/10",
-              head_cell: "text-white/30 font-normal text-[11px] w-9",
+              head_cell: "text-white/30 font-normal text-xs w-9",
               cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-sm [&:has([aria-selected])]:bg-switz-red/10 first:[&:has([aria-selected])]:rounded-l-sm last:[&:has([aria-selected])]:rounded-r-sm",
               day: "h-9 w-9 p-0 font-normal text-white/70 hover:bg-white/10 hover:text-white rounded-sm transition-colors aria-selected:opacity-100",
             }}

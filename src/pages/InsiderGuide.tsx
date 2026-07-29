@@ -62,7 +62,7 @@ const InsiderGuide = () => {
 
                     <div className="relative z-10 max-w-xl mx-auto px-6 pb-20 pt-40 w-full">
                         {/* Brand */}
-                        <p className="text-[11px] tracking-[0.35em] uppercase text-white/40 mb-8">
+                        <p className="text-xs tracking-[0.35em] uppercase text-white/40 mb-8">
                             Swissperiences
                         </p>
 
@@ -109,7 +109,7 @@ const InsiderGuide = () => {
                                             )}
                                         </button>
                                     </div>
-                                    <p className="text-[11px] text-white/20 mt-3">
+                                    <p className="text-xs text-white/20 mt-3">
                                         Free. You'll also join our community.
                                     </p>
                                 </form>
@@ -128,7 +128,7 @@ const InsiderGuide = () => {
                                     Download the Guide
                                     <ArrowRight size={14} />
                                 </a>
-                                <p className="text-[11px] text-white/25 mt-4">
+                                <p className="text-xs text-white/25 mt-4">
                                     We also sent a copy to your email.
                                 </p>
                             </div>
@@ -139,7 +139,7 @@ const InsiderGuide = () => {
                 {/* Preview — what's inside, minimal */}
                 <section className="py-24 px-6 border-t border-white/5">
                     <div className="max-w-lg mx-auto">
-                        <p className="text-[11px] tracking-[0.3em] uppercase text-glacier-500/60 mb-6">
+                        <p className="text-xs tracking-[0.3em] uppercase text-glacier-500/60 mb-6">
                             Inside the guide
                         </p>
 
@@ -170,7 +170,7 @@ const InsiderGuide = () => {
                             <p className="text-xs text-white/20 italic">
                                 "What stood out most was the silence."
                             </p>
-                            <p className="text-[10px] text-glacier-500/40 mt-1">
+                            <p className="text-xs text-glacier-500/40 mt-1">
                                 — Ale & Alex, guests
                             </p>
                         </div>
@@ -220,8 +220,8 @@ const InsiderGuide = () => {
 
                 {/* Footer */}
                 <footer className="py-10 px-6 border-t border-white/5 text-center">
-                    <p className="text-[10px] text-glacier-500/30 mb-2">Find us.</p>
-                    <a href="/" className="text-[11px] text-white/20 tracking-[0.3em] uppercase hover:text-white/40 transition-colors">
+                    <p className="text-xs text-glacier-500/30 mb-2">Find us.</p>
+                    <a href="/" className="text-xs text-white/20 tracking-[0.3em] uppercase hover:text-white/40 transition-colors">
                         swissperiences.ch
                     </a>
                 </footer>

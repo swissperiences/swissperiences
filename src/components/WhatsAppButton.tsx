@@ -143,7 +143,7 @@ export default function WhatsAppButton() {
       {/* Label — visible on hover AND auto-expands for 3s on first appear */}
       <span
         className={`
-          text-[11px] uppercase tracking-[0.2em] font-medium whitespace-nowrap
+          text-xs uppercase tracking-[0.2em] font-medium whitespace-nowrap
           text-white/50 group-hover:text-white/70
           transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden
           ${showLabel ? "max-w-[140px] opacity-100" : "max-w-0 opacity-0"}

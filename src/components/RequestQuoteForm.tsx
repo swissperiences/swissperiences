@@ -55,7 +55,7 @@ export default function RequestQuoteForm({ initialInterest = "", onClose }: Prop
     return (
       <section id="request-quote" className="py-24 md:py-32 px-8 md:px-16 bg-[#0a0a0a] border-t border-white/5">
         <div className="max-w-xl mx-auto text-center">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-6">
+          <span className="text-xs uppercase tracking-[0.3em] text-white/40 block mb-6">
             Request Received
           </span>
           <h3 className="font-serif text-2xl md:text-3xl text-white/80 mb-4">
@@ -73,7 +73,7 @@ export default function RequestQuoteForm({ initialInterest = "", onClose }: Prop
     <section id="request-quote" className="py-24 md:py-32 px-8 md:px-16 bg-[#0a0a0a] border-t border-white/5">
       <div className="max-w-xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-6">
+          <span className="text-xs uppercase tracking-[0.3em] text-white/40 block mb-6">
             Start a Conversation
           </span>
           <h2 className="font-serif text-3xl md:text-4xl text-white/80 mb-4">
@@ -99,7 +99,7 @@ export default function RequestQuoteForm({ initialInterest = "", onClose }: Prop
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="quote-name" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
+              <label htmlFor="quote-name" className="text-xs uppercase tracking-[0.2em] text-white/50 block mb-2">
                 Name
               </label>
               <input
@@ -112,7 +112,7 @@ export default function RequestQuoteForm({ initialInterest = "", onClose }: Prop
               />
             </div>
             <div>
-              <label htmlFor="quote-email" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
+              <label htmlFor="quote-email" className="text-xs uppercase tracking-[0.2em] text-white/50 block mb-2">
                 Email <span className="text-white/30">*</span>
               </label>
               <input
@@ -128,7 +128,7 @@ export default function RequestQuoteForm({ initialInterest = "", onClose }: Prop
           </div>
 
           <div>
-            <label htmlFor="quote-interest" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
+            <label htmlFor="quote-interest" className="text-xs uppercase tracking-[0.2em] text-white/50 block mb-2">
               I'm interested in
             </label>
             <select
@@ -146,7 +146,7 @@ export default function RequestQuoteForm({ initialInterest = "", onClose }: Prop
           </div>
 
           <div>
-            <label htmlFor="quote-message" className="text-[10px] uppercase tracking-[0.2em] text-white/50 block mb-2">
+            <label htmlFor="quote-message" className="text-xs uppercase tracking-[0.2em] text-white/50 block mb-2">
               Message <span className="text-white/30">optional</span>
             </label>
             <textarea
@@ -169,7 +169,7 @@ export default function RequestQuoteForm({ initialInterest = "", onClose }: Prop
             <button
               type="submit"
               disabled={status === "sending"}
-              className="w-full sm:w-auto px-12 py-4 bg-white text-black text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-white/90 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full sm:w-auto px-12 py-4 bg-white text-black text-xs uppercase tracking-[0.25em] font-medium hover:bg-white/90 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {status === "sending" ? "Sending..." : "Send Request"}
             </button>

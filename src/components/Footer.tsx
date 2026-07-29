@@ -23,8 +23,8 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-6 text-white/40">
-              <a href="https://instagram.com/swissperiences" target="_blank" rel="noopener noreferrer" className="hover:text-glacier-300 transition-colors uppercase text-[10px] tracking-widest">Instagram</a>
-              <a href="https://linkedin.com/company/swissperiences" target="_blank" rel="noopener noreferrer" className="hover:text-glacier-300 transition-colors uppercase text-[10px] tracking-widest">LinkedIn</a>
+              <a href="https://instagram.com/swissperiences" target="_blank" rel="noopener noreferrer" className="hover:text-glacier-300 transition-colors uppercase text-xs tracking-widest">Instagram</a>
+              <a href="https://linkedin.com/company/swissperiences" target="_blank" rel="noopener noreferrer" className="hover:text-glacier-300 transition-colors uppercase text-xs tracking-widest">LinkedIn</a>
             </div>
           </div>
 
@@ -65,7 +65,7 @@ export default function Footer() {
 
 
         {/* BOTTOM */}
-        <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[9px] text-white/35 tracking-widest uppercase">
+        <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-white/35 tracking-widest uppercase">
           <p>{t('footer.copyright', '© 2026 Swissperiences • Geneva, Switzerland')}</p>
           <div className="flex gap-6">
             <Link to="/privacy" className="hover:text-white/50 transition-colors">Privacy Policy</Link>

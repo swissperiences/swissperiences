@@ -71,7 +71,7 @@ function MembersLayoutInner({ children }: MembersLayoutProps) {
             <span className="text-lg font-light tracking-[0.25em] text-white font-[Newsreader,serif] uppercase">
               Swissperiences
             </span>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-white/30 mt-1.5 font-[Manrope,sans-serif]">
+            <p className="text-xs tracking-[0.3em] uppercase text-white/30 mt-1.5 font-[Manrope,sans-serif]">
               Member Area
             </p>
           </Link>
@@ -114,14 +114,14 @@ function MembersLayoutInner({ children }: MembersLayoutProps) {
             )}
             <div className="min-w-0">
               <p className="text-sm text-white truncate">{firstName}</p>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-white/30">
+              <p className="text-xs tracking-[0.2em] uppercase text-white/30">
                 {member?.membership_tier}
               </p>
             </div>
           </div>
           <button
             onClick={handleSignOut}
-            className="flex items-center gap-2 text-white/30 hover:text-white text-[10px] uppercase tracking-[0.2em] transition-colors w-full px-1 py-2"
+            className="flex items-center gap-2 text-white/30 hover:text-white text-xs uppercase tracking-[0.2em] transition-colors w-full px-1 py-2"
           >
             <LogOut size={14} />
             Sign out

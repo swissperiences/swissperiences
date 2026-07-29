@@ -65,13 +65,13 @@ export default function MembershipGate({ children, title, subtitle }: Membership
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link
                         to="/request-access"
-                        className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                        className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                     >
                         Become a Member
                     </Link>
                     <Link
                         to="/login"
-                        className="inline-block border border-white/20 text-white/60 px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:border-glacier-500/40 hover:text-white hover:bg-white/5 transition-all duration-500"
+                        className="inline-block border border-white/20 text-white/60 px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:border-glacier-500/40 hover:text-white hover:bg-white/5 transition-all duration-500"
                     >
                         Sign In
                     </Link>

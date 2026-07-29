@@ -12,7 +12,7 @@ const NotFound = () => {
             <div className="max-w-sm w-full text-center">
                 <div className="w-16 h-px bg-white/20 mx-auto mb-12" />
 
-                <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-6">
+                <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-6">
                     404
                 </span>
 

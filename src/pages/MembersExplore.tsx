@@ -90,7 +90,7 @@ export default function MembersExplore() {
       <div className="px-6 sm:px-10 lg:px-16 py-12 lg:py-20 max-w-6xl">
         {/* ── Hero header ── */}
         <section className="mb-12 sm:mb-16">
-          <p className="text-[10px] tracking-[0.4em] uppercase text-white/30 mb-4 font-[Manrope,sans-serif]">
+          <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-4 font-[Manrope,sans-serif]">
             Personalized Curations
           </p>
           <h1 className="font-[Newsreader,serif] text-5xl sm:text-6xl lg:text-7xl text-white font-light leading-[1.05] mb-6">
@@ -108,7 +108,7 @@ export default function MembersExplore() {
             <div className="flex flex-wrap gap-8 sm:gap-12">
               {/* Type filter */}
               <div>
-                <span className="text-[9px] tracking-[0.25em] uppercase text-white/25 block mb-3 font-[Manrope,sans-serif]">
+                <span className="text-xs tracking-[0.25em] uppercase text-white/25 block mb-3 font-[Manrope,sans-serif]">
                   Type
                 </span>
                 <div className="flex gap-4 sm:gap-6">
@@ -121,7 +121,7 @@ export default function MembersExplore() {
                     <button
                       key={key}
                       onClick={() => setTypeFilter(key)}
-                      className={`text-[11px] tracking-widest uppercase pb-1 transition-colors font-[Manrope,sans-serif] ${
+                      className={`text-xs tracking-widest uppercase pb-1 transition-colors font-[Manrope,sans-serif] ${
                         typeFilter === key
                           ? "text-white border-b border-white"
                           : "text-white/30 hover:text-white/60"
@@ -135,7 +135,7 @@ export default function MembersExplore() {
 
               {/* Season filter */}
               <div>
-                <span className="text-[9px] tracking-[0.25em] uppercase text-white/25 block mb-3 font-[Manrope,sans-serif]">
+                <span className="text-xs tracking-[0.25em] uppercase text-white/25 block mb-3 font-[Manrope,sans-serif]">
                   Season
                 </span>
                 <div className="flex gap-4 sm:gap-6">
@@ -148,7 +148,7 @@ export default function MembersExplore() {
                     <button
                       key={key}
                       onClick={() => setSeasonFilter(key)}
-                      className={`text-[11px] tracking-widest uppercase pb-1 transition-colors font-[Manrope,sans-serif] ${
+                      className={`text-xs tracking-widest uppercase pb-1 transition-colors font-[Manrope,sans-serif] ${
                         seasonFilter === key
                           ? "text-white border-b border-white"
                           : "text-white/30 hover:text-white/60"
@@ -161,7 +161,7 @@ export default function MembersExplore() {
               </div>
             </div>
 
-            <span className="text-[10px] tracking-[0.2em] uppercase text-white/20 font-[Manrope,sans-serif]">
+            <span className="text-xs tracking-[0.2em] uppercase text-white/20 font-[Manrope,sans-serif]">
               {filtered.length} curations
             </span>
           </div>
@@ -174,7 +174,7 @@ export default function MembersExplore() {
             <p className="text-white/40 text-sm mb-6">Try broadening your selection.</p>
             <button
               onClick={() => { setTypeFilter("all"); setSeasonFilter("all"); }}
-              className="text-[11px] tracking-widest uppercase text-white/50 hover:text-white transition-colors underline underline-offset-4 font-[Manrope,sans-serif]"
+              className="text-xs tracking-widest uppercase text-white/50 hover:text-white transition-colors underline underline-offset-4 font-[Manrope,sans-serif]"
             >
               Clear filters
             </button>
@@ -197,7 +197,7 @@ export default function MembersExplore() {
                     </div>
                   </a>
                   <div className="absolute bottom-6 sm:bottom-10 left-6 sm:left-10 right-6 sm:right-10 pointer-events-none">
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
+                    <span className="text-xs tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
                       {categoryLabels[bentoHero.id] || "Experience"}
                     </span>
                     <h3 className="font-[Newsreader,serif] text-2xl sm:text-4xl text-white mb-1">{bentoHero.name}</h3>
@@ -207,14 +207,14 @@ export default function MembersExplore() {
                         href={getWhatsAppUrl(bentoHero)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white text-[#131313] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-medium hover:bg-white/90 transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-2"
+                        className="bg-white text-[#131313] px-6 py-3 text-xs tracking-[0.2em] uppercase font-medium hover:bg-white/90 transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-2"
                       >
                         <MessageCircle size={12} />
                         Inquire
                       </a>
                       <Link
                         to="/members/book"
-                        className="text-[10px] tracking-[0.15em] uppercase text-white/30 hover:text-white/60 transition-colors font-[Manrope,sans-serif]"
+                        className="text-xs tracking-[0.15em] uppercase text-white/30 hover:text-white/60 transition-colors font-[Manrope,sans-serif]"
                       >
                         View stays →
                       </Link>
@@ -238,7 +238,7 @@ export default function MembersExplore() {
                     </div>
                   </a>
                   <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-8 right-6 sm:right-8 pointer-events-none">
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
+                    <span className="text-xs tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
                       {categoryLabels[bentoVertical.id] || "Experience"}
                     </span>
                     <h3 className="font-[Newsreader,serif] text-2xl text-white mb-1">{bentoVertical.name}</h3>
@@ -248,7 +248,7 @@ export default function MembersExplore() {
                         href={getWhatsAppUrl(bentoVertical)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
+                        className="text-xs tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
                       >
                         <MessageCircle size={11} />
                         Inquire →
@@ -270,7 +270,7 @@ export default function MembersExplore() {
                     href="https://wa.me/41787002202?text=Hi%2C%20I'd%20like%20to%20know%20about%20exclusive%20curations."
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border border-[#474747]/30 text-white px-6 py-3 text-[9px] tracking-[0.2em] uppercase hover:bg-white hover:text-[#131313] transition-all font-[Manrope,sans-serif]"
+                    className="border border-[#474747]/30 text-white px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-[#131313] transition-all font-[Manrope,sans-serif]"
                   >
                     Request Entry
                   </a>
@@ -292,7 +292,7 @@ export default function MembersExplore() {
                     </div>
                   </a>
                   <div className="absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 max-w-xs pointer-events-none">
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
+                    <span className="text-xs tracking-[0.3em] uppercase text-white/50 mb-2 block font-[Manrope,sans-serif]">
                       {categoryLabels[bentoWide.id] || "Experience"}
                     </span>
                     <h3 className="font-[Newsreader,serif] text-2xl sm:text-3xl text-white mb-1">{bentoWide.name}</h3>
@@ -302,7 +302,7 @@ export default function MembersExplore() {
                         href={getWhatsAppUrl(bentoWide)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
+                        className="text-xs tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
                       >
                         <MessageCircle size={11} />
                         Inquire →
@@ -330,11 +330,11 @@ export default function MembersExplore() {
                   </a>
                   <div className="p-5 sm:p-6">
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="text-[10px] tracking-[0.3em] uppercase text-white/20 font-[Manrope,sans-serif]">
+                      <span className="text-xs tracking-[0.3em] uppercase text-white/20 font-[Manrope,sans-serif]">
                         {pkg.duration}
                       </span>
                       {pkg.eventBadge && (
-                        <span className="text-[10px] tracking-[0.15em] uppercase bg-white/5 text-white/40 px-2 py-0.5 font-[Manrope,sans-serif]">
+                        <span className="text-xs tracking-[0.15em] uppercase bg-white/5 text-white/40 px-2 py-0.5 font-[Manrope,sans-serif]">
                           {pkg.eventBadge}
                         </span>
                       )}
@@ -347,7 +347,7 @@ export default function MembersExplore() {
                         href={getWhatsAppUrl(pkg)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] tracking-[0.15em] uppercase text-white/15 group-hover:text-white/40 transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
+                        className="text-xs tracking-[0.15em] uppercase text-white/15 group-hover:text-white/40 transition-colors font-[Manrope,sans-serif] inline-flex items-center gap-1.5"
                       >
                         <MessageCircle size={10} />
                         Inquire →
@@ -364,7 +364,7 @@ export default function MembersExplore() {
         <section className="mb-20">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-[10px] tracking-[0.3em] uppercase text-white/25 mb-2 font-[Manrope,sans-serif]">
+              <p className="text-xs tracking-[0.3em] uppercase text-white/25 mb-2 font-[Manrope,sans-serif]">
                 Explore by
               </p>
               <h2 className="font-[Newsreader,serif] text-2xl text-white font-light">
@@ -375,7 +375,7 @@ export default function MembersExplore() {
               to="/destinations"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] tracking-[0.3em] uppercase text-white/25 hover:text-white transition-colors font-[Manrope,sans-serif] hidden sm:block"
+              className="text-xs tracking-[0.3em] uppercase text-white/25 hover:text-white transition-colors font-[Manrope,sans-serif] hidden sm:block"
             >
               All destinations →
             </Link>
@@ -410,7 +410,7 @@ export default function MembersExplore() {
           <section className="mb-20">
             <div className="bg-[#0E0E0E] p-8 sm:p-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8">
               <div className="flex-1">
-                <p className="text-[10px] tracking-[0.3em] uppercase text-white/25 mb-3 font-[Manrope,sans-serif]">
+                <p className="text-xs tracking-[0.3em] uppercase text-white/25 mb-3 font-[Manrope,sans-serif]">
                   Immersive Retreat
                 </p>
                 <h2 className="font-[Newsreader,serif] text-3xl sm:text-4xl text-white italic mb-3">
@@ -431,7 +431,7 @@ export default function MembersExplore() {
                     {Object.entries(retreat.tiers).map(([key, tier]) => (
                       tier && (
                         <div key={key}>
-                          <p className="text-white/15 text-[10px] uppercase tracking-widest mb-1 font-[Manrope,sans-serif]">{tier.label}</p>
+                          <p className="text-white/15 text-xs uppercase tracking-widest mb-1 font-[Manrope,sans-serif]">{tier.label}</p>
                           <p className="text-white text-sm">
                             {tier.currency} {tier.amount.toLocaleString()}
                           </p>
@@ -446,7 +446,7 @@ export default function MembersExplore() {
                 href="https://wa.me/41787002202?text=Hi%2C%20I'm%20interested%20in%20The%20Spring%20Intake%20retreat."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white text-[#131313] px-8 py-3.5 text-[10px] tracking-[0.2em] uppercase font-medium hover:bg-white/90 transition-colors font-[Manrope,sans-serif] inline-block w-fit shrink-0"
+                className="bg-white text-[#131313] px-8 py-3.5 text-xs tracking-[0.2em] uppercase font-medium hover:bg-white/90 transition-colors font-[Manrope,sans-serif] inline-block w-fit shrink-0"
               >
                 Inquire
                 <ArrowRight size={12} className="inline ml-2" />
@@ -468,7 +468,7 @@ export default function MembersExplore() {
             </p>
             <div className="flex items-center justify-end gap-4">
               <div>
-                <span className="text-[11px] tracking-[0.25em] uppercase text-white block font-[Manrope,sans-serif]">
+                <span className="text-xs tracking-[0.25em] uppercase text-white block font-[Manrope,sans-serif]">
                   {featuredJournal.guests}
                 </span>
                 <span className="text-xs text-white/30 block mt-1 font-[Manrope,sans-serif]">
@@ -495,7 +495,7 @@ export default function MembersExplore() {
             </h2>
             <Link
               to="/journals"
-              className="text-[10px] tracking-[0.3em] uppercase text-white/25 hover:text-white transition-colors font-[Manrope,sans-serif] hidden sm:block"
+              className="text-xs tracking-[0.3em] uppercase text-white/25 hover:text-white transition-colors font-[Manrope,sans-serif] hidden sm:block"
             >
               Read all →
             </Link>
@@ -518,7 +518,7 @@ export default function MembersExplore() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#131313] via-[#131313]/20 to-transparent" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-white/30 block mb-1.5 font-[Manrope,sans-serif]">
+                  <span className="text-xs tracking-[0.2em] uppercase text-white/30 block mb-1.5 font-[Manrope,sans-serif]">
                     {journal.date}
                   </span>
                   <h3 className="font-[Newsreader,serif] text-lg text-white mb-1">{journal.guests}</h3>

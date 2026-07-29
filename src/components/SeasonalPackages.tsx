@@ -68,7 +68,7 @@ export default function SeasonalPackages({ onNavigate, isLoggedIn }: Props) {
       <div className="max-w-6xl mx-auto">
 
         <div className="text-center mb-16 md:mb-20">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-6 block">
+          <span className="text-xs uppercase tracking-[0.3em] text-white/30 mb-6 block">
             Seasonal Packages
           </span>
           <h2 className="font-serif text-3xl md:text-4xl text-white/80 mb-4">
@@ -88,12 +88,12 @@ export default function SeasonalPackages({ onNavigate, isLoggedIn }: Props) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
           <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
-            <span className="text-[9px] uppercase tracking-[0.3em] text-emerald-400/80 bg-emerald-400/10 px-3 py-1 border border-emerald-400/20">
+            <span className="text-xs uppercase tracking-[0.3em] text-emerald-400/80 bg-emerald-400/10 px-3 py-1 border border-emerald-400/20">
               Now in Season
             </span>
           </div>
           <div className="absolute bottom-5 left-5 right-5 sm:bottom-8 sm:left-8">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-2">
+            <span className="text-xs uppercase tracking-[0.3em] text-white/40 block mb-2">
               {currentSeason.months}
             </span>
             <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white/90">
@@ -113,7 +113,7 @@ export default function SeasonalPackages({ onNavigate, isLoggedIn }: Props) {
           {/* Current Season — Activities */}
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12 pt-8">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4 sm:mb-6 block">
+              <span className="text-xs uppercase tracking-[0.3em] text-white/30 mb-4 sm:mb-6 block">
                 {currentSeason.name} Curated Activities
               </span>
               <div className="space-y-3 sm:space-y-4">
@@ -128,7 +128,7 @@ export default function SeasonalPackages({ onNavigate, isLoggedIn }: Props) {
             <div className="flex items-end mt-4 md:mt-0">
               <button
                 onClick={() => onNavigate("/members")}
-                className="w-full sm:w-auto px-10 py-4 bg-white text-black text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-switz-red hover:text-white transition-all duration-500"
+                className="w-full sm:w-auto px-10 py-4 bg-white text-black text-xs uppercase tracking-[0.25em] font-medium hover:bg-switz-red hover:text-white transition-all duration-500"
               >
                 Book This Season
               </button>
@@ -137,7 +137,7 @@ export default function SeasonalPackages({ onNavigate, isLoggedIn }: Props) {
 
           {/* Other Seasons */}
           <div className="border-t border-white/5 pt-12">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 mb-8 block">
+            <span className="text-xs uppercase tracking-[0.3em] text-white/30 mb-8 block">
               Also Available
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -156,7 +156,7 @@ export default function SeasonalPackages({ onNavigate, isLoggedIn }: Props) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
-                      <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 block mb-1">
+                      <span className="text-xs uppercase tracking-[0.2em] text-white/40 block mb-1">
                         {season.months}
                       </span>
                       <h4 className="font-serif text-xl text-white/80">{season.name}</h4>
@@ -165,7 +165,7 @@ export default function SeasonalPackages({ onNavigate, isLoggedIn }: Props) {
                   <p className="text-white/40 text-sm font-light italic">{season.tagline}</p>
                   <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                     {season.activities.slice(0, 3).map((a) => (
-                      <span key={a} className="text-[10px] text-white/30 uppercase tracking-widest">{a}</span>
+                      <span key={a} className="text-xs text-white/30 uppercase tracking-widest">{a}</span>
                     ))}
                   </div>
                 </Link>

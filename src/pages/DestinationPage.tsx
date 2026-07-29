@@ -143,7 +143,7 @@ export default function DestinationPage() {
                             transition={{ delay: 0.5 }}
                             className="mt-8"
                         >
-                            <span className="text-[10px] text-white/40 uppercase tracking-[0.2em]">{city.coordinates}</span>
+                            <span className="text-xs text-white/40 uppercase tracking-[0.2em]">{city.coordinates}</span>
                         </motion.div>
                     </div>
                 </section>
@@ -165,15 +165,15 @@ export default function DestinationPage() {
                         </div>
                         <div className="space-y-6 border border-white/5 rounded-sm p-8 bg-white/[0.02]">
                             <div>
-                                <span className="text-white/40 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.elevation", "Elevation")}</span>
+                                <span className="text-white/40 text-xs uppercase tracking-[0.2em] block mb-1">{t("destinations.elevation", "Elevation")}</span>
                                 <span className="text-white text-lg font-light">{city.elevation}</span>
                             </div>
                             <div className="border-t border-white/5 pt-4">
-                                <span className="text-white/40 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.canton", "Canton")}</span>
+                                <span className="text-white/40 text-xs uppercase tracking-[0.2em] block mb-1">{t("destinations.canton", "Canton")}</span>
                                 <span className="text-white text-lg font-light">{city.canton}</span>
                             </div>
                             <div className="border-t border-white/5 pt-4">
-                                <span className="text-white/40 text-[10px] uppercase tracking-[0.2em] block mb-1">{t("destinations.coordinates", "Coordinates")}</span>
+                                <span className="text-white/40 text-xs uppercase tracking-[0.2em] block mb-1">{t("destinations.coordinates", "Coordinates")}</span>
                                 <span className="text-white/70 text-sm font-light">{city.coordinates}</span>
                             </div>
                         </div>
@@ -183,7 +183,7 @@ export default function DestinationPage() {
                 {/* Highlights */}
                 <section className="bg-white/[0.02] border-y border-white/5 py-24 md:py-32">
                     <div className="max-w-7xl mx-auto px-6">
-                        <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">{t("destinations.highlights", "Highlights")}</span>
+                        <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">{t("destinations.highlights", "Highlights")}</span>
                         <h2 className="text-3xl md:text-4xl font-serif mb-16">What defines {city.name}.</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
                             {city.highlights.map((highlight, i) => {
@@ -210,7 +210,7 @@ export default function DestinationPage() {
                         <div className="space-y-16">
                             {city.relatedSanctuaries.length > 0 && (
                                 <div>
-                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-8">
+                                    <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-8">
                                         {t("destinations.relatedSanctuaries", "Stay Here")}
                                     </span>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -230,7 +230,7 @@ export default function DestinationPage() {
 
                             {city.relatedExperiences.length > 0 && (
                                 <div>
-                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-8">
+                                    <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-8">
                                         {t("destinations.relatedExperiences", "Experiences Here")}
                                     </span>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -250,7 +250,7 @@ export default function DestinationPage() {
 
                             {city.relatedJournals.length > 0 && (
                                 <div>
-                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-8">
+                                    <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-8">
                                         {t("destinations.relatedJournals", "Stories from Here")}
                                     </span>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -282,7 +282,7 @@ export default function DestinationPage() {
                         <p className="text-white/50 font-light mb-12">Full details, availability, and member pricing visible after approval.</p>
                         <a
                             href="/request-access"
-                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
                             {t("destinations.ctaButton", "Become a Member")}
                         </a>

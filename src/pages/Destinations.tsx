@@ -118,11 +118,11 @@ export default function Destinations() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                                 <div className="absolute bottom-6 left-6">
-                                    <span className="text-[10px] text-white/50 uppercase tracking-[0.2em]">{city.coordinates}</span>
+                                    <span className="text-xs text-white/50 uppercase tracking-[0.2em]">{city.coordinates}</span>
                                 </div>
                             </Link>
                             <div className="space-y-6 lg:[direction:ltr]">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold">
                                     {String(idx + 1).padStart(2, "0")} / {city.region}
                                 </span>
                                 <h2 className="text-4xl md:text-5xl font-serif leading-tight">{city.name}</h2>
@@ -132,7 +132,7 @@ export default function Destinations() {
                                 </p>
                                 <Link
                                     to={`/destinations/${city.slug}`}
-                                    className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 mt-4"
+                                    className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500 mt-4"
                                 >
                                     {t("destinations.explore", "Explore")} {city.name} <ArrowRight size={14} />
                                 </Link>
@@ -148,7 +148,7 @@ export default function Destinations() {
                         <p className="text-white/50 font-light mb-12">Full details, availability, and member pricing visible after approval.</p>
                         <a
                             href="/request-access"
-                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
                             {t("destinations.ctaButton", "Become a Member")}
                         </a>

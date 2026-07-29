@@ -138,7 +138,7 @@ export default function Journals() {
                                                 </div>
                                                 <div className="max-w-xl">
                                                     <div className="flex items-center gap-4 mb-4">
-                                                        <span className="text-[10px] text-switz-red font-bold uppercase tracking-[0.3em]">
+                                                        <span className="text-xs text-switz-red font-bold uppercase tracking-[0.3em]">
                                                             {item.day}
                                                         </span>
                                                         <div className="h-px flex-grow bg-white/5" />

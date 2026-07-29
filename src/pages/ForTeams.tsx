@@ -56,7 +56,7 @@ const ForTeams = () => {
                             {/* Left Column: Context */}
                             <div className="space-y-12 sticky top-32">
                                 <div>
-                                    <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-6">Why Swissperiences?</span>
+                                    <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-6">Why Swissperiences?</span>
                                     <h2 className="text-5xl font-serif text-white italic leading-tight mb-8">
                                         Not just a trip. <br /> A strategic reset.
                                     </h2>

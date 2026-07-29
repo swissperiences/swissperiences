@@ -158,7 +158,7 @@ export default function CinematicMemories() {
                             <Breadcrumbs items={breadcrumbItems} />
                         </motion.div>
                         <div>
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">{t('cinematic.philosophy')}</span>
+                            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">{t('cinematic.philosophy')}</span>
                             <h2 className="text-4xl md:text-5xl font-serif leading-tight">{t('cinematic.introTitle')}</h2>
                         </div>
                         <div className="space-y-6 text-white/60 font-light text-lg max-w-[45ch]">
@@ -176,7 +176,7 @@ export default function CinematicMemories() {
                         <div className="aspect-video bg-neutral-900 overflow-hidden rounded-sm relative shadow-2xl">
                             {/* Cinematic Overlay Label */}
                             <div className="absolute top-6 right-6 z-20 pointer-events-none">
-                                <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans border border-white/10 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full">
+                                <span className="text-xs text-white/40 uppercase tracking-[0.2em] font-sans border border-white/10 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full">
                                     {t('cinematic.cinemaGrade')}
                                 </span>
                             </div>
@@ -194,7 +194,7 @@ export default function CinematicMemories() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 pointer-events-none" />
                             <div className="absolute bottom-6 left-6 flex items-center gap-3 z-20">
                                 <div className="w-2 h-2 rounded-full bg-switz-red animate-pulse shadow-[0_0_8px_rgba(234,56,76,0.6)]" />
-                                <span className="text-[10px] uppercase tracking-[0.3em] text-white/70">{t('cinematic.portfolioSample')} 01</span>
+                                <span className="text-xs uppercase tracking-[0.3em] text-white/70">{t('cinematic.portfolioSample')} 01</span>
                             </div>
                         </div>
                     </div>
@@ -224,7 +224,7 @@ export default function CinematicMemories() {
                     <div className="max-w-7xl mx-auto">
                         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                             <div>
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">{t('cinematic.sampleAesthetics')}</span>
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">{t('cinematic.sampleAesthetics')}</span>
                                 <h2 className="text-4xl font-serif text-white">{t('cinematic.theStyles')}</h2>
                             </div>
                             <p className="text-white/40 text-sm italic max-w-xs md:text-right">
@@ -244,7 +244,7 @@ export default function CinematicMemories() {
                                         alt={item.label}
                                     />
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                                        <span className="text-white text-[10px] uppercase tracking-[0.3em] font-bold border-b border-white/20 pb-1">
+                                        <span className="text-white text-xs uppercase tracking-[0.3em] font-bold border-b border-white/20 pb-1">
                                             {item.label}
                                         </span>
                                     </div>
@@ -257,14 +257,14 @@ export default function CinematicMemories() {
                 {/* Bottom CTA */}
                 <section className="py-32 px-6 text-center border-t border-white/5">
                     <div className="max-w-2xl mx-auto space-y-12">
-                        <span className="text-switz-red text-[10px] uppercase tracking-[0.4em] font-bold">{t('cinematic.priceSession')}</span>
+                        <span className="text-switz-red text-xs uppercase tracking-[0.4em] font-bold">{t('cinematic.priceSession')}</span>
                         <h2 className="text-4xl md:text-5xl font-serif">{t('cinematic.footerTitle')}</h2>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
                                 href="https://wa.me/41787002202?text=Hi%2C%20I'm%20interested%20in%20Cinematic%20Memories%20documentation."
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center gap-3 bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                                className="inline-flex items-center justify-center gap-3 bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                             >
                                 {t('cinematic.cta')}
                             </a>

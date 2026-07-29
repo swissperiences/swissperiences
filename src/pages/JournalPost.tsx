@@ -164,7 +164,7 @@ export default function JournalPost() {
                                         </div>
                                     </div>
                                     <div className={cn("order-2 space-y-4", iIdx % 2 !== 0 ? "md:order-1 md:text-right" : "md:order-2 md:text-left")}>
-                                        <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block">
+                                        <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block">
                                             {item.day}
                                         </span>
                                         <h4 className="text-3xl font-serif text-white">{item.title}</h4>

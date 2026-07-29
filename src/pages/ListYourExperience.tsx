@@ -101,7 +101,7 @@ export default function ListYourExperience() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-start">
                         <ScrollReveal>
                             <div>
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                     The Vision
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif mb-8 leading-tight">
@@ -138,7 +138,7 @@ export default function ListYourExperience() {
                                     />
                                 </div>
                                 <div className="absolute -bottom-6 -left-6 bg-neutral-950 border border-white/10 px-6 py-4">
-                                    <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] block mb-1">
+                                    <span className="text-xs text-white/40 uppercase tracking-[0.2em] block mb-1">
                                         Covering
                                     </span>
                                     <span className="text-white font-serif text-lg">
@@ -155,7 +155,7 @@ export default function ListYourExperience() {
                     <div className="max-w-7xl mx-auto px-6">
                         <ScrollReveal>
                             <div className="text-center mb-16">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                     Why List With Us
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif">
@@ -217,7 +217,7 @@ export default function ListYourExperience() {
                     <div className="max-w-7xl mx-auto">
                         <ScrollReveal>
                             <div className="text-center mb-16">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                     Partners
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif leading-tight">
@@ -254,7 +254,7 @@ export default function ListYourExperience() {
                     <div className="max-w-3xl mx-auto px-6">
                         <ScrollReveal>
                             <div className="text-center mb-16">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                     How It Works
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif">
@@ -332,7 +332,7 @@ export default function ListYourExperience() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-start">
                             <ScrollReveal>
                                 <div className="lg:sticky lg:top-32">
-                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                    <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                         Get Started
                                     </span>
                                     <h2 className="text-3xl md:text-4xl font-serif mb-6 leading-tight">

@@ -71,7 +71,7 @@ export const JournalsTeaser = () => {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                             <div className="absolute bottom-8 left-8">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.2em] mb-2 block">Archive 0{index + 1}</span>
+                                <span className="text-switz-red text-xs uppercase tracking-[0.2em] mb-2 block">Archive 0{index + 1}</span>
                                 <h3 className="text-white font-serif text-2xl mb-1">{journal.title}</h3>
                                 <p className="text-white/60 text-xs italic tracking-wide">{journal.subtitle}</p>
                             </div>

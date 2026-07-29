@@ -285,12 +285,12 @@ export default function MembersDashboard() {
                 <span className="font-[Newsreader,serif] text-4xl sm:text-5xl text-white font-light block leading-none">
                   {daysUntilNext}
                 </span>
-                <span className="text-[9px] tracking-[0.3em] uppercase text-white/30 font-[Manrope,sans-serif] mt-1 block">
+                <span className="text-xs tracking-[0.3em] uppercase text-white/30 font-[Manrope,sans-serif] mt-1 block">
                   {daysUntilNext === 1 ? "day" : "days"}
                 </span>
               </div>
               <div className="border-l border-[#2A2A2A] pl-6 min-w-0">
-                <p className="text-[9px] tracking-[0.2em] uppercase text-white/30 mb-1 font-[Manrope,sans-serif]">
+                <p className="text-xs tracking-[0.2em] uppercase text-white/30 mb-1 font-[Manrope,sans-serif]">
                   Your next journey
                 </p>
                 <p className="text-white font-[Newsreader,serif] text-lg truncate">
@@ -336,7 +336,7 @@ export default function MembersDashboard() {
                       style={nearestEvent.imagePosition ? { objectPosition: nearestEvent.imagePosition } : undefined}
                     />
                     <div className="min-w-0">
-                      <p className="text-[9px] tracking-[0.2em] uppercase text-white/30 mb-0.5 font-[Manrope,sans-serif]">
+                      <p className="text-xs tracking-[0.2em] uppercase text-white/30 mb-0.5 font-[Manrope,sans-serif]">
                         Coming up — {nearestEvent.eventDates || nearestEvent.availability}
                       </p>
                       <p className="text-white text-sm font-[Newsreader,serif] truncate">{nearestEvent.name}</p>
@@ -381,7 +381,7 @@ export default function MembersDashboard() {
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <span
-                        className={`inline-block text-[10px] uppercase tracking-[0.2em] px-3 py-1 mb-3 ${statusStyles[b.status] || "bg-white/5 text-white/30"}`}
+                        className={`inline-block text-xs uppercase tracking-[0.2em] px-3 py-1 mb-3 ${statusStyles[b.status] || "bg-white/5 text-white/30"}`}
                       >
                         {b.status}
                       </span>
@@ -417,7 +417,7 @@ export default function MembersDashboard() {
             </h2>
             <Link
               to="/members/explore"
-              className="text-[10px] tracking-[0.3em] uppercase text-white/30 hover:text-white transition-colors font-[Manrope,sans-serif] hidden sm:block"
+              className="text-xs tracking-[0.3em] uppercase text-white/30 hover:text-white transition-colors font-[Manrope,sans-serif] hidden sm:block"
             >
               Explore all →
             </Link>
@@ -439,7 +439,7 @@ export default function MembersDashboard() {
                   />
                 </div>
                 <div className="p-5">
-                  <p className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-2">{pkg.duration}</p>
+                  <p className="text-xs tracking-[0.3em] uppercase text-white/30 mb-2">{pkg.duration}</p>
                   <h3 className="font-[Newsreader,serif] text-lg text-white mb-2">{pkg.name}</h3>
                   <p className="text-white/40 text-xs leading-relaxed line-clamp-2">{pkg.tagline}</p>
                 </div>
@@ -454,7 +454,7 @@ export default function MembersDashboard() {
             <p className="font-[Newsreader,serif] text-2xl sm:text-3xl text-white/80 italic leading-relaxed">
               "True luxury is the courage to remain silent in a world that never stops talking."
             </p>
-            <footer className="mt-6 text-[10px] tracking-[0.3em] uppercase text-white/30">
+            <footer className="mt-6 text-xs tracking-[0.3em] uppercase text-white/30">
               — The Silent Curator
             </footer>
           </blockquote>
@@ -487,7 +487,7 @@ export default function MembersDashboard() {
                     <div className="flex items-center gap-4">
                       <span className="text-white/20 text-xs">{dateStr}</span>
                       <span
-                        className={`text-[10px] uppercase tracking-[0.15em] px-2 py-0.5 ${statusStyles[b.status] || "text-white/30"}`}
+                        className={`text-xs uppercase tracking-[0.15em] px-2 py-0.5 ${statusStyles[b.status] || "text-white/30"}`}
                       >
                         {b.status}
                       </span>
@@ -533,7 +533,7 @@ export default function MembersDashboard() {
             <span className="font-[Newsreader,serif] text-sm text-white/20">
               Swissperiences
             </span>
-            <span className="text-[10px] text-white/15 tracking-[0.2em] uppercase">
+            <span className="text-xs text-white/15 tracking-[0.2em] uppercase">
               Est. 2024
             </span>
           </div>

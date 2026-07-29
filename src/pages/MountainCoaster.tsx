@@ -159,13 +159,13 @@ export default function MountainCoaster() {
                                         <h4 className="text-sm font-bold text-white group-hover:text-switz-red transition-colors">{loc.title}</h4>
                                         <span className="text-xs text-white/40">{loc.season}</span>
                                     </div>
-                                    <p className="text-[10px] uppercase tracking-[0.15em] text-white/40 mb-1">{loc.region}</p>
+                                    <p className="text-xs uppercase tracking-[0.15em] text-white/40 mb-1">{loc.region}</p>
                                     <p className="text-xs text-white/60 font-light">{loc.desc}</p>
                                     <div className="flex gap-4 mt-2">
-                                        <span className="flex items-center gap-1 text-[10px] text-white/40">
+                                        <span className="flex items-center gap-1 text-xs text-white/40">
                                             <Ruler size={10} /> {loc.length}
                                         </span>
-                                        <span className="flex items-center gap-1 text-[10px] text-white/40">
+                                        <span className="flex items-center gap-1 text-xs text-white/40">
                                             <Gauge size={10} /> {loc.altitude}
                                         </span>
                                     </div>
@@ -176,7 +176,7 @@ export default function MountainCoaster() {
                         {/* Safety note */}
                         <div className="mt-6 p-4 bg-white/[0.03] border border-white/5 flex gap-3 items-start">
                             <AlertTriangle size={14} className="text-amber-400/70 mt-0.5 shrink-0" />
-                            <p className="text-[10px] text-white/40 leading-relaxed">
+                            <p className="text-xs text-white/40 leading-relaxed">
                                 Age and height restrictions apply. Children under 8 must ride with an adult.
                                 Operation subject to weather conditions.
                             </p>
@@ -189,7 +189,7 @@ export default function MountainCoaster() {
                             <span>{isLoggedIn ? "Book This Experience" : "Become a Member to Book"}</span>
                             <ArrowRight size={16} />
                         </a>
-                        {!isLoggedIn && <p className="text-white/40 text-[10px] mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>}
+                        {!isLoggedIn && <p className="text-white/40 text-xs mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>}
                     </div>
                 </section>
 

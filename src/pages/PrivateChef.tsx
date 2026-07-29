@@ -218,7 +218,7 @@ export default function PrivateChef() {
                                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/10 mb-6">
                                         <step.icon className="text-switz-red w-5 h-5" />
                                     </div>
-                                    <span className="text-white/20 text-[10px] font-bold tracking-[0.2em] uppercase block mb-3">Step {idx + 1}</span>
+                                    <span className="text-white/20 text-xs font-bold tracking-[0.2em] uppercase block mb-3">Step {idx + 1}</span>
                                     <h4 className="text-sm font-bold mb-2">{step.title}</h4>
                                     <p className="text-xs text-white/60 font-light leading-relaxed">{step.desc}</p>
                                 </motion.div>
@@ -248,7 +248,7 @@ export default function PrivateChef() {
                             <ArrowRight size={16} />
                         </a>
                         {!isLoggedIn && (
-                            <p className="text-white/40 text-[10px] mt-4">
+                            <p className="text-white/40 text-xs mt-4">
                                 Available to members only. Request access to unlock curated experiences.
                             </p>
                         )}

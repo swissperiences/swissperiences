@@ -41,7 +41,7 @@ export default function Discovery() {
       {/* Hero */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-8 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-6">
+          <span className="text-xs uppercase tracking-[0.4em] text-white/40 block mb-6">
             Discovery
           </span>
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white/90 leading-[0.9] mb-6">
@@ -76,7 +76,7 @@ export default function Discovery() {
               </p>
               <Link
                 to="/packages"
-                className="inline-block mt-8 text-[10px] uppercase tracking-[0.25em] text-white/40 hover:text-white/70 transition-colors border-b border-white/15 hover:border-glacier-500/30 pb-1"
+                className="inline-block mt-8 text-xs uppercase tracking-[0.25em] text-white/40 hover:text-white/70 transition-colors border-b border-white/15 hover:border-glacier-500/30 pb-1"
               >
                 Ver Pacotes Curados
               </Link>

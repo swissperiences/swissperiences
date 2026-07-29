@@ -34,13 +34,21 @@ const formatCHF = (amount: number) =>
 
 export default function GuestEnhance() {
     const [searchParams] = useSearchParams();
+    // `email` is deliberately no longer read from the query string. A URL
+    // carrying a guest's address survives in browser history, forwarded
+    // messages, screenshots and access logs — and the link generator never
+    // produced one, so nothing legitimate depended on it.
+    //
+    // `guest`, `checkin` and `checkout` stay for now: links already sent to
+    // guests must keep working. The permanent fix is `/enhance/<opaque-token>`
+    // resolved server-side, tracked separately — see
+    // docs/product/MY_SWISSPERIENCES_GUEST_DASHBOARD.md.
     const prefillName = searchParams.get("guest") || "";
-    const prefillEmail = searchParams.get("email") || "";
     const prefillCheckin = searchParams.get("checkin") || "";
     const prefillCheckout = searchParams.get("checkout") || "";
 
     const [guestName, setGuestName] = useState(prefillName);
-    const [guestEmail, setGuestEmail] = useState(prefillEmail);
+    const [guestEmail, setGuestEmail] = useState("");
     const [checkIn, setCheckIn] = useState(prefillCheckin);
     const [checkOut, setCheckOut] = useState(prefillCheckout);
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -137,7 +145,7 @@ export default function GuestEnhance() {
             <main className="max-w-3xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
                 {/* Header */}
                 <div className="mb-12 text-center">
-                    <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
+                    <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-4">
                         The Villars Loft
                     </span>
                     <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">
@@ -151,7 +159,7 @@ export default function GuestEnhance() {
                 <form onSubmit={handleSubmit} className="space-y-8">
                     {/* Guest Info */}
                     <div className="bg-white/5 border border-white/10 rounded-sm p-6 sm:p-8 space-y-4">
-                        <p className="text-[10px] uppercase tracking-widest text-white/40">Your Details</p>
+                        <p className="text-xs uppercase tracking-widest text-white/40">Your Details</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label className="text-white/40 text-xs block mb-1">Name *</label>
@@ -200,7 +208,7 @@ export default function GuestEnhance() {
 
                     {/* Experiences */}
                     <div>
-                        <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Curated Experiences</p>
+                        <p className="text-xs uppercase tracking-widest text-white/40 mb-1">Curated Experiences</p>
                         <p className="text-white/40 text-xs mb-4">Handpicked by our local hosts. Available during your stay.</p>
                         <div className="space-y-3">
                             {experiences.map((item) => {
@@ -239,7 +247,7 @@ export default function GuestEnhance() {
 
                     {/* Extras */}
                     <div>
-                        <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Extras</p>
+                        <p className="text-xs uppercase tracking-widest text-white/40 mb-1">Extras</p>
                         <p className="text-white/40 text-xs mb-4">Small touches that make a big difference.</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {extras.map((item) => {
@@ -274,7 +282,7 @@ export default function GuestEnhance() {
 
                     {/* Notes */}
                     <div>
-                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                        <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">
                             Anything else? <span className="text-white/30">(Optional)</span>
                         </label>
                         <textarea
@@ -296,7 +304,7 @@ export default function GuestEnhance() {
                                 className="overflow-hidden"
                             >
                                 <div className="bg-white/[0.03] border border-white/10 p-6 space-y-3">
-                                    <p className="text-[10px] uppercase tracking-widest text-white/40">Your Selection</p>
+                                    <p className="text-xs uppercase tracking-widest text-white/40">Your Selection</p>
 
                                     <div className="space-y-2">
                                         {selected.map((item) => (
@@ -308,11 +316,11 @@ export default function GuestEnhance() {
                                     </div>
 
                                     <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
-                                        <span className="text-[10px] uppercase tracking-widest text-white/40">Estimated Total</span>
+                                        <span className="text-xs uppercase tracking-widest text-white/40">Estimated Total</span>
                                         <span className="text-2xl font-serif text-white">{formatCHF(total)}</span>
                                     </div>
 
-                                    <p className="text-white/35 text-[10px]">Final pricing confirmed after we check availability.</p>
+                                    <p className="text-white/35 text-xs">Final pricing confirmed after we check availability.</p>
 
                                     <div className="flex items-start gap-2 pt-2 border-t border-white/5">
                                         <ShieldCheck size={14} className="text-emerald-500/70 shrink-0 mt-0.5" />
@@ -332,7 +340,7 @@ export default function GuestEnhance() {
                         {isSubmitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={14} />}
                         Send Request
                     </button>
-                    <p className="text-white/40 text-[10px] text-center">
+                    <p className="text-white/40 text-xs text-center">
                         No payment now. We'll reach out to confirm details and arrange everything.
                     </p>
                 </form>

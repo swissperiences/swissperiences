@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
-import { packages } from "@/data/packages";
+import { currentPackages } from "@/data/packages";
 
 /** Maps full-size image paths to 800px preview versions for card display */
 function getPreviewSrc(src: string): string | null {
@@ -69,19 +69,19 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 md:mb-20">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-6 block">
-            Curated Packages
+          <span className="text-xs uppercase tracking-[0.3em] text-white/40 mb-6 block">
+            Experience · Signature Journeys
           </span>
           <h2 className="font-serif text-3xl md:text-4xl text-white/80 mb-4">
-            Choose your tempo.
+            Three ways to begin.
           </h2>
           <p className="text-white/50 text-base font-light max-w-xl mx-auto">
-            Each package is a complete stay — loft, activities, and cinematic memories, curated around a single idea.
+            Each journey is a complete stay — sanctuary, activities and cinematic memories, curated around a single idea.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-          {packages.slice(0, 8).map((pkg, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {currentPackages().slice(0, 3).map((pkg, i) => (
             <div
               key={pkg.id}
               className="group relative bg-[#0a0a0a] border border-white/5 overflow-hidden hover:border-glacier-500/20 transition-colors duration-500"
@@ -93,6 +93,8 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                   srcSet={getPreviewSrc(pkg.image) ? `${getPreviewSrc(pkg.image)} 800w, ${pkg.image} 2000w` : undefined}
                   sizes="(max-width: 640px) 100vw, 50vw"
                   alt={`${pkg.name} — ${pkg.tagline}`}
+                  loading="lazy"
+                  decoding="async"
                   className={`w-full h-full object-cover brightness-[0.5] group-hover:brightness-[0.6] group-hover:scale-105 transition-all duration-700 ${pkg.imagePosition || ""}`}
                   loading={i < 4 ? "eager" : "lazy"}
                   {...(i < 2 ? { fetchPriority: "high" as const } : {})}
@@ -100,13 +102,13 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
                 <div className="absolute top-4 right-4 flex items-center gap-2">
                   {pkg.eventBadge ? (
-                    <span className="text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border text-fuchsia-300/80 bg-fuchsia-900/30 border-fuchsia-500/20">
+                    <span className="text-xs uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border text-fuchsia-300/80 bg-fuchsia-900/30 border-fuchsia-500/20">
                       {pkg.eventBadge}
                     </span>
                   ) : (() => {
                     const badge = getSeasonBadge(pkg.availability);
                     return (
-                      <span className={`text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border ${
+                      <span className={`text-xs uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border ${
                         badge.active
                           ? "text-emerald-300/70 bg-emerald-900/30 border-emerald-500/20"
                           : "text-white/40 bg-black/40 border-white/10"
@@ -115,7 +117,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                       </span>
                     );
                   })()}
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 bg-black/40 backdrop-blur-sm px-3 py-1 border border-white/10">
+                  <span className="text-xs uppercase tracking-[0.2em] text-white/40 bg-black/40 backdrop-blur-sm px-3 py-1 border border-white/10">
                     {pkg.duration}
                   </span>
                 </div>
@@ -145,7 +147,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                   <div>
                     {isLoggedIn ? (
                       <>
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
+                        <span className="text-xs uppercase tracking-[0.2em] text-white/40 block mb-1">
                           {pkg.soloPrice ? "Solo" : "Starting at"}
                         </span>
                         <span className="text-white/70 text-lg font-serif">
@@ -165,9 +167,9 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
                   </div>
                   <button
                     onClick={() => handleCTA()}
-                    className="text-[10px] uppercase tracking-[0.2em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-0.5"
+                    className="text-xs uppercase tracking-[0.2em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-0.5"
                   >
-                    {isLoggedIn ? "Book Now" : "Request a Quote"}
+                    {isLoggedIn ? "Book Now" : "View Journey"}
                   </button>
                 </div>
               </div>
@@ -179,7 +181,7 @@ export default function PackagesPreview({ visible, sectionRef }: PackagesPreview
         <div className="text-center mt-12">
           <Link
             to="/packages"
-            className="text-[10px] uppercase tracking-[0.25em] text-white/40 hover:text-white/70 transition-colors border-b border-white/15 hover:border-glacier-500/30 pb-1"
+            className="text-xs uppercase tracking-[0.25em] text-white/40 hover:text-white/70 transition-colors border-b border-white/15 hover:border-glacier-500/30 pb-1"
           >
             View All Packages & Details
           </Link>

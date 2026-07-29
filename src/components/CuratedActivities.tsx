@@ -10,7 +10,7 @@ export default function CuratedActivities({ activities }: CuratedActivitiesProps
 
     return (
         <div>
-            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-8">
+            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-8">
                 Worth Exploring
             </span>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -27,11 +27,11 @@ export default function CuratedActivities({ activities }: CuratedActivitiesProps
                                 {activity.title}
                             </span>
                             <div className="flex items-center gap-3 mt-2">
-                                <span className="text-[9px] uppercase tracking-[0.15em] text-white/40 border border-white/10 px-2 py-0.5">
+                                <span className="text-xs uppercase tracking-[0.15em] text-white/40 border border-white/10 px-2 py-0.5">
                                     {activity.type}
                                 </span>
                                 {activity.duration && (
-                                    <span className="text-[9px] text-white/40">{activity.duration}</span>
+                                    <span className="text-xs text-white/40">{activity.duration}</span>
                                 )}
                             </div>
                         </div>

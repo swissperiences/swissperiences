@@ -34,7 +34,7 @@ const PendingApproval = () => {
                 <div className="w-16 h-px bg-white/20 mx-auto mb-8" />
 
                 <div className="space-y-6">
-                    <p className="text-white/40 text-[10px] uppercase tracking-[0.3em]">While you wait</p>
+                    <p className="text-white/40 text-xs uppercase tracking-[0.3em]">While you wait</p>
                     <div className="flex justify-center gap-8">
                         <a
                             href="https://instagram.com/swissperiences"
@@ -66,7 +66,7 @@ const PendingApproval = () => {
                     </a>
                 </div>
 
-                <div className="mt-8 text-white/35 text-[9px] uppercase tracking-[0.4em] flex items-center justify-center gap-2">
+                <div className="mt-8 text-white/35 text-xs uppercase tracking-[0.4em] flex items-center justify-center gap-2">
                     <Mail className="w-3 h-3" />
                     hello@swissperiences.ch
                 </div>

@@ -173,7 +173,7 @@ export default function Experiences() {
                 {/* Season Filter */}
                 <section className="max-w-5xl mx-auto px-6 py-16 md:py-20">
                     <div className="text-center mb-10">
-                        <span className="text-[9px] uppercase tracking-[0.4em] text-white/40 block mb-4">
+                        <span className="text-xs uppercase tracking-[0.4em] text-white/40 block mb-4">
                             When are you visiting?
                         </span>
                         <p className="text-white/50 text-sm font-light">
@@ -183,7 +183,7 @@ export default function Experiences() {
                     <div className="flex flex-wrap justify-center gap-3 md:gap-4">
                         <button
                             onClick={() => setActiveSeason(null)}
-                            className={`px-5 py-2.5 text-[10px] uppercase tracking-[0.2em] border transition-all duration-300 ${
+                            className={`px-5 py-2.5 text-xs uppercase tracking-[0.2em] border transition-all duration-300 ${
                                 !activeSeason
                                     ? "border-glacier-500/50 text-white bg-glacier-500/10"
                                     : "border-white/10 text-white/40 hover:text-white/70 hover:border-glacier-500/30"
@@ -195,7 +195,7 @@ export default function Experiences() {
                             <button
                                 key={season.id}
                                 onClick={() => setActiveSeason(activeSeason === season.id ? null : season.id)}
-                                className={`flex items-center gap-2 px-5 py-2.5 text-[10px] uppercase tracking-[0.2em] border transition-all duration-300 ${
+                                className={`flex items-center gap-2 px-5 py-2.5 text-xs uppercase tracking-[0.2em] border transition-all duration-300 ${
                                     activeSeason === season.id
                                         ? "border-glacier-500/50 text-white bg-glacier-500/10"
                                         : "border-white/10 text-white/40 hover:text-white/70 hover:border-glacier-500/30"
@@ -222,7 +222,7 @@ export default function Experiences() {
                                 {seasonalSuggestions[activeSeason].interests.map((interest) => (
                                     <span
                                         key={interest}
-                                        className="text-[10px] uppercase tracking-[0.15em] text-white/40 border border-white/10 px-3 py-1.5"
+                                        className="text-xs uppercase tracking-[0.15em] text-white/40 border border-white/10 px-3 py-1.5"
                                     >
                                         {interest}
                                     </span>
@@ -258,7 +258,7 @@ export default function Experiences() {
                                         {exp.icon}
                                     </div>
                                     <div>
-                                        <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-2">{exp.subtitle}</span>
+                                        <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-2">{exp.subtitle}</span>
                                         <h2 className="text-3xl md:text-4xl font-serif leading-tight">{exp.title}</h2>
                                     </div>
                                     <p className="text-white/60 font-light leading-relaxed max-w-lg">
@@ -269,7 +269,7 @@ export default function Experiences() {
                                     </div>
                                     <Link
                                         to={exp.href}
-                                        className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                                        className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                                     >
                                         Learn More <ArrowRight size={14} />
                                     </Link>
@@ -282,14 +282,14 @@ export default function Experiences() {
                 {/* For Teams Banner */}
                 <section className="bg-white/[0.02] border-y border-white/5 py-24 px-6">
                     <div className="max-w-4xl mx-auto text-center">
-                        <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">Corporate</span>
+                        <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">Corporate</span>
                         <h2 className="text-3xl md:text-4xl font-serif mb-6">Experiences for Teams</h2>
                         <p className="text-white/60 font-light mb-12 max-w-xl mx-auto">
                             All of our experiences can be tailored for corporate groups. Strategic retreats, team building, and executive offsites in the Swiss Alps.
                         </p>
                         <Link
                             to="/for-teams"
-                            className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                            className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
                             Explore Corporate <ArrowRight size={14} />
                         </Link>
@@ -303,7 +303,7 @@ export default function Experiences() {
                         <p className="text-white/50 font-light mb-8">{isLoggedIn ? "Browse our curated experiences and book directly from your member area." : "Become a member to unlock booking and exclusive pricing."}</p>
                         <a
                             href={isLoggedIn ? "/members/book" : "/#request-quote"}
-                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
                             {isLoggedIn ? "Book Now" : "Request a Quote"}
                         </a>

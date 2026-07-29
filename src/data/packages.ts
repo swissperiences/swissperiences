@@ -19,21 +19,31 @@ export interface PackageData {
   eventBadge?: string;
   /** Specific event dates, shown alongside the badge (e.g. "25–28 Jun 2026") */
   eventDates?: string;
+  /**
+   * Last day this package can still be sold, ISO `YYYY-MM-DD`. Required on any
+   * event-tied package. Set it and the package retires itself — in July 2026 the
+   * homepage was still advertising April's tulip festival because retiring an
+   * offer depended on someone remembering to.
+   */
+  offeredUntil?: string;
 }
 
 /*
- * Package ordering strategy (updated Mar 2026):
+ * Package ordering strategy (updated Jul 2026):
  *
  * 1–3: Event-tied packages (time-sensitive, ordered by soonest date)
  * 4–7: Core packages (evergreen or in-season, by broad appeal)
  * 8–10: Seasonal / niche (off-season or minimal)
  *
- * Homepage shows slice(0, 8). Reorder when seasons change.
+ * The homepage shows the first three *currently offered* packages — see
+ * `currentPackages`. Three is a curation; eight was a menu, and it contradicted
+ * "we don't sell experiences, we curate".
  */
 export const packages: PackageData[] = [
   // ── Event-tied (time-sensitive) ────────────────────────────────
   {
     id: "jazz-alps",
+    offeredUntil: "2026-04-04",
     name: "The Jazz & Alps",
     duration: "1 night",
     price: "From CHF 290",
@@ -58,6 +68,7 @@ export const packages: PackageData[] = [
   },
   {
     id: "tulip-trail",
+    offeredUntil: "2026-05-10",
     name: "The Tulip Trail",
     duration: "2 nights",
     price: "From CHF 590",
@@ -84,6 +95,7 @@ export const packages: PackageData[] = [
   },
   {
     id: "lakeshore-alps",
+    offeredUntil: "2026-06-28",
     name: "The Lakeshore & Alps",
     duration: "3 nights",
     price: "From CHF 990",
@@ -160,6 +172,7 @@ export const packages: PackageData[] = [
   },
   {
     id: "alpine-bloom",
+    offeredUntil: "2026-06-30",
     name: "The Alpine Bloom",
     duration: "3 nights",
     price: "From CHF 890",
@@ -238,6 +251,7 @@ export const packages: PackageData[] = [
   // ── Seasonal / niche ───────────────────────────────────────────
   {
     id: "spring-reset",
+    offeredUntil: "2026-06-30",
     name: "The Spring Reset",
     duration: "2 nights",
     price: "From CHF 490",
@@ -285,3 +299,12 @@ export const packages: PackageData[] = [
     image: "/images/villars/winter-escape-ski-sunset.jpeg",
   },
 ];
+
+/**
+ * Packages still sellable today. Event-tied entries drop out on their own once
+ * `offeredUntil` passes, so an expired offer can never linger on the homepage.
+ */
+export const currentPackages = (today: Date = new Date()): PackageData[] => {
+  const stamp = today.toISOString().slice(0, 10);
+  return packages.filter((p) => !p.offeredUntil || p.offeredUntil >= stamp);
+};

@@ -202,7 +202,7 @@ export function UpcomingRetreats({ onJoinWaitlist }: UpcomingRetreatsProps) {
                                 <span className="text-xs font-medium tracking-[0.2em] text-[#D8B58A] uppercase">
                                     The Private Escape
                                 </span>
-                                <Badge className="bg-[#D8B58A]/10 text-[#D8B58A] border border-[#D8B58A]/20 hover:bg-[#D8B58A]/20 font-medium tracking-wide text-[10px] px-2 py-0.5 h-auto">
+                                <Badge className="bg-[#D8B58A]/10 text-[#D8B58A] border border-[#D8B58A]/20 hover:bg-[#D8B58A]/20 font-medium tracking-wide text-xs px-2 py-0.5 h-auto">
                                     Tailor-made
                                 </Badge>
                             </div>

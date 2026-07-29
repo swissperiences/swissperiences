@@ -404,3 +404,26 @@
 .mapboxgl-ctrl-group button + button {
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
+/* ── Touch targets ─────────────────────────────────────────────
+   The editorial type scale produces links and buttons well under the
+   44px minimum — the July 2026 audit counted 37 on the homepage alone.
+   Scoped to coarse pointers so the desktop composition is untouched. */
+@media (pointer: coarse) {
+  a,
+  button,
+  [role="button"],
+  summary,
+  select,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+  }
+
+  /* Inline links inside prose must not become 44px-tall blocks. */
+  p a,
+  li a,
+  span a,
+  a.inline-link {
+    min-height: 0;
+  }
+}

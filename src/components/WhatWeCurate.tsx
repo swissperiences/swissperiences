@@ -100,7 +100,7 @@ export default function WhatWeCurate({ onJoinWaitlist }: WhatWeCurateProps) {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-white/20 group-hover:border-switz-red/50 transition-colors">
-                    <p className="text-[10px] text-white/80 uppercase tracking-widest font-medium">
+                    <p className="text-xs text-white/80 uppercase tracking-widest font-medium">
                       {t(`whatWeCurate.${pillar.key}.audience`)}
                     </p>
                   </div>

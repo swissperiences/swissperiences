@@ -33,7 +33,7 @@ export function LanguageSwitcher() {
         EN
       </button>
 
-      <span className="text-white/20 text-[10px] mx-1 font-light">|</span>
+      <span className="text-white/20 text-xs mx-1 font-light">|</span>
 
       <button
         onClick={() => changeLanguage('pt')}

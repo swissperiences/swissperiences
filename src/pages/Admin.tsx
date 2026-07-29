@@ -99,7 +99,7 @@ const Admin = () => {
                     <div className="w-8 h-8 rounded-full bg-switz-red flex items-center justify-center font-bold text-xs">A</div>
                     <div>
                         <h1 className="text-sm font-medium tracking-widest uppercase">Admin Dashboard</h1>
-                        <p className="text-[10px] text-white/40 uppercase tracking-[0.2em]">Swissperiences Sanctuary Management</p>
+                        <p className="text-xs text-white/40 uppercase tracking-[0.2em]">Swissperiences Sanctuary Management</p>
                     </div>
                 </div>
                 <div className="flex gap-6">
@@ -110,7 +110,7 @@ const Admin = () => {
             <main className="max-w-7xl mx-auto p-8 lg:p-12">
                 <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div>
-                        <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
+                        <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-4">
                             Operations
                         </span>
                         <h2 className="text-4xl font-serif">Membership Applications</h2>
@@ -120,7 +120,7 @@ const Admin = () => {
                         <div className="bg-white/5 border border-white/10 px-6 py-3 rounded-none flex items-center gap-3">
                             <Users className="w-4 h-4 text-white/40" />
                             <span className="text-xl font-medium">{applications.length}</span>
-                            <span className="text-[10px] uppercase tracking-widest text-white/40">Total Leads</span>
+                            <span className="text-xs uppercase tracking-widest text-white/40">Total Leads</span>
                         </div>
                     </div>
                 </header>
@@ -147,7 +147,7 @@ const Admin = () => {
                                                 <span>{app.email}</span>
                                             </div>
                                         </div>
-                                        <div className={`px-3 py-1 text-[9px] uppercase tracking-widest font-bold self-start mt-1 ${app.status === 'approved' ? 'bg-green-500/10 text-green-500' :
+                                        <div className={`px-3 py-1 text-xs uppercase tracking-widest font-bold self-start mt-1 ${app.status === 'approved' ? 'bg-green-500/10 text-green-500' :
                                             app.status === 'rejected' ? 'bg-red-500/10 text-red-500' :
                                                 'bg-switz-red/10 text-switz-red animate-pulse'
                                             }`}>
@@ -157,18 +157,18 @@ const Admin = () => {
 
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs tracking-widest uppercase">
                                         <div className="space-y-1">
-                                            <span className="text-white/40 block text-[9px]">Location</span>
+                                            <span className="text-white/40 block text-xs">Location</span>
                                             <div className="flex items-center gap-1.5 text-white/60">
                                                 <MapPin className="w-3 h-3 opacity-30" />
                                                 <span>{app.city && app.country ? `${app.city}, ${app.country}` : 'Remote'}</span>
                                             </div>
                                         </div>
                                         <div className="space-y-1">
-                                            <span className="text-white/40 block text-[9px]">Source</span>
+                                            <span className="text-white/40 block text-xs">Source</span>
                                             <div className="text-white/60">{app.referral_source || 'Direct'}</div>
                                         </div>
                                         <div className="space-y-1">
-                                            <span className="text-white/40 block text-[9px]">Date</span>
+                                            <span className="text-white/40 block text-xs">Date</span>
                                             <div className="flex items-center gap-1.5 text-white/60">
                                                 <Calendar className="w-3 h-3 opacity-30" />
                                                 <span>{format(new Date(app.created_at), 'MMM dd, yyyy')}</span>
@@ -178,7 +178,7 @@ const Admin = () => {
 
                                     {app.reason && (
                                         <div className="bg-white/[0.02] p-4 border-l border-white/10">
-                                            <span className="text-white/40 block text-[9px] uppercase tracking-widest mb-2 font-bold">Motivation</span>
+                                            <span className="text-white/40 block text-xs uppercase tracking-widest mb-2 font-bold">Motivation</span>
                                             <p className="text-white/60 font-light italic leading-relaxed text-sm">
                                                 "{app.reason}"
                                             </p>
@@ -191,20 +191,20 @@ const Admin = () => {
                                         <>
                                             <button
                                                 onClick={() => handleStatusUpdate(app.id, 'approved', app)}
-                                                className="flex-1 bg-white text-black text-[10px] py-3 uppercase tracking-widest font-bold flex items-center justify-center gap-2 hover:bg-neutral-200 transition-colors"
+                                                className="flex-1 bg-white text-black text-xs py-3 uppercase tracking-widest font-bold flex items-center justify-center gap-2 hover:bg-neutral-200 transition-colors"
                                             >
                                                 <Check className="w-3 h-3" /> Approve
                                             </button>
                                             <button
                                                 onClick={() => handleStatusUpdate(app.id, 'rejected', app)}
-                                                className="flex-1 border border-white/10 text-white/60 text-[10px] py-3 uppercase tracking-widest font-bold flex items-center justify-center gap-2 hover:bg-white/5 hover:text-white transition-all"
+                                                className="flex-1 border border-white/10 text-white/60 text-xs py-3 uppercase tracking-widest font-bold flex items-center justify-center gap-2 hover:bg-white/5 hover:text-white transition-all"
                                             >
                                                 <X className="w-3 h-3" /> Reject
                                             </button>
                                         </>
                                     ) : (
                                         <button
-                                            className="w-full border border-white/5 text-white/40 text-[10px] py-3 uppercase tracking-widest font-bold flex items-center justify-center gap-2 cursor-default"
+                                            className="w-full border border-white/5 text-white/40 text-xs py-3 uppercase tracking-widest font-bold flex items-center justify-center gap-2 cursor-default"
                                         >
                                             <Check className="w-3 h-3 opacity-20" /> Processed
                                         </button>
@@ -217,7 +217,7 @@ const Admin = () => {
             </main>
 
             <footer className="mt-24 p-12 border-t border-white/5 text-center">
-                <p className="text-[10px] text-white/40 uppercase tracking-[0.4em]">Handcrafted for Swissperiences Excellence</p>
+                <p className="text-xs text-white/40 uppercase tracking-[0.4em]">Handcrafted for Swissperiences Excellence</p>
             </footer>
         </div>
     );

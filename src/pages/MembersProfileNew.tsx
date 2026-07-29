@@ -146,7 +146,7 @@ export default function MembersProfileNew() {
         <section className="mb-16">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
             <div>
-              <p className="text-[10px] tracking-[0.4em] uppercase text-white/30 mb-4 font-[Manrope,sans-serif]">
+              <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-4 font-[Manrope,sans-serif]">
                 Member Profile
               </p>
               <h1 className="font-[Newsreader,serif] text-4xl sm:text-5xl text-white italic font-light">
@@ -190,7 +190,7 @@ export default function MembersProfileNew() {
 
           <div className="space-y-8">
             <div>
-              <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
+              <label className="text-xs uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 Full Name
               </label>
               <input
@@ -204,7 +204,7 @@ export default function MembersProfileNew() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
-                <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
+                <label className="text-xs uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                   City
                 </label>
                 <input
@@ -216,7 +216,7 @@ export default function MembersProfileNew() {
                 />
               </div>
               <div>
-                <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
+                <label className="text-xs uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                   Country
                 </label>
                 <input
@@ -230,7 +230,7 @@ export default function MembersProfileNew() {
             </div>
 
             <div>
-              <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
+              <label className="text-xs uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 Phone <span className="normal-case tracking-normal text-white/15">(for stay logistics only)</span>
               </label>
               <input
@@ -243,7 +243,7 @@ export default function MembersProfileNew() {
             </div>
 
             <div>
-              <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
+              <label className="text-xs uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 About You
               </label>
               <textarea
@@ -256,7 +256,7 @@ export default function MembersProfileNew() {
             </div>
 
             <div>
-              <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
+              <label className="text-xs uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 Preferences
               </label>
               <textarea
@@ -296,18 +296,18 @@ export default function MembersProfileNew() {
 
         {/* ── Membership info ── */}
         <section className="mb-16 bg-[#1B1B1B] p-6 sm:p-8">
-          <h3 className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-4">Membership</h3>
+          <h3 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-4">Membership</h3>
           <div className="grid grid-cols-3 gap-6">
             <div>
-              <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Tier</p>
+              <p className="text-white/20 text-xs uppercase tracking-widest mb-1">Tier</p>
               <p className="text-white text-sm">{tierLabel}</p>
             </div>
             <div>
-              <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Status</p>
+              <p className="text-white/20 text-xs uppercase tracking-widest mb-1">Status</p>
               <p className="text-emerald-400 text-sm capitalize">{profile.membership_status}</p>
             </div>
             <div>
-              <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Contact</p>
+              <p className="text-white/20 text-xs uppercase tracking-widest mb-1">Contact</p>
               <p className="text-white/40 text-sm">hello@swissperiences.ch</p>
             </div>
           </div>

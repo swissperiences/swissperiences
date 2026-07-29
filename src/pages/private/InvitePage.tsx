@@ -206,7 +206,7 @@ function InvalidInvite() {
             />
             <Navigation />
             <main className="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center">
-                <span className="text-switz-red text-[10px] font-bold tracking-[0.4em] uppercase mb-6">
+                <span className="text-switz-red text-xs font-bold tracking-[0.4em] uppercase mb-6">
                     Private Invitation
                 </span>
                 <h1 className="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">
@@ -220,7 +220,7 @@ function InvalidInvite() {
                         href="https://wa.me/41787002202"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white text-black px-10 py-4 uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                        className="bg-white text-black px-10 py-4 uppercase tracking-[0.2em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                     >
                         Contact Us
                     </a>
@@ -275,7 +275,7 @@ export default function InvitePage() {
                         <motion.span
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-switz-red text-[10px] font-bold tracking-[0.4em] uppercase mb-6"
+                            className="text-switz-red text-xs font-bold tracking-[0.4em] uppercase mb-6"
                         >
                             {config.hero.label}
                         </motion.span>
@@ -299,7 +299,7 @@ export default function InvitePage() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-white/35 text-[9px] uppercase tracking-[0.3em] mt-8 block"
+                            className="text-white/35 text-xs uppercase tracking-[0.3em] mt-8 block"
                         >
                             Private invitation · 1–4 guests · Villars-sur-Ollon, Switzerland
                         </motion.span>
@@ -326,7 +326,7 @@ export default function InvitePage() {
                 <section className="max-w-7xl mx-auto px-6 pb-20 md:pb-28">
                     <ScrollReveal>
                         <div className="mb-10">
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
+                            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-3">
                                 The Sanctuary
                             </span>
                             <h2 className="text-3xl md:text-4xl font-serif leading-tight">
@@ -345,7 +345,7 @@ export default function InvitePage() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60" />
                             <div className="absolute bottom-5 left-5 md:bottom-8 md:left-8">
-                                <span className="text-[9px] text-white/50 uppercase tracking-[0.2em] block mb-1">Location</span>
+                                <span className="text-xs text-white/50 uppercase tracking-[0.2em] block mb-1">Location</span>
                                 <span className="text-white font-serif text-base md:text-lg">{config.loft.location}</span>
                             </div>
                         </div>
@@ -387,7 +387,7 @@ export default function InvitePage() {
                     <div className="max-w-7xl mx-auto px-6">
                         <ScrollReveal>
                             <div className="mb-14">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-3">
                                     The Itinerary
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif leading-tight">
@@ -413,7 +413,7 @@ export default function InvitePage() {
                                         <div className="p-6 md:p-8">
                                             <div className="flex items-center gap-3 mb-4">
                                                 <div className="text-switz-red/70">{item.icon}</div>
-                                                <span className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-bold">
+                                                <span className="text-xs text-white/30 uppercase tracking-[0.2em] font-bold">
                                                     {item.label}
                                                 </span>
                                             </div>
@@ -433,7 +433,7 @@ export default function InvitePage() {
                 <section className="max-w-4xl mx-auto px-6 py-20 md:py-28">
                     <ScrollReveal>
                         <div className="mb-12">
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
+                            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-3">
                                 All Included
                             </span>
                             <h2 className="text-3xl md:text-4xl font-serif leading-tight">
@@ -468,7 +468,7 @@ export default function InvitePage() {
                 <section className="max-w-4xl mx-auto px-6 pb-20 md:pb-28">
                     <ScrollReveal>
                         <div className="mb-8">
-                            <span className="text-white/40 text-[9px] uppercase tracking-[0.3em] block mb-3">
+                            <span className="text-white/40 text-xs uppercase tracking-[0.3em] block mb-3">
                                 Optional Add-Ons
                             </span>
                             <h3 className="text-2xl font-serif text-white/80 mb-2">
@@ -527,21 +527,21 @@ export default function InvitePage() {
                 <section className="max-w-3xl mx-auto px-6 pb-20 md:pb-28">
                     <ScrollReveal>
                         <div className="border border-white/5 rounded-sm p-8 md:p-12">
-                            <span className="text-white/40 text-[9px] uppercase tracking-[0.3em] block mb-6">
+                            <span className="text-white/40 text-xs uppercase tracking-[0.3em] block mb-6">
                                 For those who want more
                             </span>
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                                     <span className="text-white/40 font-light text-sm">Helicopter transfer from Geneva</span>
-                                    <span className="text-white/35 text-[10px] uppercase tracking-[0.15em]">on request</span>
+                                    <span className="text-white/35 text-xs uppercase tracking-[0.15em]">on request</span>
                                 </div>
                                 <div className="flex items-center justify-between py-3 border-b border-white/5">
                                     <span className="text-white/40 font-light text-sm">Private chef experience at the loft</span>
-                                    <span className="text-white/35 text-[10px] uppercase tracking-[0.15em]">on request</span>
+                                    <span className="text-white/35 text-xs uppercase tracking-[0.15em]">on request</span>
                                 </div>
                                 <div className="flex items-center justify-between py-3">
                                     <span className="text-white/40 font-light text-sm">Sommelier-curated wine pairing</span>
-                                    <span className="text-white/35 text-[10px] uppercase tracking-[0.15em]">on request</span>
+                                    <span className="text-white/35 text-xs uppercase tracking-[0.15em]">on request</span>
                                 </div>
                             </div>
                         </div>
@@ -562,7 +562,7 @@ export default function InvitePage() {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                                     <div className="absolute bottom-6 left-6">
-                                        <span className="text-[9px] text-white/40 uppercase tracking-[0.2em] block mb-1">Your Host</span>
+                                        <span className="text-xs text-white/40 uppercase tracking-[0.2em] block mb-1">Your Host</span>
                                         <span className="text-white font-serif text-lg">{config.host.name}</span>
                                     </div>
                                 </div>
@@ -570,7 +570,7 @@ export default function InvitePage() {
 
                             <div className="w-full md:w-7/12 space-y-8">
                                 <ScrollReveal delay={0.1}>
-                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
+                                    <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-3">
                                         Who welcomes you
                                     </span>
                                     <h2 className="text-3xl md:text-4xl font-serif leading-tight mb-2">
@@ -621,7 +621,7 @@ export default function InvitePage() {
                                     <BookOpen className="w-5 h-5" />
                                 </div>
                                 <div className="flex-1">
-                                    <span className="text-white/40 text-[9px] uppercase tracking-[0.3em] block mb-3">
+                                    <span className="text-white/40 text-xs uppercase tracking-[0.3em] block mb-3">
                                         The Journals
                                     </span>
                                     <h3 className="text-xl md:text-2xl font-serif text-white/80 group-hover:text-white transition-colors mb-3">
@@ -651,7 +651,7 @@ export default function InvitePage() {
                     <section className="border-t border-white/5 py-20 md:py-28">
                         <div className="max-w-3xl mx-auto px-6 text-center">
                             <ScrollReveal>
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-8">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-8">
                                     {config.foundingPricing.badge[lang]}
                                 </span>
                                 <div className="mb-3">
@@ -668,7 +668,7 @@ export default function InvitePage() {
                                 <p className="text-white/40 text-xs uppercase tracking-[0.15em] mb-3">
                                     {config.foundingPricing.note[lang]}
                                 </p>
-                                <p className="text-white/30 text-[10px] uppercase tracking-[0.2em]">
+                                <p className="text-white/30 text-xs uppercase tracking-[0.2em]">
                                     {config.foundingPricing.disclaimer[lang]}
                                 </p>
                             </ScrollReveal>
@@ -681,7 +681,7 @@ export default function InvitePage() {
                     <div className="max-w-3xl mx-auto px-6 text-center">
                         {!config.foundingPricing && (
                             <ScrollReveal>
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-3">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-3">
                                     Investment
                                 </span>
                                 <div className="text-6xl md:text-8xl font-serif text-white italic tracking-tight mb-4">
@@ -702,7 +702,7 @@ export default function InvitePage() {
                                     href={config.contact.whatsapp}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 flex items-center gap-3"
+                                    className="group bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500 flex items-center gap-3"
                                 >
                                     Message on WhatsApp
                                     <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -717,7 +717,7 @@ export default function InvitePage() {
                         </ScrollReveal>
 
                         <ScrollReveal delay={config.foundingPricing ? 0.1 : 0.2}>
-                            <p className="text-white/30 text-[10px] uppercase tracking-[0.2em] mt-14">
+                            <p className="text-white/30 text-xs uppercase tracking-[0.2em] mt-14">
                                 This is a private invitation. Please do not share this link.
                             </p>
                         </ScrollReveal>

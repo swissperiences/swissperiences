@@ -109,7 +109,7 @@ export default function Contact() {
                 <section className="bg-white/[0.02] border-y border-white/5 py-24">
                     <div className="max-w-3xl mx-auto px-6">
                         <div className="text-center mb-16">
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">Common Questions</span>
+                            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">Common Questions</span>
                             <h2 className="text-3xl font-serif">Before you reach out.</h2>
                         </div>
                         <div className="space-y-8">
@@ -148,7 +148,7 @@ export default function Contact() {
                         <p className="text-white/50 font-light mb-12">Apply for membership and we'll guide you from there.</p>
                         <a
                             href="/request-access"
-                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
                             Request Access
                         </a>

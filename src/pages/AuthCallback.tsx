@@ -182,7 +182,7 @@ const AuthCallback = () => {
                             : "Preparing your experience..."
                         }
                     </p>
-                    <span className="text-white/15 text-[10px] uppercase tracking-[0.2em]">
+                    <span className="text-white/15 text-xs uppercase tracking-[0.2em]">
                         Swissperiences
                     </span>
                 </div>
@@ -206,7 +206,7 @@ const AuthCallback = () => {
                     </p>
                     <button
                         onClick={handleRetry}
-                        className="w-full max-w-xs mx-auto bg-white text-black py-4 text-[11px] uppercase tracking-[0.25em] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 mb-4"
+                        className="w-full max-w-xs mx-auto bg-white text-black py-4 text-xs uppercase tracking-[0.25em] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 mb-4"
                     >
                         Retry Authentication
                     </button>
@@ -241,7 +241,7 @@ const AuthCallback = () => {
                 </p>
                 <button
                     onClick={handleRetry}
-                    className="w-full max-w-xs mx-auto bg-white text-black py-4 text-[11px] uppercase tracking-[0.25em] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 mb-4"
+                    className="w-full max-w-xs mx-auto bg-white text-black py-4 text-xs uppercase tracking-[0.25em] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 mb-4"
                 >
                     Try Again
                 </button>

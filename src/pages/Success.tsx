@@ -60,7 +60,7 @@ const Success = () => {
                 >
                     <Link
                         to="/"
-                        className="text-[10px] text-white/30 hover:text-white/60 uppercase tracking-[0.4em] transition-all duration-1000 ease-swiss-luxury"
+                        className="text-xs text-white/30 hover:text-white/60 uppercase tracking-[0.4em] transition-all duration-1000 ease-swiss-luxury"
                     >
                         {t('successPage.backLink')}
                     </Link>

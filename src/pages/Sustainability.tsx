@@ -64,7 +64,7 @@ export default function Sustainability() {
                         <motion.span
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-switz-red text-[10px] font-bold tracking-[0.4em] uppercase mb-6 block"
+                            className="text-switz-red text-xs font-bold tracking-[0.4em] uppercase mb-6 block"
                         >
                             Our Commitment
                         </motion.span>
@@ -106,7 +106,7 @@ export default function Sustainability() {
                                 <div className="group border border-white/5 hover:border-glacier-500/20 rounded-sm p-8 md:p-10 transition-all duration-500 h-full">
                                     <div className="flex items-center gap-4 mb-5">
                                         <span
-                                            className="text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm"
+                                            className="text-xs font-bold tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm"
                                             style={{
                                                 backgroundColor: sdg.color + "20",
                                                 color: sdg.color,

@@ -168,7 +168,7 @@ export default function RoadJourney() {
                             <span>{isLoggedIn ? "Book This Experience" : "Become a Member to Book"}</span>
                             <ArrowRight size={16} />
                         </a>
-                        {!isLoggedIn && <p className="text-white/40 text-[10px] mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>}
+                        {!isLoggedIn && <p className="text-white/40 text-xs mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>}
                     </div>
                 </section>
 

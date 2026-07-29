@@ -81,7 +81,7 @@ export default function About() {
                 <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-start">
                         <div>
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">The Philosophy</span>
+                            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">The Philosophy</span>
                             <h2 className="text-3xl md:text-4xl font-serif mb-8 leading-tight">We don't sell experiences.<br /><span className="text-white/50 italic">We protect space.</span></h2>
                             <div className="space-y-6 text-white/60 font-light leading-relaxed">
                                 <p>
@@ -105,7 +105,7 @@ export default function About() {
                                 />
                             </div>
                             <div className="absolute -bottom-6 -left-6 bg-neutral-950 border border-white/10 hover:border-glacier-500/20 transition-colors px-6 py-4">
-                                <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] block mb-1">Founded</span>
+                                <span className="text-xs text-white/40 uppercase tracking-[0.2em] block mb-1">Founded</span>
                                 <span className="text-white font-serif text-lg">Villars, 2024</span>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ export default function About() {
                 <section className="bg-white/[0.02] border-y border-white/5 py-24 md:py-32">
                     <div className="max-w-7xl mx-auto px-6">
                         <div className="text-center mb-16">
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">Our Principles</span>
+                            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">Our Principles</span>
                             <h2 className="text-3xl md:text-4xl font-serif">What we believe.</h2>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
@@ -151,7 +151,7 @@ export default function About() {
                 {/* Vision Section */}
                 <section className="py-24 md:py-32 px-6">
                     <div className="max-w-3xl mx-auto text-center">
-                        <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">The Vision</span>
+                        <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">The Vision</span>
                         <h2 className="text-3xl md:text-5xl font-serif mb-8 leading-tight">
                             A network of sanctuaries.<br /><span className="text-white/50 italic">One philosophy.</span>
                         </h2>
@@ -166,17 +166,17 @@ export default function About() {
                         <div className="flex justify-center gap-12 mt-16 text-center">
                             <div>
                                 <span className="text-3xl font-serif text-white">1</span>
-                                <p className="text-[10px] text-white/40 uppercase tracking-[0.2em] mt-2">Active Sanctuary</p>
+                                <p className="text-xs text-white/40 uppercase tracking-[0.2em] mt-2">Active Sanctuary</p>
                             </div>
                             <div className="w-px bg-white/10" />
                             <div>
                                 <span className="text-3xl font-serif text-white/40">2</span>
-                                <p className="text-[10px] text-white/40 uppercase tracking-[0.2em] mt-2">In Development</p>
+                                <p className="text-xs text-white/40 uppercase tracking-[0.2em] mt-2">In Development</p>
                             </div>
                             <div className="w-px bg-white/10" />
                             <div>
                                 <span className="text-3xl font-serif text-white/40">∞</span>
-                                <p className="text-[10px] text-white/40 uppercase tracking-[0.2em] mt-2">The Ambition</p>
+                                <p className="text-xs text-white/40 uppercase tracking-[0.2em] mt-2">The Ambition</p>
                             </div>
                         </div>
                     </div>
@@ -189,7 +189,7 @@ export default function About() {
                         <p className="text-white/50 font-light mb-12">Membership is by application only.</p>
                         <a
                             href="/request-access"
-                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
                             Request Access
                         </a>

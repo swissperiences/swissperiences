@@ -92,16 +92,16 @@ export default function Sanctuaries() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                             <div className="absolute top-6 left-6">
-                                <span className="bg-emerald-500/20 text-emerald-400 text-[9px] uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-500/20">
+                                <span className="bg-emerald-500/20 text-emerald-400 text-xs uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-500/20">
                                     Active
                                 </span>
                             </div>
                             <div className="absolute bottom-6 left-6">
-                                <span className="text-[10px] text-white/50 uppercase tracking-[0.2em]">046° 17' N / 007° 05' E</span>
+                                <span className="text-xs text-white/50 uppercase tracking-[0.2em]">046° 17' N / 007° 05' E</span>
                             </div>
                         </Link>
                         <div className="space-y-6">
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold">Sanctuary 01</span>
+                            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold">Sanctuary 01</span>
                             <h2 className="text-4xl md:text-5xl font-serif leading-tight">The Villars Loft</h2>
                             <p className="text-white/40 text-sm uppercase tracking-widest">Villars-sur-Ollon, Swiss Alps</p>
                             <p className="text-white/60 font-light leading-relaxed max-w-lg">
@@ -123,7 +123,7 @@ export default function Sanctuaries() {
                             </div>
                             <Link
                                 to="/sanctuaries/villars"
-                                className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 mt-4"
+                                className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500 mt-4"
                             >
                                 Explore Villars <ArrowRight size={14} />
                             </Link>
@@ -139,7 +139,7 @@ export default function Sanctuaries() {
                 {/* Coming Soon Sanctuaries */}
                 <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
                     <div className="text-center mb-16">
-                        <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">Expanding the Network</span>
+                        <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">Expanding the Network</span>
                         <h2 className="text-3xl md:text-4xl font-serif">What's next.</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -157,7 +157,7 @@ export default function Sanctuaries() {
                             </div>
                             <div className="p-8">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-white/40 text-[9px] uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">2027</span>
+                                    <span className="text-white/40 text-xs uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">2027</span>
                                 </div>
                                 <h3 className="text-2xl font-serif text-white/70 mb-2">Verbier</h3>
                                 <p className="text-white/40 text-sm mb-4">Valais, Switzerland</p>
@@ -181,7 +181,7 @@ export default function Sanctuaries() {
                             </div>
                             <div className="p-8">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-white/40 text-[9px] uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">2028</span>
+                                    <span className="text-white/40 text-xs uppercase tracking-widest border border-white/10 px-3 py-1 rounded-full">2028</span>
                                 </div>
                                 <h3 className="text-2xl font-serif text-white/70 mb-2">Zermatt</h3>
                                 <p className="text-white/40 text-sm mb-4">Matterhorn, Switzerland</p>
@@ -200,7 +200,7 @@ export default function Sanctuaries() {
                         <p className="text-white/50 font-light mb-12">Full details, availability, and member pricing visible after approval.</p>
                         <a
                             href="/request-access"
-                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
+                            className="inline-block bg-white text-black px-12 py-5 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500"
                         >
                             Request Access
                         </a>

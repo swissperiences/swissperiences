@@ -181,7 +181,7 @@ const MembersProfile = () => {
 
                 {/* Header */}
                 <div className="mb-12">
-                    <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
+                    <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-4">
                         Profile
                     </span>
                     <h1 className="text-3xl md:text-4xl font-serif text-white mb-3">
@@ -227,7 +227,7 @@ const MembersProfile = () => {
                 <div className="space-y-8">
                     {/* Full Name */}
                     <div>
-                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                        <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">
                             Full Name *
                         </label>
                         <input
@@ -242,7 +242,7 @@ const MembersProfile = () => {
                     {/* City + Country */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">
                                 City
                             </label>
                             <input
@@ -254,7 +254,7 @@ const MembersProfile = () => {
                             />
                         </div>
                         <div>
-                            <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                            <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">
                                 Country
                             </label>
                             <input
@@ -269,7 +269,7 @@ const MembersProfile = () => {
 
                     {/* Phone */}
                     <div>
-                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                        <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">
                             Phone <span className="normal-case tracking-normal text-white/30">(for stay logistics only)</span>
                         </label>
                         <input
@@ -283,7 +283,7 @@ const MembersProfile = () => {
 
                     {/* Bio */}
                     <div>
-                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                        <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">
                             About You
                         </label>
                         <textarea
@@ -297,7 +297,7 @@ const MembersProfile = () => {
 
                     {/* Preferences */}
                     <div>
-                        <label className="text-[10px] uppercase tracking-widest text-white/40 block mb-2">
+                        <label className="text-xs uppercase tracking-widest text-white/40 block mb-2">
                             Preferences
                         </label>
                         <textarea

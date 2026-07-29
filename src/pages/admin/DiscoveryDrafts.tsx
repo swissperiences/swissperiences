@@ -100,14 +100,14 @@ export default function DiscoveryDrafts() {
                           <button
                             onClick={() => updateStatus(draft.id, "active")}
                             disabled={updating === draft.id}
-                            className="text-[10px] uppercase tracking-[0.15em] px-3 py-1.5 border border-emerald-500/30 text-emerald-300/70 hover:bg-emerald-900/30 transition-colors disabled:opacity-50"
+                            className="text-xs uppercase tracking-[0.15em] px-3 py-1.5 border border-emerald-500/30 text-emerald-300/70 hover:bg-emerald-900/30 transition-colors disabled:opacity-50"
                           >
                             {updating === draft.id ? "..." : "Ativar"}
                           </button>
                           <button
                             onClick={() => updateStatus(draft.id, "archived")}
                             disabled={updating === draft.id}
-                            className="text-[10px] uppercase tracking-[0.15em] px-3 py-1.5 border border-white/10 text-white/40 hover:bg-white/5 transition-colors disabled:opacity-50"
+                            className="text-xs uppercase tracking-[0.15em] px-3 py-1.5 border border-white/10 text-white/40 hover:bg-white/5 transition-colors disabled:opacity-50"
                           >
                             Descartar
                           </button>

@@ -161,7 +161,7 @@ export default function SwitzerlandMap({ cities, isMember = false }: Props) {
                   />
                   {/* City name label */}
                   <span
-                    className={`absolute left-1/2 -translate-x-1/2 -top-7 whitespace-nowrap text-[10px] uppercase tracking-[0.2em] font-medium transition-opacity duration-300 ${
+                    className={`absolute left-1/2 -translate-x-1/2 -top-7 whitespace-nowrap text-xs uppercase tracking-[0.2em] font-medium transition-opacity duration-300 ${
                       selectedCity?.slug === city.slug
                         ? "text-white/90 opacity-100"
                         : "text-white/50 opacity-0 group-hover:opacity-100"
@@ -184,7 +184,7 @@ export default function SwitzerlandMap({ cities, isMember = false }: Props) {
                 maxWidth="280px"
               >
                 <div className="p-5">
-                  <span className="text-[9px] text-white/40 uppercase tracking-[0.3em] block mb-1">
+                  <span className="text-xs text-white/40 uppercase tracking-[0.3em] block mb-1">
                     {selectedCity.region}
                   </span>
                   <h3
@@ -193,7 +193,7 @@ export default function SwitzerlandMap({ cities, isMember = false }: Props) {
                   >
                     {selectedCity.name}
                   </h3>
-                  <p className="text-white/40 text-[10px] uppercase tracking-widest mb-3">
+                  <p className="text-white/40 text-xs uppercase tracking-widest mb-3">
                     {selectedCity.elevation} · {selectedCity.canton}
                   </p>
                   {isMember ? (
@@ -206,7 +206,7 @@ export default function SwitzerlandMap({ cities, isMember = false }: Props) {
                       </p>
                       <Link
                         to={`/destinations/${selectedCity.slug}`}
-                        className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] font-bold text-white/80 hover:text-white transition-colors"
+                        className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-bold text-white/80 hover:text-white transition-colors"
                       >
                         Explore <ArrowRight size={12} />
                       </Link>
@@ -214,7 +214,7 @@ export default function SwitzerlandMap({ cities, isMember = false }: Props) {
                   ) : (
                     <Link
                       to="/request-access"
-                      className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] font-bold text-white/40 hover:text-white/70 transition-colors"
+                      className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-bold text-white/40 hover:text-white/70 transition-colors"
                     >
                       Members only <ArrowRight size={12} />
                     </Link>

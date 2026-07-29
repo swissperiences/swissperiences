@@ -77,7 +77,7 @@ export function HeroSection({ onJoinWaitlist }: HeroSectionProps) {
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            <span className="text-[10px] text-white/40 uppercase tracking-[0.2em]">Scroll</span>
+            <span className="text-xs text-white/40 uppercase tracking-[0.2em]">Scroll</span>
             <div className="w-[1px] h-12 bg-white/10" />
           </motion.div>
         </div>

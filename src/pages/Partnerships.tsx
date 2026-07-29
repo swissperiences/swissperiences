@@ -106,7 +106,7 @@ export default function Partnerships() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-start">
                         <ScrollReveal>
                             <div>
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                     Who We Are
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif mb-8 leading-tight">
@@ -152,7 +152,7 @@ export default function Partnerships() {
                                     />
                                 </div>
                                 <div className="absolute -bottom-6 -left-6 bg-neutral-950 border border-white/10 px-6 py-4">
-                                    <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] block mb-1">
+                                    <span className="text-xs text-white/40 uppercase tracking-[0.2em] block mb-1">
                                         Based in
                                     </span>
                                     <span className="text-white font-serif text-lg">
@@ -169,7 +169,7 @@ export default function Partnerships() {
                     <div className="max-w-7xl mx-auto px-6">
                         <ScrollReveal>
                             <div className="text-center mb-16">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                     The Platform
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif">
@@ -233,7 +233,7 @@ export default function Partnerships() {
                     <div className="max-w-7xl mx-auto">
                         <ScrollReveal>
                             <div className="text-center mb-16">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                     Collaboration
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif leading-tight">
@@ -270,7 +270,7 @@ export default function Partnerships() {
                     <div className="max-w-3xl mx-auto px-6">
                         <ScrollReveal>
                             <div className="text-center mb-16">
-                                <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                     The Approach
                                 </span>
                                 <h2 className="text-3xl md:text-4xl font-serif">
@@ -335,7 +335,7 @@ export default function Partnerships() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-start">
                             <ScrollReveal>
                                 <div className="lg:sticky lg:top-32">
-                                    <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">
+                                    <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">
                                         Get in Touch
                                     </span>
                                     <h2 className="text-3xl md:text-4xl font-serif mb-6 leading-tight">

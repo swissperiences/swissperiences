@@ -64,7 +64,7 @@ export default function LinkGenerator() {
 
             <main className="max-w-2xl mx-auto px-4 sm:px-6 py-24 sm:py-32">
                 <div className="mb-10">
-                    <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-4">
+                    <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-4">
                         Host Tools
                     </span>
                     <h1 className="text-4xl font-serif text-white mb-3">
@@ -120,7 +120,7 @@ export default function LinkGenerator() {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <Link2 size={14} className="text-switz-red" />
-                                <p className="text-[10px] uppercase tracking-widest text-white/40">Generated Link</p>
+                                <p className="text-xs uppercase tracking-widest text-white/40">Generated Link</p>
                             </div>
                             <button
                                 onClick={() => copyToClipboard(link, "link")}
@@ -145,7 +145,7 @@ export default function LinkGenerator() {
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                     <MessageSquare size={14} className="text-switz-red" />
-                                    <p className="text-[10px] uppercase tracking-widest text-white/40">Airbnb Message Template</p>
+                                    <p className="text-xs uppercase tracking-widest text-white/40">Airbnb Message Template</p>
                                 </div>
                                 <button
                                     onClick={() => copyToClipboard(message, "msg")}

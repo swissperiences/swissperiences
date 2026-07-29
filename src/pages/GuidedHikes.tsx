@@ -163,7 +163,7 @@ export default function GuidedHikes() {
                                         <span className="text-xs text-white/40">{trail.duration}</span>
                                     </div>
                                     <p className="text-xs text-white/60 font-light">{trail.desc}</p>
-                                    <span className="text-[10px] text-white/30 mt-1 block">Difficulty: {trail.difficulty}</span>
+                                    <span className="text-xs text-white/30 mt-1 block">Difficulty: {trail.difficulty}</span>
                                 </div>
                             ))}
                         </div>
@@ -174,7 +174,7 @@ export default function GuidedHikes() {
                             <span>{isLoggedIn ? "Book This Experience" : "Become a Member to Book"}</span>
                             <ArrowRight size={16} />
                         </a>
-                        {!isLoggedIn && <p className="text-white/40 text-[10px] mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>}
+                        {!isLoggedIn && <p className="text-white/40 text-xs mt-3 text-center">Available to members only. Request access to unlock curated alpine experiences.</p>}
                     </div>
                 </section>
 

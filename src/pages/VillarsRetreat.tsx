@@ -147,7 +147,7 @@ export default function VillarsRetreat() {
                             className="w-full h-full object-cover object-[center_35%] transition-transform duration-700 group-hover:scale-105 brightness-[0.85] contrast-[1.1] saturate-[0.9]"
                             loading="lazy"
                         />
-                        <div className="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md px-4 py-2 text-[10px] uppercase tracking-[0.2em] text-white/90">
+                        <div className="absolute bottom-6 left-6 bg-black/60 backdrop-blur-md px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/90">
                             Après-Ski Evenings
                         </div>
                     </div>
@@ -160,7 +160,7 @@ export default function VillarsRetreat() {
                 <section className="bg-white/[0.02] border-y border-white/5 py-24">
                     <div className="max-w-7xl mx-auto px-6">
                         <div className="mb-16">
-                            <span className="text-switz-red text-[10px] uppercase tracking-[0.3em] font-bold block mb-4">Details & Atmosphere</span>
+                            <span className="text-switz-red text-xs uppercase tracking-[0.3em] font-bold block mb-4">Details & Atmosphere</span>
                             <h2 className="text-4xl font-serif">Curated for Comfort.</h2>
                         </div>
 
@@ -174,7 +174,7 @@ export default function VillarsRetreat() {
                                         alt="Loft Texture"
                                     />
                                     <div className="absolute top-4 left-4">
-                                        <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans">Texture Log No. 01</span>
+                                        <span className="text-xs text-white/40 uppercase tracking-[0.2em] font-sans">Texture Log No. 01</span>
                                     </div>
                                 </div>
                                 <div className="aspect-[1/1] overflow-hidden rounded-sm bg-neutral-900 group border border-white/5">
@@ -200,7 +200,7 @@ export default function VillarsRetreat() {
                                     <p className="text-white/60 font-light italic text-lg leading-relaxed max-w-[30ch]">
                                         "Every object in the loft has a story. From the vintage finds to local artisan textures, it's a sanctuary for the senses."
                                     </p>
-                                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mt-4">— Internal Log</span>
+                                    <span className="text-xs uppercase tracking-[0.3em] text-white/30 block mt-4">— Internal Log</span>
                                 </div>
                             </div>
 
@@ -220,7 +220,7 @@ export default function VillarsRetreat() {
                                         alt="Alpine chalet with mountain peak"
                                     />
                                     <div className="absolute bottom-4 right-4">
-                                        <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans">046° 17' N / 007° 05' E</span>
+                                        <span className="text-xs text-white/40 uppercase tracking-[0.2em] font-sans">046° 17' N / 007° 05' E</span>
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +272,7 @@ export default function VillarsRetreat() {
                     <div className="mt-16 md:mt-24">
                         <a
                             href={isLoggedIn ? "/members/book" : "/request-access"}
-                            className="inline-block bg-white text-black px-12 py-4 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-switz-red hover:text-white transition-all duration-500 group relative overflow-hidden"
+                            className="inline-block bg-white text-black px-12 py-4 uppercase tracking-[0.25em] text-xs font-bold hover:bg-switz-red hover:text-white transition-all duration-500 group relative overflow-hidden"
                         >
                             <span className="relative z-10 flex items-center gap-2">
                                 {isLoggedIn ? "Book This Sanctuary" : "Become a Member to Book"}

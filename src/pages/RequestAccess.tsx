@@ -191,7 +191,7 @@ const RequestAccess = () => {
                     </a>
 
                     <div className="max-w-md">
-                        <span className="text-switz-red text-[10px] font-bold uppercase tracking-[0.4em] block mb-6">
+                        <span className="text-switz-red text-xs font-bold uppercase tracking-[0.4em] block mb-6">
                             Request Access
                         </span>
 
@@ -230,7 +230,7 @@ const RequestAccess = () => {
                             <button
                                 onClick={() => handleSocialLogin('google')}
                                 disabled={isSubmitting}
-                                className="w-full bg-transparent border border-white/10 text-white py-4 rounded-none flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-white/5 transition-all disabled:opacity-50"
+                                className="w-full bg-transparent border border-white/10 text-white py-4 rounded-none flex items-center justify-center gap-3 text-xs uppercase tracking-[0.2em] font-medium hover:bg-white/5 transition-all disabled:opacity-50"
                             >
                                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -246,7 +246,7 @@ const RequestAccess = () => {
                             <div className="absolute inset-0 flex items-center">
                                 <span className="w-full border-t border-white/5"></span>
                             </div>
-                            <div className="relative flex justify-center text-[10px] uppercase tracking-[0.3em]">
+                            <div className="relative flex justify-center text-xs uppercase tracking-[0.3em]">
                                 <span className="bg-black px-4 text-white/40 italic">or apply manually</span>
                             </div>
                         </div>

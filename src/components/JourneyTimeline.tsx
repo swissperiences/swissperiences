@@ -49,7 +49,7 @@ export default function JourneyTimeline() {
 
                                 {/* New Impact Section for Social Proof */}
                                 <div className="bg-white/5 p-6 rounded-sm border border-white/5 backdrop-blur-sm relative group cursor-pointer hover:bg-white/10 transition-colors" onClick={() => navigate(`/${i18n.language}/journals/${journal.slug}`)}>
-                                    <span className="absolute -top-3 left-4 bg-black px-2 text-[9px] text-switz-red uppercase tracking-[0.2em]">The Impact</span>
+                                    <span className="absolute -top-3 left-4 bg-black px-2 text-xs text-switz-red uppercase tracking-[0.2em]">The Impact</span>
                                     <p className="text-white/80 font-serif text-lg leading-relaxed line-clamp-4">
                                         "{journal.content[0]}"
                                     </p>
@@ -67,7 +67,7 @@ export default function JourneyTimeline() {
                                         <div className="absolute -left-[37.5px] top-1.5 w-1.5 h-1.5 rounded-full bg-white/20 group-hover/item:bg-switz-red transition-colors duration-300" />
 
                                         <div className="mb-4">
-                                            <span className="text-switz-red text-[9px] font-bold tracking-[0.3em] uppercase block opacity-60 mb-2">
+                                            <span className="text-switz-red text-xs font-bold tracking-[0.3em] uppercase block opacity-60 mb-2">
                                                 {item.day}
                                             </span>
                                             <h4 className="text-lg text-white font-serif group-hover/item:text-switz-red-light transition-colors duration-500">
@@ -96,7 +96,7 @@ export default function JourneyTimeline() {
                                     <div className="absolute -left-[37.5px] top-1.5 w-1.5 h-1.5 rounded-full bg-white/10" />
 
                                     <div className="mb-4 blur-[3px] group-hover/teaser:blur-0 transition-all duration-700">
-                                        <span className="text-white/20 text-[9px] font-bold tracking-[0.3em] uppercase block mb-2">
+                                        <span className="text-white/20 text-xs font-bold tracking-[0.3em] uppercase block mb-2">
                                             Hidden Segment
                                         </span>
                                         <h4 className="text-lg text-white/40 font-serif lowercase italic">
@@ -107,7 +107,7 @@ export default function JourneyTimeline() {
                                     <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm bg-white/[0.02] border border-dashed border-white/10 flex items-center justify-center group-hover/teaser:bg-white/[0.05] transition-all duration-700">
                                         <div className="flex flex-col items-center gap-2">
                                             <div className="w-8 h-px bg-white/10 group-hover/teaser:w-12 transition-all duration-700" />
-                                            <span className="text-[10px] text-white/20 uppercase tracking-[0.4em]">Status: Archived</span>
+                                            <span className="text-xs text-white/20 uppercase tracking-[0.4em]">Status: Archived</span>
                                         </div>
                                     </div>
                                 </div>

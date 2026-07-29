@@ -177,7 +177,11 @@ const App = () => (
                 <Route path="/auth/callback" element={<AuthCallback />} />
                 <Route path="/pending-approval" element={<PendingApproval />} />
                 <Route path="/members/book" element={<AuthGuard><MembersBook /></AuthGuard>} />
-                <Route path="/members/links" element={<AuthGuard requireAdmin><LinkGenerator /></AuthGuard>} />
+                {/* Host operations, not a member surface — it generates guest links for
+                    Airbnb stays. The old path is kept as a redirect because it is
+                    bookmarked. */}
+                <Route path="/admin/guest-links" element={<AuthGuard requireAdmin><LinkGenerator /></AuthGuard>} />
+                <Route path="/members/links" element={<Navigate to="/admin/guest-links" replace />} />
                 <Route path="/members/explore" element={<AuthGuard><MembersExplore /></AuthGuard>} />
                 <Route path="/members/profile" element={<AuthGuard><MembersProfile /></AuthGuard>} />
                 <Route path="/members" element={<AuthGuard><Members /></AuthGuard>} />

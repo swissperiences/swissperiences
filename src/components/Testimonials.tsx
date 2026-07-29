@@ -61,7 +61,7 @@ export const Testimonials = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <span className="text-switz-red text-[10px] font-bold tracking-[0.3em] uppercase block mb-8">
+                        <span className="text-switz-red text-xs font-bold tracking-[0.3em] uppercase block mb-8">
                             Guest Journal
                         </span>
                     </motion.div>
@@ -86,7 +86,7 @@ export const Testimonials = () => {
                                     <p className="text-white text-sm tracking-widest uppercase font-medium">
                                         {testimonials[currentIndex].author}
                                     </p>
-                                    <div className="flex items-center justify-center gap-3 text-[10px] text-white/40 uppercase tracking-[0.2em] font-sans">
+                                    <div className="flex items-center justify-center gap-3 text-xs text-white/40 uppercase tracking-[0.2em] font-sans">
                                         <span>{testimonials[currentIndex].role}</span>
                                         <span className="w-1 h-1 rounded-full bg-switz-red" />
                                         <span>{testimonials[currentIndex].location}</span>

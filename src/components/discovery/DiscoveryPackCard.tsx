@@ -68,10 +68,10 @@ export default function DiscoveryPackCard({ pack }: DiscoveryPackCardProps) {
 
         {/* Season badge + duration */}
         <div className="absolute top-4 right-4 flex items-center gap-2">
-          <span className={`text-[9px] uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border ${season.classes}`}>
+          <span className={`text-xs uppercase tracking-[0.2em] backdrop-blur-sm px-3 py-1 border ${season.classes}`}>
             {season.label}
           </span>
-          <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 bg-black/40 backdrop-blur-sm px-3 py-1 border border-white/10">
+          <span className="text-xs uppercase tracking-[0.2em] text-white/40 bg-black/40 backdrop-blur-sm px-3 py-1 border border-white/10">
             {pack.duration_days === 1 ? "1 dia" : `${pack.duration_days} dias`}
           </span>
         </div>
@@ -131,7 +131,7 @@ export default function DiscoveryPackCard({ pack }: DiscoveryPackCardProps) {
           </div>
           <Link
             to={`/discovery/${pack.slug}`}
-            className="text-[10px] uppercase tracking-[0.2em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-0.5"
+            className="text-xs uppercase tracking-[0.2em] text-white/50 hover:text-white/80 transition-colors border-b border-white/20 hover:border-glacier-500/40 pb-0.5"
           >
             Ver detalhes
           </Link>
