@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import MembersLayout from "@/components/members/MembersLayout";
 import { packages } from "@/data/packages";
+import { getPackageStatus } from "@/lib/packageStatus";
 import { journals } from "@/data/journals";
 import { cities } from "@/data/cities";
 import { UPCOMING_RETREATS } from "@/data/retreats";
@@ -65,6 +66,8 @@ export default function MembersExplore() {
   const [seasonFilter, setSeasonFilter] = useState<SeasonFilter>("all");
 
   const filtered = packages.filter((pkg) => {
+    // Past editions never appear as browsable inventory
+    if (getPackageStatus(pkg) === "expired-event") return false;
     if (typeFilter !== "all" && getTypeTag(pkg) !== typeFilter) return false;
     if (seasonFilter !== "all" && getSeasonTag(pkg) !== seasonFilter && getSeasonTag(pkg) !== "year-round") return false;
     return true;

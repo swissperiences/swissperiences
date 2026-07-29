@@ -14,6 +14,7 @@ import SEO from "@/components/SEO";
 import MembersLayout from "@/components/members/MembersLayout";
 import { ArrowRight, MapPin, Calendar, MessageCircle, Mail, X } from "lucide-react";
 import { packages } from "@/data/packages";
+import { getPackageStatus, isBookableNow } from "@/lib/packageStatus";
 import { BookingCalendar } from "@/components/BookingCalendar";
 import { toast } from "sonner";
 
@@ -162,10 +163,12 @@ export default function MembersDashboard() {
       )
     : null;
 
-  // Personalized curations: score packages by keyword matches against preferences
+  // Personalized curations: score packages by keyword matches against preferences.
+  // Only packages that are honestly available now — never an expired event.
+  const bookablePackages = packages.filter((p) => isBookableNow(p));
   const curations = (() => {
     const prefs = (member.preferences + " " + member.bio).toLowerCase();
-    if (!prefs.trim()) return packages.slice(0, 3);
+    if (!prefs.trim()) return bookablePackages.slice(0, 3);
 
     const stopwords = new Set([
       "the", "and", "for", "that", "this", "with", "from", "have", "been",
@@ -179,9 +182,9 @@ export default function MembersDashboard() {
       .split(/[\s,;.]+/)
       .filter((w) => w.length > 3 && !stopwords.has(w));
 
-    if (keywords.length === 0) return packages.slice(0, 3);
+    if (keywords.length === 0) return bookablePackages.slice(0, 3);
 
-    const scored = packages.map((pkg) => {
+    const scored = bookablePackages.map((pkg) => {
       const text = (pkg.name + " " + pkg.tagline + " " + pkg.description).toLowerCase();
       const score = keywords.reduce((n, kw) => {
         const re = new RegExp(`\\b${kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`, "i");
@@ -193,16 +196,9 @@ export default function MembersDashboard() {
     return scored.slice(0, 3).map((s) => s.pkg);
   })();
 
-  // First future event-tied package for seasonal nudge in empty state
-  const nearestEvent = packages.find((p) => {
-    if (!p.eventBadge) return false;
-    if (!p.eventDates) return true; // No dates = assume future
-    // Parse end date from formats like "3–4 Apr 2026", "27 Mar – 10 May 2026"
-    const match = p.eventDates.match(/(\d{1,2})\s+(\w+)\s+(\d{4})$/);
-    if (!match) return true;
-    const end = new Date(`${match[1]} ${match[2]} ${match[3]}`);
-    return end >= now;
-  });
+  // First upcoming event-tied package for the seasonal nudge in the empty state.
+  // The date-aware selector guarantees an expired event never shows here.
+  const nearestEvent = packages.find((p) => getPackageStatus(p, now) === "upcoming-event");
 
   // Profile completion check
   const profileIncomplete = !member.bio || !member.preferences;
@@ -223,7 +219,7 @@ export default function MembersDashboard() {
 
   return (
     <MembersLayout>
-      <SEO title="Dashboard | Swissperiences" />
+      <SEO title="Overview | My Swissperiences" />
 
       <div className="px-6 sm:px-10 lg:px-16 py-12 lg:py-20 max-w-5xl">
         {/* ── Hero greeting with seasonal image ── */}
@@ -256,7 +252,7 @@ export default function MembersDashboard() {
             <div className="bg-[#1B1B1B] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h3 className="font-[Newsreader,serif] text-lg text-white mb-1">
-                  Complete your aesthetic profile
+                  Complete your Travel Profile
                 </h3>
                 <p className="text-white/40 text-sm leading-relaxed max-w-md">
                   {!member.bio && !member.preferences

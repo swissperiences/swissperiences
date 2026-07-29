@@ -223,7 +223,7 @@ const Login = () => {
                 </h1>
 
                 <p className="text-white/60 font-light leading-relaxed mb-12">
-                    Sign in to access your member area or begin your application.
+                    Sign in to enter My Swissperiences or begin your application.
                 </p>
 
                 {/* Google OAuth — primary */}

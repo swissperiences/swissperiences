@@ -1,7 +1,19 @@
 /**
- * MembersProfileNew — Alpine Silence member profile
+ * MembersProfileNew — the Travel Profile inside My Swissperiences.
  *
- * "Elite Member" card + aesthetic preferences form.
+ * Frontend-only alignment pass: the working fields and the
+ * update_member_profile RPC are preserved exactly; they are regrouped as
+ * Essentials (identity/contact) and How You Travel (free-text, the current
+ * storage for preferences).
+ *
+ * Future structured stages (progressive disclosure, needs schema work first —
+ * see docs/product/MY_SWISSPERIENCES_GUEST_DASHBOARD.md):
+ *   1 Essentials: languages, arrival style
+ *   2 Comfort: allergies (structured), food, accessibility, room & sleep
+ *   3 Character: travel pace, interests, companions, occasions
+ *   4 Consent: photography & drone (explicit, revocable, timestamped), privacy
+ * No unsaved controls are rendered until those fields can persist.
+ *
  * Uses own RPC call (useMemberProfile can't work here — provider is inside MembersLayout JSX).
  */
 import { useEffect, useState } from "react";
@@ -132,25 +144,20 @@ export default function MembersProfileNew() {
 
   if (!profile) return null;
 
-  const tierLabel =
-    profile.membership_tier === "member"
-      ? "Member"
-      : `${profile.membership_tier.charAt(0).toUpperCase()}${profile.membership_tier.slice(1)} Member`;
-
   return (
     <MembersLayout>
-      <SEO title="Profile | Swissperiences" />
+      <SEO title="Travel Profile | My Swissperiences" />
 
       <div className="px-6 sm:px-10 lg:px-16 py-12 lg:py-20 max-w-3xl">
-        {/* ── Elite Member header ── */}
+        {/* ── Header ── */}
         <section className="mb-16">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
             <div>
               <p className="text-[10px] tracking-[0.4em] uppercase text-white/30 mb-4 font-[Manrope,sans-serif]">
-                Member Profile
+                My Swissperiences
               </p>
-              <h1 className="font-[Newsreader,serif] text-4xl sm:text-5xl text-white italic font-light">
-                {tierLabel}
+              <h1 className="font-[Newsreader,serif] text-4xl sm:text-5xl text-white font-light">
+                Travel Profile
               </h1>
             </div>
             <p className="font-[Newsreader,serif] text-white/20 text-lg">
@@ -179,13 +186,13 @@ export default function MembersProfileNew() {
           </div>
         </section>
 
-        {/* ── Aesthetic Profile ── */}
+        {/* ── Essentials ── */}
         <section className="mb-16">
           <h2 className="font-[Newsreader,serif] text-2xl text-white font-light mb-2">
-            Aesthetic Profile
+            Essentials
           </h2>
           <p className="text-white/30 text-sm mb-8">
-            Fine-tune your sensory journey. We curate environments around your temperamental preferences.
+            Who you are and how we reach you.
           </p>
 
           <div className="space-y-8">
@@ -241,7 +248,19 @@ export default function MembersProfileNew() {
                 placeholder="+41 78 700 22 02"
               />
             </div>
+          </div>
+        </section>
 
+        {/* ── How you travel ── */}
+        <section className="mb-4">
+          <h2 className="font-[Newsreader,serif] text-2xl text-white font-light mb-2">
+            How You Travel
+          </h2>
+          <p className="text-white/30 text-sm mb-8">
+            In your own words — your host reads this personally and plans around it.
+          </p>
+
+          <div className="space-y-8">
             <div>
               <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
                 About You
@@ -257,14 +276,14 @@ export default function MembersProfileNew() {
 
             <div>
               <label className="text-[10px] uppercase tracking-[0.3em] text-white/30 block mb-3 font-[Manrope,sans-serif]">
-                Preferences
+                Preferences &amp; Needs
               </label>
               <textarea
                 value={preferences}
                 onChange={(e) => setPreferences(e.target.value)}
-                rows={3}
+                rows={4}
                 className="w-full bg-transparent border-b border-[#2A2A2A] focus:border-white/60 text-white px-0 py-3 text-sm outline-none transition-colors resize-none placeholder:text-white/15 font-[Manrope,sans-serif]"
-                placeholder="Dietary needs, preferred activities, energy levels, anything that helps us personalise your stay..."
+                placeholder="Food preferences and allergies, accessibility needs, travel pace, languages, special occasions — anything that helps us plan around you..."
               />
             </div>
           </div>
@@ -294,13 +313,15 @@ export default function MembersProfileNew() {
           </div>
         </section>
 
-        {/* ── Membership info ── */}
+        {/* ── Account info — tier stays internal metadata, not status vocabulary ── */}
         <section className="mb-16 bg-[#1B1B1B] p-6 sm:p-8">
-          <h3 className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-4">Membership</h3>
+          <h3 className="text-[10px] tracking-[0.3em] uppercase text-white/30 mb-4">Account</h3>
           <div className="grid grid-cols-3 gap-6">
             <div>
-              <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Tier</p>
-              <p className="text-white text-sm">{tierLabel}</p>
+              <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Since</p>
+              <p className="text-white text-sm">
+                {new Date(profile.joined_at).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}
+              </p>
             </div>
             <div>
               <p className="text-white/20 text-[10px] uppercase tracking-widest mb-1">Status</p>

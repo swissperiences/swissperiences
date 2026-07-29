@@ -13,17 +13,20 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { MemberProfileProvider, useMemberProfile } from "@/hooks/useMemberProfile";
-import { LogOut, Compass, LayoutDashboard, User, Menu, X, CalendarDays } from "lucide-react";
+import { LogOut, Compass, LayoutDashboard, User, Menu, X, Map, MessageCircle } from "lucide-react";
 
 interface MembersLayoutProps {
   children: React.ReactNode;
 }
 
+// The five My Swissperiences surfaces. /members/book stays routable and is
+// reached from Overview and My Journey ("Plan a journey").
 const navItems = [
-  { label: "Dashboard", href: "/members", icon: LayoutDashboard },
-  { label: "Curations", href: "/members/explore", icon: Compass },
-  { label: "Book", href: "/members/book", icon: CalendarDays },
-  { label: "Profile", href: "/members/profile", icon: User },
+  { label: "Overview", href: "/members", icon: LayoutDashboard },
+  { label: "My Journey", href: "/members/journey", icon: Map },
+  { label: "Explore", href: "/members/explore", icon: Compass },
+  { label: "Concierge", href: "/members/concierge", icon: MessageCircle },
+  { label: "My Profile", href: "/members/profile", icon: User },
 ];
 
 function MembersLayoutInner({ children }: MembersLayoutProps) {
@@ -72,7 +75,7 @@ function MembersLayoutInner({ children }: MembersLayoutProps) {
               Swissperiences
             </span>
             <p className="text-[10px] tracking-[0.3em] uppercase text-white/30 mt-1.5 font-[Manrope,sans-serif]">
-              Member Area
+              My Swissperiences
             </p>
           </Link>
         </div>
@@ -114,8 +117,9 @@ function MembersLayoutInner({ children }: MembersLayoutProps) {
             )}
             <div className="min-w-0">
               <p className="text-sm text-white truncate">{firstName}</p>
+              {/* Tier stays internal metadata — no status vocabulary in the UI */}
               <p className="text-[10px] tracking-[0.2em] uppercase text-white/30">
-                {member?.membership_tier}
+                My Swissperiences
               </p>
             </div>
           </div>
