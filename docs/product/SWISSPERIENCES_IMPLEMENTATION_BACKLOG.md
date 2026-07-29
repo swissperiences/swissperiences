@@ -1,7 +1,16 @@
 # Swissperiences — implementation backlog
 
-Derived from the July 2026 audit and the two product documents. Nothing here is
-implemented. Ordered by return, not by comfort.
+Derived from the July 2026 audit and the two product documents. Ordered by
+return, not by comfort.
+
+> **Status update 2026-07-28** — branch `feat/frontend-brand-alignment`
+> (see `FRONTEND_ALIGNMENT_IMPLEMENTATION.md`) implemented: P0 #1, #2, #3;
+> P1 #6, #7, #8 (homepage spine), #10; P2 #20; plus a date-aware package
+> status utility, the `/audio` preview page, `/members/journey` and
+> `/members/concierge`. P2 #15 (My Swissperiences homepage preview) shipped
+> as flatplan section 7. P0 #5 and P1 #9 are done for the new/rewritten
+> surfaces but not re-audited across legacy pages. P0 #4 (image pipeline),
+> P1 #11–12, P2 #13–14 and #16–19, and all of P3 remain open.
 
 Sizes: **S** under 2h · **M** half a day · **L** 1–3 days · **XL** a week+.
 
