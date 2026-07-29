@@ -157,7 +157,7 @@ export default function Navigation({ onWaitlistClick }: NavigationProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.99 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-4 top-[calc(5.5rem+env(safe-area-inset-top,0px))] z-40 bg-[#1A1614]/98 backdrop-blur-xl border border-white/10 rounded-3xl md:hidden shadow-2xl overflow-hidden"
+            className="fixed inset-x-4 top-[calc(5.5rem+env(safe-area-inset-top,0px))] z-40 bg-[#1A1614]/98 backdrop-blur-xl border border-white/10 rounded-3xl lg:hidden shadow-2xl overflow-hidden"
           >
             <div className="px-8 pt-8 pb-[calc(2rem+env(safe-area-inset-bottom,0px))] space-y-5">
               {navLinks.map((link) => (

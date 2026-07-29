@@ -169,15 +169,38 @@ New date-aware utility replacing manual array order + `slice(0, 8)`:
 
 ## Verification
 
-(see final report; screenshots under the session scratchpad
-`screenshots/before` and `screenshots/after` — before-state captured from
-production at 1440×900, 1280×800, 1024×768, 768×1024, 430×932, 390×844,
-375×667)
+Screenshots under the session scratchpad `screenshots/before` (production,
+2026-07-28) and `screenshots/after` (dev build) at 1440×900, 1280×800,
+1024×768, 768×1024, 430×932, 390×844, 375×667, plus per-section mobile
+(390) and desktop scroll captures. Note: stitched full-page PNGs go black
+below ~5,500px — a headless-chromium compositing artifact on >10k px
+pages; the per-section viewport captures are the reliable evidence.
 
-- `npx tsc --noEmit` clean.
+- `npx tsc --noEmit` clean; `npm run build` passes.
 - `npm run lint`: 51 pre-existing problems on baseline and on this branch —
   zero new findings from this work (legacy `any`s, legacy hook deps).
-- `npm run build` passes.
+- Measured (dev, 2026-07-29): homepage 12.6 viewports at 1440×900 (was
+  14.3 measured / 17.2 in the audit), 16.1 at 390×844 (was 18.1). No
+  horizontal overflow at any tested size. Mobile text nodes <12px: 34
+  (was 71), all 11px tracked labels; <10px: 3 (was 29). Touch targets on
+  rewritten surfaces raised to ≥44px (text links get invisible padding,
+  form inputs 44px); footer link density remains below 44px — documented.
+- prefers-reduced-motion verified with an emulated capture: instant
+  reveals, static hero poster, no parallax.
+- `/pt` renders the new PT strings; `/members` unauthenticated redirects
+  to `/login`; keyboard focus visible (3px outline) on nav links.
+- Authenticated member states were exercised only at the code level (no QA
+  account credentials in the repo; no production users were created).
+- An independent fresh-context verifier reviewed the diff, the running
+  app, and the screenshots against the specification: **no critical or
+  major findings**. Its minors, addressed: tablet (768–1023px) hamburger
+  opened an `md:hidden` panel — a pre-existing dead-end, fixed to
+  `lg:hidden`; a `<dl>` misuse; 7 unused locale keys removed. Its minors,
+  accepted and documented: season-badge strings are English on `/pt`
+  (package data is EN-only anyway); `MembersJourney` reuses the
+  dashboard's existing upcoming/past semantics (undated inquiries stay
+  "upcoming", in-progress stays list as past); `getPreviewSrc` and the
+  chapter count are each defined in two files.
 
 ## Deferred
 

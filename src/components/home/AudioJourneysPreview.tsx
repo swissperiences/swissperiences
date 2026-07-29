@@ -35,13 +35,13 @@ export default function AudioJourneysPreview() {
               {t("listen.support")}
             </p>
 
-            <dl className="flex flex-wrap gap-x-6 gap-y-3 mb-8">
+            <ul className="flex flex-wrap gap-x-6 gap-y-3 mb-8">
               {stats.map((stat) => (
-                <div key={stat} className="text-[11px] uppercase tracking-[0.25em] text-white/45 border border-white/10 px-3 py-1.5">
+                <li key={stat} className="text-[11px] uppercase tracking-[0.25em] text-white/45 border border-white/10 px-3 py-1.5">
                   {stat}
-                </div>
+                </li>
               ))}
-            </dl>
+            </ul>
 
             <p className="text-white/40 text-sm font-light italic mb-10">
               {t("listen.status")}

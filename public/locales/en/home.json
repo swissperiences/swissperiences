@@ -14,26 +14,22 @@
     "stay": {
       "label": "Stay",
       "name": "Alpine Sanctuaries",
-      "description": "Private alpine homes, personally kept. Villars-sur-Ollon is the first flagship.",
-      "cta": "The Sanctuary"
+      "description": "Private alpine homes, personally kept. Villars-sur-Ollon is the first flagship."
     },
     "experience": {
       "label": "Experience",
       "name": "Private Journeys",
-      "description": "Personally curated Swiss experiences — from the lakeshore to the passes.",
-      "cta": "The Journeys"
+      "description": "Personally curated Swiss experiences — from the lakeshore to the passes."
     },
     "listen": {
       "label": "Listen",
       "name": "Audio Journeys",
-      "description": "Switzerland, narrated as you walk it. The first: Stones & Water, Geneva Old Town.",
-      "cta": "Preview Stones & Water"
+      "description": "Switzerland, narrated as you walk it. The first: Stones & Water, Geneva Old Town."
     },
     "remember": {
       "label": "Remember",
       "name": "Journals & Cinematic Memories",
-      "description": "Real guests, real stories — documented the way they deserve.",
-      "cta": "The Journals"
+      "description": "Real guests, real stories — documented the way they deserve."
     }
   },
   "flagship": {
@@ -51,9 +47,6 @@
     "eyebrow": "Signature Journeys",
     "heading": "Three journeys, curated for now.",
     "support": "Not a catalogue — a starting point. Each journey is a complete stay, built around a single idea.",
-    "seasonality": "Seasonal availability",
-    "duration": "Duration",
-    "includes": "What carries it",
     "cta": "View all journeys",
     "itemCta": "Request this journey"
   },
