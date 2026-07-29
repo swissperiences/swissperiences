@@ -408,7 +408,7 @@
    The editorial type scale produces links and buttons well under the
    44px minimum — the July 2026 audit counted 37 on the homepage alone.
    Scoped to coarse pointers so the desktop composition is untouched. */
-@media (pointer: coarse) {
+@media (pointer: coarse), (max-width: 768px) {
   a,
   button,
   [role="button"],
