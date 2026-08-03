@@ -59,6 +59,7 @@ const ListYourExperience = lazy(() => import("./pages/ListYourExperience"));
 const Discovery = lazy(() => import("./pages/Discovery"));
 import InsiderGuide from "./pages/InsiderGuide";
 const DiscoveryDrafts = lazy(() => import("./pages/admin/DiscoveryDrafts"));
+const StayPortal = lazy(() => import("./pages/StayPortal"));
 
 const queryClient = new QueryClient();
 
@@ -120,6 +121,12 @@ const App = () => (
                 {/* Direct routes without language prefix */}
                 <Route path="/ideas" element={<AuthGuard requireAdmin><Ideas /></AuthGuard>} />
                 <Route path="/todo" element={<AuthGuard requireAdmin><ToDo /></AuthGuard>} />
+
+                {/* Guest portal — demonstration build, no language prefix. The
+                    static first segment outranks `/:lang/…`, so this cannot be
+                    swallowed by the language routes. Deliberately absent from
+                    Navigation and Footer: a guest reaches it by link or QR. */}
+                <Route path="/stay/:propertySlug" element={<StayPortal />} />
 
                 {/* Sanctuaries */}
                 <Route path="/sanctuaries" element={<LanguageWrapper><Sanctuaries /></LanguageWrapper>} />
