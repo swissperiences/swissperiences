@@ -139,3 +139,114 @@ Comparados três testes pequenos e do mesmo porte, nenhum exigindo software novo
 3. Escolha da propriedade-alvo do piloto.
 4. Papel comercial de Stones & Water.
 5. Escolha do ativo próprio/genérico que servirá de base ao protótipo privado.
+
+## 2026-08-02 (Sprint 03 — Portão Jurídico: pesquisa documental)
+
+### Status do portão
+
+- **Sprint 03 concluído no escopo documental. O portão jurídico NÃO foi
+  liberado.** Pesquisa e preparação terminaram; a autorização para vender, não.
+- **Não está estabelecido** que o Cauêh possa faturar, receber, prospectar
+  comercialmente ou operar como independente. Nenhuma decisão deste log deve ser
+  lida nesse sentido.
+- **Próximo portão: VALIDAÇÃO EXTERNA** — depende de respostas escritas do
+  ORP/caisse cantonale, da caisse de compensation (AVS) e do fisco/AFC, obtidas
+  pelo Cauêh. **Não é continuação da pesquisa documental.**
+
+### Confirmado por fonte oficial direta
+
+Fonte única lida diretamente: SECO / arbeit.swiss, FAQ sobre indenização de
+desemprego, consultada em 2026-08-02.
+
+- Dever de informar ORP e caisse, com antecedência, de qualquer trabalho durante
+  o recebimento da indenização.
+- Ganho intermediário pode vir de trabalho independente ou assalariado;
+  compensação de 80% ou 70% da diferença para o salário segurado.
+- Início de atividade independente é mudança de declaração obrigatória.
+- Aptidão para colocação é condição contínua do direito.
+
+### Não confirmado — registro explícito
+
+- **Ganho intermediário NÃO autoriza automaticamente atividade independente.** A
+  fonte oficial mostra que a renda *pode* ser tratada como ganho intermediário;
+  não diz que a atividade está autorizada por padrão. Declaração, avaliação do
+  ORP e manutenção da aptidão são condições. **Segue não confirmado.**
+- **Nenhum artigo da LACI foi lido na fonte primária** — a página do Fedlex exige
+  JavaScript. Nada relativo aos art. 24 ou 71a e seguintes está registrado como
+  verificado diretamente. O memento AVS 2.09 retornou HTTP 403.
+
+### Bloqueios — natureza separada
+
+- **Bloqueio legal confirmado:** dever de declarar qualquer trabalho e dever de
+  manter a aptidão para colocação.
+- **Bloqueio interno, por prudência da Swissperiences:** outreach, prospecção,
+  proposta, assinatura, faturamento, recebimento e registro empresarial.
+  **A pesquisa realizada não encontrou fonte oficial que estabeleça proibição
+  geral; isso não confirma permissão no caso individual do Cauêh.** São decisão
+  nossa, vigente até
+  existir resposta escrita — e podem ser levantados por decisão do Cauêh assim
+  que a informação chegar.
+
+### Desenho do piloto
+
+- **Piloto-base sem dados pessoais de hóspede** — decisão de desenho, não
+  consequência jurídica: sem nome, e-mail, telefone, datas de estadia, número de
+  reserva, PMS ou acesso a sistemas da propriedade. O entregável é conteúdo
+  editorial e curatorial sobre o lugar. Sem processamento de dados pessoais de
+  hóspedes em nome da propriedade, o piloto-base **evita o cenário de
+  subcontratação relativo a esses dados**. Isso **não elimina** eventuais
+  obrigações relacionadas a dados de representantes da propriedade, contratos,
+  faturamento ou comunicações. A versão com dados pessoais de hóspedes fica
+  apenas como cenário futuro comparativo.
+
+### Riscos e itens simples
+
+- **Risco central, não resolvido:** o piloto tem **um único cliente**. O status
+  de independente é decidido pela caisse de compensation caso a caso e por
+  atividade, e vários clientes é que apontam para independência. Risco real de
+  requalificação como atividade dependente.
+- **TVA — não resolvida.** O limiar geral de liberação é CHF 100.000 de
+  prestações tributáveis por ano, e uma fatura isolada de piloto é
+  materialmente inferior a esse limiar. **Isso não resolve sozinho o tratamento
+  da TVA:** o limiar se aplica à situação fiscal e ao volume de negócios
+  relevante **da entidade que efetivamente faturar**, e ainda pesam eventual
+  inscrição voluntária e o lugar da prestação. Nota: o prévisionnel do NS1
+  (CA de 133k/ano) ultrapassaria o limiar.
+
+### Opção "atividade no nome do Pascal"
+
+- **Permanece analisada e preliminarmente rejeitada. Não é rota ativa** e não
+  será desenvolvida como rota operacional, salvo descoberta documental que mude
+  materialmente o risco.
+- **Pascal Brönnimann é parceiro de vida do Cauêh; não está estabelecido que seja
+  parceiro de negócio da Swissperiences.** A análise é sobre risco estrutural,
+  não sobre confiança.
+- Motivo mais forte que o compliance: se o piloto fosse faturado no nome dele, a
+  Swissperiences **perderia a prova de que ela própria conseguiu vender** — que é
+  a única razão de o teste existir.
+- Demais dimensões: dependência financeira do repasse, propriedade jurídica do
+  cliente e do contrato ficando juridicamente com Pascal, e **compliance UBS**,
+  cuja verificação cabe exclusivamente a ele.
+
+### Registros pessoais reclassificados — não são fatos oficiais atuais
+
+- NS1 (30.03–14.04.2026), NS2 (29.04–29.05.2026), escolha da Raison Individuelle,
+  isenção de TVA e parecer sobre a LVF passam a constar como **registros
+  pessoais/documentais a verificar**, com origem em abril de 2026.
+- **A afirmação de que a Sàrl "não existe juridicamente" fica revogada e vira
+  hipótese.** Ausência no Zefix e não depósito dos CHF 20.000 são indícios
+  fortes, não conclusão. Permanecem abertos: mandato e condições gerais da
+  Startups.ch, faturas emitidas ou em aberto, conta de consignação, eventual ato
+  notarial sem inscrição, custos de encerramento e se algum documento nomeia o
+  Cauêh. Quem responde é o Pascal, com os documentos.
+- **O parecer de que a LVF não se aplica foi dado para o modelo B2C de
+  experiências.** O modelo B2B é serviço de curadoria e provavelmente sai do
+  escopo, mas a conclusão **não é herdada**.
+
+### Pendências factuais que dependem só do Cauêh
+
+1. Data exata do fim do direito ao chômage e número de diárias restantes.
+2. Status real da Raison Individuelle: constituída ou apenas planejada no NS1
+   (verificar IDE, registo de comércio, afiliação AVS).
+3. Documentos da Startups.ch relativos à Sàrl.
+4. Nome e canal escrito do conselheiro ORP.

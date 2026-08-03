@@ -1,7 +1,7 @@
 # PROJECT_STATE — Swissperiences
 
 > Fonte única de verdade do projeto. Atualizada pelo MASTER ao fim de cada sprint.
-> Última atualização: 2026-08-02 (Sprint 02).
+> Última atualização: 2026-08-02 (Sprint 03).
 
 ## Estratégia
 
@@ -41,7 +41,11 @@ Estas restrições eliminam opções; não são preferências.
 
 1. **Alpine Sanctuaries** — identidade editorial da marca. Ativa.
 2. **Guest experience para propriedades** — hipótese de monetização. Em teste
-   (Sprint 02+).
+   (Sprint 02+). **Piloto-base desenhado sem dados pessoais de hóspede**: sem
+   nome, e-mail, telefone, datas de estadia, número de reserva, acesso ao PMS ou
+   a qualquer sistema da propriedade. O entregável é conteúdo editorial e
+   curatorial sobre o lugar; a propriedade o distribui por conta própria. A
+   versão com dados pessoais existe apenas como cenário futuro comparativo.
 3. **Journals** — aquisição e prova pública de capacidade editorial. Ativa.
 4. **Audio Journeys** — linha futura. Repo separado. Não anunciada.
 5. **GetYourGuide** — apenas como canal de afiliado ou para experiências
@@ -60,16 +64,111 @@ pitch**.
 4. Coerência entre arquitetura, mesa, bem-estar e território.
 5. O hóspede recebe contexto **antes** de chegar.
 
-### Portão jurídico/administrativo — obrigatório antes de vender
+### Portão jurídico/administrativo — ABERTO, não vencido
 
-Nenhum outreach, proposta formal, faturamento ou recebimento antes de validar,
-separadamente e por escrito:
+Estado em 2026-08-02: a **pesquisa documental** foi feita (Sprint 03). O portão
+**não foi liberado**. Não está estabelecido que o Cauêh possa faturar, receber,
+prospectar comercialmente ou operar como independente.
 
-1. compatibilidade com chômage / gain intermédiaire;
-2. forma jurídica e capacidade efetiva de faturar;
-3. impostos, AVS e TVA quando aplicáveis;
-4. uso de dados pessoais no guest portal (base legal, retenção, encarregado);
-5. autorização formal para qualquer acesso a dados ou sistemas da propriedade.
+Nada de outreach, proposta formal, assinatura, faturamento ou recebimento antes
+das respostas escritas das autoridades.
+
+**Níveis de verificação usados abaixo:**
+**[OFICIAL-DIRETO]** lido no site da autoridade · **[OFICIAL-INDIRETO]**
+atribuído a fonte oficial via resumo de busca, página não lida na íntegra ·
+**[HIPÓTESE]** não verificado · **[PENDENTE-INDIVIDUAL]** só a autoridade pode
+responder para o caso concreto do Cauêh.
+
+#### Confirmado por fonte oficial direta
+
+Fonte: SECO / arbeit.swiss, FAQ sobre indenização de desemprego, consultada em
+2026-08-02 — https://www.arbeit.swiss/en/faqs-on-unemployment-benefit
+
+1. Existe **dever de informar** o ORP e a caisse, com antecedência, de qualquer
+   trabalho realizado durante o recebimento da indenização.
+2. Renda abaixo da indenização, vinda de trabalho **independente ou
+   assalariado**, é tratada como ganho intermediário; a compensação passa a ser
+   80% ou 70% da diferença para o salário segurado.
+3. "Taking up self-employment" consta expressamente entre as mudanças de
+   declaração obrigatória.
+4. A **aptidão para colocação** é condição contínua do direito.
+
+**O que isso NÃO estabelece:** que ganho intermediário autorize, por si só,
+atividade independente. Declaração, avaliação do ORP e manutenção da aptidão são
+condições, não formalidades. **Segue não confirmado.**
+
+#### Fonte oficial acessada indiretamente — reconfirmar
+
+- **TVA (AFC/ESTV, 2026-08-02):** liberação do assujettissement abaixo de
+  CHF 100.000 de prestações tributáveis por ano, salvo inscrição voluntária;
+  inscrição obrigatória quando o limite é atingido ou quando é evidente desde o
+  início que será. Uma fatura isolada de piloto é materialmente inferior a esse
+  limiar — **o que não resolve sozinho o tratamento da TVA**: o limiar se aplica
+  à situação fiscal e ao volume de negócios relevante da entidade que
+  efetivamente faturar, e ainda pesam eventual inscrição voluntária e o lugar da
+  prestação. https://www.estv.admin.ch/fr/assujettissement-a-la-tva
+- **Proteção de dados (PFPDT/EDÖB, 2026-08-02):** nLPD em vigor desde
+  01.09.2023; sous-traitant definido no art. 5 let. k; o responsável deve
+  garantir por contrato o cumprimento das obrigações (art. 9); o sous-traitant
+  não pode tratar dados para finalidade própria.
+  https://www.edoeb.admin.ch/fr/externalisation-sous-traitance
+- **Status AVS (mementos 2.02 e 2.09):** o status de independente é decidido
+  pela **caisse de compensation**, caso a caso e **por atividade**; trabalhar
+  para vários clientes aponta geralmente para independente. O memento 2.09
+  retornou HTTP 403 e não foi lido.
+- **Apoio à atividade independente (LACI art. 71a e seguintes):** máximo de 90
+  indenizações diárias na fase de elaboração do projeto; pedido ao ORP ou ao
+  serviço cantonal; nenhum apoio financeiro na fase de lançamento; ao fim da
+  fase o segurado deve declarar se empreenderá ou não a atividade. **Regime
+  distinto do ganho intermediário.**
+
+> **Limite de verificação declarado.** O texto da LACI **não foi lido na fonte
+> primária** — a página do Fedlex exige JavaScript. Nenhum artigo da LACI deve
+> ser tratado como verificado diretamente. Reconfirmar antes de qualquer uso.
+
+#### Hipóteses e pendências individuais
+
+- **[PENDENTE-INDIVIDUAL]** Em que regime o Cauêh está hoje: ganho intermediário,
+  apoio à atividade independente, ou nenhum.
+- **[PENDENTE-INDIVIDUAL]** Quantas das 90 diárias foram usadas; se NS1/NS2
+  abriram formalmente a fase de elaboração.
+- **[PENDENTE-INDIVIDUAL]** Qual gesto exatamente encerra o direito: inscrição no
+  registo de comércio, afiliação AVS, emissão da fatura ou recebimento.
+- **[PENDENTE-INDIVIDUAL]** Se o ORP exige autorização prévia formal para
+  atividade lucrativa pontual.
+- **[PENDENTE-INDIVIDUAL]** Se prospecção comercial sem faturamento é permitida e
+  se precisa ser declarada.
+- **[PENDENTE-INDIVIDUAL]** Data exata do fim do direito e diárias restantes.
+- **[HIPÓTESE]** Se, com **um único cliente**, a caisse reconhece independência.
+  **Risco central identificado:** o piloto tem um cliente só, o que puxa na
+  direção oposta ao reconhecimento e levanta risco de requalificação como
+  atividade dependente.
+- **[HIPÓTESE]** Regra do lugar da prestação para TVA se o cliente estiver fora
+  da Suíça.
+- **[HIPÓTESE]** Se a Sàrl de fevereiro deixou obrigações residuais (ver
+  `DECISIONS.md`).
+
+#### Bloqueios — natureza separada
+
+| Bloqueio | Natureza | Destravado por |
+|---|---|---|
+| Declarar qualquer trabalho ao ORP e à caisse | **Legal, confirmado** [OFICIAL-DIRETO] | Não se destrava; cumpre-se |
+| Manter aptidão para colocação | **Legal, confirmado** [OFICIAL-DIRETO] | Não se destrava; cumpre-se |
+| Outreach / prospecção | **Interno, por prudência** — a pesquisa realizada não encontrou fonte oficial que estabeleça proibição geral; isso não confirma permissão no caso individual do Cauêh | Decisão do Cauêh após resposta escrita do ORP |
+| Proposta, assinatura, faturamento, recebimento | **Interno, por prudência** | Definição do regime + de quem fatura |
+| Registro empresarial | **Interno, por prudência** — pode ser o gesto que encerra o direito | Resposta do ORP |
+
+#### Documentos exigidos antes de cada gesto
+
+| Antes de… | Exigir, por escrito |
+|---|---|
+| Outreach | Resposta escrita do ORP sobre fatura pontual, gesto que encerra o direito e licitude da prospecção |
+| Proposta formal | Decisão sobre quem fatura + confirmação do regime aplicável |
+| Assinatura | Contrato com escopo, entregável, prazo, propriedade intelectual, condições de pagamento e cláusula de que **nenhum dado pessoal de hóspede será tratado** |
+| Faturamento | Capacidade legal de emitir fatura, menção correta de TVA, dados bancários |
+| Recebimento | Confirmação escrita do tratamento da receita perante ORP, AVS e fisco |
+
+Confirmação verbal não conta. E-mail do conselheiro serve; conversa de balcão não.
 
 ### Ativos comerciais legados — 8 drafts GetYourGuide
 
