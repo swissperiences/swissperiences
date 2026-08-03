@@ -52,3 +52,7 @@ supabase/.temp/
 tools/reel-forge/output/
 tools/reel-forge/.venv/
 tools/reel-forge/assets/*.cube
+
+# Large media kept outside git (backup: ~/swissperiences-dirty-backup-2026-08-03)
+/SWISSPERIENCES.pdf
+/podcasts/
